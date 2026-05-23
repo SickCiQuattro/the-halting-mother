@@ -1,0 +1,1196 @@
+[
+  {
+    "size": 10,
+    "weak": {
+      "path_length": 14.48528137423857,
+      "landmarks_count": 4,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            5,
+            3
+          ],
+          1
+        ],
+        [
+          [
+            7,
+            4
+          ],
+          1
+        ],
+        [
+          [
+            9,
+            9
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 0.00115203857421875,
+      "peak_memory_kb": 21.3046875,
+      "frontier_cells": 37,
+      "pruning_false": 24,
+      "recursive_calls": 14,
+      "max_depth": 2
+    },
+    "strong_no_seed": {
+      "path_length": 14.48528137423857,
+      "landmarks_count": 4,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            5,
+            3
+          ],
+          1
+        ],
+        [
+          [
+            7,
+            4
+          ],
+          1
+        ],
+        [
+          [
+            9,
+            9
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 0.0009448528289794922,
+      "peak_memory_kb": 20.8671875,
+      "frontier_cells": 37,
+      "pruning_false": 24,
+      "recursive_calls": 14,
+      "max_depth": 2
+    },
+    "strong": {
+      "path_length": 14.48528137423857,
+      "landmarks_count": 4,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            5,
+            3
+          ],
+          1
+        ],
+        [
+          [
+            7,
+            4
+          ],
+          1
+        ],
+        [
+          [
+            9,
+            9
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 0.001363992691040039,
+      "peak_memory_kb": 21.33203125,
+      "frontier_cells": 37,
+      "pruning_false": 24,
+      "recursive_calls": 14,
+      "max_depth": 2
+    }
+  },
+  {
+    "size": 20,
+    "weak": {
+      "path_length": 29.213203435596427,
+      "landmarks_count": 6,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            5,
+            8
+          ],
+          2
+        ],
+        [
+          [
+            12,
+            16
+          ],
+          2
+        ],
+        [
+          [
+            15,
+            17
+          ],
+          2
+        ],
+        [
+          [
+            18,
+            19
+          ],
+          2
+        ],
+        [
+          [
+            19,
+            19
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 0.016946077346801758,
+      "peak_memory_kb": 302.96875,
+      "frontier_cells": 703,
+      "pruning_false": 587,
+      "recursive_calls": 117,
+      "max_depth": 5
+    },
+    "strong_no_seed": {
+      "path_length": 29.213203435596427,
+      "landmarks_count": 6,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            5,
+            8
+          ],
+          2
+        ],
+        [
+          [
+            12,
+            16
+          ],
+          2
+        ],
+        [
+          [
+            15,
+            17
+          ],
+          2
+        ],
+        [
+          [
+            18,
+            19
+          ],
+          2
+        ],
+        [
+          [
+            19,
+            19
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 0.013108015060424805,
+      "peak_memory_kb": 259.6015625,
+      "frontier_cells": 702,
+      "pruning_false": 587,
+      "recursive_calls": 116,
+      "max_depth": 5
+    },
+    "strong": {
+      "path_length": 29.213203435596427,
+      "landmarks_count": 6,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            5,
+            8
+          ],
+          2
+        ],
+        [
+          [
+            12,
+            16
+          ],
+          2
+        ],
+        [
+          [
+            15,
+            17
+          ],
+          2
+        ],
+        [
+          [
+            18,
+            19
+          ],
+          2
+        ],
+        [
+          [
+            19,
+            19
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 0.014886140823364258,
+      "peak_memory_kb": 260.90625,
+      "frontier_cells": 702,
+      "pruning_false": 587,
+      "recursive_calls": 116,
+      "max_depth": 5
+    }
+  },
+  {
+    "size": 50,
+    "weak": {
+      "path_length": 74.5685424949238,
+      "landmarks_count": 10,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            10,
+            7
+          ],
+          2
+        ],
+        [
+          [
+            12,
+            8
+          ],
+          2
+        ],
+        [
+          [
+            22,
+            20
+          ],
+          2
+        ],
+        [
+          [
+            24,
+            23
+          ],
+          2
+        ],
+        [
+          [
+            26,
+            29
+          ],
+          2
+        ],
+        [
+          [
+            34,
+            39
+          ],
+          2
+        ],
+        [
+          [
+            40,
+            42
+          ],
+          2
+        ],
+        [
+          [
+            48,
+            49
+          ],
+          2
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 8.207196950912476,
+      "peak_memory_kb": 88346.75,
+      "frontier_cells": 424390,
+      "pruning_false": 397942,
+      "recursive_calls": 26449,
+      "max_depth": 9
+    },
+    "strong_no_seed": {
+      "path_length": 74.5685424949238,
+      "landmarks_count": 10,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            10,
+            7
+          ],
+          2
+        ],
+        [
+          [
+            12,
+            8
+          ],
+          2
+        ],
+        [
+          [
+            22,
+            20
+          ],
+          2
+        ],
+        [
+          [
+            24,
+            23
+          ],
+          2
+        ],
+        [
+          [
+            26,
+            29
+          ],
+          2
+        ],
+        [
+          [
+            34,
+            39
+          ],
+          2
+        ],
+        [
+          [
+            40,
+            42
+          ],
+          2
+        ],
+        [
+          [
+            48,
+            49
+          ],
+          2
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 8.58276081085205,
+      "peak_memory_kb": 88224.2421875,
+      "frontier_cells": 424319,
+      "pruning_false": 397887,
+      "recursive_calls": 26433,
+      "max_depth": 9
+    },
+    "strong": {
+      "path_length": 74.5685424949238,
+      "landmarks_count": 10,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            10,
+            7
+          ],
+          2
+        ],
+        [
+          [
+            12,
+            8
+          ],
+          2
+        ],
+        [
+          [
+            22,
+            20
+          ],
+          2
+        ],
+        [
+          [
+            24,
+            23
+          ],
+          2
+        ],
+        [
+          [
+            26,
+            29
+          ],
+          2
+        ],
+        [
+          [
+            34,
+            39
+          ],
+          2
+        ],
+        [
+          [
+            40,
+            42
+          ],
+          2
+        ],
+        [
+          [
+            48,
+            49
+          ],
+          2
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 8.454504013061523,
+      "peak_memory_kb": 88227.13671875,
+      "frontier_cells": 424319,
+      "pruning_false": 397888,
+      "recursive_calls": 26432,
+      "max_depth": 9
+    }
+  },
+  {
+    "size": 100,
+    "weak": {
+      "path_length": 148.20815280171308,
+      "landmarks_count": 10,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            21,
+            20
+          ],
+          2
+        ],
+        [
+          [
+            41,
+            42
+          ],
+          2
+        ],
+        [
+          [
+            58,
+            64
+          ],
+          2
+        ],
+        [
+          [
+            63,
+            70
+          ],
+          2
+        ],
+        [
+          [
+            64,
+            74
+          ],
+          2
+        ],
+        [
+          [
+            73,
+            80
+          ],
+          2
+        ],
+        [
+          [
+            87,
+            91
+          ],
+          2
+        ],
+        [
+          [
+            90,
+            97
+          ],
+          2
+        ],
+        [
+          [
+            99,
+            99
+          ],
+          2
+        ]
+      ],
+      "timed_out": true,
+      "elapsed_time_s": 60.36715793609619,
+      "peak_memory_kb": 2073431.1328125,
+      "frontier_cells": 2657629,
+      "pruning_false": 2470583,
+      "recursive_calls": 186353,
+      "max_depth": 15
+    },
+    "strong_no_seed": {
+      "path_length": 148.20815280171308,
+      "landmarks_count": 10,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            21,
+            20
+          ],
+          2
+        ],
+        [
+          [
+            41,
+            42
+          ],
+          2
+        ],
+        [
+          [
+            58,
+            64
+          ],
+          2
+        ],
+        [
+          [
+            63,
+            70
+          ],
+          2
+        ],
+        [
+          [
+            64,
+            74
+          ],
+          2
+        ],
+        [
+          [
+            73,
+            80
+          ],
+          2
+        ],
+        [
+          [
+            87,
+            91
+          ],
+          2
+        ],
+        [
+          [
+            90,
+            97
+          ],
+          2
+        ],
+        [
+          [
+            99,
+            99
+          ],
+          2
+        ]
+      ],
+      "timed_out": true,
+      "elapsed_time_s": 60.3228600025177,
+      "peak_memory_kb": 1969561.8203125,
+      "frontier_cells": 2516049,
+      "pruning_false": 2337864,
+      "recursive_calls": 177494,
+      "max_depth": 15
+    },
+    "strong": {
+      "path_length": 148.20815280171308,
+      "landmarks_count": 10,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            21,
+            20
+          ],
+          2
+        ],
+        [
+          [
+            41,
+            42
+          ],
+          2
+        ],
+        [
+          [
+            58,
+            64
+          ],
+          2
+        ],
+        [
+          [
+            63,
+            70
+          ],
+          2
+        ],
+        [
+          [
+            64,
+            74
+          ],
+          2
+        ],
+        [
+          [
+            73,
+            80
+          ],
+          2
+        ],
+        [
+          [
+            87,
+            91
+          ],
+          2
+        ],
+        [
+          [
+            90,
+            97
+          ],
+          2
+        ],
+        [
+          [
+            99,
+            99
+          ],
+          2
+        ]
+      ],
+      "timed_out": true,
+      "elapsed_time_s": 60.30590200424194,
+      "peak_memory_kb": 1988199.9921875,
+      "frontier_cells": 2542954,
+      "pruning_false": 2363167,
+      "recursive_calls": 179039,
+      "max_depth": 15
+    }
+  },
+  {
+    "size": 150,
+    "weak": {
+      "path_length": 240.7350647362943,
+      "landmarks_count": 15,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            7,
+            16
+          ],
+          2
+        ],
+        [
+          [
+            14,
+            14
+          ],
+          1
+        ],
+        [
+          [
+            20,
+            15
+          ],
+          1
+        ],
+        [
+          [
+            38,
+            25
+          ],
+          1
+        ],
+        [
+          [
+            37,
+            36
+          ],
+          1
+        ],
+        [
+          [
+            61,
+            45
+          ],
+          2
+        ],
+        [
+          [
+            78,
+            74
+          ],
+          2
+        ],
+        [
+          [
+            92,
+            96
+          ],
+          2
+        ],
+        [
+          [
+            99,
+            107
+          ],
+          2
+        ],
+        [
+          [
+            108,
+            117
+          ],
+          2
+        ],
+        [
+          [
+            112,
+            122
+          ],
+          2
+        ],
+        [
+          [
+            123,
+            132
+          ],
+          2
+        ],
+        [
+          [
+            136,
+            144
+          ],
+          2
+        ],
+        [
+          [
+            149,
+            149
+          ],
+          2
+        ]
+      ],
+      "timed_out": true,
+      "elapsed_time_s": 61.07391405105591,
+      "peak_memory_kb": 2926055.5390625,
+      "frontier_cells": 2625869,
+      "pruning_false": 2506828,
+      "recursive_calls": 117537,
+      "max_depth": 18
+    },
+    "strong_no_seed": {
+      "path_length": 240.7350647362943,
+      "landmarks_count": 15,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            7,
+            16
+          ],
+          2
+        ],
+        [
+          [
+            14,
+            14
+          ],
+          1
+        ],
+        [
+          [
+            20,
+            15
+          ],
+          1
+        ],
+        [
+          [
+            38,
+            25
+          ],
+          1
+        ],
+        [
+          [
+            37,
+            36
+          ],
+          1
+        ],
+        [
+          [
+            61,
+            45
+          ],
+          2
+        ],
+        [
+          [
+            78,
+            74
+          ],
+          2
+        ],
+        [
+          [
+            92,
+            96
+          ],
+          2
+        ],
+        [
+          [
+            99,
+            107
+          ],
+          2
+        ],
+        [
+          [
+            108,
+            117
+          ],
+          2
+        ],
+        [
+          [
+            112,
+            122
+          ],
+          2
+        ],
+        [
+          [
+            123,
+            132
+          ],
+          2
+        ],
+        [
+          [
+            136,
+            144
+          ],
+          2
+        ],
+        [
+          [
+            149,
+            149
+          ],
+          2
+        ]
+      ],
+      "timed_out": true,
+      "elapsed_time_s": 60.46752095222473,
+      "peak_memory_kb": 2831569.1015625,
+      "frontier_cells": 2529460,
+      "pruning_false": 2415001,
+      "recursive_calls": 113066,
+      "max_depth": 18
+    },
+    "strong": {
+      "path_length": 240.7350647362943,
+      "landmarks_count": 15,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            7,
+            16
+          ],
+          2
+        ],
+        [
+          [
+            14,
+            14
+          ],
+          1
+        ],
+        [
+          [
+            20,
+            15
+          ],
+          1
+        ],
+        [
+          [
+            38,
+            25
+          ],
+          1
+        ],
+        [
+          [
+            37,
+            36
+          ],
+          1
+        ],
+        [
+          [
+            61,
+            45
+          ],
+          2
+        ],
+        [
+          [
+            78,
+            74
+          ],
+          2
+        ],
+        [
+          [
+            92,
+            96
+          ],
+          2
+        ],
+        [
+          [
+            99,
+            107
+          ],
+          2
+        ],
+        [
+          [
+            108,
+            117
+          ],
+          2
+        ],
+        [
+          [
+            112,
+            122
+          ],
+          2
+        ],
+        [
+          [
+            123,
+            132
+          ],
+          2
+        ],
+        [
+          [
+            136,
+            144
+          ],
+          2
+        ],
+        [
+          [
+            149,
+            149
+          ],
+          2
+        ]
+      ],
+      "timed_out": true,
+      "elapsed_time_s": 60.8135929107666,
+      "peak_memory_kb": 2869509.78515625,
+      "frontier_cells": 2563164,
+      "pruning_false": 2446942,
+      "recursive_calls": 114825,
+      "max_depth": 18
+    }
+  },
+  {
+    "size": 200,
+    "weak": {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 62.75562000274658,
+      "peak_memory_kb": 7850216.8203125,
+      "frontier_cells": 374744,
+      "pruning_false": 0,
+      "recursive_calls": 372538,
+      "max_depth": 66
+    },
+    "strong_no_seed": {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 62.71870183944702,
+      "peak_memory_kb": 7799195.671875,
+      "frontier_cells": 372432,
+      "pruning_false": 0,
+      "recursive_calls": 370218,
+      "max_depth": 66
+    },
+    "strong": {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 62.791290044784546,
+      "peak_memory_kb": 7632127.3359375,
+      "frontier_cells": 364610,
+      "pruning_false": 0,
+      "recursive_calls": 362396,
+      "max_depth": 66
+    }
+  }
+]

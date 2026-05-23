@@ -1,0 +1,395 @@
+[
+  {
+    "obstacle_type": "simple",
+    "weak": {
+      "path_length": 71.63961030678928,
+      "landmarks_count": 7,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            14,
+            12
+          ],
+          1
+        ],
+        [
+          [
+            15,
+            14
+          ],
+          1
+        ],
+        [
+          [
+            24,
+            24
+          ],
+          1
+        ],
+        [
+          [
+            30,
+            31
+          ],
+          1
+        ],
+        [
+          [
+            37,
+            39
+          ],
+          1
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 4.741036891937256,
+      "peak_memory_kb": 53987.32421875,
+      "frontier_cells": 266015,
+      "pruning_false": 254592,
+      "recursive_calls": 11424,
+      "max_depth": 9
+    },
+    "strong": {
+      "path_length": 71.63961030678928,
+      "landmarks_count": 7,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            14,
+            12
+          ],
+          1
+        ],
+        [
+          [
+            15,
+            14
+          ],
+          1
+        ],
+        [
+          [
+            24,
+            24
+          ],
+          1
+        ],
+        [
+          [
+            30,
+            31
+          ],
+          1
+        ],
+        [
+          [
+            37,
+            39
+          ],
+          1
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          1
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 4.971909999847412,
+      "peak_memory_kb": 53887.15234375,
+      "frontier_cells": 265382,
+      "pruning_false": 253996,
+      "recursive_calls": 11387,
+      "max_depth": 9
+    }
+  },
+  {
+    "obstacle_type": "cluster",
+    "weak": {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 30.142302989959717,
+      "peak_memory_kb": 1401783.84765625,
+      "frontier_cells": 292342,
+      "pruning_false": 0,
+      "recursive_calls": 291759,
+      "max_depth": 38
+    },
+    "strong": {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 30.14460277557373,
+      "peak_memory_kb": 1391235.85546875,
+      "frontier_cells": 290239,
+      "pruning_false": 0,
+      "recursive_calls": 289653,
+      "max_depth": 38
+    }
+  },
+  {
+    "obstacle_type": "diagonal",
+    "weak": {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 30.178774118423462,
+      "peak_memory_kb": 1074663.47265625,
+      "frontier_cells": 371975,
+      "pruning_false": 0,
+      "recursive_calls": 371581,
+      "max_depth": 30
+    },
+    "strong": {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 30.139091968536377,
+      "peak_memory_kb": 1034376.07421875,
+      "frontier_cells": 361454,
+      "pruning_false": 0,
+      "recursive_calls": 361046,
+      "max_depth": 30
+    }
+  },
+  {
+    "obstacle_type": "enclosure",
+    "weak": {
+      "path_length": 70.46803743153546,
+      "landmarks_count": 3,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            47,
+            45
+          ],
+          2
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          2
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 0.040583133697509766,
+      "peak_memory_kb": 260.83984375,
+      "frontier_cells": 3095,
+      "pruning_false": 2932,
+      "recursive_calls": 164,
+      "max_depth": 2
+    },
+    "strong": {
+      "path_length": 70.46803743153546,
+      "landmarks_count": 3,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            47,
+            45
+          ],
+          2
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          2
+        ]
+      ],
+      "timed_out": false,
+      "elapsed_time_s": 0.04285573959350586,
+      "peak_memory_kb": 260.60546875,
+      "frontier_cells": 3095,
+      "pruning_false": 2932,
+      "recursive_calls": 164,
+      "max_depth": 2
+    }
+  },
+  {
+    "obstacle_type": "bar",
+    "weak": {
+      "path_length": 73.39696961967,
+      "landmarks_count": 8,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            4,
+            6
+          ],
+          2
+        ],
+        [
+          [
+            15,
+            16
+          ],
+          2
+        ],
+        [
+          [
+            21,
+            25
+          ],
+          2
+        ],
+        [
+          [
+            33,
+            36
+          ],
+          2
+        ],
+        [
+          [
+            47,
+            45
+          ],
+          2
+        ],
+        [
+          [
+            48,
+            47
+          ],
+          2
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          2
+        ]
+      ],
+      "timed_out": true,
+      "elapsed_time_s": 30.093212127685547,
+      "peak_memory_kb": 286071.48828125,
+      "frontier_cells": 1726555,
+      "pruning_false": 1647033,
+      "recursive_calls": 79361,
+      "max_depth": 10
+    },
+    "strong": {
+      "path_length": 73.39696961967,
+      "landmarks_count": 8,
+      "landmarks": [
+        [
+          [
+            0,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            4,
+            6
+          ],
+          2
+        ],
+        [
+          [
+            15,
+            16
+          ],
+          2
+        ],
+        [
+          [
+            21,
+            25
+          ],
+          2
+        ],
+        [
+          [
+            33,
+            36
+          ],
+          2
+        ],
+        [
+          [
+            47,
+            45
+          ],
+          2
+        ],
+        [
+          [
+            48,
+            47
+          ],
+          2
+        ],
+        [
+          [
+            49,
+            49
+          ],
+          2
+        ]
+      ],
+      "timed_out": true,
+      "elapsed_time_s": 30.08685803413391,
+      "peak_memory_kb": 273038.59765625,
+      "frontier_cells": 1644318,
+      "pruning_false": 1568434,
+      "recursive_calls": 75595,
+      "max_depth": 10
+    }
+  }
+]

@@ -1,0 +1,341 @@
+#!/usr/bin/env python3
+"""
+Punto di ingresso principale della CLI per il sistema di pathfinding su griglia (Elaborato 2024/25).
+
+Fornisce un'interfaccia a riga di comando per generare griglie, calcolare contesti/complementi
+di raggiungibilità, misurare distanze ideali, trovare cammini minimi con l'algoritmo ricorsivo
+ed eseguire benchmark comparativi.
+"""
+
+import sys
+import os
+import argparse
+import json
+import time
+import logging
+import numpy as np
+
+# Aumenta il limite di ricorsione per consentire griglie di grandi dimensioni (es. 200x200)
+sys.setrecursionlimit(15000)
+
+from src.grid import Grid, Coordinate
+from src.generator import GridGenerator
+from src.free_paths import dlib, compute_context_rays, compute_complement_rays, compute_frontier
+from src.camminomin import camminomin, reconstruct_path
+from src.utils import parse_coords, format_landmarks, print_grid_visual
+from src.experiment import ExperimentRunner
+from src.exceptions import PathfindingError
+
+# Configura il logger radice per l'applicazione CLI
+logger = logging.getLogger("pathfinding_cli")
+
+def cmd_generate(args: argparse.Namespace) -> None:
+    """
+    Sotto-comando per la generazione procedurale di ostacoli sulla griglia.
+
+    Args:
+        args: Argomenti parsati dalla CLI.
+    """
+    types: list[str] = args.types
+    if "mix" in types:
+        types = ["simple", "cluster", "diagonal", "enclosure", "bar"]
+        
+    logger.info(f"Generazione griglia {args.rows}x{args.cols} in corso...")
+    grid = GridGenerator.generate_grid(args.rows, args.cols, types, args.density, args.seed)
+    
+    output_dir = os.path.dirname(args.output)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+    grid.save(args.output)
+    logger.info(f"Griglia salvata con successo in: {args.output}")
+    
+    if getattr(args, 'save_img', None):
+        from src.visualization import save_grid_image
+        save_grid_image(grid, args.save_img, title=f"Griglia Generata ({grid.rows}x{grid.cols})")
+        
+    # Visualizzazione della griglia sul terminale se le dimensioni sono limitate
+    if args.rows <= 30 and args.cols <= 30:
+        print("\nRappresentazione visiva della griglia:")
+        print(grid)
+
+def cmd_context(args: argparse.Namespace) -> None:
+    """
+    Sotto-comando per analizzare il contesto (tipo 1), complemento (tipo 2) e frontiera di un nodo.
+
+    Args:
+        args: Argomenti parsati dalla CLI.
+    """
+    if not os.path.exists(args.grid):
+        logger.error(f"File griglia '{args.grid}' non trovato.")
+        sys.exit(1)
+        
+    grid = Grid.load(args.grid)
+    try:
+        origin = parse_coords(args.origin)
+    except PathfindingError as e:
+        logger.error(f"Errore parsing coordinate origine: {e}")
+        sys.exit(1)
+    
+    if not grid.is_valid(origin[0], origin[1]):
+        logger.error(f"L'origine {origin} è posizionata fuori dalla griglia.")
+        sys.exit(1)
+        
+    logger.info(f"Calcolo dei cammini liberi a raggi da O={origin}...")
+    
+    context = compute_context_rays(origin, grid.state)
+    complement = compute_complement_rays(origin, grid.state, context)
+    frontier = compute_frontier(context, complement, grid.state)
+    
+    if args.type in ('1', 'both'):
+        print(f"\n--- CONTESTO (Tipo 1: Diagonale prima) ---")
+        print(f"Celle raggiungibili: {len(context)}")
+        if len(context) <= 100:
+            print(sorted(list(context)))
+            
+    if args.type in ('2', 'both'):
+        print(f"\n--- COMPLEMENTO (Tipo 2: Cardinale prima) ---")
+        print(f"Celle raggiungibili: {len(complement)}")
+        if len(complement) <= 100:
+            print(sorted(list(complement)))
+            
+    print(f"\n--- FRONTIERA DELLA CHIUSURA ---")
+    print(f"Celle di frontiera: {len(frontier)}")
+    if len(frontier) <= 100:
+        formatted_frontier = [(cell, f"Tipo {tipo}") for cell, tipo in sorted(frontier)]
+        print(formatted_frontier)
+
+def cmd_dlib(args: argparse.Namespace) -> None:
+    """
+    Sotto-comando per misurare la distanza di cammino libero ideale dlib tra due punti.
+
+    Args:
+        args: Argomenti parsati dalla CLI.
+    """
+    try:
+        o = parse_coords(args.origin)
+        d = parse_coords(args.dest)
+    except PathfindingError as e:
+        logger.error(f"Errore parsing coordinate: {e}")
+        sys.exit(1)
+        
+    dist = dlib(o, d)
+    print(f"Distanza ideale dlib tra {o} e {d}: {dist:.6f}")
+
+def cmd_camminomin(args: argparse.Namespace) -> None:
+    """
+    Sotto-comando per calcolare il cammino minimo tramite backtracking ricorsivo basato su landmark.
+
+    Args:
+        args: Argomenti parsati dalla CLI.
+    """
+    if not os.path.exists(args.grid):
+        logger.error(f"File griglia '{args.grid}' non trovato.")
+        sys.exit(1)
+        
+    grid = Grid.load(args.grid)
+    try:
+        origin = parse_coords(args.origin)
+        dest = parse_coords(args.dest)
+    except PathfindingError as e:
+        logger.error(f"Errore parsing coordinate: {e}")
+        sys.exit(1)
+    
+    if not grid.is_valid(origin[0], origin[1]) or not grid.is_valid(dest[0], dest[1]):
+        logger.error(f"Origine {origin} o destinazione {dest} fuori dai limiti della griglia.")
+        sys.exit(1)
+        
+    logger.info(f"Ricerca del cammino minimo da O={origin} a D={dest}...")
+    
+    stats = {
+        'frontier_cells': 0,
+        'pruning_false': 0,
+        'recursive_calls': 0,
+        'max_depth': 0
+    }
+    
+    start_time = time.time()
+    
+    min_len, landmarks, timed_out = camminomin(
+        origin, dest, grid.state, depth=0, stats=stats,
+        start_time=start_time, timeout=args.timeout,
+        use_strong_pruning=args.strong_pruning,
+        randomize_frontier=args.randomize_frontier
+    )
+    
+    elapsed = time.time() - start_time
+    
+    path: list[Coordinate] = []
+    if min_len < float('inf'):
+        try:
+            path = reconstruct_path(landmarks, grid.state)
+        except PathfindingError as e:
+            logger.error(f"Errore durante la ricostruzione del cammino: {e}")
+            sys.exit(1)
+            
+    if getattr(args, 'save_img', None) and min_len < float('inf'):
+        from src.visualization import save_grid_image
+        save_grid_image(
+            grid, args.save_img,
+            origin=origin, dest=dest,
+            path=path, landmarks=landmarks,
+            title=f"Cammino Minimo Ricostruito (Lunghezza: {min_len:.4f})"
+        )
+        
+    if args.summary:
+        # Riassunto strutturato dell'esecuzione come specificato in Slide 71
+        if timed_out:
+            calculation_status = "INTERROTTO DA TIMEOUT"
+        elif min_len < float('inf'):
+            calculation_status = "COMPLETO"
+        else:
+            calculation_status = "IRRAGGIUNGIBILE"
+
+        summary = {
+            "grid_dimensions": f"{grid.rows}x{grid.cols}",
+            "grid_type": getattr(args, 'grid', 'N/D'),
+            "origin": origin,
+            "destination": dest,
+            "calculation_status": calculation_status,
+            "min_path_length": min_len if min_len < float('inf') else "inf",
+            "landmarks_count": len(landmarks),
+            "landmarks": landmarks,
+            "total_frontier_cells": stats['frontier_cells'],
+            "pruning_false_count": stats['pruning_false'],
+            "pruning_rule": "Riga 17 (forte)" if args.strong_pruning else "Riga 16 (debole)",
+            "recursive_calls": stats['recursive_calls'],
+            "max_depth_reached": stats['max_depth'],
+            "elapsed_time_s": elapsed,
+            "completed": not timed_out
+        }
+        print("\n=== RIASSUNTO STRUTTURATO ESECUZIONE (Slide 71) ===")
+        print(json.dumps(summary, indent=2, default=str))
+    else:
+        print("\n=== Risultato della Ricerca ===")
+        status = 'TIMEOUT' if timed_out else 'SUCCESSO' if min_len < float('inf') else 'NON RAGGIUNGIBILE'
+        print(f"Stato: {status}")
+        print(f"Lunghezza cammino minimo: {min_len:.6f}" if min_len < float('inf') else "Lunghezza cammino minimo: Inf")
+        print(f"Tempo impiegato: {elapsed:.6f} secondi")
+        print(f"\nSequenza ordinata dei Landmark:")
+        print(format_landmarks(landmarks))
+        
+        if grid.rows <= 40 and grid.cols <= 40 and len(path) > 0:
+            print("\nMappa visuale del cammino ottimale (*):")
+            print_grid_visual(grid, origin, dest, path)
+
+def cmd_experiment(args: argparse.Namespace) -> None:
+    """
+    Sotto-comando per lanciare la campagna di benchmark sperimentale o il test di simmetria.
+
+    Args:
+        args: Argomenti parsati dalla CLI.
+    """
+    if args.verify_symmetry_count > 0:
+        grid_size = getattr(args, 'symmetry_grid_size', 20)
+        logger.info(
+            f"Avvio test di simmetria su {args.verify_symmetry_count} coppie "
+            f"(griglia {grid_size}x{grid_size})..."
+        )
+        grid = GridGenerator.generate_grid(
+            grid_size, grid_size, ["simple", "cluster"], density=0.15, seed=999
+        )
+
+        rng = np.random.default_rng(12345)
+        points: list[tuple[Coordinate, Coordinate]] = []
+        for _ in range(args.verify_symmetry_count):
+            while True:
+                o: Coordinate = (int(rng.integers(0, grid_size)), int(rng.integers(0, grid_size)))
+                d: Coordinate = (int(rng.integers(0, grid_size)), int(rng.integers(0, grid_size)))
+                if o != d and grid.is_traversable(o[0], o[1]) and grid.is_traversable(d[0], d[1]):
+                    points.append((o, d))
+                    break
+
+        results = ExperimentRunner.verify_symmetry(grid, points, use_strong=True)
+        symmetry_failed = [r for r in results if not r["symmetry_ok"]]
+
+        print("\n--- Analisi Simmetria Risultati ---")
+        for r in results:
+            status = 'OK' if r['symmetry_ok'] else 'FALLITA'
+            to_note = ' [TIMEOUT]' if r['timed_out_od'] or r['timed_out_do'] else ''
+            print(
+                f"Coppia {r['pair_index']}: O={r['origin']} -> D={r['dest']} "
+                f"| Len(O->D)={r['len_od']:.4f}, Len(D->O)={r['len_do']:.4f} "
+                f"| Simmetria: {status}{to_note}"
+            )
+
+        print(f"\nTotale test: {len(results)} | Fallimenti: {len(symmetry_failed)}")
+        if symmetry_failed:
+            logger.error("Test di simmetria fallito su uno o più campioni.")
+            sys.exit(1)
+    else:
+        # Avvia l'intera campagna sperimentale
+        ExperimentRunner.run_campaign(args.output_dir)
+
+def main() -> None:
+    """Configura il parser degli argomenti ed esegue il sotto-comando associato."""
+    # Configura il logging standard dell'applicazione
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        stream=sys.stderr
+    )
+
+    parser = argparse.ArgumentParser(description="Algoritmi e Strutture Dati — Elaborato 2024/25")
+    subparsers = parser.add_subparsers(dest="command", help="Sotto-comandi disponibili")
+    
+    # 1. GENERATE
+    parser_gen = subparsers.add_parser("generate", help="Genera ostacoli procedurali sulla griglia")
+    parser_gen.add_argument("--rows", type=int, default=50, help="Righe della griglia")
+    parser_gen.add_argument("--cols", type=int, default=50, help="Colonne della griglia")
+    parser_gen.add_argument("--types", nargs="+", default=["simple"], choices=["simple", "cluster", "diagonal", "enclosure", "bar", "mix"], help="Tipologie ostacoli")
+    parser_gen.add_argument("--density", type=float, default=0.2, help="Densità degli ostacoli (0..1)")
+    parser_gen.add_argument("--seed", type=int, default=None, help="Seme pseudo-casuale per la riproducibilità")
+    parser_gen.add_argument("-o", "--output", default="grids/grid.json", help="Percorso del file JSON per salvare lo stato")
+    parser_gen.add_argument("--save-img", default=None, help="Percorso per salvare l'immagine PNG della griglia generata")
+    
+    # 2. CONTEXT
+    parser_ctx = subparsers.add_parser("context", help="Calcola contesto (tipo 1), complemento (tipo 2) e frontiera di un nodo")
+    parser_ctx.add_argument("--grid", required=True, help="Percorso del file JSON della griglia")
+    parser_ctx.add_argument("--origin", required=True, help="Coordinate cella di partenza (row,col)")
+    parser_ctx.add_argument("--type", choices=['1', '2', 'both'], default='both', help="Visualizza contesto (1), complemento (2) o entrambi")
+    
+    # 3. DLIB
+    parser_dlib = subparsers.add_parser("dlib", help="Calcola la distanza dlib tra due coordinate")
+    parser_dlib.add_argument("--origin", required=True, help="Coordinate dell'origine (row,col)")
+    parser_dlib.add_argument("--dest", required=True, help="Coordinate della destinazione (row,col)")
+    
+    # 4. CAMMINOMIN
+    parser_cm = subparsers.add_parser("camminomin", help="Risolve il cammino minimo tramite algoritmo CAMMINOMIN ricorsivo")
+    parser_cm.add_argument("--grid", required=True, help="Percorso del file JSON della griglia")
+    parser_cm.add_argument("--origin", required=True, help="Coordinate origine (row,col)")
+    parser_cm.add_argument("--dest", required=True, help="Coordinate destinazione (row,col)")
+    parser_cm.add_argument("--timeout", type=float, default=60.0, help="Tempo limite di elaborazione in secondi")
+    parser_cm.add_argument("--strong-pruning", action="store_true", help="Abilita il pruning forte (Riga 17) anziché debole (Riga 16)")
+    parser_cm.add_argument("--randomize-frontier", action="store_true", help="Mescola casualmente l'esplorazione dei nodi di frontiera")
+    parser_cm.add_argument("--summary", action="store_true", help="Stampa il resoconto strutturato dell'esecuzione nel formato Slide 71")
+    parser_cm.add_argument("--save-img", default=None, help="Percorso per salvare l'immagine PNG del cammino minimo")
+    
+    # 5. EXPERIMENT
+    parser_exp = subparsers.add_parser("experiment", help="Lancia la campagna di sperimentazione analitica con report grafici")
+    parser_exp.add_argument("--output-dir", default="results", help="Cartella per il salvataggio dei grafici e dei report")
+    parser_exp.add_argument("--verify-symmetry-count", type=int, default=0, help="Esegue solo il test di simmetria con N coppie casuali")
+    parser_exp.add_argument("--symmetry-grid-size", type=int, default=20, help="Dimensione lato griglia per il test di simmetria (default: 20)")
+
+    args = parser.parse_args()
+    
+    if not args.command:
+        parser.print_help()
+        sys.exit(0)
+        
+    if args.command == "generate":
+        cmd_generate(args)
+    elif args.command == "context":
+        cmd_context(args)
+    elif args.command == "dlib":
+        cmd_dlib(args)
+    elif args.command == "camminomin":
+        cmd_camminomin(args)
+    elif args.command == "experiment":
+        cmd_experiment(args)
+
+if __name__ == "__main__":
+    main()
