@@ -277,6 +277,7 @@ class GridGenerator:
             La griglia generata e pre-popolata.
         """
         grid = Grid(rows, cols)
+        grid.types = list(types)
         if not types:
             return grid
             

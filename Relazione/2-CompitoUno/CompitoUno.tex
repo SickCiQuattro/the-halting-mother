@@ -1,0 +1,71 @@
+\section{Compito uno: generazione dell'ambiente}
+
+Il primo compito consiste nella stesura di un generatore procedurale per creare la griglia e posizionarvi ostacoli non attraversabili. L'obiettivo è costruire gli ambienti per il collaudo dell'algoritmo di ricerca del cammino.
+
+\subsection{Personalizzazione della griglia tramite parametri}
+
+L'utente configura il generatore attraverso i parametri della riga di comando; la griglia prodotta viene poi salvata in un file JSON che ne registra dimensioni, tipologie di ostacoli e celle non attraversabili. I parametri di configurazione includono:
+\begin{itemize}
+    \item \texttt{--rows} e \texttt{--cols}: numero di righe e colonne della griglia (dimensioni $R \times C$).
+    \item \texttt{--seed}: seme numerico per il generatore pseudo-casuale, che assicura la totale riproducibilità degli ostacoli generati nelle successive campagne di prova.
+    \item \texttt{--types}: elenco delle tipologie di ostacoli da inserire (con la possibilità di combinarle nello scenario \texttt{mix}).
+    \item \texttt{--density}: frazione obiettivo di celle della griglia da occupare con ostacoli fisici (compresa tra $0.0$ e $1.0$).
+\end{itemize}
+
+\subsection{Tipologie di ostacoli e modellizzazione logica}
+
+In conformità ai requisiti per i gruppi di tre studenti, l'applicativo modella cinque forme geometriche:
+
+\begin{enumerate}
+    \item \textbf{Semplici (\texttt{simple})}: celle singole non attraversabili sparse casualmente sulla griglia. Servono a valutare il comportamento di base dell'algoritmo in ambienti a densità uniforme, senza blocchi strutturati.
+
+    \item \textbf{Agglomerati (\texttt{cluster})}: gruppi compatti di celle contigue generati simulando un cammino casuale a partire da celle "seme".
+
+    \item \textbf{Diagonali (\texttt{diagonal})}: sequenze di due o tre celle adiacenti solo per uno spigolo. Questo scenario serve a valutare le regole sugli attraversamenti diagonali forzati.
+
+    \item \textbf{Recinti (\texttt{enclosure})}: strutture perimetrali rettangolari dotate di area libera interna. Mettono alla prova l'algoritmo di potatura in caso di percorsi chiusi.
+
+    \item \textbf{Barre (\texttt{bar})}: linee orizzontali o verticali munite di una singola apertura casuale. Costringono l'esplorazione a deviare attraverso un passaggio obbligato.
+\end{enumerate}
+
+\subsection{Algoritmo di generazione}
+
+La generazione della griglia è affidata alla classe \texttt{GridGenerator}. Per garantire l'accuratezza della densità complessiva obiettivo, il generatore inserisce prima le macrostrutture (barre, recinti, agglomerati, diagonali) e poi esegue un passo di riempimento fine tramite ostacoli semplici (\texttt{simple}) fino al raggiungimento esatto della quota prefissata.
+
+Di seguito si riporta lo pseudocodice di generazione:
+
+\begin{algorithm}[H]
+\caption{Generazione procedurale della griglia}
+\label{alg:genera_griglia}
+\begin{algorithmic}[1]
+\Procedure{GeneraGriglia}{$rows, cols, types, density, seed$}
+    \State $grid \leftarrow \text{NuovaGriglia}(rows, cols)$
+    \State $rng \leftarrow \text{InizializzaGeneratoreCasuale}(seed)$
+    \State $total\_cells \leftarrow rows \times cols$
+    \State $target\_obstacles \leftarrow \text{Intero}(total\_cells \times density)$
+    \State
+    \State \Comment{Fase 1: Generazione delle macrostrutture}
+    \For{\textbf{each} $type \in types \setminus \{\text{"simple"}\}$}
+        \State $local\_seed \leftarrow rng.\text{GeneraIntero}()$
+        \If{$type = \text{"cluster"}$}
+            \State \text{CostruisciCluster}($grid, target\_obstacles \times 0.3, local\_seed$)
+        \ElsIf{$type = \text{"diagonal"}$}
+            \State \text{CostruisciDiagonali}($grid, target\_obstacles \times 0.2, local\_seed$)
+        \ElsIf{$type = \text{"enclosure"}$}
+            \State \text{CostruisciRecinti}($grid, target\_obstacles \times 0.2, local\_seed$)
+        \ElsIf{$type = \text{"bar"}$}
+            \State \text{CostruisciBarre}($grid, target\_obstacles \times 0.3, local\_seed$)
+        \EndIf
+    \EndFor
+    \State
+    \Comment{Fase 2: Riempimento fine fino alla densità obiettivo}
+    \State $current\_density \leftarrow \text{ConteggioOstacoli}(grid) / total\_cells$
+    \If{$\text{"simple"} \in types$ \textbf{or} $current\_density < density$}
+        \State $remaining\_density \leftarrow \max(0.01, density - current\_density)$
+        \State $local\_seed \leftarrow rng.\text{GeneraIntero}()$
+        \State \text{CostruisciSemplici}($grid, remaining\_density, local\_seed$)
+    \EndIf
+    \State \Return $grid$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}

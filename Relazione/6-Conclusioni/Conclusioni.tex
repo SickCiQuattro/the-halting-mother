@@ -1,0 +1,32 @@
+\section{Conclusioni}
+
+In questa relazione abbiamo documentato l'implementazione e la sperimentazione di un sistema per la ricerca del cammino a otto direzioni su griglie bidimensionali. Il software è stato sviluppato in Python utilizzando la libreria NumPy per la gestione vettoriale della griglia.
+
+\subsection{Limitazioni riscontrate}
+
+L'implementazione presenta le seguenti limitazioni, emerse dalle prove di esecuzione:
+
+\begin{enumerate}
+    \item \textbf{Scalabilità della ricerca esaustiva}: su griglie con densità di ostacoli del $20\%$, le interrogazioni angolo-angolo si completano in pochi secondi fino al lato $50\times50$ (circa $1{,}7$ s), ma da $100\times100$ in su la ricerca esaustiva del cammino ottimo supera il tempo limite ($60$ s) in tutte le configurazioni provate, richiedendo milioni di chiamate ricorsive. In questi casi l'algoritmo restituisce comunque il miglior cammino individuato, senza però dimostrarne l'ottimalità entro il tempo concesso. Le ottimizzazioni adottate (potatura forte e ordinamento euristico della frontiera) ne riducono le costanti, ma non l'andamento asintotico: poiché i risultati dei sotto-problemi non vengono memorizzati (la memoizzazione è stata rimossa per il difetto logico descritto nel Compito 3), sulle griglie molto ostruite le stesse chiusure intermedie vengono ricalcolate più volte.
+
+    \item \textbf{Limite di profondità della pila di ricorsione}: l'architettura ricorsiva fa affidamento sulla pila delle chiamate gestita dall'interprete. Sebbene in Python sia possibile innalzare questo limite tramite la chiamata \texttt{sys.setrecursionlimit(15000)}, per percorsi con migliaia di punti di riferimento intermedi il sistema rischia di incorrere in un errore di \texttt{RecursionError}.
+\end{enumerate}
+
+\subsection{Motivazioni delle scelte implementative}
+
+Le scelte di progettazione adottate mirano a contenere l'occupazione di memoria e a limitare il numero di nodi esplorati:
+\begin{itemize}
+    \item \textbf{Gestione della memoria}: la rappresentazione della griglia come matrice NumPy di tipo \texttt{uint8} alloca un solo byte contiguo per cella. Unita al ritracciamento sul posto, che riusa l'unica matrice condivisa invece di duplicarla a ogni livello, questa scelta evita la proliferazione di oggetti tipica di un modello in cui ogni cella è un'istanza distinta.
+
+    \item \textbf{Contenimento del tempo di calcolo}: la potatura branch-and-bound globale e l'ordinamento euristico della frontiera mirano a sfoltire l'albero di esplorazione. Sulle istanze risolvibili entro il tempo limite questi accorgimenti riducono le costanti di calcolo; sulle griglie più grandi, però, non bastano a evitare il superamento del tempo limite (si veda il Compito 4).
+\end{itemize}
+
+\subsection{Sviluppi futuri}
+
+Possibili sviluppi futuri includono:
+
+\begin{itemize}
+    \item \textbf{Conversione in un algoritmo iterativo con pila esplicita}: la trasformazione della ricorsione in una struttura iterativa basata su una pila gestita esplicitamente in memoria dinamica eliminerebbe il legame con la pila delle chiamate dell'interprete. Questo consentirebbe di elaborare cammini di qualsiasi lunghezza o profondità senza il rischio di esaurire la pila.
+
+    \item \textbf{Reintroduzione della memoizzazione con politica di sfratto (LRU/LFU)}: si potrebbe riconsiderare una memoria dei sotto-problemi, risolvendo però il difetto logico che ne aveva imposto la rimozione, ossia la dipendenza del risultato dalla lunghezza accumulata delle chiamate esterne, non inclusa nella chiave. Per limitarne l'occupazione, tale memoria andrebbe dotata di capacità massima e di una politica di espulsione come \textit{Least Recently Used} (LRU) o \textit{Least Frequently Used} (LFU), in modo da rimuovere automaticamente gli stati meno utilizzati una volta raggiunta la soglia.
+\end{itemize}

@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{tabularx}
+\usepackage{float} % Pacchetto per l'opzione di posizionamento H
+\usepackage{caption} % Pacchetto per gestire le didascalie delle figure
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage[hyperfootnotes=false]{hyperref} % Riferimenti
+\usepackage{setspace} %interlinea
+\usepackage{pdfpages}
+\usepackage{verbatim}
+\usepackage{afterpage}
+\usepackage{xcolor}
+
+\usepackage{amsmath}
+\usepackage{bm}
+
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% --- PACCHETTI NECESSARI ---
+\usepackage{tabularx} % Per le tabelle che si adattano alla larghezza della pagina
+\usepackage{graphicx} % Per inserire le immagini
+\usepackage{array}    % Per formattare le colonne
+
+\onehalfspacing
+
+\begin{document}
+
+% FRONTESPIZIO
+\includepdf{docs/frontespizio.pdf}
+
+\renewcommand{\contentsname}{Indice}
+\pagenumbering{Roman}
+\tableofcontents
+
+% RICHIAMO CAPITOLI
+\newpage
+\pagenumbering{arabic}
+
+\input{1-Introduzione/Introduzione.tex}
+\newpage
+\input{2-CompitoUno/CompitoUno.tex}
+\newpage
+\input{3-CompitoDue/CompitoDue.tex}
+\newpage
+\input{4-CompitoTre/CompitoTre.tex}
+\newpage
+\input{5-CompitoQuattro/CompitoQuattro.tex}
+\newpage
+\input{6-Conclusioni/Conclusioni.tex}
+\newpage
+\input{7-UsoDelCodice/UsoDelCodice.tex}
+
+\end{document}

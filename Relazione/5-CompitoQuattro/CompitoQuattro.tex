@@ -1,0 +1,68 @@
+\section{Compito quattro: sperimentazione e analisi}
+
+Il quarto compito valuta le prestazioni del sistema. La sezione presenta le analisi di complessità spaziale e temporale, seguite dai risultati empirici.
+
+\subsection{Analisi di complessità spaziale asintotica}
+
+La complessità spaziale (occupazione di memoria centrale) è dettata dalla pila delle chiamate ricorsive e dalle strutture dati locali allocate a ogni livello:
+\begin{itemize}
+    \item \textbf{Pila di ricorsione}: sia $l$ la profondità massima della ricorsione, corrispondente al numero di landmark intermedi. Nel caso peggiore $l$ è limitato dal numero totale di celle della griglia, quindi $l \le R \times C$. Lo spazio della pila è $O(l)$.
+    \item \textbf{Strutture locali di chiusura e frontiera}: a ogni livello ricorsivo il calcolo della chiusura corrente occupa al più $O(R \times C)$ celle. Lo stesso vale per la lista delle celle di frontiera estratte.
+    \item \textbf{Gestione dello stato della griglia}: molti approcci semplici duplicano l'intero stato della griglia a ogni chiamata per simulare i nuovi ostacoli temporanei, portando la complessità spaziale totale a $O(R \times C \cdot l)$.
+\end{itemize}
+
+Grazie all'ottimizzazione del \textbf{ritracciamento sul posto} su array NumPy, l'implementazione mantiene un'unica griglia condivisa. Le chiusure temporanee vengono marcate tramite sovrascritture. Lo spazio di memoria allocato è legato alle variabili locali della ricorsione, contenendo l'occupazione reale.
+
+\subsection{Analisi di complessità temporale asintotica}
+
+Analisi della complessità temporale:
+\begin{itemize}
+    \item \textbf{Caso peggiore (griglie complesse e ostruite)}: in assenza di potature l'algoritmo esplora combinatoriamente i rami di frontiera con complessità $O(K^l)$, dove $K$ è la dimensione della frontiera. La potatura forte e l'ordinamento euristico riducono il fattore di ramificazione; come mostrano i dati sperimentali, sulle istanze provate il loro effetto è netto, pur non cambiando l'andamento asintotico.
+    \item \textbf{Caso migliore (destinazione nella chiusura iniziale)}: se la destinazione $D$ appartiene al contesto o al complemento dell'origine $O$, l'algoritmo si arresta immediatamente al livello ricorsivo $0$ (caso base). Il tempo di esecuzione è interamente dominato dal calcolo della chiusura iniziale tramite proiezione di raggi, con una complessità pari a:
+    \begin{equation}
+    T_{\text{best}} = O(\max(R, C)^2)
+    \label{eq:time_best}
+    \end{equation}
+    Questo si traduce in tempi di elaborazione inferiori al millisecondo anche per griglie di lato elevato (su lato $10$ il calcolo richiede circa $0{,}3$ ms).
+\end{itemize}
+
+\subsection{Nota metodologica sulla misura}
+
+I tempi riportati nei grafici sono cronometrati in esecuzioni prive di profilatura della memoria. La misura del picco di memoria, infatti, introduce un sovraccarico di circa cinque volte: mantenerla attiva durante il cronometraggio falserebbe i tempi (sulla griglia $50\times50$ la stessa esecuzione passava da circa $1{,}7$ s a circa $9{,}6$ s). L'occupazione di memoria viene perciò rilevata in una passata separata e distinta da quella temporale.
+
+\subsection{Analisi dei risultati sperimentali e discussione dei grafici}
+
+La campagna sperimentale è stata eseguita su griglie da $10 \times 10$ fino a $200 \times 200$, variando la densità degli ostacoli e analizzando le diverse strategie. Per le campagne su densità, potatura e ordinamento, ogni configurazione è stata provata su più coppie origine--destinazione (la coppia d'angolo, geometricamente più impegnativa, e quattro coppie casuali di celle attraversabili); le metriche riportate sono le mediane dei campioni raccolti. Come richiesto dalla specifica (diapositiva 64), ciascuna coppia considerata è stata sottoposta a doppia invocazione con i parametri scambiati ($O \rightarrow D$ e $D \rightarrow O$): l'esito complessivo della verifica è registrato nel file \texttt{simmetria\_campagna.json}. I risultati sono riassunti in sei grafici, discussi di seguito.
+
+\subsubsection{1. Tempo in funzione della densità di ostacoli}
+Il file \texttt{1\_time\_vs\_density.png} illustra l'andamento del tempo di esecuzione su una griglia $50\times50$ al variare della densità degli ostacoli da $0.05$ a $0.45$. Il tempo mediano resta trascurabile (sotto i $10$ ms) fino a una densità del $35\%$, poi sale ripidamente a circa $1{,}4$ s al $45\%$. Questo è il fianco crescente della \textbf{transizione di fase} tipica dei problemi di ricerca:
+\begin{itemize}
+    \item a densità basse lo spazio è aperto e la destinazione ricade spesso nella chiusura iniziale dell'origine, per cui il cammino viene trovato quasi istantaneamente con pochi landmark;
+    \item avvicinandosi alla soglia critica lo spazio si frammenta: restano cammini tortuosi ma difficili da isolare, e l'algoritmo deve esplorare rami profondi prima di convergere, da cui la ripida crescita osservata al $45\%$;
+    \item oltre la soglia di connettività (densità non incluse nelle prove) ci si attenderebbe un nuovo calo, perché molte coppie diventano irraggiungibili e l'algoritmo lo rileva subito potando l'intera frontiera.
+\end{itemize}
+
+\subsubsection{2. Confronto delle configurazioni (potatura e ordinamento)}
+Il diagramma a barre in \texttt{2\_pruning\_comparison\_boxplot.png} (in scala logaritmica) confronta i quattro scenari di esecuzione (potatura debole, potatura forte, ordinamento euristico e ordinamento casuale) sulla coppia d'angolo di una griglia $50\times50$, per i diversi tipi di ostacolo. Entrambe le scelte risultano decisive:
+\begin{itemize}
+    \item la \textbf{potatura forte (riga 17)} risolve ogni scenario in pochi millisecondi (da $0{,}006$ a $0{,}014$ s), mentre la \textbf{potatura debole (riga 16)} raggiunge il tempo limite di $20$ s su quasi tutti i tipi (fa eccezione il tipo \texttt{bar}, circa $0{,}5$ s). La stima ammissibile $d_{\text{lib}}(F,D)$ aggiunta dalla riga 17 sfoltisce l'albero di ricerca in misura molto maggiore;
+    \item l'\textbf{ordinamento euristico della frontiera} (per $d_{\text{lib}}$ crescente dalla destinazione) è altrettanto importante: con l'ordinamento casuale la ricerca raggiunge il tempo limite su quattro tipi su cinque, mentre con quello euristico si conclude in millisecondi. Esplorare per primi i candidati più vicini alla destinazione consente di trovare presto un buon limite superiore, di cui la potatura branch-and-bound beneficia subito.
+\end{itemize}
+
+\subsubsection{3. Crescita temporale asintotica (scala bilogaritmica)}
+Il grafico in \texttt{3\_complexity\_scaling\_loglog.png} riporta i tempi sulla coppia d'angolo al crescere del lato (fino a $200\times200$), per la potatura debole e per quella forte. Si osserva che:
+\begin{enumerate}
+    \item la \textbf{potatura forte} scala molto meglio: risolve fino al lato $50\times50$ in circa $1{,}6$ s, mentre la \textbf{potatura debole} si conclude solo fino a $20\times20$ e raggiunge già il tempo limite ($60$ s) a $50\times50$;
+    \item da lato $100$ in poi entrambe raggiungono il tempo limite, ma la potatura forte esplora meno nodi (a lato $100$, circa $1{,}1$ milioni di chiamate ricorsive contro i $2{,}0$ milioni della debole);
+    \item il limite osservato è intrinseco all'algoritmo: la ricerca esaustiva del cammino ottimo fra due angoli opposti di una griglia densa è esponenziale nel numero di landmark, e da lato $100$ in su nessuna configurazione la completa entro il tempo concesso.
+\end{enumerate}
+In tutti i casi che superano il tempo limite l'algoritmo restituisce comunque il miglior cammino individuato fino a quel momento, segnalando che il calcolo non è stato completato (requisito funzionale della diapositiva 71).
+
+\subsubsection{4. Correlazione tra tempo e celle di frontiera}
+Il diagramma a dispersione in \texttt{4\_scatter\_time\_vs\_frontier.png} (scala bilogaritmica) mappa ogni prova ponendo sulle ascisse le celle di frontiera totali considerate e sulle ordinate il tempo di calcolo. I punti sono fortemente allineati: il tempo di esecuzione cresce in modo regolare con il volume di frontiera analizzato. La pendenza della retta di regressione è circa $0{,}82$, leggermente sotto-lineare, coerente con un costo per singola cella di frontiera che non cresce con la dimensione del problema, grazie alla rappresentazione compatta su matrice NumPy.
+
+\subsubsection{5. Correlazione tra tempo e invocazioni ricorsive}
+Il grafico in \texttt{5\_scatter\_time\_vs\_recursion.png} mappa il tempo in funzione delle chiamate ricorsive totali, colorando i punti in base alla lunghezza del cammino. L'allineamento è marcato (pendenza di regressione circa $0{,}94$): il numero di chiamate ricorsive è il fattore primario del costo temporale, a conferma del fatto che contenere la pila delle chiamate è la leva principale sulle prestazioni.
+
+\subsubsection{6. Verifica formale della simmetria}
+Il grafico a barre in \texttt{6\_symmetry\_per\_type.png} mostra l'esito delle prove di simmetria ($O \rightarrow D$ contro $D \rightarrow O$) eseguite su cinque coppie casuali per ciascuna tipologia di ostacolo: tutte e cinque le coppie risultano verificate per ognuno dei cinque tipi, senza fallimenti né esclusioni. A queste prove dedicate si aggiunge la doppia invocazione effettuata su tutte le coppie delle campagne prestazionali (si veda l'introduzione di questa sezione): su $56$ coppie totali, $49$ sono risultate verificabili (le altre $7$ escluse perché una delle due direzioni ha raggiunto il tempo limite) e nessuna ha prodotto incongruenze metriche. Si registra quindi il $100\%$ di successi sulle coppie verificabili, a validazione sperimentale dell'esattezza dell'implementazione, come richiesto esplicitamente dalla specifica (diapositive 63--64).

@@ -1,0 +1,116 @@
+\section{Compito due: raggiungibilità e distanza libera}
+
+Il secondo compito si concentra sull'analisi topologica dello spazio locale a partire da una cella di origine $O$. Vengono introdotti i concetti geometrici di distanza libera ($d_{\text{lib}}$), cammino libero di tipo 1 e tipo 2, contesto, complemento e frontiera della chiusura.
+
+\subsection{Distanza libera ($d_{\text{lib}}$) e formulazione matematica}
+
+La distanza libera ($d_{\text{lib}}$) rappresenta il costo minimo del percorso ottimale tra due celle in una griglia con adiacenza a otto direzioni, assumendo l'assoluta assenza di ostacoli fisici interposti. Siano $O$ e $D$ le celle di origine e destinazione, e siano $\Delta x = |O.x - D.x|$ e $\Delta y = |O.y - D.y|$ le differenze assolute delle loro coordinate cartesiane sulla griglia.
+
+Definiamo $\Delta_{\text{min}} = \min(\Delta x, \Delta y)$ come il numero massimo di passi diagonali puri eseguibili e $\Delta_{\text{max}} = \max(\Delta x, \Delta y)$ come la dimensione dominante dello spostamento. La formula matematica esatta per il calcolo di $d_{\text{lib}}(O,D)$ è:
+
+\begin{equation}
+d_{\text{lib}}(O,D) = \sqrt{2}\Delta_{\text{min}} + (\Delta_{\text{max}} - \Delta_{\text{min}})
+\label{eq:dlib}
+\end{equation}
+
+Questa formula di costo $O(1)$ fornisce il limite inferiore richiesto dalla potatura geometrica descritta di seguito.
+
+\subsection{Contesto e complemento}
+
+La raggiungibilità locale tramite cammini liberi definisce due insiemi disgiunti di celle all'interno dello spazio libero:
+\begin{itemize}
+    \item \textbf{Contesto}: l'insieme delle celle raggiungibili da $O$ tramite un cammino libero di \textbf{tipo 1}, definito dalla sequenza prima mosse diagonali oblique, poi mosse cardinali residue, oppure da cammini composti esclusivamente da un tipo di mossa.
+    \item \textbf{Complemento}: l'insieme delle celle raggiungibili da $O$ \textbf{solo} tramite un cammino libero di \textbf{tipo 2}, definito dalla sequenza inversa prima mosse cardinali, poi mosse diagonali residue. Le celle che ammettono entrambi i tipi di cammino appartengono per convenzione al solo contesto.
+\end{itemize}
+L'unione di contesto e complemento forma la \textbf{chiusura} di $O$.
+
+\subsection{Proiezione di raggi geometrici ($O(\max(R,C)^2)$)}
+
+Per determinare gli insiemi contesto e complemento, il programma implementa la \textbf{proiezione di raggi}. L'analisi controlla le linee di raggiungibilità procedendo a raggiera a partire dall'origine, riducendo la complessità da quadratica ($O(R^2 \cdot C^2)$ per una ricerca cella per cella) a $O(\max(R,C)^2)$.
+
+L'algoritmo per il \textbf{contesto (tipo 1)} opera come segue:
+\begin{enumerate}
+    \item \textbf{Proiezione cardinale}: vengono tracciati i 4 raggi cardinali puri (Nord, Sud, Est, Ovest) a partire dall'origine $O$, arrestandosi non appena si incontra una cella ostacolo.
+    \item \textbf{Proiezione diagonale ed espansione a gomito}: per ciascuno dei 4 quadranti del piano cartesiano locale:
+    \begin{itemize}
+        \item si proietta il raggio diagonale puro (NE, NO, SE, SO);
+        \item per ogni cella attraversabile raggiunta lungo questo raggio diagonale, si avvia un'espansione cardinale rettilinea parallela agli assi (espansione a gomito), che procede verso l'esterno fino a incontrare un ostacolo o il bordo della griglia.
+    \end{itemize}
+\end{enumerate}
+
+L'algoritmo per il \textbf{complemento (tipo 2)} inverte simmetricamente le fasi di proiezione: per ciascuno dei 4 quadranti si proiettano prima i raggi cardinali e, da ogni cella libera raggiunta su di essi, si espandono raggi in diagonale pura. Al termine si escludono le celle già presenti nel contesto.
+
+Questo accorgimento analizza ogni cella limitando le operazioni di lettura sulla matrice.
+
+Di seguito si riporta lo pseudocodice dei due algoritmi. La scrittura $P + c$ indica la cella ottenuta spostando $P$ di un passo lungo la direzione $c$; una cella si dice \emph{libera} se è interna alla griglia e non appartiene a $osta$.
+
+\begin{algorithm}[H]
+\caption{Calcolo del contesto (celle raggiungibili con cammini liberi di tipo 1)}
+\label{alg:calcola_contesto}
+\begin{algorithmic}[1]
+\Procedure{CalcolaContesto}{$O, dim, osta$}
+    \State $contesto \leftarrow \{O\}$
+    \For{\textbf{each} direzione cardinale $c \in \{\text{Nord}, \text{Sud}, \text{Est}, \text{Ovest}\}$}
+        \State $P \leftarrow O + c$
+        \While{$P$ è libera}
+            \State $contesto \leftarrow contesto \cup \{P\}$
+            \State $P \leftarrow P + c$
+        \EndWhile
+    \EndFor
+    \For{\textbf{each} direzione diagonale $d \in \{\text{NE}, \text{NO}, \text{SE}, \text{SO}\}$}
+        \State $P \leftarrow O + d$
+        \While{$P$ è libera}
+            \State $contesto \leftarrow contesto \cup \{P\}$
+            \State \Comment{Espansione cardinale orizzontale e verticale a partire da $P$}
+            \For{\textbf{each} $c \in \{\text{componente orizzontale di } d, \text{componente verticale di } d\}$}
+                \State $Q \leftarrow P + c$
+                \While{$Q$ è libera}
+                    \State $contesto \leftarrow contesto \cup \{Q\}$
+                    \State $Q \leftarrow Q + c$
+                \EndWhile
+            \EndFor
+            \State $P \leftarrow P + d$
+        \EndWhile
+    \EndFor
+    \State \Return $contesto$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Calcolo del complemento (celle raggiungibili solo con cammini liberi di tipo 2)}
+\label{alg:calcola_complemento}
+\begin{algorithmic}[1]
+\Procedure{CalcolaComplemento}{$O, dim, osta, contesto$}
+    \State $complemento \leftarrow \emptyset$
+    \For{\textbf{each} direzione diagonale $d \in \{\text{NE}, \text{NO}, \text{SE}, \text{SO}\}$}
+        \For{\textbf{each} $c \in \{\text{componente orizzontale di } d, \text{componente verticale di } d\}$}
+            \State $P \leftarrow O + c$
+            \While{$P$ è libera}
+                \State \Comment{Espansione diagonale a partire dalla cella $P$ del raggio cardinale}
+                \State $Q \leftarrow P + d$
+                \While{$Q$ è libera}
+                    \If{$Q \notin contesto$}
+                        \State $complemento \leftarrow complemento \cup \{Q\}$
+                    \EndIf
+                    \State $Q \leftarrow Q + d$
+                \EndWhile
+                \State $P \leftarrow P + c$
+            \EndWhile
+        \EndFor
+    \EndFor
+    \State \Return $complemento$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Frontiera della chiusura}
+
+La \textbf{frontiera} della chiusura di $O$ è definita formalmente come il sottoinsieme delle celle della chiusura che confinano (secondo l'intorno a otto direzioni) con almeno una cella attraversabile che si trova all'esterno della chiusura stessa:
+
+\begin{equation}
+\text{Frontiera}(O) = \{ c \in \text{Chiusura}(O) \mid \exists v \in \text{Vicini}(c) \text{ t.c. } \text{Stato}(v) = 0 \land v \notin \text{Chiusura}(O) \}
+\label{eq:frontiera}
+\end{equation}
+
+Il codice estrae la frontiera limitando l'ispezione al vicinato delle sole celle incluse nella chiusura. Ad ogni cella di frontiera viene associato il tipo del cammino libero da cui proviene ($1$ per il contesto, $2$ per il complemento).

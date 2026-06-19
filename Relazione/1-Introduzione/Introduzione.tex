@@ -1,0 +1,37 @@
+\section{Introduzione}
+
+La presente relazione descrive la progettazione, l'implementazione e la campagna sperimentale condotta per il sistema di navigazione e calcolo del cammino minimo su griglia bidimensionale, sviluppato in conformità con i requisiti del corso di Algoritmi e Strutture Dati per l'anno accademico 2024/25.
+
+L'elaborato affronta il calcolo del cammino minimo su griglie bidimensionali in presenza di ostacoli. Il sistema mira a limitare il sovraccarico computazionale tipico delle esplorazioni ricorsive ricorrendo a strutture dati specifiche e a regole di potatura spaziale.
+
+\subsection{Strumenti e scelte tecnologiche}
+
+Il software è scritto in \textbf{Python 3.13} e utilizza:
+\begin{itemize}
+    \item \textbf{NumPy}: gestisce la rappresentazione della griglia attraverso array multidimensionali, sfruttando le operazioni vettoriali per ottimizzare le letture e le modifiche dello stato.
+    \item \textbf{Matplotlib}: genera le visualizzazioni grafiche dei percorsi e produce i grafici per l'analisi delle prestazioni (Compito 4).
+    \item \textbf{Argparse}: fornisce l'interfaccia a riga di comando.
+\end{itemize}
+
+Rispetto all'approccio a oggetti, che associa a ogni cella un'istanza dedicata e grava sul gestore della memoria, la rappresentazione tramite array numerici lavora su dati contigui in memoria.
+
+\subsection{Rappresentazione dello stato della cella}
+
+Ogni cella della griglia è codificata con un numero intero all'interno di una matrice NumPy bidimensionale di tipo \textbf{\texttt{uint8}} (1 byte per cella), in base allo schema seguente:
+
+\begin{table}[H]
+\centering
+\caption{Rappresentazione dello stato della cella a livello logico e fisico}
+\begin{tabularx}{\textwidth}{|c|c|X|}
+\hline
+\textbf{Stato cella} & \textbf{Valore fisico} & \textbf{Significato operativo} \\ \hline
+\texttt{Libera} & 0 & Cella attraversabile (navigabile). \\ \hline
+\texttt{Ostacolo fisso} & 1 & Ostacolo permanente generato nel Compito 1 o importato da JSON. \\ \hline
+\texttt{Ostacolo temporaneo} & $\ge 2$ & Cella marcata direttamente in memoria durante il ritracciamento ricorsivo con un identificativo corrispondente a $profondit\grave{a} + 2$. \\ \hline
+\end{tabularx}
+\label{tab:stato_cella}
+\end{table}
+
+Questa codifica numerica consente il \textbf{ritracciamento (backtracking) sul posto}. A ogni chiamata ricorsiva di \texttt{CAMMINOMIN}, invece di clonare la matrice della griglia (operazione che esaurirebbe la memoria sulle griglie più ampie), il codice sovrascrive il valore intero della cella visitata direttamente nella struttura dati condivisa.
+
+Durante la discesa, i nodi attraversati vengono marcati con l'intero corrispondente alla profondità attuale ($\text{ID} = \text{profondità} + 2$). In fase di risalita la funzione ripristina la cella al valore 0. Questo meccanismo evita la creazione e la distruzione di oggetti a ogni livello dell'albero delle chiamate.

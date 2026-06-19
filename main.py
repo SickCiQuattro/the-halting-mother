@@ -191,24 +191,25 @@ def cmd_camminomin(args: argparse.Namespace) -> None:
             calculation_status = "IRRAGGIUNGIBILE"
 
         summary = {
-            "grid_dimensions": f"{grid.rows}x{grid.cols}",
-            "grid_type": getattr(args, 'grid', 'N/D'),
-            "origin": origin,
-            "destination": dest,
-            "calculation_status": calculation_status,
-            "min_path_length": min_len if min_len < float('inf') else "inf",
-            "landmarks_count": len(landmarks),
-            "landmarks": landmarks,
-            "total_frontier_cells": stats['frontier_cells'],
-            "pruning_false_count": stats['pruning_false'],
-            "pruning_rule": "Riga 17 (forte)" if args.strong_pruning else "Riga 16 (debole)",
-            "recursive_calls": stats['recursive_calls'],
-            "max_depth_reached": stats['max_depth'],
-            "elapsed_time_s": elapsed,
-            "completed": not timed_out
+            "dimensioni_griglia": f"{grid.rows}x{grid.cols}",
+            "tipologia_griglia": ", ".join(grid.types) if grid.types else "non specificata",
+            "file_griglia": args.grid,
+            "origine": origin,
+            "destinazione": dest,
+            "stato_calcolo": calculation_status,
+            "lunghezza_cammino_minimo": min_len if min_len < float('inf') else "infinita",
+            "numero_landmark": len(landmarks),
+            "sequenza_landmark": landmarks,
+            "celle_frontiera_totali": stats['frontier_cells'],
+            "condizione_potatura_falsa": stats['pruning_false'],
+            "regola_potatura": "Riga 17 (forte)" if args.strong_pruning else "Riga 16 (debole)",
+            "invocazioni_ricorsive": stats['recursive_calls'],
+            "profondita_massima": stats['max_depth'],
+            "tempo_trascorso_s": elapsed,
+            "calcolo_completato": not timed_out
         }
-        print("\n=== RIASSUNTO STRUTTURATO ESECUZIONE (Slide 71) ===")
-        print(json.dumps(summary, indent=2, default=str))
+        print("\n=== RIASSUNTO STRUTTURATO DELL'ESECUZIONE (Slide 71) ===")
+        print(json.dumps(summary, indent=2, default=str, ensure_ascii=False))
     else:
         print("\n=== Risultato della Ricerca ===")
         status = 'TIMEOUT' if timed_out else 'SUCCESSO' if min_len < float('inf') else 'NON RAGGIUNGIBILE'

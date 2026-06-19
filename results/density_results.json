@@ -2,382 +2,3113 @@
   {
     "density": 0.05,
     "metrics": {
-      "path_length": 70.46803743153546,
-      "landmarks_count": 3,
-      "landmarks": [
-        [
-          [
-            0,
-            0
-          ],
+      "elapsed_time_s": 0.00020885467529296875,
+      "peak_memory_kb": 129.8984375,
+      "frontier_cells": 0,
+      "pruning_false": 0,
+      "recursive_calls": 1,
+      "max_depth": 0,
+      "path_length": 32.97056274847714,
+      "landmarks_count": 2,
+      "timed_out": false,
+      "numero_campioni": 5
+    },
+    "coppie": [
+      {
+        "origine": [
+          0,
           0
         ],
-        [
-          [
-            24,
-            26
-          ],
-          2
+        "destinazione": [
+          49,
+          49
         ],
-        [
-          [
-            49,
-            49
+        "andata": {
+          "path_length": 70.46803743153546,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                0,
+                0
+              ],
+              0
+            ],
+            [
+              [
+                24,
+                26
+              ],
+              2
+            ],
+            [
+              [
+                49,
+                49
+              ],
+              2
+            ]
           ],
-          2
-        ]
-      ],
-      "timed_out": false,
-      "elapsed_time_s": 0.014235258102416992,
-      "peak_memory_kb": 246.42578125,
-      "frontier_cells": 600,
-      "pruning_false": 591,
-      "recursive_calls": 10,
-      "max_depth": 3
-    }
+          "timed_out": false,
+          "elapsed_time_s": 0.0020580291748046875,
+          "peak_memory_kb": 129.8984375,
+          "frontier_cells": 600,
+          "pruning_false": 591,
+          "recursive_calls": 10,
+          "max_depth": 3
+        },
+        "ritorno": {
+          "path_length": 70.46803743153546,
+          "landmarks_count": 4,
+          "landmarks": [
+            [
+              [
+                49,
+                49
+              ],
+              0
+            ],
+            [
+              [
+                20,
+                18
+              ],
+              1
+            ],
+            [
+              [
+                14,
+                14
+              ],
+              1
+            ],
+            [
+              [
+                0,
+                0
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.003651142120361328,
+          "peak_memory_kb": 183.1953125,
+          "frontier_cells": 927,
+          "pruning_false": 897,
+          "recursive_calls": 31,
+          "max_depth": 3
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          47,
+          31
+        ],
+        "destinazione": [
+          34,
+          44
+        ],
+        "andata": {
+          "path_length": 18.38477631085024,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                47,
+                31
+              ],
+              0
+            ],
+            [
+              [
+                34,
+                44
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0001881122589111328,
+          "peak_memory_kb": 160.296875,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "ritorno": {
+          "path_length": 18.38477631085024,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                34,
+                44
+              ],
+              0
+            ],
+            [
+              [
+                47,
+                31
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.00017404556274414062,
+          "peak_memory_kb": 40.296875,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          28,
+          38
+        ],
+        "destinazione": [
+          41,
+          11
+        ],
+        "andata": {
+          "path_length": 32.38477631085024,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                28,
+                38
+              ],
+              0
+            ],
+            [
+              [
+                41,
+                11
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.00020003318786621094,
+          "peak_memory_kb": 160.296875,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "ritorno": {
+          "path_length": 32.38477631085024,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                41,
+                11
+              ],
+              0
+            ],
+            [
+              [
+                28,
+                38
+              ],
+              2
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.00020813941955566406,
+          "peak_memory_kb": 72.5078125,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          2,
+          15
+        ],
+        "destinazione": [
+          14,
+          43
+        ],
+        "andata": {
+          "path_length": 32.97056274847714,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                2,
+                15
+              ],
+              0
+            ],
+            [
+              [
+                14,
+                43
+              ],
+              2
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.00020885467529296875,
+          "peak_memory_kb": 72.5078125,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "ritorno": {
+          "path_length": 32.97056274847714,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                14,
+                43
+              ],
+              0
+            ],
+            [
+              [
+                2,
+                15
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.00014209747314453125,
+          "peak_memory_kb": 40.296875,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          45,
+          0
+        ],
+        "destinazione": [
+          24,
+          41
+        ],
+        "andata": {
+          "path_length": 49.698484809834994,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                45,
+                0
+              ],
+              0
+            ],
+            [
+              [
+                24,
+                41
+              ],
+              2
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0002701282501220703,
+          "peak_memory_kb": 72.5078125,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "ritorno": {
+          "path_length": 49.698484809834994,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                24,
+                41
+              ],
+              0
+            ],
+            [
+              [
+                45,
+                0
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0001533031463623047,
+          "peak_memory_kb": 40.296875,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      }
+    ],
+    "simmetrie_fallite": 0
   },
   {
     "density": 0.15,
     "metrics": {
-      "path_length": 71.05382386916237,
-      "landmarks_count": 5,
-      "landmarks": [
-        [
-          [
-            0,
-            0
-          ],
+      "elapsed_time_s": 0.002398967742919922,
+      "peak_memory_kb": 69.5078125,
+      "frontier_cells": 743,
+      "pruning_false": 714,
+      "recursive_calls": 30,
+      "max_depth": 2,
+      "path_length": 20.65685424949238,
+      "landmarks_count": 4,
+      "timed_out": false,
+      "numero_campioni": 5
+    },
+    "coppie": [
+      {
+        "origine": [
+          0,
           0
         ],
-        [
-          [
-            10,
-            9
-          ],
-          1
+        "destinazione": [
+          49,
+          49
         ],
-        [
-          [
-            20,
-            20
+        "andata": {
+          "path_length": 71.05382386916237,
+          "landmarks_count": 5,
+          "landmarks": [
+            [
+              [
+                0,
+                0
+              ],
+              0
+            ],
+            [
+              [
+                10,
+                9
+              ],
+              1
+            ],
+            [
+              [
+                20,
+                20
+              ],
+              1
+            ],
+            [
+              [
+                39,
+                41
+              ],
+              1
+            ],
+            [
+              [
+                49,
+                49
+              ],
+              1
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 0.31646203994750977,
+          "peak_memory_kb": 116.421875,
+          "frontier_cells": 126577,
+          "pruning_false": 123288,
+          "recursive_calls": 3290,
+          "max_depth": 6
+        },
+        "ritorno": {
+          "path_length": 71.05382386916239,
+          "landmarks_count": 5,
+          "landmarks": [
+            [
+              [
+                49,
+                49
+              ],
+              0
+            ],
+            [
+              [
+                39,
+                37
+              ],
+              2
+            ],
+            [
+              [
+                11,
+                11
+              ],
+              2
+            ],
+            [
+              [
+                10,
+                9
+              ],
+              2
+            ],
+            [
+              [
+                0,
+                0
+              ],
+              2
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.35153913497924805,
+          "peak_memory_kb": 116.9609375,
+          "frontier_cells": 128212,
+          "pruning_false": 127406,
+          "recursive_calls": 807,
+          "max_depth": 5
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          35,
+          12
         ],
-        [
-          [
-            39,
-            41
-          ],
-          1
+        "destinazione": [
+          49,
+          22
         ],
-        [
-          [
-            49,
-            49
+        "andata": {
+          "path_length": 18.14213562373095,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                35,
+                12
+              ],
+              0
+            ],
+            [
+              [
+                46,
+                19
+              ],
+              1
+            ],
+            [
+              [
+                49,
+                22
+              ],
+              1
+            ]
           ],
-          1
-        ]
-      ],
-      "timed_out": false,
-      "elapsed_time_s": 2.196484088897705,
-      "peak_memory_kb": 14495.28515625,
-      "frontier_cells": 122270,
-      "pruning_false": 119044,
-      "recursive_calls": 3227,
-      "max_depth": 6
-    }
+          "timed_out": false,
+          "elapsed_time_s": 0.0006859302520751953,
+          "peak_memory_kb": 46.3203125,
+          "frontier_cells": 311,
+          "pruning_false": 305,
+          "recursive_calls": 7,
+          "max_depth": 2
+        },
+        "ritorno": {
+          "path_length": 18.14213562373095,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                49,
+                22
+              ],
+              0
+            ],
+            [
+              [
+                39,
+                16
+              ],
+              1
+            ],
+            [
+              [
+                35,
+                12
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0005040168762207031,
+          "peak_memory_kb": 31.5078125,
+          "frontier_cells": 133,
+          "pruning_false": 130,
+          "recursive_calls": 4,
+          "max_depth": 1
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          23,
+          25
+        ],
+        "destinazione": [
+          29,
+          27
+        ],
+        "andata": {
+          "path_length": 6.82842712474619,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                23,
+                25
+              ],
+              0
+            ],
+            [
+              [
+                29,
+                27
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 3.790855407714844e-05,
+          "peak_memory_kb": 10.296875,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "ritorno": {
+          "path_length": 6.82842712474619,
+          "landmarks_count": 2,
+          "landmarks": [
+            [
+              [
+                29,
+                27
+              ],
+              0
+            ],
+            [
+              [
+                23,
+                25
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 5.602836608886719e-05,
+          "peak_memory_kb": 40.296875,
+          "frontier_cells": 0,
+          "pruning_false": 0,
+          "recursive_calls": 1,
+          "max_depth": 0
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          35,
+          31
+        ],
+        "destinazione": [
+          17,
+          49
+        ],
+        "andata": {
+          "path_length": 26.627416997969522,
+          "landmarks_count": 4,
+          "landmarks": [
+            [
+              [
+                35,
+                31
+              ],
+              0
+            ],
+            [
+              [
+                29,
+                35
+              ],
+              2
+            ],
+            [
+              [
+                17,
+                48
+              ],
+              2
+            ],
+            [
+              [
+                17,
+                49
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.005087852478027344,
+          "peak_memory_kb": 69.5078125,
+          "frontier_cells": 1899,
+          "pruning_false": 1842,
+          "recursive_calls": 58,
+          "max_depth": 2
+        },
+        "ritorno": {
+          "path_length": 26.627416997969522,
+          "landmarks_count": 4,
+          "landmarks": [
+            [
+              [
+                17,
+                49
+              ],
+              0
+            ],
+            [
+              [
+                29,
+                36
+              ],
+              2
+            ],
+            [
+              [
+                33,
+                31
+              ],
+              2
+            ],
+            [
+              [
+                35,
+                31
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.005228996276855469,
+          "peak_memory_kb": 88.6328125,
+          "frontier_cells": 2250,
+          "pruning_false": 2203,
+          "recursive_calls": 48,
+          "max_depth": 3
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          23,
+          10
+        ],
+        "destinazione": [
+          42,
+          8
+        ],
+        "andata": {
+          "path_length": 20.65685424949238,
+          "landmarks_count": 4,
+          "landmarks": [
+            [
+              [
+                23,
+                10
+              ],
+              0
+            ],
+            [
+              [
+                32,
+                8
+              ],
+              2
+            ],
+            [
+              [
+                39,
+                7
+              ],
+              2
+            ],
+            [
+              [
+                42,
+                8
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.002398967742919922,
+          "peak_memory_kb": 84.3828125,
+          "frontier_cells": 743,
+          "pruning_false": 714,
+          "recursive_calls": 30,
+          "max_depth": 3
+        },
+        "ritorno": {
+          "path_length": 20.65685424949238,
+          "landmarks_count": 4,
+          "landmarks": [
+            [
+              [
+                42,
+                8
+              ],
+              0
+            ],
+            [
+              [
+                38,
+                7
+              ],
+              1
+            ],
+            [
+              [
+                29,
+                8
+              ],
+              1
+            ],
+            [
+              [
+                23,
+                10
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.004442930221557617,
+          "peak_memory_kb": 57.2578125,
+          "frontier_cells": 2048,
+          "pruning_false": 2004,
+          "recursive_calls": 45,
+          "max_depth": 3
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      }
+    ],
+    "simmetrie_fallite": 0
   },
   {
     "density": 0.25,
     "metrics": {
-      "path_length": 73.9827560572969,
-      "landmarks_count": 6,
-      "landmarks": [
-        [
-          [
-            0,
-            0
-          ],
+      "elapsed_time_s": 0.008671998977661133,
+      "peak_memory_kb": 44.28125,
+      "frontier_cells": 2805,
+      "pruning_false": 2658,
+      "recursive_calls": 148,
+      "max_depth": 4,
+      "path_length": 30.798989873223334,
+      "landmarks_count": 5,
+      "timed_out": false,
+      "numero_campioni": 5
+    },
+    "coppie": [
+      {
+        "origine": [
+          0,
           0
         ],
-        [
-          [
-            16,
-            22
+        "destinazione": [
+          49,
+          49
+        ],
+        "andata": {
+          "path_length": 73.9827560572969,
+          "landmarks_count": 6,
+          "landmarks": [
+            [
+              [
+                0,
+                0
+              ],
+              0
+            ],
+            [
+              [
+                16,
+                22
+              ],
+              1
+            ],
+            [
+              [
+                22,
+                29
+              ],
+              1
+            ],
+            [
+              [
+                24,
+                32
+              ],
+              1
+            ],
+            [
+              [
+                39,
+                40
+              ],
+              1
+            ],
+            [
+              [
+                49,
+                49
+              ],
+              1
+            ]
           ],
+          "timed_out": false,
+          "elapsed_time_s": 0.09797191619873047,
+          "peak_memory_kb": 64.8125,
+          "frontier_cells": 33581,
+          "pruning_false": 31263,
+          "recursive_calls": 2319,
+          "max_depth": 9
+        },
+        "ritorno": {
+          "path_length": 73.9827560572969,
+          "landmarks_count": 6,
+          "landmarks": [
+            [
+              [
+                49,
+                49
+              ],
+              0
+            ],
+            [
+              [
+                39,
+                40
+              ],
+              2
+            ],
+            [
+              [
+                24,
+                32
+              ],
+              2
+            ],
+            [
+              [
+                17,
+                24
+              ],
+              2
+            ],
+            [
+              [
+                12,
+                15
+              ],
+              2
+            ],
+            [
+              [
+                0,
+                0
+              ],
+              2
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.04622006416320801,
+          "peak_memory_kb": 81.6015625,
+          "frontier_cells": 14638,
+          "pruning_false": 13333,
+          "recursive_calls": 1306,
+          "max_depth": 7
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          42,
+          30
+        ],
+        "destinazione": [
+          5,
+          2
+        ],
+        "andata": {
+          "path_length": 51.76955262170047,
+          "landmarks_count": 9,
+          "landmarks": [
+            [
+              [
+                42,
+                30
+              ],
+              0
+            ],
+            [
+              [
+                43,
+                28
+              ],
+              1
+            ],
+            [
+              [
+                41,
+                25
+              ],
+              1
+            ],
+            [
+              [
+                37,
+                23
+              ],
+              1
+            ],
+            [
+              [
+                27,
+                18
+              ],
+              1
+            ],
+            [
+              [
+                22,
+                15
+              ],
+              1
+            ],
+            [
+              [
+                18,
+                13
+              ],
+              1
+            ],
+            [
+              [
+                14,
+                11
+              ],
+              1
+            ],
+            [
+              [
+                5,
+                2
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.11978006362915039,
+          "peak_memory_kb": 68.3125,
+          "frontier_cells": 39698,
+          "pruning_false": 36912,
+          "recursive_calls": 2787,
+          "max_depth": 8
+        },
+        "ritorno": {
+          "path_length": 51.76955262170048,
+          "landmarks_count": 8,
+          "landmarks": [
+            [
+              [
+                5,
+                2
+              ],
+              0
+            ],
+            [
+              [
+                17,
+                11
+              ],
+              1
+            ],
+            [
+              [
+                26,
+                13
+              ],
+              1
+            ],
+            [
+              [
+                33,
+                19
+              ],
+              1
+            ],
+            [
+              [
+                39,
+                23
+              ],
+              1
+            ],
+            [
+              [
+                42,
+                27
+              ],
+              1
+            ],
+            [
+              [
+                43,
+                29
+              ],
+              1
+            ],
+            [
+              [
+                42,
+                30
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 4.708275079727173,
+          "peak_memory_kb": 83.90625,
+          "frontier_cells": 1577164,
+          "pruning_false": 1455675,
+          "recursive_calls": 121490,
+          "max_depth": 11
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          22,
           1
         ],
-        [
-          [
-            22,
-            29
-          ],
-          1
+        "destinazione": [
+          7,
+          25
         ],
-        [
-          [
-            24,
-            32
+        "andata": {
+          "path_length": 30.798989873223334,
+          "landmarks_count": 5,
+          "landmarks": [
+            [
+              [
+                22,
+                1
+              ],
+              0
+            ],
+            [
+              [
+                13,
+                15
+              ],
+              2
+            ],
+            [
+              [
+                12,
+                17
+              ],
+              2
+            ],
+            [
+              [
+                9,
+                19
+              ],
+              2
+            ],
+            [
+              [
+                7,
+                25
+              ],
+              2
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 0.008671998977661133,
+          "peak_memory_kb": 44.28125,
+          "frontier_cells": 2805,
+          "pruning_false": 2658,
+          "recursive_calls": 148,
+          "max_depth": 4
+        },
+        "ritorno": {
+          "path_length": 30.798989873223334,
+          "landmarks_count": 6,
+          "landmarks": [
+            [
+              [
+                7,
+                25
+              ],
+              0
+            ],
+            [
+              [
+                10,
+                18
+              ],
+              1
+            ],
+            [
+              [
+                11,
+                16
+              ],
+              1
+            ],
+            [
+              [
+                13,
+                10
+              ],
+              1
+            ],
+            [
+              [
+                21,
+                3
+              ],
+              1
+            ],
+            [
+              [
+                22,
+                1
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.003322124481201172,
+          "peak_memory_kb": 44.6484375,
+          "frontier_cells": 1094,
+          "pruning_false": 1036,
+          "recursive_calls": 59,
+          "max_depth": 5
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          13,
+          24
         ],
-        [
-          [
-            39,
-            40
-          ],
-          1
+        "destinazione": [
+          18,
+          12
         ],
-        [
-          [
-            49,
-            49
+        "andata": {
+          "path_length": 14.071067811865476,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                13,
+                24
+              ],
+              0
+            ],
+            [
+              [
+                16,
+                16
+              ],
+              1
+            ],
+            [
+              [
+                18,
+                12
+              ],
+              1
+            ]
           ],
-          1
-        ]
-      ],
-      "timed_out": false,
-      "elapsed_time_s": 0.6591308116912842,
-      "peak_memory_kb": 4430.83984375,
-      "frontier_cells": 27615,
-      "pruning_false": 25598,
-      "recursive_calls": 2018,
-      "max_depth": 9
-    }
+          "timed_out": false,
+          "elapsed_time_s": 0.00061798095703125,
+          "peak_memory_kb": 30.6015625,
+          "frontier_cells": 199,
+          "pruning_false": 194,
+          "recursive_calls": 6,
+          "max_depth": 1
+        },
+        "ritorno": {
+          "path_length": 14.071067811865476,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                18,
+                12
+              ],
+              0
+            ],
+            [
+              [
+                16,
+                16
+              ],
+              2
+            ],
+            [
+              [
+                13,
+                24
+              ],
+              2
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0006661415100097656,
+          "peak_memory_kb": 22.5859375,
+          "frontier_cells": 211,
+          "pruning_false": 196,
+          "recursive_calls": 16,
+          "max_depth": 3
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          48,
+          34
+        ],
+        "destinazione": [
+          44,
+          10
+        ],
+        "andata": {
+          "path_length": 25.65685424949238,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                48,
+                34
+              ],
+              0
+            ],
+            [
+              [
+                44,
+                11
+              ],
+              2
+            ],
+            [
+              [
+                44,
+                10
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0002911090850830078,
+          "peak_memory_kb": 21.953125,
+          "frontier_cells": 109,
+          "pruning_false": 108,
+          "recursive_calls": 2,
+          "max_depth": 1
+        },
+        "ritorno": {
+          "path_length": 25.65685424949238,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                44,
+                10
+              ],
+              0
+            ],
+            [
+              [
+                48,
+                33
+              ],
+              2
+            ],
+            [
+              [
+                48,
+                34
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.00038123130798339844,
+          "peak_memory_kb": 30.140625,
+          "frontier_cells": 120,
+          "pruning_false": 119,
+          "recursive_calls": 2,
+          "max_depth": 1
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      }
+    ],
+    "simmetrie_fallite": 0
   },
   {
     "density": 0.35,
     "metrics": {
-      "path_length": 75.9827560572969,
-      "landmarks_count": 11,
-      "landmarks": [
-        [
-          [
-            0,
-            0
-          ],
+      "elapsed_time_s": 0.007745027542114258,
+      "peak_memory_kb": 42.234375,
+      "frontier_cells": 2230,
+      "pruning_false": 1887,
+      "recursive_calls": 344,
+      "max_depth": 8,
+      "path_length": 41.87005768508881,
+      "landmarks_count": 7,
+      "timed_out": false,
+      "numero_campioni": 5
+    },
+    "coppie": [
+      {
+        "origine": [
+          0,
           0
         ],
-        [
-          [
-            9,
-            5
-          ],
-          1
+        "destinazione": [
+          49,
+          49
         ],
-        [
-          [
-            16,
-            7
+        "andata": {
+          "path_length": 75.9827560572969,
+          "landmarks_count": 11,
+          "landmarks": [
+            [
+              [
+                0,
+                0
+              ],
+              0
+            ],
+            [
+              [
+                9,
+                5
+              ],
+              1
+            ],
+            [
+              [
+                16,
+                7
+              ],
+              1
+            ],
+            [
+              [
+                26,
+                19
+              ],
+              1
+            ],
+            [
+              [
+                36,
+                28
+              ],
+              1
+            ],
+            [
+              [
+                38,
+                31
+              ],
+              1
+            ],
+            [
+              [
+                40,
+                35
+              ],
+              1
+            ],
+            [
+              [
+                42,
+                38
+              ],
+              1
+            ],
+            [
+              [
+                44,
+                41
+              ],
+              1
+            ],
+            [
+              [
+                43,
+                43
+              ],
+              1
+            ],
+            [
+              [
+                49,
+                49
+              ],
+              1
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 0.6794102191925049,
+          "peak_memory_kb": 57.546875,
+          "frontier_cells": 198096,
+          "pruning_false": 169091,
+          "recursive_calls": 29006,
+          "max_depth": 15
+        },
+        "ritorno": {
+          "path_length": 75.9827560572969,
+          "landmarks_count": 11,
+          "landmarks": [
+            [
+              [
+                49,
+                49
+              ],
+              0
+            ],
+            [
+              [
+                43,
+                42
+              ],
+              1
+            ],
+            [
+              [
+                44,
+                40
+              ],
+              1
+            ],
+            [
+              [
+                41,
+                36
+              ],
+              1
+            ],
+            [
+              [
+                40,
+                33
+              ],
+              1
+            ],
+            [
+              [
+                38,
+                30
+              ],
+              1
+            ],
+            [
+              [
+                35,
+                28
+              ],
+              1
+            ],
+            [
+              [
+                26,
+                17
+              ],
+              1
+            ],
+            [
+              [
+                9,
+                6
+              ],
+              1
+            ],
+            [
+              [
+                5,
+                5
+              ],
+              1
+            ],
+            [
+              [
+                0,
+                0
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 1.037287950515747,
+          "peak_memory_kb": 57.1328125,
+          "frontier_cells": 319003,
+          "pruning_false": 282110,
+          "recursive_calls": 36894,
+          "max_depth": 15
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          26,
+          13
         ],
-        [
-          [
-            26,
-            19
-          ],
-          1
+        "destinazione": [
+          48,
+          44
         ],
-        [
-          [
-            36,
-            28
+        "andata": {
+          "path_length": 41.87005768508881,
+          "landmarks_count": 9,
+          "landmarks": [
+            [
+              [
+                26,
+                13
+              ],
+              0
+            ],
+            [
+              [
+                28,
+                21
+              ],
+              1
+            ],
+            [
+              [
+                36,
+                28
+              ],
+              1
+            ],
+            [
+              [
+                38,
+                31
+              ],
+              1
+            ],
+            [
+              [
+                41,
+                33
+              ],
+              1
+            ],
+            [
+              [
+                44,
+                35
+              ],
+              1
+            ],
+            [
+              [
+                46,
+                39
+              ],
+              1
+            ],
+            [
+              [
+                47,
+                43
+              ],
+              1
+            ],
+            [
+              [
+                48,
+                44
+              ],
+              1
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 0.007745027542114258,
+          "peak_memory_kb": 42.234375,
+          "frontier_cells": 2230,
+          "pruning_false": 1887,
+          "recursive_calls": 344,
+          "max_depth": 8
+        },
+        "ritorno": {
+          "path_length": 41.87005768508881,
+          "landmarks_count": 9,
+          "landmarks": [
+            [
+              [
+                48,
+                44
+              ],
+              0
+            ],
+            [
+              [
+                47,
+                40
+              ],
+              1
+            ],
+            [
+              [
+                45,
+                36
+              ],
+              1
+            ],
+            [
+              [
+                42,
+                34
+              ],
+              1
+            ],
+            [
+              [
+                39,
+                32
+              ],
+              1
+            ],
+            [
+              [
+                38,
+                30
+              ],
+              1
+            ],
+            [
+              [
+                35,
+                28
+              ],
+              1
+            ],
+            [
+              [
+                28,
+                15
+              ],
+              1
+            ],
+            [
+              [
+                26,
+                13
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.00725102424621582,
+          "peak_memory_kb": 29.9765625,
+          "frontier_cells": 2009,
+          "pruning_false": 1725,
+          "recursive_calls": 285,
+          "max_depth": 9
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          9,
+          25
         ],
-        [
-          [
-            38,
-            31
-          ],
-          1
+        "destinazione": [
+          46,
+          42
         ],
-        [
-          [
-            40,
-            35
+        "andata": {
+          "path_length": 47.941125496954285,
+          "landmarks_count": 7,
+          "landmarks": [
+            [
+              [
+                9,
+                25
+              ],
+              0
+            ],
+            [
+              [
+                22,
+                37
+              ],
+              2
+            ],
+            [
+              [
+                31,
+                39
+              ],
+              2
+            ],
+            [
+              [
+                38,
+                45
+              ],
+              2
+            ],
+            [
+              [
+                42,
+                46
+              ],
+              2
+            ],
+            [
+              [
+                44,
+                45
+              ],
+              2
+            ],
+            [
+              [
+                46,
+                42
+              ],
+              2
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 1.431931972503662,
+          "peak_memory_kb": 50.875,
+          "frontier_cells": 412108,
+          "pruning_false": 352194,
+          "recursive_calls": 59915,
+          "max_depth": 12
+        },
+        "ritorno": {
+          "path_length": 47.94112549695427,
+          "landmarks_count": 8,
+          "landmarks": [
+            [
+              [
+                46,
+                42
+              ],
+              0
+            ],
+            [
+              [
+                43,
+                43
+              ],
+              1
+            ],
+            [
+              [
+                42,
+                42
+              ],
+              1
+            ],
+            [
+              [
+                41,
+                44
+              ],
+              1
+            ],
+            [
+              [
+                38,
+                45
+              ],
+              1
+            ],
+            [
+              [
+                29,
+                38
+              ],
+              1
+            ],
+            [
+              [
+                22,
+                37
+              ],
+              1
+            ],
+            [
+              [
+                9,
+                25
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0027408599853515625,
+          "peak_memory_kb": 34.9921875,
+          "frontier_cells": 830,
+          "pruning_false": 719,
+          "recursive_calls": 112,
+          "max_depth": 7
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          34,
+          18
         ],
-        [
-          [
-            42,
-            38
-          ],
-          1
+        "destinazione": [
+          32,
+          29
         ],
-        [
-          [
-            44,
-            41
+        "andata": {
+          "path_length": 12.65685424949238,
+          "landmarks_count": 4,
+          "landmarks": [
+            [
+              [
+                34,
+                18
+              ],
+              0
+            ],
+            [
+              [
+                35,
+                21
+              ],
+              1
+            ],
+            [
+              [
+                33,
+                28
+              ],
+              1
+            ],
+            [
+              [
+                32,
+                29
+              ],
+              1
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 0.00021409988403320312,
+          "peak_memory_kb": 16.640625,
+          "frontier_cells": 93,
+          "pruning_false": 90,
+          "recursive_calls": 4,
+          "max_depth": 2
+        },
+        "ritorno": {
+          "path_length": 12.65685424949238,
+          "landmarks_count": 4,
+          "landmarks": [
+            [
+              [
+                32,
+                29
+              ],
+              0
+            ],
+            [
+              [
+                33,
+                23
+              ],
+              1
+            ],
+            [
+              [
+                35,
+                19
+              ],
+              1
+            ],
+            [
+              [
+                34,
+                18
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0003521442413330078,
+          "peak_memory_kb": 8.046875,
+          "frontier_cells": 123,
+          "pruning_false": 116,
+          "recursive_calls": 8,
+          "max_depth": 2
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          29,
+          16
         ],
-        [
-          [
-            43,
-            43
-          ],
-          1
+        "destinazione": [
+          11,
+          7
         ],
-        [
-          [
-            49,
-            49
+        "andata": {
+          "path_length": 21.727922061357855,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                29,
+                16
+              ],
+              0
+            ],
+            [
+              [
+                16,
+                11
+              ],
+              1
+            ],
+            [
+              [
+                11,
+                7
+              ],
+              1
+            ]
           ],
-          1
-        ]
-      ],
-      "timed_out": false,
-      "elapsed_time_s": 4.394412040710449,
-      "peak_memory_kb": 93617.57421875,
-      "frontier_cells": 163783,
-      "pruning_false": 139350,
-      "recursive_calls": 24434,
-      "max_depth": 15
-    }
+          "timed_out": false,
+          "elapsed_time_s": 0.0001850128173828125,
+          "peak_memory_kb": 16.515625,
+          "frontier_cells": 54,
+          "pruning_false": 53,
+          "recursive_calls": 2,
+          "max_depth": 1
+        },
+        "ritorno": {
+          "path_length": 21.727922061357855,
+          "landmarks_count": 3,
+          "landmarks": [
+            [
+              [
+                11,
+                7
+              ],
+              0
+            ],
+            [
+              [
+                24,
+                14
+              ],
+              2
+            ],
+            [
+              [
+                29,
+                16
+              ],
+              2
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.0003809928894042969,
+          "peak_memory_kb": 17.1640625,
+          "frontier_cells": 144,
+          "pruning_false": 138,
+          "recursive_calls": 7,
+          "max_depth": 2
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      }
+    ],
+    "simmetrie_fallite": 0
   },
   {
     "density": 0.45,
     "metrics": {
-      "path_length": 84.81118318204307,
-      "landmarks_count": 18,
-      "landmarks": [
-        [
-          [
-            0,
-            0
-          ],
+      "elapsed_time_s": 1.4527819156646729,
+      "peak_memory_kb": 39.4140625,
+      "frontier_cells": 379591,
+      "pruning_false": 320504,
+      "recursive_calls": 59088,
+      "max_depth": 15,
+      "path_length": 48.698484809834994,
+      "landmarks_count": 13,
+      "timed_out": false,
+      "numero_campioni": 5
+    },
+    "coppie": [
+      {
+        "origine": [
+          0,
           0
         ],
-        [
-          [
-            1,
-            4
-          ],
-          1
+        "destinazione": [
+          49,
+          49
         ],
-        [
-          [
-            7,
-            6
+        "andata": {
+          "path_length": 80.08326112068522,
+          "landmarks_count": 18,
+          "landmarks": [
+            [
+              [
+                0,
+                0
+              ],
+              0
+            ],
+            [
+              [
+                1,
+                4
+              ],
+              1
+            ],
+            [
+              [
+                2,
+                8
+              ],
+              1
+            ],
+            [
+              [
+                4,
+                10
+              ],
+              1
+            ],
+            [
+              [
+                3,
+                13
+              ],
+              1
+            ],
+            [
+              [
+                4,
+                18
+              ],
+              1
+            ],
+            [
+              [
+                7,
+                20
+              ],
+              1
+            ],
+            [
+              [
+                9,
+                21
+              ],
+              1
+            ],
+            [
+              [
+                13,
+                26
+              ],
+              1
+            ],
+            [
+              [
+                15,
+                27
+              ],
+              1
+            ],
+            [
+              [
+                17,
+                30
+              ],
+              1
+            ],
+            [
+              [
+                21,
+                35
+              ],
+              1
+            ],
+            [
+              [
+                29,
+                37
+              ],
+              1
+            ],
+            [
+              [
+                33,
+                40
+              ],
+              1
+            ],
+            [
+              [
+                39,
+                41
+              ],
+              1
+            ],
+            [
+              [
+                42,
+                43
+              ],
+              1
+            ],
+            [
+              [
+                45,
+                45
+              ],
+              1
+            ],
+            [
+              [
+                49,
+                49
+              ],
+              1
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 14.448652029037476,
+          "peak_memory_kb": 48.1484375,
+          "frontier_cells": 3287060,
+          "pruning_false": 2496239,
+          "recursive_calls": 790822,
+          "max_depth": 20
+        },
+        "ritorno": {
+          "path_length": 80.08326112068524,
+          "landmarks_count": 16,
+          "landmarks": [
+            [
+              [
+                49,
+                49
+              ],
+              0
+            ],
+            [
+              [
+                43,
+                44
+              ],
+              1
+            ],
+            [
+              [
+                38,
+                43
+              ],
+              1
+            ],
+            [
+              [
+                34,
+                41
+              ],
+              1
+            ],
+            [
+              [
+                32,
+                40
+              ],
+              1
+            ],
+            [
+              [
+                23,
+                37
+              ],
+              1
+            ],
+            [
+              [
+                19,
+                32
+              ],
+              1
+            ],
+            [
+              [
+                17,
+                29
+              ],
+              1
+            ],
+            [
+              [
+                14,
+                27
+              ],
+              1
+            ],
+            [
+              [
+                12,
+                24
+              ],
+              1
+            ],
+            [
+              [
+                8,
+                21
+              ],
+              1
+            ],
+            [
+              [
+                6,
+                20
+              ],
+              1
+            ],
+            [
+              [
+                4,
+                14
+              ],
+              1
+            ],
+            [
+              [
+                0,
+                5
+              ],
+              1
+            ],
+            [
+              [
+                1,
+                1
+              ],
+              1
+            ],
+            [
+              [
+                0,
+                0
+              ],
+              1
+            ]
+          ],
+          "timed_out": true,
+          "elapsed_time_s": 20.000118732452393,
+          "peak_memory_kb": 55.8828125,
+          "frontier_cells": 3878241,
+          "pruning_false": 2932670,
+          "recursive_calls": 945557,
+          "max_depth": 22
+        },
+        "simmetria_verificabile": false,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          19,
+          40
         ],
-        [
-          [
-            10,
-            5
-          ],
-          1
+        "destinazione": [
+          20,
+          18
         ],
-        [
-          [
-            15,
-            10
+        "andata": {
+          "path_length": 31.38477631085024,
+          "landmarks_count": 7,
+          "landmarks": [
+            [
+              [
+                19,
+                40
+              ],
+              0
+            ],
+            [
+              [
+                18,
+                38
+              ],
+              1
+            ],
+            [
+              [
+                17,
+                37
+              ],
+              1
+            ],
+            [
+              [
+                16,
+                38
+              ],
+              1
+            ],
+            [
+              [
+                12,
+                25
+              ],
+              1
+            ],
+            [
+              [
+                17,
+                19
+              ],
+              1
+            ],
+            [
+              [
+                20,
+                18
+              ],
+              1
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 0.024609088897705078,
+          "peak_memory_kb": 28.46875,
+          "frontier_cells": 4364,
+          "pruning_false": 3151,
+          "recursive_calls": 1214,
+          "max_depth": 11
+        },
+        "ritorno": {
+          "path_length": 31.384776310850235,
+          "landmarks_count": 7,
+          "landmarks": [
+            [
+              [
+                20,
+                18
+              ],
+              0
+            ],
+            [
+              [
+                17,
+                19
+              ],
+              2
+            ],
+            [
+              [
+                12,
+                25
+              ],
+              2
+            ],
+            [
+              [
+                16,
+                38
+              ],
+              2
+            ],
+            [
+              [
+                17,
+                37
+              ],
+              1
+            ],
+            [
+              [
+                18,
+                39
+              ],
+              1
+            ],
+            [
+              [
+                19,
+                40
+              ],
+              1
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.004912853240966797,
+          "peak_memory_kb": 23.3984375,
+          "frontier_cells": 889,
+          "pruning_false": 683,
+          "recursive_calls": 207,
+          "max_depth": 7
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          0,
+          33
         ],
-        [
-          [
-            17,
-            9
-          ],
-          1
+        "destinazione": [
+          0,
+          15
         ],
-        [
-          [
-            20,
-            13
+        "andata": {
+          "path_length": 23.31370849898476,
+          "landmarks_count": 6,
+          "landmarks": [
+            [
+              [
+                0,
+                33
+              ],
+              0
+            ],
+            [
+              [
+                2,
+                29
+              ],
+              1
+            ],
+            [
+              [
+                0,
+                22
+              ],
+              1
+            ],
+            [
+              [
+                1,
+                18
+              ],
+              1
+            ],
+            [
+              [
+                3,
+                16
+              ],
+              1
+            ],
+            [
+              [
+                0,
+                15
+              ],
+              1
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 0.0029687881469726562,
+          "peak_memory_kb": 15.53125,
+          "frontier_cells": 412,
+          "pruning_false": 300,
+          "recursive_calls": 113,
+          "max_depth": 7
+        },
+        "ritorno": {
+          "path_length": 23.313708498984763,
+          "landmarks_count": 5,
+          "landmarks": [
+            [
+              [
+                0,
+                15
+              ],
+              0
+            ],
+            [
+              [
+                3,
+                16
+              ],
+              2
+            ],
+            [
+              [
+                0,
+                24
+              ],
+              2
+            ],
+            [
+              [
+                2,
+                29
+              ],
+              2
+            ],
+            [
+              [
+                0,
+                33
+              ],
+              2
+            ]
+          ],
+          "timed_out": false,
+          "elapsed_time_s": 0.001026153564453125,
+          "peak_memory_kb": 12.65625,
+          "frontier_cells": 165,
+          "pruning_false": 119,
+          "recursive_calls": 47,
+          "max_depth": 4
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          26,
+          6
         ],
-        [
-          [
-            27,
-            17
-          ],
-          1
+        "destinazione": [
+          42,
+          42
         ],
-        [
-          [
-            31,
-            22
+        "andata": {
+          "path_length": 63.012193308819754,
+          "landmarks_count": 13,
+          "landmarks": [
+            [
+              [
+                26,
+                6
+              ],
+              0
+            ],
+            [
+              [
+                23,
+                5
+              ],
+              2
+            ],
+            [
+              [
+                22,
+                3
+              ],
+              2
+            ],
+            [
+              [
+                19,
+                5
+              ],
+              2
+            ],
+            [
+              [
+                24,
+                17
+              ],
+              2
+            ],
+            [
+              [
+                31,
+                21
+              ],
+              2
+            ],
+            [
+              [
+                29,
+                24
+              ],
+              2
+            ],
+            [
+              [
+                28,
+                27
+              ],
+              2
+            ],
+            [
+              [
+                30,
+                30
+              ],
+              1
+            ],
+            [
+              [
+                29,
+                32
+              ],
+              1
+            ],
+            [
+              [
+                33,
+                34
+              ],
+              1
+            ],
+            [
+              [
+                41,
+                41
+              ],
+              1
+            ],
+            [
+              [
+                42,
+                42
+              ],
+              1
+            ]
           ],
-          1
+          "timed_out": false,
+          "elapsed_time_s": 2.272057056427002,
+          "peak_memory_kb": 39.4140625,
+          "frontier_cells": 451505,
+          "pruning_false": 337495,
+          "recursive_calls": 114011,
+          "max_depth": 18
+        },
+        "ritorno": {
+          "path_length": 71.59797974644665,
+          "landmarks_count": 18,
+          "landmarks": [
+            [
+              [
+                42,
+                42
+              ],
+              0
+            ],
+            [
+              [
+                44,
+                36
+              ],
+              1
+            ],
+            [
+              [
+                40,
+                35
+              ],
+              2
+            ],
+            [
+              [
+                42,
+                32
+              ],
+              2
+            ],
+            [
+              [
+                45,
+                28
+              ],
+              2
+            ],
+            [
+              [
+                40,
+                24
+              ],
+              2
+            ],
+            [
+              [
+                39,
+                21
+              ],
+              2
+            ],
+            [
+              [
+                35,
+                18
+              ],
+              2
+            ],
+            [
+              [
+                34,
+                15
+              ],
+              2
+            ],
+            [
+              [
+                32,
+                12
+              ],
+              2
+            ],
+            [
+              [
+                23,
+                10
+              ],
+              2
+            ],
+            [
+              [
+                22,
+                11
+              ],
+              1
+            ],
+            [
+              [
+                20,
+                10
+              ],
+              1
+            ],
+            [
+              [
+                19,
+                6
+              ],
+              1
+            ],
+            [
+              [
+                20,
+                4
+              ],
+              1
+            ],
+            [
+              [
+                22,
+                3
+              ],
+              1
+            ],
+            [
+              [
+                23,
+                5
+              ],
+              1
+            ],
+            [
+              [
+                26,
+                6
+              ],
+              1
+            ]
+          ],
+          "timed_out": true,
+          "elapsed_time_s": 20.00005602836609,
+          "peak_memory_kb": 53.6171875,
+          "frontier_cells": 3799728,
+          "pruning_false": 2781851,
+          "recursive_calls": 1017772,
+          "max_depth": 22
+        },
+        "simmetria_verificabile": false,
+        "simmetria_ok": true
+      },
+      {
+        "origine": [
+          48,
+          28
         ],
-        [
-          [
-            29,
-            26
-          ],
-          1
+        "destinazione": [
+          14,
+          7
         ],
-        [
-          [
-            28,
-            28
+        "andata": {
+          "path_length": 48.698484809834994,
+          "landmarks_count": 13,
+          "landmarks": [
+            [
+              [
+                48,
+                28
+              ],
+              0
+            ],
+            [
+              [
+                46,
+                26
+              ],
+              1
+            ],
+            [
+              [
+                43,
+                27
+              ],
+              1
+            ],
+            [
+              [
+                40,
+                22
+              ],
+              1
+            ],
+            [
+              [
+                38,
+                21
+              ],
+              1
+            ],
+            [
+              [
+                35,
+                16
+              ],
+              1
+            ],
+            [
+              [
+                34,
+                14
+              ],
+              1
+            ],
+            [
+              [
+                25,
+                12
+              ],
+              1
+            ],
+            [
+              [
+                21,
+                9
+              ],
+              1
+            ],
+            [
+              [
+                19,
+                10
+              ],
+              1
+            ],
+            [
+              [
+                17,
+                7
+              ],
+              1
+            ],
+            [
+              [
+                15,
+                6
+              ],
+              1
+            ],
+            [
+              [
+                14,
+                7
+              ],
+              1
+            ]
           ],
-          1
-        ],
-        [
-          [
-            29,
-            29
+          "timed_out": false,
+          "elapsed_time_s": 1.4527819156646729,
+          "peak_memory_kb": 40.46875,
+          "frontier_cells": 379591,
+          "pruning_false": 320504,
+          "recursive_calls": 59088,
+          "max_depth": 15
+        },
+        "ritorno": {
+          "path_length": 48.698484809834994,
+          "landmarks_count": 13,
+          "landmarks": [
+            [
+              [
+                14,
+                7
+              ],
+              0
+            ],
+            [
+              [
+                16,
+                6
+              ],
+              1
+            ],
+            [
+              [
+                17,
+                8
+              ],
+              1
+            ],
+            [
+              [
+                21,
+                10
+              ],
+              1
+            ],
+            [
+              [
+                22,
+                11
+              ],
+              1
+            ],
+            [
+              [
+                25,
+                10
+              ],
+              1
+            ],
+            [
+              [
+                32,
+                12
+              ],
+              1
+            ],
+            [
+              [
+                34,
+                15
+              ],
+              1
+            ],
+            [
+              [
+                36,
+                19
+              ],
+              1
+            ],
+            [
+              [
+                39,
+                21
+              ],
+              1
+            ],
+            [
+              [
+                42,
+                26
+              ],
+              1
+            ],
+            [
+              [
+                47,
+                29
+              ],
+              1
+            ],
+            [
+              [
+                48,
+                28
+              ],
+              1
+            ]
           ],
-          1
-        ],
-        [
-          [
-            28,
-            31
-          ],
-          1
-        ],
-        [
-          [
-            33,
-            34
-          ],
-          1
-        ],
-        [
-          [
-            41,
-            41
-          ],
-          1
-        ],
-        [
-          [
-            43,
-            42
-          ],
-          1
-        ],
-        [
-          [
-            45,
-            45
-          ],
-          1
-        ],
-        [
-          [
-            49,
-            49
-          ],
-          1
-        ]
-      ],
-      "timed_out": true,
-      "elapsed_time_s": 30.175997018814087,
-      "peak_memory_kb": 695231.85546875,
-      "frontier_cells": 924074,
-      "pruning_false": 685808,
-      "recursive_calls": 238207,
-      "max_depth": 18
-    }
+          "timed_out": false,
+          "elapsed_time_s": 1.20750093460083,
+          "peak_memory_kb": 36.90625,
+          "frontier_cells": 288862,
+          "pruning_false": 235643,
+          "recursive_calls": 53220,
+          "max_depth": 14
+        },
+        "simmetria_verificabile": true,
+        "simmetria_ok": true
+      }
+    ],
+    "simmetrie_fallite": 0
   }
 ]

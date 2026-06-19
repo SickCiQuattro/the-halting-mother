@@ -1,6 +1,6 @@
 import json
 import numpy as np
-from typing import Iterator, Union, Set, List
+from typing import List
 from src.exceptions import InvalidCoordinateError
 
 # Definizione alias di tipo per una maggiore leggibilità e astrazione
@@ -34,6 +34,8 @@ class Grid:
         self.rows: int = rows
         self.cols: int = cols
         self.state: np.ndarray = np.zeros((rows, cols), dtype=np.uint8)
+        # Tipologie di ostacoli con cui la griglia è stata generata (richiesto dal riassunto, Slide 71)
+        self.types: List[str] = []
 
     def is_valid(self, row: int, col: int) -> bool:
         """
@@ -91,55 +93,6 @@ class Grid:
             raise InvalidCoordinateError(f"Impossibile liberare la cella: coordinata ({row}, {col}) non valida.")
         self.state[row, col] = 0
 
-    def mark_temp(self, cells: Union[List[Coordinate], Set[Coordinate]], depth_id: int) -> None:
-        """
-        Marca un insieme di celle come ostacoli temporanei con un ID associato alla profondità corrente.
-        Questo metodo viene utilizzato per gestire il backtracking in-place in modo efficiente.
-
-        Args:
-            cells: Lista o insieme di coordinate delle celle da marcare.
-            depth_id: Valore intero da assegnare alle celle (deve essere >= 2).
-        """
-        for r, c in cells:
-            if self.is_valid(r, c):
-                self.state[r, c] = depth_id
-
-    def unmark_temp(self, cells: Union[List[Coordinate], Set[Coordinate]]) -> None:
-        """
-        Libera le celle temporaneamente marcate durante il backtracking, ripristinandole allo stato libero (0).
-
-        Args:
-            cells: Lista o insieme di coordinate delle celle da ripristinare.
-        """
-        for r, c in cells:
-            if self.is_valid(r, c):
-                self.state[r, c] = 0
-
-    def neighbors(self, row: int, col: int) -> List[Coordinate]:
-        """
-        Individua le celle adiacenti (8-connected) che sono attualmente attraversabili.
-
-        Nota: Come da specifica tecnica, le mosse diagonali richiedono esclusivamente
-        che la cella target sia libera. Non vengono effettuati controlli di blocco
-        diagonale dovuti al contatto d'angolo tra due ostacoli adiacenti.
-
-        Args:
-            row: Riga della cella centrale.
-            col: Colonna della cella centrale.
-
-        Returns:
-            Una lista di coordinate adiacenti valide e attraversabili.
-        """
-        result: List[Coordinate] = []
-        for dr in (-1, 0, 1):
-            for dc in (-1, 0, 1):
-                if dr == 0 and dc == 0:
-                    continue
-                nr, nc = row + dr, col + dc
-                if self.is_traversable(nr, nc):
-                    result.append((nr, nc))
-        return result
-
     def save(self, path: str) -> None:
         """
         Salva lo stato strutturato della griglia (dimensioni e posizioni degli ostacoli fissi)
@@ -157,6 +110,7 @@ class Grid:
         data = {
             "rows": self.rows,
             "cols": self.cols,
+            "types": self.types,
             "obstacles": obstacles
         }
         with open(path, 'w', encoding='utf-8') as f:
@@ -176,6 +130,7 @@ class Grid:
         with open(path, 'r', encoding='utf-8') as f:
             data = json.load(f)
         grid = cls(data["rows"], data["cols"])
+        grid.types = data.get("types", [])
         for r, c in data["obstacles"]:
             grid.set_obstacle(r, c)
         return grid

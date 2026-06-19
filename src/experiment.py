@@ -167,6 +167,117 @@ class ExperimentRunner:
         return summary
 
     # ------------------------------------------------------------------ #
+    #  Utilità per le campagne                                           #
+    # ------------------------------------------------------------------ #
+
+    @staticmethod
+    def _coppie_casuali(
+        grid: Grid,
+        n_pairs: int,
+        rng: np.random.Generator
+    ) -> list[tuple[Coordinate, Coordinate]]:
+        """
+        Estrae coppie casuali distinte di celle attraversabili (origine, destinazione).
+
+        Args:
+            grid: La griglia da cui campionare.
+            n_pairs: Numero di coppie richieste.
+            rng: Generatore pseudo-casuale per la riproducibilità.
+
+        Returns:
+            Lista di coppie di coordinate attraversabili.
+        """
+        coppie: list[tuple[Coordinate, Coordinate]] = []
+        for _ in range(n_pairs):
+            for _ in range(2000):
+                o: Coordinate = (int(rng.integers(0, grid.rows)), int(rng.integers(0, grid.cols)))
+                d: Coordinate = (int(rng.integers(0, grid.rows)), int(rng.integers(0, grid.cols)))
+                if o != d and grid.is_traversable(o[0], o[1]) and grid.is_traversable(d[0], d[1]):
+                    coppie.append((o, d))
+                    break
+        return coppie
+
+    @staticmethod
+    def _mediana_metriche(campioni: list[dict[str, object]]) -> dict[str, object]:
+        """
+        Aggrega per mediana le metriche numeriche di più esecuzioni sulla stessa configurazione.
+
+        Args:
+            campioni: Lista di dizionari prodotti da `run_single_benchmark`.
+
+        Returns:
+            Dizionario con le mediane delle metriche e il numero di campioni aggregati.
+        """
+        import statistics
+        chiavi = [
+            "elapsed_time_s", "peak_memory_kb", "frontier_cells", "pruning_false",
+            "recursive_calls", "max_depth", "path_length", "landmarks_count"
+        ]
+        aggregato: dict[str, object] = {}
+        for k in chiavi:
+            valori = [
+                c[k] for c in campioni
+                if not (isinstance(c[k], float) and np.isinf(c[k]))
+            ]
+            aggregato[k] = statistics.median(valori) if valori else float('inf')
+        aggregato["timed_out"] = any(c["timed_out"] for c in campioni)
+        aggregato["numero_campioni"] = len(campioni)
+        return aggregato
+
+    @classmethod
+    def run_benchmark_coppia(
+        cls,
+        grid: Grid,
+        origin: Coordinate,
+        destination: Coordinate,
+        use_strong_pruning: bool = True,
+        randomize_frontier: bool = False,
+        timeout: float = 30.0
+    ) -> dict[str, object]:
+        """
+        Esegue il riscontro completo su una coppia: invocazione O→D e D→O (diapositiva 64).
+
+        La doppia invocazione con parametri scambiati è la verifica di correttezza richiesta
+        dalla specifica: le due lunghezze minime devono coincidere.
+
+        Returns:
+            Dizionario con le metriche di andata, di ritorno e l'esito della verifica di simmetria.
+        """
+        andata = cls.run_single_benchmark(
+            grid, origin, destination,
+            use_strong_pruning=use_strong_pruning,
+            randomize_frontier=randomize_frontier,
+            timeout=timeout
+        )
+        ritorno = cls.run_single_benchmark(
+            grid, destination, origin,
+            use_strong_pruning=use_strong_pruning,
+            randomize_frontier=randomize_frontier,
+            timeout=timeout
+        )
+
+        verificabile = not (andata["timed_out"] or ritorno["timed_out"])
+        simmetria_ok = True
+        if verificabile:
+            l_od, l_do = andata["path_length"], ritorno["path_length"]
+            if not (np.isinf(l_od) and np.isinf(l_do)):
+                simmetria_ok = abs(l_od - l_do) <= 1e-9
+                if not simmetria_ok:
+                    logger.error(
+                        f"SIMMETRIA FALLITA su {origin}↔{destination}: "
+                        f"O→D={l_od:.6f}, D→O={l_do:.6f}"
+                    )
+
+        return {
+            "origine": origin,
+            "destinazione": destination,
+            "andata": andata,
+            "ritorno": ritorno,
+            "simmetria_verificabile": verificabile,
+            "simmetria_ok": simmetria_ok
+        }
+
+    # ------------------------------------------------------------------ #
     #  Benchmark singolo                                                 #
     # ------------------------------------------------------------------ #
 
@@ -177,8 +288,7 @@ class ExperimentRunner:
         destination: Coordinate,
         use_strong_pruning: bool = False,
         randomize_frontier: bool = False,
-        timeout: float = 30.0,
-        disable_seed: bool = False
+        timeout: float = 30.0
     ) -> dict[str, object]:
         """
         Esegue un singolo benchmark di cammino minimo con raccolta di metriche.
@@ -187,17 +297,18 @@ class ExperimentRunner:
             grid: L'oggetto Griglia.
             origin: Coordinata di partenza.
             destination: Coordinata di arrivo.
-            use_strong_pruning: Se True, abilita la potatura forte (Riga 17).
+            use_strong_pruning: Se True, abilita la potatura forte (riga 17).
             randomize_frontier: Se True, ordina la frontiera casualmente anziché euristicamente.
             timeout: Tempo limite di esecuzione in secondi.
-            disable_seed: Se True, disabilita il seed del minimo globale (Greedy Seeding).
 
         Returns:
             Dizionario con metriche di percorso, tempo, memoria e nodi esplorati.
         """
+        # --- Misura temporale: esecuzione pulita, senza profilatura della memoria ---
+        # tracemalloc, se attivo durante il cronometraggio, introduce un sovraccarico di
+        # circa cinque volte e falserebbe i tempi: la misura della memoria viene perciò
+        # tenuta separata da quella del tempo (vedi passata successiva).
         state_copy = grid.state.copy()
-
-        tracemalloc.start()
         stats: dict[str, int] = {
             'frontier_cells': 0,
             'pruning_false': 0,
@@ -212,14 +323,30 @@ class ExperimentRunner:
                 origin, destination, state_copy, depth=0, stats=stats,
                 start_time=start_time, timeout=timeout,
                 use_strong_pruning=use_strong_pruning,
-                randomize_frontier=randomize_frontier,
-                disable_seed=disable_seed
+                randomize_frontier=randomize_frontier
             )
         except Exception as e:
             logger.error(f"Errore critico durante benchmark: {e}", exc_info=True)
             l_min, landmarks, timed_out = float('inf'), [], False
 
         elapsed = time.time() - start_time
+
+        # --- Misura spaziale: passata separata e profilata con tracemalloc ---
+        # Limitata nel tempo per non raddoppiare il costo delle esecuzioni che raggiungono
+        # il tempo limite; il picco di memoria si stabilizza presto, poiché il ritracciamento
+        # sul posto mantiene l'occupazione a O(profondità) più la chiusura corrente.
+        mem_state = grid.state.copy()
+        mem_start = time.time()
+        tracemalloc.start()
+        try:
+            camminomin(
+                origin, destination, mem_state, depth=0, stats=None,
+                start_time=mem_start, timeout=min(timeout, 3.0),
+                use_strong_pruning=use_strong_pruning,
+                randomize_frontier=randomize_frontier
+            )
+        except Exception:
+            pass
         _, peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
 
@@ -259,10 +386,13 @@ class ExperimentRunner:
         logger.info("Avvio della Campagna Sperimentale in corso...")
 
         # -------------------------------------------------------------- #
-        # 1. Scaling dimensione griglia: 10 → 200                        #
+        # 1. Scalabilità con la dimensione della griglia: 10 → 200       #
         # -------------------------------------------------------------- #
-        # Include 200x200 come richiesto dalla specifica (Slide 72).
-        # Timeout generoso (60s) per dare una chance anche alla griglia più grande.
+        # Include 200x200 come richiesto dalla specifica (diapositiva 72).
+        # Tempo limite generoso (60s) per dare una possibilità anche alla griglia più grande.
+        # Si confrontano la potatura debole (riga 16) e quella forte (riga 17); la configurazione
+        # forte è eseguita in entrambe le direzioni (O→D e D→O) per la verifica di correttezza
+        # di cui alla diapositiva 64.
         sizes = [10, 20, 50, 100, 150, 200]
         scaling_results: list[dict[str, object]] = []
 
@@ -276,15 +406,16 @@ class ExperimentRunner:
             grid.clear_cell(o[0], o[1])
             grid.clear_cell(d[0], d[1])
 
-            res_weak = cls.run_single_benchmark(grid, o, d, use_strong_pruning=False, timeout=60.0, disable_seed=True)
-            res_strong_no_seed = cls.run_single_benchmark(grid, o, d, use_strong_pruning=True, timeout=60.0, disable_seed=True)
-            res_strong = cls.run_single_benchmark(grid, o, d, use_strong_pruning=True, timeout=60.0, disable_seed=False)
+            res_weak = cls.run_single_benchmark(grid, o, d, use_strong_pruning=False, timeout=60.0)
+            coppia = cls.run_benchmark_coppia(grid, o, d, use_strong_pruning=True, timeout=60.0)
 
             scaling_results.append({
                 "size": size,
                 "weak": res_weak,
-                "strong_no_seed": res_strong_no_seed,
-                "strong": res_strong
+                "strong": coppia["andata"],
+                "ritorno": coppia["ritorno"],
+                "simmetria_verificabile": coppia["simmetria_verificabile"],
+                "simmetria_ok": coppia["simmetria_ok"]
             })
 
         with open(os.path.join(output_dir, "scaling_results.json"), "w", encoding='utf-8') as f:
@@ -293,22 +424,35 @@ class ExperimentRunner:
         # -------------------------------------------------------------- #
         # 2. Prestazioni vs Densità ostacoli                             #
         # -------------------------------------------------------------- #
+        # Per ogni densità si campionano più coppie casuali (oltre alla coppia
+        # d'angolo, la più difficile) e si aggregano le metriche per mediana.
+        # Ogni coppia è invocata in entrambe le direzioni (Slide 64).
         densities = [0.05, 0.15, 0.25, 0.35, 0.45]
         density_results: list[dict[str, object]] = []
         size = 50
+        n_coppie_casuali = 4
+        rng_coppie = np.random.default_rng(7)
 
         for dens in densities:
             logger.info(f"  Benchmark densità: {dens:.2f}...")
             grid = GridGenerator.generate_grid(
                 size, size, ["simple", "cluster"], density=dens, seed=100
             )
-            o = (0, 0)
-            d = (size - 1, size - 1)
-            grid.clear_cell(o[0], o[1])
-            grid.clear_cell(d[0], d[1])
+            grid.clear_cell(0, 0)
+            grid.clear_cell(size - 1, size - 1)
+            coppie = [((0, 0), (size - 1, size - 1))]
+            coppie += cls._coppie_casuali(grid, n_coppie_casuali, rng_coppie)
 
-            res = cls.run_single_benchmark(grid, o, d, use_strong_pruning=True, timeout=30.0)
-            density_results.append({"density": dens, "metrics": res})
+            dettagli = [
+                cls.run_benchmark_coppia(grid, o, d, use_strong_pruning=True, timeout=20.0)
+                for o, d in coppie
+            ]
+            density_results.append({
+                "density": dens,
+                "metrics": cls._mediana_metriche([c["andata"] for c in dettagli]),
+                "coppie": dettagli,
+                "simmetrie_fallite": sum(1 for c in dettagli if not c["simmetria_ok"])
+            })
 
         with open(os.path.join(output_dir, "density_results.json"), "w", encoding='utf-8') as f:
             json.dump(density_results, f, indent=2, default=str)
@@ -319,21 +463,34 @@ class ExperimentRunner:
         obstacle_scenarios = ["simple", "cluster", "diagonal", "enclosure", "bar"]
         pruning_comp: list[dict[str, object]] = []
 
+        rng_pruning = np.random.default_rng(13)
         for scenario in obstacle_scenarios:
-            logger.info(f"  Benchmark pruning — tipo ostacolo: {scenario}...")
+            logger.info(f"  Benchmark potatura — tipo ostacolo: {scenario}...")
             grid = GridGenerator.generate_grid(50, 50, [scenario], density=0.2, seed=2026)
-            o = (0, 0)
-            d = (49, 49)
-            grid.clear_cell(o[0], o[1])
-            grid.clear_cell(d[0], d[1])
+            grid.clear_cell(0, 0)
+            grid.clear_cell(49, 49)
+            coppie = [((0, 0), (49, 49))]
+            coppie += cls._coppie_casuali(grid, n_coppie_casuali, rng_pruning)
 
-            res_weak = cls.run_single_benchmark(grid, o, d, use_strong_pruning=False, timeout=30.0)
-            res_strong = cls.run_single_benchmark(grid, o, d, use_strong_pruning=True, timeout=30.0)
+            campioni_weak: list[dict[str, object]] = []
+            dettagli_strong: list[dict[str, object]] = []
+            for o, d in coppie:
+                campioni_weak.append(
+                    cls.run_single_benchmark(grid, o, d, use_strong_pruning=False, timeout=20.0)
+                )
+                # La doppia invocazione O↔D (Slide 64) avviene sulla configurazione forte
+                dettagli_strong.append(
+                    cls.run_benchmark_coppia(grid, o, d, use_strong_pruning=True, timeout=20.0)
+                )
 
             pruning_comp.append({
                 "obstacle_type": scenario,
-                "weak": res_weak,
-                "strong": res_strong
+                "weak": cls._mediana_metriche(campioni_weak),
+                "strong": cls._mediana_metriche([c["andata"] for c in dettagli_strong]),
+                "campioni_weak": campioni_weak,
+                "coppie_strong": dettagli_strong,
+                "simmetrie_fallite": sum(1 for c in dettagli_strong if not c["simmetria_ok"]),
+                "coppie": coppie
             })
 
         with open(os.path.join(output_dir, "pruning_comparison.json"), "w", encoding='utf-8') as f:
@@ -345,33 +502,31 @@ class ExperimentRunner:
         # -------------------------------------------------------------- #
         ordering_comp: list[dict[str, object]] = []
 
-        for scenario in obstacle_scenarios:
+        for risultato_pruning in pruning_comp:
+            scenario = risultato_pruning["obstacle_type"]
             logger.info(f"  Benchmark ordinamento — tipo ostacolo: {scenario}...")
             grid = GridGenerator.generate_grid(50, 50, [scenario], density=0.2, seed=2026)
-            o = (0, 0)
-            d = (49, 49)
-            grid.clear_cell(o[0], o[1])
-            grid.clear_cell(d[0], d[1])
+            grid.clear_cell(0, 0)
+            grid.clear_cell(49, 49)
 
-            # Ordinamento euristico: dlib(f, D) crescente
-            res_heuristic = cls.run_single_benchmark(
-                grid, o, d,
-                use_strong_pruning=True,
-                randomize_frontier=False,
-                timeout=30.0
-            )
-            # Ordinamento casuale (seed fisso per riproducibilità)
-            res_random = cls.run_single_benchmark(
-                grid, o, d,
-                use_strong_pruning=True,
-                randomize_frontier=True,
-                timeout=30.0
-            )
+            # Stesse coppie della campagna di potatura: l'ordinamento euristico con
+            # potatura forte coincide con la configurazione "strong" già misurata.
+            coppie = risultato_pruning["coppie"]
+            campioni_random = [
+                cls.run_single_benchmark(
+                    grid, o, d,
+                    use_strong_pruning=True,
+                    randomize_frontier=True,
+                    timeout=20.0
+                )
+                for o, d in coppie
+            ]
 
             ordering_comp.append({
                 "obstacle_type": scenario,
-                "heuristic": res_heuristic,
-                "random": res_random
+                "heuristic": risultato_pruning["strong"],
+                "random": cls._mediana_metriche(campioni_random),
+                "campioni_random": campioni_random
             })
 
         with open(os.path.join(output_dir, "ordering_comparison.json"), "w", encoding='utf-8') as f:
@@ -382,6 +537,31 @@ class ExperimentRunner:
         # (Slide 64: "algoritmo invocato due volte con parametri inversi") #
         # --------------------------------------------------------------   #
         symmetry_per_type = cls.run_symmetry_per_type(output_dir=output_dir, n_pairs=5, grid_size=20)
+
+        # -------------------------------------------------------------- #
+        # Riassunto complessivo della verifica di simmetria (Slide 64)   #
+        # su tutte le coppie considerate nelle campagne precedenti        #
+        # -------------------------------------------------------------- #
+        esiti: list[tuple[bool, bool]] = []
+        esiti += [(r["simmetria_verificabile"], r["simmetria_ok"]) for r in scaling_results]
+        for r in density_results:
+            esiti += [(c["simmetria_verificabile"], c["simmetria_ok"]) for c in r["coppie"]]
+        for r in pruning_comp:
+            esiti += [(c["simmetria_verificabile"], c["simmetria_ok"]) for c in r["coppie_strong"]]
+
+        riassunto_simmetria = {
+            "coppie_totali": len(esiti),
+            "verificabili": sum(1 for v, _ in esiti if v),
+            "escluse_per_tempo_limite": sum(1 for v, _ in esiti if not v),
+            "fallite": sum(1 for v, ok in esiti if v and not ok)
+        }
+        with open(os.path.join(output_dir, "simmetria_campagna.json"), "w", encoding='utf-8') as f:
+            json.dump(riassunto_simmetria, f, indent=2, ensure_ascii=False)
+        logger.info(
+            f"Verifica di simmetria sulle coppie delle campagne: "
+            f"{riassunto_simmetria['verificabili']}/{riassunto_simmetria['coppie_totali']} verificabili, "
+            f"{riassunto_simmetria['fallite']} fallimenti."
+        )
 
         # -------------------------------------------------------------- #
         # Generazione grafici                                            #
@@ -436,31 +616,37 @@ class ExperimentRunner:
                     recursive_calls_list.append(rc)
                     path_length_list.append(pl)
 
-        # Estraiamo da scaling
+        # Estraiamo da scaling (singole esecuzioni, andata e ritorno)
         for r in scaling_res:
             add_sample(r.get("weak"))
-            add_sample(r.get("strong_no_seed"))
             add_sample(r.get("strong"))
-        # Estraiamo da density
+            add_sample(r.get("ritorno"))
+        # Estraiamo da density (tutte le coppie, andata e ritorno)
         for r in density_res:
-            add_sample(r.get("metrics"))
-        # Estraiamo da pruning
+            for c in r.get("coppie", []):
+                add_sample(c.get("andata"))
+                add_sample(c.get("ritorno"))
+        # Estraiamo da pruning (campioni con potatura debole e coppie con potatura forte)
         for r in pruning_res:
-            add_sample(r.get("weak"))
-            add_sample(r.get("strong"))
-        # Estraiamo da ordering
+            for s in r.get("campioni_weak", []):
+                add_sample(s)
+            for c in r.get("coppie_strong", []):
+                add_sample(c.get("andata"))
+                add_sample(c.get("ritorno"))
+        # Estraiamo da ordering (solo i campioni con ordinamento casuale: quelli
+        # con ordinamento euristico coincidono con le coppie della potatura forte)
         for r in ordering_res:
-            add_sample(r.get("heuristic"))
-            add_sample(r.get("random"))
+            for s in r.get("campioni_random", []):
+                add_sample(s)
 
         # ── Plot 1: Tempo vs Densità (Transizione di Fase) ────────────── #
         plt.figure(figsize=(8, 5))
         dens = [r["density"] for r in density_res]
         times = [r["metrics"]["elapsed_time_s"] for r in density_res]
-        plt.plot(dens, times, marker='o', linewidth=2.5, color='#e056fd', label='CAMMINOMIN (Pruning Forte)')
-        plt.title("Tempo di Esecuzione vs Densità Ostacoli (Transizione di Fase)", fontsize=12, fontweight='bold')
-        plt.xlabel("Densità Ostacoli", fontsize=10)
-        plt.ylabel("Tempo di Esecuzione (secondi)", fontsize=10)
+        plt.plot(dens, times, marker='o', linewidth=2.5, color='#e056fd', label='CAMMINOMIN (potatura forte)')
+        plt.title("Tempo di esecuzione in funzione della densità di ostacoli (transizione di fase)", fontsize=12, fontweight='bold')
+        plt.xlabel("Densità ostacoli", fontsize=10)
+        plt.ylabel("Tempo di esecuzione (secondi)", fontsize=10)
         plt.grid(True, linestyle='--', alpha=0.6)
         plt.legend()
         plt.tight_layout()
@@ -487,15 +673,15 @@ class ExperimentRunner:
         x = np.arange(len(categories))
         width = 0.2
         fig, ax = plt.subplots(figsize=(10, 6))
-        ax.bar(x - 1.5*width, weak_times, width, label='Pruning Debole (Riga 16)', color='#ff7979')
-        ax.bar(x - 0.5*width, strong_times, width, label='Pruning Forte (Riga 17)', color='#2ed573')
-        ax.bar(x + 0.5*width, heuristic_times, width, label='Ordinamento Euristico', color='#3a86ff')
-        ax.bar(x + 1.5*width, random_times, width, label='Ordinamento Casuale', color='#ff6b6b')
-        
-        ax.set_title("Tempi di Esecuzione delle Differenti Configurazioni per Scenario", fontsize=12, fontweight='bold')
+        ax.bar(x - 1.5*width, weak_times, width, label='Potatura debole (riga 16)', color='#ff7979')
+        ax.bar(x - 0.5*width, strong_times, width, label='Potatura forte (riga 17)', color='#2ed573')
+        ax.bar(x + 0.5*width, heuristic_times, width, label='Ordinamento euristico', color='#3a86ff')
+        ax.bar(x + 1.5*width, random_times, width, label='Ordinamento casuale', color='#ff6b6b')
+
+        ax.set_title("Tempi di esecuzione delle diverse configurazioni per scenario", fontsize=12, fontweight='bold')
         ax.set_xticks(x)
         ax.set_xticklabels(categories)
-        ax.set_ylabel("Tempo di Esecuzione (secondi)")
+        ax.set_ylabel("Tempo di esecuzione (secondi)")
         ax.set_yscale('log')
         ax.grid(True, which="both", linestyle='--', alpha=0.4)
         ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=2)
@@ -507,14 +693,12 @@ class ExperimentRunner:
         plt.figure(figsize=(8, 5))
         sizes = [r["size"] for r in scaling_res]
         times_weak = [r["weak"]["elapsed_time_s"] for r in scaling_res]
-        times_strong_no_seed = [r["strong_no_seed"]["elapsed_time_s"] for r in scaling_res]
         times_strong = [r["strong"]["elapsed_time_s"] for r in scaling_res]
-        plt.loglog(sizes, times_weak, marker='s', label='Pruning Debole (Base)', color='#ffbe0b', linewidth=2)
-        plt.loglog(sizes, times_strong_no_seed, marker='o', label='Pruning Forte + Cache', color='#3a86c8', linewidth=2)
-        plt.loglog(sizes, times_strong, marker='^', label='Pruning Forte + Cache + Seeding', color='#2ed573', linewidth=2)
-        plt.title("Scaling Asintotico Temporale: Log-Log (Dimensione vs Tempo)", fontsize=12, fontweight='bold')
-        plt.xlabel("Dimensione Griglia (Lato R = C)", fontsize=10)
-        plt.ylabel("Tempo di Esecuzione Mediano (secondi)", fontsize=10)
+        plt.loglog(sizes, times_weak, marker='s', label='Potatura debole (riga 16)', color='#ffbe0b', linewidth=2)
+        plt.loglog(sizes, times_strong, marker='^', label='Potatura forte (riga 17)', color='#2ed573', linewidth=2)
+        plt.title("Crescita temporale asintotica in scala bilogaritmica (dimensione e tempo)", fontsize=12, fontweight='bold')
+        plt.xlabel("Dimensione griglia (lato R = C)", fontsize=10)
+        plt.ylabel("Tempo di esecuzione mediano (secondi)", fontsize=10)
         plt.grid(True, which="both", linestyle='--', alpha=0.5)
         plt.legend()
         plt.tight_layout()
@@ -530,7 +714,7 @@ class ExperimentRunner:
                 s=100, alpha=0.85, edgecolors='black', linewidths=0.5
             )
             cbar = plt.colorbar(sc)
-            cbar.set_label("Numero Totale Landmark", fontsize=10)
+            cbar.set_label("Numero totale di landmark", fontsize=10)
             
             # Regressione lineare in scala logaritmica
             log_x = np.log10(frontier_cells_list)
@@ -538,13 +722,13 @@ class ExperimentRunner:
             slope, intercept = np.polyfit(log_x, log_y, 1)
             x_fit = np.logspace(min(log_x), max(log_x), 100)
             y_fit = 10**(slope * np.log10(x_fit) + intercept)
-            plt.loglog(x_fit, y_fit, color='red', linestyle='--', label=f'Trend Asintotico (pendenza: {slope:.2f})')
+            plt.loglog(x_fit, y_fit, color='red', linestyle='--', label=f'Andamento asintotico (pendenza: {slope:.2f})')
 
             plt.xscale('log')
             plt.yscale('log')
-            plt.title("Tempo di Esecuzione vs Celle di Frontiera Esplorate (Scala Log-Log)", fontsize=11, fontweight='bold')
-            plt.xlabel("Celle di Frontiera Considerate", fontsize=10)
-            plt.ylabel("Tempo di Esecuzione (secondi)", fontsize=10)
+            plt.title("Tempo di esecuzione e celle di frontiera esplorate (scala bilogaritmica)", fontsize=11, fontweight='bold')
+            plt.xlabel("Celle di frontiera considerate", fontsize=10)
+            plt.ylabel("Tempo di esecuzione (secondi)", fontsize=10)
             plt.grid(True, which="both", linestyle='--', alpha=0.5)
             plt.legend()
             plt.tight_layout()
@@ -560,7 +744,7 @@ class ExperimentRunner:
                 s=100, alpha=0.85, edgecolors='black', linewidths=0.5
             )
             cbar = plt.colorbar(sc)
-            cbar.set_label("Lunghezza Cammino Minimo", fontsize=10)
+            cbar.set_label("Lunghezza del cammino minimo", fontsize=10)
             
             # Regressione lineare in scala logaritmica
             log_x = np.log10(recursive_calls_list)
@@ -568,13 +752,13 @@ class ExperimentRunner:
             slope, intercept = np.polyfit(log_x, log_y, 1)
             x_fit = np.logspace(min(log_x), max(log_x), 100)
             y_fit = 10**(slope * np.log10(x_fit) + intercept)
-            plt.loglog(x_fit, y_fit, color='red', linestyle='--', label=f'Trend Asintotico (pendenza: {slope:.2f})')
+            plt.loglog(x_fit, y_fit, color='red', linestyle='--', label=f'Andamento asintotico (pendenza: {slope:.2f})')
 
             plt.xscale('log')
             plt.yscale('log')
-            plt.title("Tempo di Esecuzione vs Complessità Ricorsiva (Invocazioni) (Scala Log-Log)", fontsize=11, fontweight='bold')
-            plt.xlabel("Numero di Invocazioni Ricorsive", fontsize=10)
-            plt.ylabel("Tempo di Esecuzione (secondi)", fontsize=10)
+            plt.title("Tempo di esecuzione e complessità ricorsiva (scala bilogaritmica)", fontsize=11, fontweight='bold')
+            plt.xlabel("Numero di invocazioni ricorsive", fontsize=10)
+            plt.ylabel("Tempo di esecuzione (secondi)", fontsize=10)
             plt.grid(True, which="both", linestyle='--', alpha=0.5)
             plt.legend()
             plt.tight_layout()
@@ -592,11 +776,11 @@ class ExperimentRunner:
 
         x3 = np.arange(len(sym_types))
         fig, ax = plt.subplots(figsize=(9, 5.5))
-        ax.bar(x3, sym_ok, label='Simmetria OK', color='#2ed573')
-        ax.bar(x3, sym_timeout, bottom=sym_ok, label='Escluse (timeout)', color='#ffd32a')
+        ax.bar(x3, sym_ok, label='Simmetria verificata', color='#2ed573')
+        ax.bar(x3, sym_timeout, bottom=sym_ok, label='Escluse (tempo limite)', color='#ffd32a')
         bottom_fail = [a + b for a, b in zip(sym_ok, sym_timeout)]
-        ax.bar(x3, sym_failed, bottom=bottom_fail, label='FALLITE', color='#ff4757')
-        ax.set_title("Test di Simmetria O↔D per Tipologia di Ostacolo", fontsize=12, fontweight='bold')
+        ax.bar(x3, sym_failed, bottom=bottom_fail, label='Fallite', color='#ff4757')
+        ax.set_title("Prove di simmetria O↔D per tipologia di ostacolo", fontsize=12, fontweight='bold')
         ax.set_xticks(x3)
         ax.set_xticklabels(sym_types)
         ax.set_ylabel("Numero di coppie testate")
