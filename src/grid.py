@@ -13,8 +13,8 @@ class Grid:
     La griglia è supportata internamente da un array numpy a due dimensioni di tipo `uint8`:
       - 0: Cella libera (traversabile)
       - 1: Ostacolo fisso (permanente)
-      - >=2: Ostacolo temporaneo contrassegnato con un valore corrispondente a (profondità + 2)
-             durante l'esplorazione ricorsiva (backtracking).
+      - 2: Ostacolo temporaneo, marcatura della chiusura corrente durante l'esplorazione
+           ricorsiva (backtracking); ripristinato a 0 in fase di risalita.
     """
 
     def __init__(self, rows: int, cols: int) -> None:

@@ -3,18 +3,18 @@
 Progetto accademico per il corso di *Algoritmi e Strutture Dati* (a.a. 2024/25, Prof.ssa Zanella).  
 Sviluppato in **Python 3.13** rispettando i requisiti completi per **gruppi di 3 persone**.
 
-L'architettura risolve la scalabilità asintotica su griglie di grandi dimensioni ($100 \times 100$, $150 \times 150$ e $200 \times 200$) grazie all'innesco avido del limite superiore globale, e produce visualizzazioni ad alta risoluzione allineate alla **Slide 53** delle specifiche.
+L'architettura affronta la scalabilità su griglie di grandi dimensioni ($100 \times 100$, $150 \times 150$ e $200 \times 200$) grazie alla potatura branch-and-bound con limite superiore globale, e produce visualizzazioni ad alta risoluzione allineate alla **Slide 53** delle specifiche.
 
 ---
 
 ## Caratteristiche Architetturali ed Ottimizzazioni
 
-1. **Innesco Avido del Limite Superiore Globale**:
-   - Prima della ricerca principale, una corsa avida (senza ritracciamento, solo il candidato migliore per frontiera) individua in millisecondi un limite superiore reale: $L_{\text{ottimo}} \le L_{\text{avido}}$.
-   - Questo valore viene inserito nella potatura globale: ogni ramo la cui lunghezza parziale supera il limite viene scartato immediatamente nei piani alti dell'albero, prevenendo l'esplosione dei nodi profondi.
+1. **Potatura branch-and-bound con limite superiore globale**:
+   - La condizione di riga 16/17 viene valutata rispetto a un limite superiore globale $L_{\text{glob}}$, condiviso da tutte le invocazioni ricorsive e aggiornato ogni volta che si trova un cammino completo più breve. Finché non se ne trova uno, $L_{\text{glob}}$ vale $+\infty$ e non si pota nulla.
+   - Poiché $d_{\text{lib}}$ non sovrastima mai la distanza reale, la stima è ammissibile e la potatura non scarta mai il cammino ottimo. Il limite emerge dalla ricerca stessa: non è richiesta alcuna passata preliminare.
 
 2. **Ritracciamento sul posto su matrice numpy `uint8`**:
-   - Evita la duplicazione degli stati e il relativo onere sul raccoglitore di memoria. Le celle occupate dalla chiusura ricorsiva corrente sono marcate tramite `depth_id = depth + 2` e ripristinate a `0` (libere) durante la risalita.
+   - Evita la duplicazione degli stati e il relativo onere sul raccoglitore di memoria. Le celle occupate dalla chiusura ricorsiva corrente sono marcate con il valore costante `2` (ostacolo temporaneo) e ripristinate a `0` (libere) durante la risalita.
 
 3. **Proiezione di raggi per le chiusure ($O(\max(R, C)^2)$)**:
    - Evita la scansione diretta $O(R^2 \cdot C^2)$ proiettando raggi cardinali e diagonali dall'origine con espansione a gomito.
@@ -66,7 +66,7 @@ PYTHONPATH=. .venv/bin/python main.py dlib --origin 10,10 --dest 40,40
 ```
 
 ### 4. Calcolo del Cammino Minimo (`CAMMINOMIN` - Compito 3)
-Esegue l'algoritmo ricorsivo di ricerca del cammino minimo con l'innesco del limite superiore globale attivo. Esporta la sequenza dei landmark e produce l'immagine ad alta risoluzione del cammino (Slide 53):
+Esegue l'algoritmo ricorsivo di ricerca del cammino minimo con la potatura branch-and-bound a limite superiore globale. Esporta la sequenza dei landmark e produce l'immagine ad alta risoluzione del cammino (Slide 53):
 ```bash
 PYTHONPATH=. .venv/bin/python main.py camminomin --grid grids/grid.json --origin 0,0 --dest 49,49 --strong-pruning --summary --save-img results/test_path_resolved.png
 ```

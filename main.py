@@ -184,7 +184,7 @@ def cmd_camminomin(args: argparse.Namespace) -> None:
     if args.summary:
         # Riassunto strutturato dell'esecuzione come specificato in Slide 71
         if timed_out:
-            calculation_status = "INTERROTTO DA TIMEOUT"
+            calculation_status = "INTERROTTO PER SUPERAMENTO DEL TEMPO LIMITE"
         elif min_len < float('inf'):
             calculation_status = "COMPLETO"
         else:
@@ -205,6 +205,7 @@ def cmd_camminomin(args: argparse.Namespace) -> None:
             "regola_potatura": "Riga 17 (forte)" if args.strong_pruning else "Riga 16 (debole)",
             "invocazioni_ricorsive": stats['recursive_calls'],
             "profondita_massima": stats['max_depth'],
+            "memoria_rappresentazione_byte": grid.rows * grid.cols,
             "tempo_trascorso_s": elapsed,
             "calcolo_completato": not timed_out
         }
@@ -212,7 +213,7 @@ def cmd_camminomin(args: argparse.Namespace) -> None:
         print(json.dumps(summary, indent=2, default=str, ensure_ascii=False))
     else:
         print("\n=== Risultato della Ricerca ===")
-        status = 'TIMEOUT' if timed_out else 'SUCCESSO' if min_len < float('inf') else 'NON RAGGIUNGIBILE'
+        status = 'TEMPO LIMITE SUPERATO' if timed_out else 'SUCCESSO' if min_len < float('inf') else 'NON RAGGIUNGIBILE'
         print(f"Stato: {status}")
         print(f"Lunghezza cammino minimo: {min_len:.6f}" if min_len < float('inf') else "Lunghezza cammino minimo: Inf")
         print(f"Tempo impiegato: {elapsed:.6f} secondi")
@@ -256,7 +257,7 @@ def cmd_experiment(args: argparse.Namespace) -> None:
         print("\n--- Analisi Simmetria Risultati ---")
         for r in results:
             status = 'OK' if r['symmetry_ok'] else 'FALLITA'
-            to_note = ' [TIMEOUT]' if r['timed_out_od'] or r['timed_out_do'] else ''
+            to_note = ' [TEMPO LIMITE]' if r['timed_out_od'] or r['timed_out_do'] else ''
             print(
                 f"Coppia {r['pair_index']}: O={r['origin']} -> D={r['dest']} "
                 f"| Len(O->D)={r['len_od']:.4f}, Len(D->O)={r['len_do']:.4f} "

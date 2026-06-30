@@ -27,11 +27,11 @@ Ogni cella della griglia è codificata con un numero intero all'interno di una m
 \textbf{Stato cella} & \textbf{Valore fisico} & \textbf{Significato operativo} \\ \hline
 \texttt{Libera} & 0 & Cella attraversabile (navigabile). \\ \hline
 \texttt{Ostacolo fisso} & 1 & Ostacolo permanente generato nel Compito 1 o importato da JSON. \\ \hline
-\texttt{Ostacolo temporaneo} & $\ge 2$ & Cella marcata direttamente in memoria durante il ritracciamento ricorsivo con un identificativo corrispondente a $profondit\grave{a} + 2$. \\ \hline
+\texttt{Ostacolo temporaneo} & $2$ & Cella della chiusura corrente marcata direttamente in memoria durante il ritracciamento ricorsivo; ripristinata a $0$ in fase di risalita. \\ \hline
 \end{tabularx}
 \label{tab:stato_cella}
 \end{table}
 
 Questa codifica numerica consente il \textbf{ritracciamento (backtracking) sul posto}. A ogni chiamata ricorsiva di \texttt{CAMMINOMIN}, invece di clonare la matrice della griglia (operazione che esaurirebbe la memoria sulle griglie più ampie), il codice sovrascrive il valore intero della cella visitata direttamente nella struttura dati condivisa.
 
-Durante la discesa, i nodi attraversati vengono marcati con l'intero corrispondente alla profondità attuale ($\text{ID} = \text{profondità} + 2$). In fase di risalita la funzione ripristina la cella al valore 0. Questo meccanismo evita la creazione e la distruzione di oggetti a ogni livello dell'albero delle chiamate.
+Durante la discesa, le celle della chiusura corrente vengono marcate con il valore costante $2$. In fase di risalita la funzione le ripristina al valore 0. Questo meccanismo evita la creazione e la distruzione di oggetti a ogni livello dell'albero delle chiamate. Una marcatura costante (anziché dipendente dalla profondità) è sufficiente perché le chiusure annidate sono disgiunte e il ripristino avviene per insieme esplicito; evita inoltre l'eccedenza del tipo \texttt{uint8} su catene di landmark molto lunghe.

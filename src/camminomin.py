@@ -11,6 +11,13 @@ from src.free_paths import (
     free_path_type2
 )
 
+# Valore con cui le celle della chiusura corrente vengono marcate come ostacolo temporaneo
+# durante il ritracciamento sul posto. È una costante (non dipende dalla profondità): le
+# chiusure annidate sono disgiunte (il ray-casting si arresta a stato>0) e il ripristino
+# avviene per insieme esplicito, quindi non serve un identificativo distinto per livello.
+# Usare una costante evita l'overflow del tipo uint8 (depth+2 superava 255 oltre profondità 253).
+TEMP_MARK = 2
+
 
 def _aggiorna_minimo_globale(shared_state: dict[str, float], full_path_len: float) -> None:
     """Aggiorna il limite superiore globale se il cammino appena trovato è più breve.
@@ -118,9 +125,8 @@ def camminomin(
     closure = context | complement
 
     # 8. Ritracciamento sul posto: marca la chiusura corrente come ostacolo temporaneo
-    depth_id = depth + 2
     for cell in closure:
-        grid_state[cell] = depth_id
+        grid_state[cell] = TEMP_MARK
 
     timed_out = False
 
@@ -157,7 +163,7 @@ def camminomin(
             shared_state=shared_state,
             accumulated_len=accumulated_len + lf
         )
-        grid_state[f_cell] = depth_id
+        grid_state[f_cell] = TEMP_MARK
 
         if child_timed_out:
             timed_out = True
