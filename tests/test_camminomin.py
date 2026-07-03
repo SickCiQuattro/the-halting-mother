@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import time
 from src.grid import Grid
-from src.camminomin import camminomin, reconstruct_path
+from src.camminomin import camminomin, reconstruct_path, compact
 
 class TestCamminomin(unittest.TestCase):
     def test_same_origin_dest(self):
@@ -69,6 +69,23 @@ class TestCamminomin(unittest.TestCase):
         min_len, landmarks, timed_out = camminomin(o, d, grid.state)
         self.assertEqual(min_len, float('inf'))
         self.assertEqual(len(landmarks), 0)
+
+    def test_compact(self):
+        seq1 = [((0, 0), 0), ((3, 4), 1)]
+        seq2 = [((3, 4), 0), ((10, 12), 2)]
+        self.assertEqual(compact(seq1, seq2), [((0, 0), 0), ((3, 4), 1), ((10, 12), 2)])
+
+    def test_grid_state_restored_after_search(self):
+        grid = Grid(10, 10)
+        for r in range(8):
+            grid.set_obstacle(r, 4)
+        original_state = grid.state.copy()
+
+        o = (3, 2)
+        d = (3, 7)
+        camminomin(o, d, grid.state, use_strong_pruning=True)
+
+        np.testing.assert_array_equal(grid.state, original_state)
 
     def test_symmetry(self):
         grid = Grid(10, 10)

@@ -15,12 +15,21 @@ d_{\text{lib}}(O,D) = \sqrt{2}\Delta_{\text{min}} + (\Delta_{\text{max}} - \Delt
 
 Questa formula di costo $O(1)$ fornisce il limite inferiore richiesto dalla potatura geometrica descritta di seguito.
 
+Fra due celle $O$ e $D$ reciprocamente raggiungibili senza ostacoli interposti possono esistere fino a due cammini liberi distinti, come illustrato in figura~\ref{fig:cammini_liberi}: il tipo 1 percorre prima la diagonale e poi il tratto cardinale residuo, il tipo 2 nell'ordine inverso. Entrambi hanno lunghezza $d_{\text{lib}}(O,D)$, poiché in una griglia 8-connesse l'ordine in cui si eseguono i passi diagonali e quelli cardinali non ne altera il numero complessivo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{cammini_liberi_tipo1_tipo2.png}
+\caption{I due cammini liberi possibili fra $O$ e $D$: tipo 1 (diagonale poi cardinale) e tipo 2 (cardinale poi diagonale).}
+\label{fig:cammini_liberi}
+\end{figure}
+
 \subsection{Contesto e complemento}
 
 La raggiungibilità locale tramite cammini liberi definisce due insiemi disgiunti di celle all'interno dello spazio libero:
 \begin{itemize}
-    \item \textbf{Contesto}: l'insieme delle celle raggiungibili da $O$ tramite un cammino libero di \textbf{tipo 1}, definito dalla sequenza prima mosse diagonali oblique, poi mosse cardinali residue, oppure da cammini composti esclusivamente da un tipo di mossa.
-    \item \textbf{Complemento}: l'insieme delle celle raggiungibili da $O$ \textbf{solo} tramite un cammino libero di \textbf{tipo 2}, definito dalla sequenza inversa prima mosse cardinali, poi mosse diagonali residue. Le celle che ammettono entrambi i tipi di cammino appartengono per convenzione al solo contesto.
+    \item \textbf{Contesto}: l'insieme delle celle raggiungibili da $O$ tramite un cammino libero di tipo 1, definito dalla sequenza prima mosse diagonali oblique, poi mosse cardinali residue, oppure da cammini composti esclusivamente da un tipo di mossa.
+    \item \textbf{Complemento}: l'insieme delle celle raggiungibili da $O$ solo tramite un cammino libero di tipo 2, definito dalla sequenza inversa prima mosse cardinali, poi mosse diagonali residue. Le celle che ammettono entrambi i tipi di cammino appartengono per convenzione al solo contesto.
 \end{itemize}
 L'unione di contesto e complemento forma la \textbf{chiusura} di $O$.
 
@@ -114,3 +123,12 @@ La \textbf{frontiera} della chiusura di $O$ è definita formalmente come il sott
 \end{equation}
 
 Il codice estrae la frontiera limitando l'ispezione al vicinato delle sole celle incluse nella chiusura. Ad ogni cella di frontiera viene associato il tipo del cammino libero da cui proviene ($1$ per il contesto, $2$ per il complemento).
+
+La figura~\ref{fig:contesto_complemento_frontiera} mostra un esempio concreto su una griglia $15 \times 15$ con due ostacoli che spezzano parzialmente due quadranti dell'origine $O$: a sinistra sono evidenziati contesto (verde) e complemento (arancio), sovrapposti agli otto raggi primari (4 cardinali e 4 diagonali) effettivamente tracciati dall'algoritmo, il passo geometrico che precede le espansioni a gomito che riempiono il resto della chiusura; a destra la frontiera della loro unione (cerchiata in rosso).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{contesto_complemento_frontiera.png}
+\caption{Contesto, complemento e frontiera calcolati tramite proiezione di raggi su una griglia dimostrativa.}
+\label{fig:contesto_complemento_frontiera}
+\end{figure}

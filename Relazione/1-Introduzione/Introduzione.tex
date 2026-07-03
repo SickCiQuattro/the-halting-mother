@@ -4,6 +4,15 @@ La presente relazione descrive la progettazione, l'implementazione e la campagna
 
 L'elaborato affronta il calcolo del cammino minimo su griglie bidimensionali in presenza di ostacoli. Il sistema mira a limitare il sovraccarico computazionale tipico delle esplorazioni ricorsive ricorrendo a strutture dati specifiche e a regole di potatura spaziale.
 
+La figura~\ref{fig:panoramica_sistema} anticipa in quattro pannelli l'intero percorso seguito dalla relazione, sulla stessa istanza di griglia: si parte da uno spazio libero senza ostacoli, si generano proceduralmente gli ostacoli (Compito 1), si calcola dall'origine $O$ la chiusura raggiungibile con cammini liberi (in verde/arancio) individuandone la frontiera (cerchiata) tramite la proiezione dei raggi cardinali e diagonali (Compito 2), e infine si risolve il cammino minimo completo verso la destinazione $D$ componendo più cammini liberi lungo la sequenza dei landmark (Compito 3). I capitoli successivi riprendono singolarmente ciascuno di questi passaggi.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{panoramica_sistema.png}
+\caption{Panoramica del sistema sulla stessa griglia: dallo spazio vuoto al cammino minimo risolto.}
+\label{fig:panoramica_sistema}
+\end{figure}
+
 \subsection{Strumenti e scelte tecnologiche}
 
 Il software è scritto in \textbf{Python 3.13} e utilizza:
@@ -17,7 +26,7 @@ Rispetto all'approccio a oggetti, che associa a ogni cella un'istanza dedicata e
 
 \subsection{Rappresentazione dello stato della cella}
 
-Ogni cella della griglia è codificata con un numero intero all'interno di una matrice NumPy bidimensionale di tipo \textbf{\texttt{uint8}} (1 byte per cella), in base allo schema seguente:
+Ogni cella della griglia è codificata con un numero intero all'interno di una matrice NumPy bidimensionale di tipo \texttt{uint8} (1 byte per cella)~\cite{numpy-dtype}, in base allo schema seguente:
 
 \begin{table}[H]
 \centering

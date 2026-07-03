@@ -40,7 +40,8 @@ def camminomin(
     use_strong_pruning: bool = False,
     randomize_frontier: bool = False,
     shared_state: dict[str, float] | None = None,
-    accumulated_len: float = 0.0
+    accumulated_len: float = 0.0,
+    visited_closures: set[Coordinate] | None = None
 ) -> tuple[float, list[tuple[Coordinate, int]], bool]:
     """
     Trova il cammino minimo tra origine e destinazione con l'algoritmo ricorsivo basato su landmark.
@@ -68,6 +69,8 @@ def camminomin(
         randomize_frontier: Se True, esplora le celle di frontiera in ordine casuale.
         shared_state: Stato condiviso mutabile contenente il minimo globale trovato finora.
         accumulated_len: Lunghezza accumulata del percorso dall'origine della chiamata principale.
+        visited_closures: Se fornito, accumula tutte le celle incluse in una chiusura esplorata durante
+            l'intera ricerca (usato solo per analisi/visualizzazione, non influenza la logica).
 
     Returns:
         Una tupla `(lunghezza_min, sequenza_landmark, timed_out)` dove:
@@ -124,6 +127,9 @@ def camminomin(
     min_seq: list[tuple[Coordinate, int]] = []
     closure = context | complement
 
+    if visited_closures is not None:
+        visited_closures.update(closure)
+
     # 8. Ritracciamento sul posto: marca la chiusura corrente come ostacolo temporaneo
     for cell in closure:
         grid_state[cell] = TEMP_MARK
@@ -161,7 +167,8 @@ def camminomin(
             use_strong_pruning,
             randomize_frontier,
             shared_state=shared_state,
-            accumulated_len=accumulated_len + lf
+            accumulated_len=accumulated_len + lf,
+            visited_closures=visited_closures
         )
         grid_state[f_cell] = TEMP_MARK
 

@@ -28,9 +28,20 @@ In conformità ai requisiti per i gruppi di tre studenti, l'applicativo modella 
     \item \textbf{Barre (\texttt{bar})}: linee orizzontali o verticali munite di una singola apertura casuale. Costringono l'esplorazione a deviare attraverso un passaggio obbligato.
 \end{enumerate}
 
+La figura~\ref{fig:tipologie_ostacoli} mostra le cinque tipologie generate isolatamente sulla stessa griglia $20 \times 20$, in modo che ciascuna forma sia riconoscibile senza l'interferenza delle altre. Nel pannello \texttt{diagonal} si notano le coppie di celle unite solo per lo spigolo: è il caso descritto in apertura della traccia in cui l'attraversamento diagonale resta ammesso pur non essendoci un vero e proprio agglomerato di celle contigue.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{tipologie_ostacoli.png}
+\caption{Le cinque tipologie di ostacolo generate isolatamente su griglie $20 \times 20$ identiche.}
+\label{fig:tipologie_ostacoli}
+\end{figure}
+
 \subsection{Algoritmo di generazione}
 
 La generazione della griglia è affidata alla classe \texttt{GridGenerator}. Per garantire l'accuratezza della densità complessiva obiettivo, il generatore inserisce prima le macrostrutture (barre, recinti, agglomerati, diagonali) e poi esegue un passo di riempimento fine tramite ostacoli semplici (\texttt{simple}) fino al raggiungimento esatto della quota prefissata.
+
+I divisori che compaiono nello pseudocodice ($10$, $2{,}5$, $16$, $8$) traducono la quota di celle assegnata a ciascuna macrostruttura nel numero di istanze da generare, dividendo per il numero medio di celle occupate da un singolo agglomerato, coppia diagonale, recinto o barra rispettivamente.
 
 Di seguito si riporta lo pseudocodice di generazione:
 
@@ -48,13 +59,13 @@ Di seguito si riporta lo pseudocodice di generazione:
     \For{\textbf{each} $type \in types \setminus \{\text{"simple"}\}$}
         \State $local\_seed \leftarrow rng.\text{GeneraIntero}()$
         \If{$type = \text{"cluster"}$}
-            \State \text{CostruisciCluster}($grid, target\_obstacles \times 0.3, local\_seed$)
+            \State \text{CostruisciAgglomerati}($grid, (target\_obstacles \times 0.3) / 10, local\_seed$)
         \ElsIf{$type = \text{"diagonal"}$}
-            \State \text{CostruisciDiagonali}($grid, target\_obstacles \times 0.2, local\_seed$)
+            \State \text{CostruisciDiagonali}($grid, (target\_obstacles \times 0.2) / 2.5, local\_seed$)
         \ElsIf{$type = \text{"enclosure"}$}
-            \State \text{CostruisciRecinti}($grid, target\_obstacles \times 0.2, local\_seed$)
+            \State \text{CostruisciRecinti}($grid, (target\_obstacles \times 0.2) / 16, local\_seed$)
         \ElsIf{$type = \text{"bar"}$}
-            \State \text{CostruisciBarre}($grid, target\_obstacles \times 0.3, local\_seed$)
+            \State \text{CostruisciBarre}($grid, (target\_obstacles \times 0.3) / 8, local\_seed$)
         \EndIf
     \EndFor
     \State
@@ -69,3 +80,10 @@ Di seguito si riporta lo pseudocodice di generazione:
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{griglia_generata.png}
+\caption{Griglia $50 \times 50$ prodotta dal generatore con tipologie miste (\texttt{mix}) e densità $0.2$.}
+\label{fig:griglia_generata}
+\end{figure}

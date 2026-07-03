@@ -4,7 +4,7 @@ Questo capitolo fornisce il manuale utente completo e la documentazione tecnica 
 
 \subsection{Configurazione e requisiti di sistema}
 
-Il software è scritto in \textbf{Python 3.13}. Per eseguire l'applicazione e riprodurre i risultati sperimentali è necessario configurare l'ambiente virtuale installando le dipendenze dichiarate:
+Il software è scritto in Python 3.13. Per eseguire l'applicazione e riprodurre i risultati sperimentali è necessario configurare l'ambiente virtuale installando le dipendenze dichiarate:
 
 \begin{verbatim}
 # Creazione dell'ambiente virtuale
@@ -67,7 +67,7 @@ PYTHONPATH=. .venv/bin/python main.py camminomin --grid grids/grid.json \
   --origin 0,0 --dest 49,49 --strong-pruning --summary \
   --save-img results/test_path_resolved.png
 \end{verbatim}
-L'inclusione del parametro \texttt{--strong-pruning} attiva la potatura tramite riga 17, mentre la sua assenza mantiene attiva la riga 16. Il parametro \texttt{--summary} stampa il resoconto strutturato con il conteggio delle celle di frontiera analizzate, il numero di potature eseguite e l'altezza massima raggiunta dalla pila ricorsiva.
+L'inclusione del parametro \texttt{--strong-pruning} attiva la potatura tramite riga 17, mentre la sua assenza mantiene attiva la riga 16. Il parametro \texttt{--summary} stampa il resoconto strutturato con il conteggio delle celle di frontiera analizzate, il numero di potature eseguite e l'altezza massima raggiunta dalla pila ricorsiva. Il campo \texttt{memoria\_rappresentazione\_byte} del resoconto riporta la dimensione statica della matrice (righe $\times$ colonne), non il picco di memoria effettivamente utilizzato durante quella singola ricerca: quest'ultimo è misurato con \texttt{tracemalloc} solo nella campagna sperimentale del Compito 4, per non raddoppiare i tempi di ogni singola invocazione (si veda la nota metodologica del Compito 4).
 
 \subsubsection{5. Campagna sperimentale completa (Compito 4)}
 Per lanciare l'intera batteria automatizzata di prove sperimentali su griglie scalabili (fino a $200\times200$), densità variabili e strategie di potatura, esportando i sei grafici analitici discussi nel capitolo precedente nella cartella dei risultati:
@@ -82,9 +82,24 @@ PYTHONPATH=. .venv/bin/python main.py experiment --verify-symmetry-count 10 \
   --symmetry-grid-size 20
 \end{verbatim}
 
+\subsection{Rigenerazione delle figure pedagogiche della relazione}
+
+Le figure dimostrative della relazione (panoramica del sistema, tipologie di ostacolo, cammini liberi di tipo 1/2, contesto/complemento/frontiera con i raggi, mappa di esplorazione della potatura) non provengono dalla campagna sperimentale del Compito 4, ma da cinque script indipendenti nella cartella \texttt{scripts/}, ciascuno eseguibile singolarmente e che riusa direttamente i moduli di \texttt{src/} senza introdurre logica nuova:
+\begin{verbatim}
+PYTHONPATH=. .venv/bin/python scripts/genera_immagine_panoramica.py
+PYTHONPATH=. .venv/bin/python scripts/genera_immagine_tipologie_ostacoli.py
+PYTHONPATH=. .venv/bin/python scripts/genera_immagine_cammini_liberi.py
+PYTHONPATH=. .venv/bin/python scripts/genera_immagine_contesto.py
+PYTHONPATH=. .venv/bin/python scripts/genera_immagine_esplorazione_potatura.py
+\end{verbatim}
+Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un sesto script, \texttt{scripts/verifica\_limite\_ricorsione.py}, non produce immagini ma riproduce la verifica empirica del limite di ricorsione discussa nelle Conclusioni:
+\begin{verbatim}
+PYTHONPATH=. .venv/bin/python scripts/verifica_limite_ricorsione.py
+\end{verbatim}
+
 \subsection{Esecuzione della batteria di prove unitarie}
 
-Il progetto include una copertura completa di prove unitarie automatiche, che validano l'esattezza di tutti i moduli geometrici e logici (distanza libera, proiezione di raggi, compattazione, ritracciamento sul posto, salvataggio e caricamento della griglia). Per avviare le prove unitarie:
+Il progetto include una copertura completa di prove unitarie automatiche, che validano l'esattezza di tutti i moduli geometrici e logici (distanza libera, proiezione di raggi, compattazione, ritracciamento sul posto, generazione procedurale degli ostacoli, salvataggio e caricamento della griglia). Per avviare le prove unitarie:
 \begin{verbatim}
 PYTHONPATH=. .venv/bin/python -m unittest discover -s tests -p "test_*.py"
 \end{verbatim}

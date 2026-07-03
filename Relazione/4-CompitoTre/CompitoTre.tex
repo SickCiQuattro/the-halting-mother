@@ -40,14 +40,28 @@ Lo pseudocodice valuta la condizione di riga 16/17 rispetto a \texttt{lunghezzaM
 \end{equation}
 dove $\ell_{\text{acc}}$ è la lunghezza già accumulata dall'origine principale e $h(F)$ vale $0$ nella potatura debole (riga 16) e $d_{\text{lib}}(F,D)$ in quella forte (riga 17). Poiché $d_{\text{lib}}$ non sovrastima mai la distanza reale, la stima è ammissibile e la potatura non scarta mai un cammino ottimo: si tratta di una potatura branch-and-bound. Finché non si è trovato il primo cammino completo, $L_{\text{glob}}$ vale $+\infty$ e non si pota nulla. È l'unica ottimizzazione di ricerca aggiunta rispetto allo pseudocodice e non richiede alcuna passata preliminare: il limite emerge dalla ricerca stessa.
 
+Per produrre questo confronto, \texttt{camminomin()} accetta un parametro opzionale \texttt{visited\_closures}: se fornito, ogni chiamata ricorsiva vi accumula le celle della propria chiusura, tracciando così l'impronta complessiva della ricerca a fini di analisi. Il parametro non altera in alcun modo la logica dell'algoritmo, non è utilizzato quando omesso (valore predefinito \texttt{None}) ed è impiegato solo dallo script che genera la figura seguente.
+
+Per rendere tangibile l'effetto della potatura, la figura~\ref{fig:esplorazione_potatura} confronta, sulla stessa coppia origine--destinazione di una griglia $18 \times 18$ con ostacoli ad agglomerati, l'unione di tutte le chiusure esplorate durante l'intera ricerca nei due casi. La potatura debole (riga 16) allaga quasi l'intero spazio libero raggiungibile ($260$ celle su $324$), perché continua a inseguire rami la cui unica colpa è avere percorso finora più strada, anche quando sono geometricamente lontani dalla destinazione. La potatura forte (riga 17) traccia invece un corridoio molto più mirato verso $D$ ($97$ celle), poiché la stima $d_{\text{lib}}(F,D)$ scarta subito i rami che, nel migliore dei casi, non potrebbero comunque competere con il minimo corrente. Su questa istanza il tempo di calcolo passa da $21$ ms a meno di un millisecondo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{esplorazione_potatura_debole_vs_forte.png}
+\caption{Impronta di esplorazione (unione delle chiusure visitate) a confronto fra potatura debole e forte, stessa coppia origine--destinazione.}
+\label{fig:esplorazione_potatura}
+\end{figure}
+
 \subsection{Ottimizzazioni fisiche e implementative}
 
 L'implementazione prevede anche le seguenti ottimizzazioni strutturali:
 \begin{itemize}
-    \item \textbf{Ordinamento euristico della frontiera}: prima di scorrere il ciclo sulle celle della frontiera, queste vengono ordinate per valori crescenti della distanza libera dalla destinazione. Questa strategia esplora per primi i percorsi più promettenti, riducendo il numero di rami da visitare prima di aggiornare il minimo globale.
+    \item \textbf{Ordinamento euristico della frontiera}: prima di scorrere il ciclo sulle celle della frontiera, queste vengono ordinate per valori crescenti della distanza libera dalla destinazione tramite l'ordinamento nativo di Python (Timsort, $O(n \log n)$)~\cite{python-sort}. Questa strategia esplora per primi i percorsi più promettenti, riducendo il numero di rami da visitare prima di aggiornare il minimo globale.
     \item \textbf{Ritracciamento sul posto}: realizzato marcando le celle della chiusura corrente nella matrice condivisa con un valore costante (ostacolo temporaneo) ed eseguendo il ripristino in tempo costante durante la risalita, senza allocazione di memoria.
-    \item \textbf{Assenza di memorizzazione dei sotto-problemi}: un tentativo iniziale di introdurre la memoizzazione (con chiave data da origine, destinazione e insieme delle celle temporaneamente bloccate) ha rivelato un difetto logico. Il risultato di ogni sotto-problema dipende, attraverso la potatura globale, dalla lunghezza accumulata delle chiamate esterne, che non fa parte della chiave. Un risultato memorizzato con una lunghezza accumulata elevata, e quindi con i rami ottimali potati, poteva essere reimpiegato erroneamente in una chiamata con lunghezza accumulata minore, producendo una risposta subottimale e violando la simmetria richiesta dalla specifica (diapositiva 64). La memoizzazione è stata pertanto rimossa; le prestazioni sono garantite dalla potatura branch-and-bound globale e dall'ordinamento euristico della frontiera.
 \end{itemize}
+
+Un tentativo iniziale aveva introdotto anche la memoizzazione dei sotto-problemi, con chiave data da origine, destinazione e insieme delle celle temporaneamente bloccate. Il tentativo ha rivelato però un difetto logico: il risultato di ogni sotto-problema dipende, attraverso la potatura globale, dalla lunghezza accumulata delle chiamate esterne, che non fa parte della chiave. Un risultato memorizzato con una lunghezza accumulata elevata, e quindi con i rami ottimali già potati, poteva essere reimpiegato erroneamente in una chiamata con lunghezza accumulata minore, producendo una risposta subottimale e violando la simmetria richiesta dalla specifica (diapositiva 64). La memoizzazione è stata pertanto rimossa; le prestazioni restano garantite dalla potatura branch-and-bound globale e dall'ordinamento euristico della frontiera.
+
+Tutte queste ottimizzazioni sono implementate come parametri booleani opzionali di \texttt{camminomin()} (\texttt{use\_strong\_pruning}, \texttt{randomize\_frontier}), non come gerarchia di classi intercambiabili secondo un pattern Strategy. La scelta è deliberata: le varianti sperimentabili sono due sole leve indipendenti, ciascuna con due soli valori possibili, per un totale di quattro combinazioni. Un'indirezione tramite interfacce e una factory che le assembli avrebbe introdotto uno strato di codice ulteriore senza semplificare né i punti di richiamo né i test, a fronte di una combinatoria già interamente enumerabile con un paio di flag; il pattern Strategy paga il proprio costo di indirezione quando le famiglie di comportamenti intercambiabili sono numerose o destinate a crescere, condizione che qui non si presenta.
 
 \subsection{Requisiti funzionali per gruppi di 3 persone}
 
@@ -56,3 +70,21 @@ Il software prevede le seguenti funzionalità per i gruppi di 3 persone:
     \item \textbf{Ricostruzione del cammino fisico (\texttt{reconstruct\_path})}: a partire dalla sequenza di landmark ritornata ($\langle (O,0), (F_1, t_1), \dots, (D, t_D) \rangle$), il sistema ricostruisce l'esatta sequenza continua di celle attraversabili (mosse cardinali e diagonali) unendo i singoli tratti liberi di tipo 1 o tipo 2 e validandone l'attraversabilità geometrica.
     \item \textbf{Gestione dell'interruzione per superamento del tempo limite}: l'ispezione del tempo trascorso a ogni chiamata ricorsiva consente di arrestare la ricerca in modo sicuro se si supera il tempo limite programmato dall'utente, salvando e restituendo la sequenza di celle di lunghezza minore individuata fino a quel momento.
 \end{itemize}
+
+La figura~\ref{fig:cammino_risolto} mostra un primo esempio didattico di cammino minimo ricostruito: in azzurro trasparente il percorso fisico completo, con la spezzata e i marcatori romboidali che ne evidenziano la sequenza di landmark (visualizzazione ibrida, diapositiva 53). Su questa istanza la destinazione si trova quasi in linea diagonale con l'origine, per cui la sequenza si riduce a soli due landmark intermedi.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{cammino_risolto.png}
+\caption{Cammino minimo ricostruito su un'istanza semplice: pochi ostacoli, sequenza breve di landmark.}
+\label{fig:cammino_risolto}
+\end{figure}
+
+La figura~\ref{fig:cammino_risolto_complesso} riporta invece un caso più rappresentativo del comportamento dell'algoritmo su griglie realistiche: una griglia $40 \times 40$ con agglomerati, barre e recinti (densità $0.25$), dove il cammino minimo fra i due angoli opposti richiede $9$ landmark intermedi per aggirare gli ostacoli via via incontrati. Ogni deviazione visibile nella spezzata corrisponde a una cella di frontiera da cui l'algoritmo ha aperto un nuovo cammino libero verso la destinazione.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{cammino_risolto_complesso.png}
+\caption{Cammino minimo su una griglia $40 \times 40$ densamente ostacolata: $9$ landmark intermedi.}
+\label{fig:cammino_risolto_complesso}
+\end{figure}
