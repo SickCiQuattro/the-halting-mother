@@ -35,9 +35,9 @@ def save_grid_image(
     
     # 1. Definizione della ListedColormap discreta
     # 0: bianco (libero)
-    # 1: grigio antracite (ostacolo fisso)
+    # 1: blu navy (ostacolo fisso)
     # da 2 in poi: giallo spento (ostacolo temporaneo)
-    colors = ['#ffffff', '#2d3436'] + ['#ffeaa7'] * 254
+    colors = ['#ffffff', '#002060'] + ['#ffeaa7'] * 254
     custom_cmap = ListedColormap(colors)
 
     # 2. Inizializzazione della figura ad alta risoluzione (headless)
@@ -45,9 +45,14 @@ def save_grid_image(
     fig, ax = plt.subplots(figsize=(12, 12), dpi=200)
 
     # 3. Disegno dello stato delle celle della griglia con interpolation='nearest'
+    # vmin/vmax fissi a 0/255 forzano la mappatura letteraria valore->indice della colormap,
+    # altrimenti imshow normalizza sul min/max effettivo dei dati (es. 0/1 per una griglia
+    # senza ostacoli temporanei) facendo cadere il valore 1 quasi alla fine della LUT a 256 colori.
     ax.imshow(
         grid.state,
         cmap=custom_cmap,
+        vmin=0,
+        vmax=255,
         interpolation='nearest',
         origin='upper',
         extent=[-0.5, cols - 0.5, rows - 0.5, -0.5]  # Imposta i limiti precisi degli assi

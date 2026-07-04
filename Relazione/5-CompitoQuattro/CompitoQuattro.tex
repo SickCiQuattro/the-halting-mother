@@ -50,16 +50,16 @@ Il file \texttt{1\_time\_vs\_density.png} illustra l'andamento del tempo di esec
 \end{figure}
 
 \subsubsection{2. Confronto delle configurazioni (potatura e ordinamento)}
-Il diagramma a barre in \texttt{2\_pruning\_comparison\_boxplot.png} (in scala logaritmica) confronta i quattro scenari di esecuzione (potatura debole, potatura forte, ordinamento euristico e ordinamento casuale) sulla coppia d'angolo di una griglia $50\times50$, per i diversi tipi di ostacolo. Entrambe le scelte risultano decisive:
+Il diagramma a barre in \texttt{2\_pruning\_comparison\_boxplot.png} (in scala logaritmica) confronta, sulla coppia d'angolo di una griglia $50\times50$ e per i diversi tipi di ostacolo, tre configurazioni realmente distinte: potatura debole con ordinamento euristico, potatura forte con ordinamento euristico e potatura forte con ordinamento casuale. Non esiste una quarta barra isolata per il solo ordinamento euristico, perché nella campagna quest'ultimo viene sempre misurato insieme alla potatura forte, che ne costituisce anche il termine di paragone per il confronto con l'ordinamento casuale. "Raggiungere il tempo limite" indica qui che la ricerca è stata interrotta a $20$ s senza completarsi: il tempo mostrato in grafico per quei casi è quindi convenzionalmente il tempo limite stesso, non un tempo di risoluzione effettiva (lo stesso significato di \texttt{timed\_out} già introdotto nel Compito 3). Entrambe le scelte progettuali risultano decisive:
 \begin{itemize}
-    \item La \textbf{potatura forte} (riga 17) risolve ogni scenario in pochi millisecondi (da $0{,}006$ a $0{,}014$ s), mentre la \textbf{potatura debole} (riga 16) raggiunge il tempo limite di $20$ s su quasi tutti i tipi (fa eccezione il tipo \texttt{bar}, circa $0{,}5$ s). La stima ammissibile $d_{\text{lib}}(F,D)$ aggiunta dalla riga 17 sfoltisce l'albero di ricerca in misura molto maggiore;
-    \item L'\textbf{ordinamento euristico} della \textbf{frontiera} (per $d_{\text{lib}}$ crescente dalla destinazione) è altrettanto importante: con l'ordinamento casuale la ricerca raggiunge il tempo limite su quattro tipi su cinque, mentre con quello euristico si conclude in millisecondi. Esplorare per primi i candidati più vicini alla destinazione consente di trovare presto un buon limite superiore, di cui la potatura branch-and-bound beneficia subito.
+    \item La potatura forte (riga 17) risolve ogni scenario in pochi millisecondi (da $0{,}006$ a $0{,}014$ s), mentre la potatura debole (riga 16) raggiunge il tempo limite di $20$ s su quasi tutti i tipi, cioè non completa la ricerca in quel tempo (fa eccezione il tipo \texttt{bar}, risolto in circa $0{,}5$ s). La stima ammissibile $d_{\text{lib}}(F,D)$ aggiunta dalla riga 17 sfoltisce l'albero di ricerca in misura molto maggiore;
+    \item L'ordinamento euristico della frontiera (per $d_{\text{lib}}$ crescente dalla destinazione) è altrettanto importante: con l'ordinamento casuale la ricerca raggiunge il tempo limite su quattro tipi su cinque, mentre con quello euristico si conclude in millisecondi. Esplorare per primi i candidati più vicini alla destinazione consente di trovare presto un buon limite superiore, di cui la potatura branch-and-bound beneficia subito.
 \end{itemize}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{2_pruning_comparison_boxplot.png}
-\caption{Tempi di esecuzione delle quattro configurazioni (potatura debole/forte, ordinamento euristico/casuale) per tipologia di ostacolo.}
+\caption{Tempi di esecuzione delle tre configurazioni distinte (potatura debole/forte, ordinamento euristico/casuale) per tipologia di ostacolo.}
 \label{fig:pruning_comparison}
 \end{figure}
 

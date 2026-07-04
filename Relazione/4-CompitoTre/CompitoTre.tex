@@ -63,8 +63,6 @@ Un tentativo iniziale aveva introdotto anche la memoizzazione dei sotto-problemi
 
 Tutte queste ottimizzazioni sono implementate come parametri booleani opzionali di \texttt{camminomin()} (\texttt{use\_strong\_pruning}, \texttt{randomize\_frontier}).
 
-% Tutte queste ottimizzazioni sono implementate come parametri booleani opzionali di \texttt{camminomin()} (\texttt{use\_strong\_pruning}, \texttt{randomize\_frontier}), non come gerarchia di classi intercambiabili secondo un pattern Strategy. La scelta è deliberata: le varianti sperimentabili sono due sole leve indipendenti, ciascuna con due soli valori possibili, per un totale di quattro combinazioni. Un'indirezione tramite interfacce e una factory che le assembli avrebbe introdotto uno strato di codice ulteriore senza semplificare né i punti di richiamo né i test, a fronte di una combinatoria già interamente enumerabile con un paio di flag; il pattern Strategy paga il proprio costo di indirezione quando le famiglie di comportamenti intercambiabili sono numerose o destinate a crescere, condizione che qui non si presenta.
-
 \newpage
 \subsection{Requisiti funzionali implementati}
 
@@ -74,7 +72,7 @@ Il software prevede le seguenti funzionalità richeste dalla specifica:
     \item \textbf{Gestione dell'interruzione per superamento del tempo limite}: l'ispezione del tempo trascorso a ogni chiamata ricorsiva, consente di arrestare la ricerca in modo sicuro se si supera il tempo limite programmato dall'utente; salvando e restituendo la sequenza di celle di lunghezza minore individuata fino a quel momento.
 \end{itemize}
 
-La figura~\ref{fig:cammino_risolto} mostra un primo esempio didattico di cammino minimo ricostruito: in azzurro trasparente il percorso fisico completo, con la spezzata e i marcatori romboidali che ne evidenziano la sequenza di landmark (visualizzazione ibrida, diapositiva 53 del testo dell'elaborato). Su questa istanza la destinazione si trova quasi in linea diagonale con l'origine, per cui la sequenza si riduce a soli due landmark intermedi.
+La figura~\ref{fig:cammino_risolto} mostra un primo esempio didattico di cammino minimo ricostruito: in azzurro trasparente il percorso fisico completo, con la spezzata e i marcatori romboidali che ne evidenziano la sequenza di landmark (visualizzazione ibrida, diapositiva 53 del testo dell'elaborato). Su questa istanza la destinazione si trova quasi in linea diagonale con l'origine, per cui la sequenza si riduce a un solo landmark intermedio.
 
 \begin{figure}[H]
 \centering
@@ -83,11 +81,11 @@ La figura~\ref{fig:cammino_risolto} mostra un primo esempio didattico di cammino
 \label{fig:cammino_risolto}
 \end{figure}
 
-La figura~\ref{fig:cammino_risolto_complesso} riporta invece un caso più rappresentativo del comportamento dell'algoritmo su griglie realistiche: una griglia $40 \times 40$ con agglomerati, barre e recinti (densità $0.25$), dove il cammino minimo fra i due angoli opposti richiede $9$ landmark intermedi per aggirare gli ostacoli via via incontrati. Ogni deviazione visibile nella spezzata corrisponde a una cella di frontiera da cui l'algoritmo ha aperto un nuovo cammino libero verso la destinazione.
+La figura~\ref{fig:cammino_risolto_complesso} riporta invece un caso più rappresentativo del comportamento dell'algoritmo su griglie realistiche: una griglia $40 \times 40$ con agglomerati, barre e recinti (densità $0.25$), dove il cammino minimo fra i due angoli opposti richiede $7$ landmark intermedi per aggirare gli ostacoli via via incontrati. Ogni deviazione visibile nella spezzata corrisponde a una cella di frontiera da cui l'algoritmo ha aperto un nuovo cammino libero verso la destinazione.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.72\textwidth]{cammino_risolto_complesso.png}
-\caption{Cammino minimo su una griglia $40 \times 40$ densamente ostacolata: $9$ landmark intermedi.}
+\caption{Cammino minimo su una griglia $40 \times 40$ densamente ostacolata: $7$ landmark intermedi.}
 \label{fig:cammino_risolto_complesso}
 \end{figure}

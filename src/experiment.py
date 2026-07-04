@@ -389,11 +389,14 @@ class ExperimentRunner:
         # 1. Scalabilità con la dimensione della griglia: 10 → 200       #
         # -------------------------------------------------------------- #
         # Include 200x200 come richiesto dalla specifica (diapositiva 72).
-        # Tempo limite generoso (60s) per dare una possibilità anche alla griglia più grande.
+        # Tempo limite di 600s (10 minuti): non costa nulla sulle taglie piccole (già
+        # istantanee) e dà una possibilità reale a quelle grandi di completare, per
+        # distinguere un limite strutturale dell'algoritmo da un semplice budget insufficiente.
         # Si confrontano la potatura debole (riga 16) e quella forte (riga 17); la configurazione
         # forte è eseguita in entrambe le direzioni (O→D e D→O) per la verifica di correttezza
         # di cui alla diapositiva 64.
         sizes = [10, 20, 50, 100, 150, 200]
+        scaling_timeout = 600.0
         scaling_results: list[dict[str, object]] = []
 
         for size in sizes:
@@ -406,8 +409,8 @@ class ExperimentRunner:
             grid.clear_cell(o[0], o[1])
             grid.clear_cell(d[0], d[1])
 
-            res_weak = cls.run_single_benchmark(grid, o, d, use_strong_pruning=False, timeout=60.0)
-            coppia = cls.run_benchmark_coppia(grid, o, d, use_strong_pruning=True, timeout=60.0)
+            res_weak = cls.run_single_benchmark(grid, o, d, use_strong_pruning=False, timeout=scaling_timeout)
+            coppia = cls.run_benchmark_coppia(grid, o, d, use_strong_pruning=True, timeout=scaling_timeout)
 
             scaling_results.append({
                 "size": size,
@@ -426,33 +429,37 @@ class ExperimentRunner:
         # -------------------------------------------------------------- #
         # Per ogni densità si campionano più coppie casuali (oltre alla coppia
         # d'angolo, la più difficile) e si aggregano le metriche per mediana.
-        # Ogni coppia è invocata in entrambe le direzioni (Slide 64).
+        # Ogni coppia è invocata in entrambe le direzioni (Slide 64). La campagna è
+        # ripetuta su due taglie di griglia (50x50 e 100x100) per verificare se alle
+        # densità più alte una griglia più grande produca tempi oltre il secondo.
         densities = [0.05, 0.15, 0.25, 0.35, 0.45]
+        density_sizes = [50, 100]
         density_results: list[dict[str, object]] = []
-        size = 50
         n_coppie_casuali = 4
         rng_coppie = np.random.default_rng(7)
 
-        for dens in densities:
-            logger.info(f"  Benchmark densità: {dens:.2f}...")
-            grid = GridGenerator.generate_grid(
-                size, size, ["simple", "cluster"], density=dens, seed=100
-            )
-            grid.clear_cell(0, 0)
-            grid.clear_cell(size - 1, size - 1)
-            coppie = [((0, 0), (size - 1, size - 1))]
-            coppie += cls._coppie_casuali(grid, n_coppie_casuali, rng_coppie)
+        for size in density_sizes:
+            for dens in densities:
+                logger.info(f"  Benchmark densità: {dens:.2f} (griglia {size}x{size})...")
+                grid = GridGenerator.generate_grid(
+                    size, size, ["simple", "cluster"], density=dens, seed=100
+                )
+                grid.clear_cell(0, 0)
+                grid.clear_cell(size - 1, size - 1)
+                coppie = [((0, 0), (size - 1, size - 1))]
+                coppie += cls._coppie_casuali(grid, n_coppie_casuali, rng_coppie)
 
-            dettagli = [
-                cls.run_benchmark_coppia(grid, o, d, use_strong_pruning=True, timeout=20.0)
-                for o, d in coppie
-            ]
-            density_results.append({
-                "density": dens,
-                "metrics": cls._mediana_metriche([c["andata"] for c in dettagli]),
-                "coppie": dettagli,
-                "simmetrie_fallite": sum(1 for c in dettagli if not c["simmetria_ok"])
-            })
+                dettagli = [
+                    cls.run_benchmark_coppia(grid, o, d, use_strong_pruning=True, timeout=20.0)
+                    for o, d in coppie
+                ]
+                density_results.append({
+                    "size": size,
+                    "density": dens,
+                    "metrics": cls._mediana_metriche([c["andata"] for c in dettagli]),
+                    "coppie": dettagli,
+                    "simmetrie_fallite": sum(1 for c in dettagli if not c["simmetria_ok"])
+                })
 
         with open(os.path.join(output_dir, "density_results.json"), "w", encoding='utf-8') as f:
             json.dump(density_results, f, indent=2, default=str)
@@ -639,44 +646,48 @@ class ExperimentRunner:
             for s in r.get("campioni_random", []):
                 add_sample(s)
 
-        # ── Plot 1: Tempo vs Densità (Transizione di Fase) ────────────── #
+        # ── Plot 1: Tempo vs Densità (Transizione di Fase), per taglia ── #
         plt.figure(figsize=(8, 5))
-        dens = [r["density"] for r in density_res]
-        times = [r["metrics"]["elapsed_time_s"] for r in density_res]
-        plt.plot(dens, times, marker='o', linewidth=2.5, color='#e056fd', label='CAMMINOMIN (potatura forte)')
+        colori_taglia = {50: '#e056fd', 100: '#0984e3'}
+        taglie_presenti = sorted({r.get("size", 50) for r in density_res})
+        for taglia in taglie_presenti:
+            campioni_taglia = [r for r in density_res if r.get("size", 50) == taglia]
+            dens = [r["density"] for r in campioni_taglia]
+            times = [r["metrics"]["elapsed_time_s"] for r in campioni_taglia]
+            colore = colori_taglia.get(taglia, '#e056fd')
+            plt.plot(dens, times, marker='o', linewidth=2.5, color=colore, label=f'Griglia {taglia}x{taglia} (potatura forte)')
         plt.title("Tempo di esecuzione in funzione della densità di ostacoli (transizione di fase)", fontsize=12, fontweight='bold')
         plt.xlabel("Densità ostacoli", fontsize=10)
         plt.ylabel("Tempo di esecuzione (secondi)", fontsize=10)
-        plt.grid(True, linestyle='--', alpha=0.6)
+        plt.yscale('log')
+        plt.grid(True, which="both", linestyle='--', alpha=0.6)
         plt.legend()
         plt.tight_layout()
         plt.savefig(os.path.join(output_dir, "1_time_vs_density.png"), dpi=200)
         plt.close()
 
         # ── Plot 2: BoxPlot/BarPlot comparativo delle configurazioni ──── #
+        # Solo 3 configurazioni sono realmente distinte: la potatura forte viene sempre
+        # misurata insieme all'ordinamento euristico (la campagna di ordinamento riusa
+        # infatti quella stessa misura come termine di paragone, si veda "strong" sopra),
+        # quindi non esiste una misura isolata di "sola potatura forte" o "solo ordinamento
+        # euristico" da poter distinguere in un quarto scenario.
         categories = [r["obstacle_type"] for r in pruning_res]
         weak_times = [r["weak"]["elapsed_time_s"] for r in pruning_res]
         strong_times = [r["strong"]["elapsed_time_s"] for r in pruning_res]
-        
-        # Estraiamo per gli stessi scenari le performance dell'ordinamento
-        heuristic_times = []
+
+        # Estraiamo per gli stessi scenari la performance dell'ordinamento casuale
         random_times = []
         for cat in categories:
             match = next((r for r in ordering_res if r["obstacle_type"] == cat), None)
-            if match:
-                heuristic_times.append(match["heuristic"]["elapsed_time_s"])
-                random_times.append(match["random"]["elapsed_time_s"])
-            else:
-                heuristic_times.append(0.0)
-                random_times.append(0.0)
+            random_times.append(match["random"]["elapsed_time_s"] if match else 0.0)
 
         x = np.arange(len(categories))
-        width = 0.2
+        width = 0.25
         fig, ax = plt.subplots(figsize=(10, 6))
-        ax.bar(x - 1.5*width, weak_times, width, label='Potatura debole (riga 16)', color='#ff7979')
-        ax.bar(x - 0.5*width, strong_times, width, label='Potatura forte (riga 17)', color='#2ed573')
-        ax.bar(x + 0.5*width, heuristic_times, width, label='Ordinamento euristico', color='#3a86ff')
-        ax.bar(x + 1.5*width, random_times, width, label='Ordinamento casuale', color='#ff6b6b')
+        ax.bar(x - width, weak_times, width, label='Potatura debole + ordinamento euristico', color='#ff7979')
+        ax.bar(x, strong_times, width, label='Potatura forte + ordinamento euristico', color='#2ed573')
+        ax.bar(x + width, random_times, width, label='Potatura forte + ordinamento casuale', color='#a29bfe')
 
         ax.set_title("Tempi di esecuzione delle diverse configurazioni per scenario", fontsize=12, fontweight='bold')
         ax.set_xticks(x)
