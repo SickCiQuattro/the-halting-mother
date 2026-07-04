@@ -4,12 +4,12 @@ Il primo compito consiste nella stesura di un generatore procedurale per creare 
 
 \subsection{Personalizzazione della griglia tramite parametri}
 
-L'utente configura il generatore attraverso i parametri della riga di comando; la griglia prodotta viene poi salvata in un file JSON che ne registra dimensioni, tipologie di ostacoli e celle non attraversabili. I parametri di configurazione includono:
+L'utente configura il generatore attraverso i parametri della riga di comando. La griglia prodotta viene poi salvata in un file JSON che ne registra dimensioni, tipologie di ostacoli e celle non attraversabili. I parametri di configurazione includono:
 \begin{itemize}
-    \item \texttt{--rows} e \texttt{--cols}: numero di righe e colonne della griglia (dimensioni $R \times C$).
-    \item \texttt{--seed}: seme numerico per il generatore pseudo-casuale, che assicura la totale riproducibilità degli ostacoli generati nelle successive campagne di prova.
-    \item \texttt{--types}: elenco delle tipologie di ostacoli da inserire (con la possibilità di combinarle nello scenario \texttt{mix}).
-    \item \texttt{--density}: frazione obiettivo di celle della griglia da occupare con ostacoli fisici (compresa tra $0.0$ e $1.0$).
+    \item \texttt{---rows} e \texttt{---cols}: numero di righe e colonne della griglia (dimensioni $R \times C$);
+    \item \texttt{---seed}: seme numerico per il generatore pseudo-casuale, che assicura la totale riproducibilità degli ostacoli generati nelle successive campagne di prova;
+    \item \texttt{---types}: elenco delle tipologie di ostacoli da inserire (con la possibilità di combinarle nello scenario \texttt{mix});
+    \item \texttt{---density}: frazione obiettivo di celle della griglia da occupare con ostacoli fisici (compresa tra $0.0$ e $1.0$).
 \end{itemize}
 
 \subsection{Tipologie di ostacoli e modellizzazione logica}
@@ -17,13 +17,13 @@ L'utente configura il generatore attraverso i parametri della riga di comando; l
 In conformità ai requisiti per i gruppi di tre studenti, l'applicativo modella cinque forme geometriche:
 
 \begin{enumerate}
-    \item \textbf{Semplici (\texttt{simple})}: celle singole non attraversabili sparse casualmente sulla griglia. Servono a valutare il comportamento di base dell'algoritmo in ambienti a densità uniforme, senza blocchi strutturati.
+    \item \textbf{Semplici (\texttt{simple})}: celle singole non attraversabili sparse casualmente sulla griglia. Servono a valutare il comportamento di base dell'algoritmo in ambienti a densità uniforme, senza blocchi strutturati;
 
-    \item \textbf{Agglomerati (\texttt{cluster})}: gruppi compatti di celle contigue generati simulando un cammino casuale a partire da celle "seme".
+    \item \textbf{Agglomerati (\texttt{cluster})}: gruppi compatti di celle contigue generati simulando un cammino casuale a partire da celle \textit{seme};
 
-    \item \textbf{Diagonali (\texttt{diagonal})}: sequenze di due o tre celle adiacenti solo per uno spigolo. Questo scenario serve a valutare le regole sugli attraversamenti diagonali forzati.
+    \item \textbf{Diagonali (\texttt{diagonal})}: sequenze di due o tre celle adiacenti solo per uno spigolo. Questo scenario serve a valutare le regole sugli attraversamenti diagonali forzati;
 
-    \item \textbf{Recinti (\texttt{enclosure})}: strutture perimetrali rettangolari dotate di area libera interna. Mettono alla prova l'algoritmo di potatura in caso di percorsi chiusi.
+    \item \textbf{Recinti (\texttt{enclosure})}: strutture perimetrali rettangolari dotate di area libera interna. Mettono alla prova l'algoritmo di potatura in caso di percorsi chiusi;
 
     \item \textbf{Barre (\texttt{bar})}: linee orizzontali o verticali munite di una singola apertura casuale. Costringono l'esplorazione a deviare attraverso un passaggio obbligato.
 \end{enumerate}
@@ -39,9 +39,9 @@ La figura~\ref{fig:tipologie_ostacoli} mostra le cinque tipologie generate isola
 
 \subsection{Algoritmo di generazione}
 
-La generazione della griglia è affidata alla classe \texttt{GridGenerator}. Per garantire l'accuratezza della densità complessiva obiettivo, il generatore inserisce prima le macrostrutture (barre, recinti, agglomerati, diagonali) e poi esegue un passo di riempimento fine tramite ostacoli semplici (\texttt{simple}) fino al raggiungimento esatto della quota prefissata.
+La generazione della griglia è affidata alla classe \texttt{GridGenerator}. Per garantire l'accuratezza della densità complessiva obiettivo, il generatore inserisce prima le macrostrutture (barre, recinti, agglomerati, diagonali) e poi esegue un passo di riempimento \textit{fine} tramite ostacoli semplici (\texttt{simple}), fino al raggiungimento esatto della quota prefissata.
 
-I divisori che compaiono nello pseudocodice ($10$, $2{,}5$, $16$, $8$) traducono la quota di celle assegnata a ciascuna macrostruttura nel numero di istanze da generare, dividendo per il numero medio di celle occupate da un singolo agglomerato, coppia diagonale, recinto o barra rispettivamente.
+I \textit{divisori} che compaiono nello pseudocodice ($10$, $2{,}5$, $16$, $8$) traducono la quota di celle assegnata a ciascuna macrostruttura nel numero di istanze da generare, dividendo rispettivamente per il numero medio di celle occupate da un singolo agglomerato, coppia diagonale, recinto o barra.
 
 Di seguito si riporta lo pseudocodice di generazione:
 
@@ -84,6 +84,6 @@ Di seguito si riporta lo pseudocodice di generazione:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.62\textwidth]{griglia_generata.png}
-\caption{Griglia $50 \times 50$ prodotta dal generatore con tipologie miste (\texttt{mix}) e densità $0.2$.}
+\caption{Griglia $30 \times 30$ prodotta dal generatore con tipologie miste (\texttt{mix}) e densità $0.2$.}
 \label{fig:griglia_generata}
 \end{figure}

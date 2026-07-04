@@ -4,7 +4,7 @@ Il secondo compito si concentra sull'analisi topologica dello spazio locale a pa
 
 \subsection{Distanza libera ($d_{\text{lib}}$) e formulazione matematica}
 
-La distanza libera ($d_{\text{lib}}$) rappresenta il costo minimo del percorso ottimale tra due celle in una griglia con adiacenza a otto direzioni, assumendo l'assoluta assenza di ostacoli fisici interposti. Siano $O$ e $D$ le celle di origine e destinazione, e siano $\Delta x = |O.x - D.x|$ e $\Delta y = |O.y - D.y|$ le differenze assolute delle loro coordinate cartesiane sulla griglia.
+La distanza libera ($d_{\text{lib}}$) rappresenta la lunghezza di un cammino libero fra $O$ e $D$ (se esiste), sia esso di tipo 1 o 2. Siano $O$ e $D$ le celle di origine e destinazione, e siano $\Delta x = |O.x - D.x|$ e $\Delta y = |O.y - D.y|$ le differenze assolute delle loro coordinate cartesiane sulla griglia.
 
 Definiamo $\Delta_{\text{min}} = \min(\Delta x, \Delta y)$ come il numero massimo di passi diagonali puri eseguibili e $\Delta_{\text{max}} = \max(\Delta x, \Delta y)$ come la dimensione dominante dello spostamento. La formula matematica esatta per il calcolo di $d_{\text{lib}}(O,D)$ è:
 
@@ -28,7 +28,7 @@ Fra due celle $O$ e $D$ reciprocamente raggiungibili senza ostacoli interposti p
 
 La raggiungibilità locale tramite cammini liberi definisce due insiemi disgiunti di celle all'interno dello spazio libero:
 \begin{itemize}
-    \item \textbf{Contesto}: l'insieme delle celle raggiungibili da $O$ tramite un cammino libero di tipo 1, definito dalla sequenza prima mosse diagonali oblique, poi mosse cardinali residue, oppure da cammini composti esclusivamente da un tipo di mossa.
+    \item \textbf{Contesto}: l'insieme delle celle raggiungibili da $O$ tramite un cammino libero di tipo 1, definito dalla sequenza prima mosse diagonali oblique, poi mosse cardinali residue, oppure da cammini composti esclusivamente da un tipo di mossa;
     \item \textbf{Complemento}: l'insieme delle celle raggiungibili da $O$ solo tramite un cammino libero di tipo 2, definito dalla sequenza inversa prima mosse cardinali, poi mosse diagonali residue. Le celle che ammettono entrambi i tipi di cammino appartengono per convenzione al solo contesto.
 \end{itemize}
 L'unione di contesto e complemento forma la \textbf{chiusura} di $O$.
@@ -39,11 +39,11 @@ Per determinare gli insiemi contesto e complemento, il programma implementa la \
 
 L'algoritmo per il \textbf{contesto (tipo 1)} opera come segue:
 \begin{enumerate}
-    \item \textbf{Proiezione cardinale}: vengono tracciati i 4 raggi cardinali puri (Nord, Sud, Est, Ovest) a partire dall'origine $O$, arrestandosi non appena si incontra una cella ostacolo.
+    \item \textbf{Proiezione cardinale}: vengono tracciati i 4 raggi cardinali puri (Nord, Sud, Est, Ovest) a partire dall'origine $O$, arrestandosi non appena si incontra una cella ostacolo;
     \item \textbf{Proiezione diagonale ed espansione a gomito}: per ciascuno dei 4 quadranti del piano cartesiano locale:
     \begin{itemize}
-        \item si proietta il raggio diagonale puro (NE, NO, SE, SO);
-        \item per ogni cella attraversabile raggiunta lungo questo raggio diagonale, si avvia un'espansione cardinale rettilinea parallela agli assi (espansione a gomito), che procede verso l'esterno fino a incontrare un ostacolo o il bordo della griglia.
+        \item Si proietta il raggio diagonale puro (NE, NO, SE, SO);
+        \item Per ogni cella attraversabile raggiunta lungo questo raggio diagonale, si avvia un'espansione cardinale rettilinea parallela agli assi (espansione a gomito), che procede verso l'esterno fino a incontrare un ostacolo o il bordo della griglia.
     \end{itemize}
 \end{enumerate}
 
@@ -51,7 +51,7 @@ L'algoritmo per il \textbf{complemento (tipo 2)} inverte simmetricamente le fasi
 
 Questo accorgimento analizza ogni cella limitando le operazioni di lettura sulla matrice.
 
-Di seguito si riporta lo pseudocodice dei due algoritmi. La scrittura $P + c$ indica la cella ottenuta spostando $P$ di un passo lungo la direzione $c$; una cella si dice \emph{libera} se è interna alla griglia e non appartiene a $osta$.
+Di seguito si riporta lo pseudocodice dei due algoritmi. La scrittura $P + c$ indica la cella ottenuta spostando $P$ di un passo lungo la direzione $c$. Una cella si dice \emph{libera} se è interna alla griglia e non appartiene a $osta$.
 
 \begin{algorithm}[H]
 \caption{Calcolo del contesto (celle raggiungibili con cammini liberi di tipo 1)}
@@ -115,16 +115,19 @@ Di seguito si riporta lo pseudocodice dei due algoritmi. La scrittura $P + c$ in
 
 \subsection{Frontiera della chiusura}
 
-La \textbf{frontiera} della chiusura di $O$ è definita formalmente come il sottoinsieme delle celle della chiusura che confinano (secondo l'intorno a otto direzioni) con almeno una cella attraversabile che si trova all'esterno della chiusura stessa:
+La \textbf{frontiera} di una cella $O$ è l'insieme di tutte le celle della chiusura di $O$ che sono adiacenti a una cella attraversabile che non appartiene a tale chiusura. Formalmente, la frontiera è definita come segue:
 
 \begin{equation}
-\text{Frontiera}(O) = \{ c \in \text{Chiusura}(O) \mid \exists v \in \text{Vicini}(c) \text{ t.c. } \text{Stato}(v) = 0 \land v \notin \text{Chiusura}(O) \}
+\begin{aligned}
+\text{Frontiera}(O) = \{ c \in \text{Chiusura}(O) \mid {} & \exists v \in \text{Vicini}(c) \\
+& \text{t.c. } \text{Stato}(v) = 0 \land v \notin \text{Chiusura}(O) \}
+\end{aligned}
 \label{eq:frontiera}
 \end{equation}
 
 Il codice estrae la frontiera limitando l'ispezione al vicinato delle sole celle incluse nella chiusura. Ad ogni cella di frontiera viene associato il tipo del cammino libero da cui proviene ($1$ per il contesto, $2$ per il complemento).
 
-La figura~\ref{fig:contesto_complemento_frontiera} mostra un esempio concreto su una griglia $15 \times 15$ con due ostacoli che spezzano parzialmente due quadranti dell'origine $O$: a sinistra sono evidenziati contesto (verde) e complemento (arancio), sovrapposti agli otto raggi primari (4 cardinali e 4 diagonali) effettivamente tracciati dall'algoritmo, il passo geometrico che precede le espansioni a gomito che riempiono il resto della chiusura; a destra la frontiera della loro unione (cerchiata in rosso).
+La figura~\ref{fig:contesto_complemento_frontiera} illustra un esempio concreto su una griglia $15 \times 15$, in cui due ostacoli spezzano parzialmente due quadranti dell'origine $O$. Nella parte sinistra sono evidenziati il contesto (in verde) e il complemento (in arancio), sovrapposti agli otto raggi primari (4 cardinali e 4 diagonali) tracciati dall'algoritmo. Questo tracciamento costituisce il passo geometrico che precede le espansioni a gomito necessarie a riempire il resto della chiusura. Nella parte destra, infine, è visibile la frontiera della loro unione (cerchiata in rosso).
 
 \begin{figure}[H]
 \centering

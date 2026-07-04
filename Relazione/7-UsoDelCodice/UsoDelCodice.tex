@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 \subsection{Configurazione del file JSON delle griglie}
 
-Il file JSON utilizzato per memorizzare e caricare la struttura delle griglie adotta una sintassi strutturata, che dichiara esplicitamente le dimensioni della matrice, le tipologie di ostacoli con cui la griglia è stata generata (riportate poi nel riassunto dell'esecuzione, come richiesto dalla diapositiva 71) e le coordinate bidimensionali di ciascuna cella ostacolo fisso:
+Il file JSON utilizzato per memorizzare e caricare la struttura delle griglie adotta una sintassi strutturata, che dichiara esplicitamente le dimensioni della matrice, le tipologie di ostacoli con cui la griglia è stata generata (riportate poi nel riassunto dell'esecuzione, come richiesto dalla diapositiva 71 del testo dell'elaborato) e le coordinate bidimensionali di ciascuna cella ostacolo fisso:
 
 \begin{verbatim}
 {
@@ -78,7 +78,7 @@ PYTHONPATH=. .venv/bin/python main.py experiment --output-dir results
 \subsubsection{6. Verifica di simmetria formale}
 Per lanciare la verifica automatica di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su un numero $N$ di coppie casuali di nodi:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python main.py experiment --verify-symmetry-count 10 \
+PYTHONPATH=. .venv/bin/python main.py experiment --verify-symmetry-count 10
   --symmetry-grid-size 20
 \end{verbatim}
 
@@ -92,7 +92,7 @@ PYTHONPATH=. .venv/bin/python scripts/genera_immagine_cammini_liberi.py
 PYTHONPATH=. .venv/bin/python scripts/genera_immagine_contesto.py
 PYTHONPATH=. .venv/bin/python scripts/genera_immagine_esplorazione_potatura.py
 \end{verbatim}
-Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un sesto script, \texttt{scripts/verifica\_limite\_ricorsione.py}, non produce immagini ma riproduce la verifica empirica del limite di ricorsione discussa nelle Conclusioni:
+Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un sesto script, \texttt{scripts/verifica\_limite\_ricorsione.py}, non produce immagini, ma riproduce la verifica empirica del limite di ricorsione discussa nelle conclusioni:
 \begin{verbatim}
 PYTHONPATH=. .venv/bin/python scripts/verifica_limite_ricorsione.py
 \end{verbatim}

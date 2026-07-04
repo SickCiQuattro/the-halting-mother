@@ -4,7 +4,7 @@ La presente relazione descrive la progettazione, l'implementazione e la campagna
 
 L'elaborato affronta il calcolo del cammino minimo su griglie bidimensionali in presenza di ostacoli. Il sistema mira a limitare il sovraccarico computazionale tipico delle esplorazioni ricorsive ricorrendo a strutture dati specifiche e a regole di potatura spaziale.
 
-La figura~\ref{fig:panoramica_sistema} anticipa in quattro pannelli l'intero percorso seguito dalla relazione, sulla stessa istanza di griglia: si parte da uno spazio libero senza ostacoli, si generano proceduralmente gli ostacoli (Compito 1), si calcola dall'origine $O$ la chiusura raggiungibile con cammini liberi (in verde/arancio) individuandone la frontiera (cerchiata) tramite la proiezione dei raggi cardinali e diagonali (Compito 2), e infine si risolve il cammino minimo completo verso la destinazione $D$ componendo più cammini liberi lungo la sequenza dei landmark (Compito 3). I capitoli successivi riprendono singolarmente ciascuno di questi passaggi.
+La figura~\ref{fig:panoramica_sistema} anticipa in quattro pannelli l'intero percorso seguito dalla relazione, sulla stessa istanza di griglia: si parte da uno spazio libero senza ostacoli, si generano proceduralmente gli ostacoli (Compito 1), si calcola dall'origine $O$ la chiusura raggiungibile con cammini liberi (in verde/arancio) individuandone la frontiera (cerchiata) tramite la proiezione dei raggi cardinali e diagonali (Compito 2), e infine si risolve il cammino minimo completo verso la destinazione $D$ componendo più cammini liberi lungo la sequenza dei landmark (Compito 3). I capitoli successivi riprendono singolarmente ciascuno di questi passaggi, concludendo con la valutazione delle prestazioni (Compito 4) e con le considerazioni finali.
 
 \begin{figure}[H]
 \centering
@@ -17,8 +17,8 @@ La figura~\ref{fig:panoramica_sistema} anticipa in quattro pannelli l'intero per
 
 Il software è scritto in \textbf{Python 3.13} e utilizza:
 \begin{itemize}
-    \item \textbf{NumPy}: gestisce la rappresentazione della griglia attraverso array multidimensionali, sfruttando le operazioni vettoriali per ottimizzare le letture e le modifiche dello stato.
-    \item \textbf{Matplotlib}: genera le visualizzazioni grafiche dei percorsi e produce i grafici per l'analisi delle prestazioni (Compito 4).
+    \item \textbf{NumPy}: gestisce la rappresentazione della griglia attraverso array multidimensionali, sfruttando le operazioni vettoriali per ottimizzare le letture e le modifiche dello stato;
+    \item \textbf{Matplotlib}: genera le visualizzazioni grafiche dei percorsi e produce i grafici per l'analisi delle prestazioni (Compito 4);
     \item \textbf{Argparse}: fornisce l'interfaccia a riga di comando.
 \end{itemize}
 
@@ -43,4 +43,4 @@ Ogni cella della griglia è codificata con un numero intero all'interno di una m
 
 Questa codifica numerica consente il \textbf{ritracciamento (backtracking) sul posto}. A ogni chiamata ricorsiva di \texttt{CAMMINOMIN}, invece di clonare la matrice della griglia (operazione che esaurirebbe la memoria sulle griglie più ampie), il codice sovrascrive il valore intero della cella visitata direttamente nella struttura dati condivisa.
 
-Durante la discesa, le celle della chiusura corrente vengono marcate con il valore costante $2$. In fase di risalita la funzione le ripristina al valore 0. Questo meccanismo evita la creazione e la distruzione di oggetti a ogni livello dell'albero delle chiamate. Una marcatura costante (anziché dipendente dalla profondità) è sufficiente perché le chiusure annidate sono disgiunte e il ripristino avviene per insieme esplicito; evita inoltre l'eccedenza del tipo \texttt{uint8} su catene di landmark molto lunghe.
+Durante la discesa, le celle della chiusura corrente vengono marcate con il valore costante $2$. In fase di risalita la funzione le ripristina al valore 0. Questo meccanismo evita la creazione e la distruzione di oggetti a ogni livello dell'albero delle chiamate. Una marcatura costante (anziché dipendente dalla profondità) è sufficiente, perché le chiusure annidate sono disgiunte e il ripristino avviene per insieme esplicito. Inoltre, evita l'eccedenza del tipo \texttt{uint8} su catene di landmark molto lunghe.
