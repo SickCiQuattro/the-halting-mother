@@ -92,9 +92,10 @@ PYTHONPATH=. .venv/bin/python scripts/genera_immagine_cammini_liberi.py
 PYTHONPATH=. .venv/bin/python scripts/genera_immagine_contesto.py
 PYTHONPATH=. .venv/bin/python scripts/genera_immagine_esplorazione_potatura.py
 \end{verbatim}
-Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un sesto script, \texttt{scripts/verifica\_limite\_ricorsione.py}, non produce immagini, ma riproduce la verifica empirica del limite di ricorsione discussa nelle conclusioni:
+Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Altri due script non producono immagini, ma riproducono verifiche numeriche citate in prosa nel Compito 4 e nelle Conclusioni: la verifica empirica del limite di ricorsione e il confronto supplementare fra potatura debole e forte su una griglia $100\times100$:
 \begin{verbatim}
 PYTHONPATH=. .venv/bin/python scripts/verifica_limite_ricorsione.py
+PYTHONPATH=. .venv/bin/python scripts/verifica_potatura_100.py
 \end{verbatim}
 
 \subsection{Esecuzione della batteria di prove unitarie}

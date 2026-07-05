@@ -238,6 +238,7 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.e
 INPUT ./2-CompitoUno/CompitoUno.tex
 INPUT ./2-CompitoUno/CompitoUno.tex
 INPUT 2-CompitoUno/CompitoUno.tex
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecti1200.tfm
 INPUT ./images/tipologie_ostacoli.png
 INPUT ./images/tipologie_ostacoli.png
 INPUT ./images/tipologie_ostacoli.png
@@ -271,7 +272,6 @@ INPUT ./images/cammini_liberi_tipo1_tipo2.png
 INPUT ./images/cammini_liberi_tipo1_tipo2.png
 INPUT ./images/cammini_liberi_tipo1_tipo2.png
 INPUT ./images/cammini_liberi_tipo1_tipo2.png
-INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecti1200.tfm
 INPUT ./images/contesto_complemento_frontiera.png
 INPUT ./images/contesto_complemento_frontiera.png
 INPUT ./images/contesto_complemento_frontiera.png

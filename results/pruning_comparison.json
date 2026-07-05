@@ -2,11 +2,11 @@
   {
     "obstacle_type": "simple",
     "weak": {
-      "elapsed_time_s": 20.000065088272095,
-      "peak_memory_kb": 70.1328125,
-      "frontier_cells": 6030574,
-      "pruning_false": 5406489,
-      "recursive_calls": 623739,
+      "elapsed_time_s": 20.00006127357483,
+      "peak_memory_kb": 71.7421875,
+      "frontier_cells": 6463533,
+      "pruning_false": 5796820,
+      "recursive_calls": 677403,
       "max_depth": 13,
       "path_length": 47.52691193458119,
       "landmarks_count": 6,
@@ -14,7 +14,7 @@
       "numero_campioni": 5
     },
     "strong": {
-      "elapsed_time_s": 0.013624191284179688,
+      "elapsed_time_s": 0.014093875885009766,
       "peak_memory_kb": 60.375,
       "frontier_cells": 4823,
       "pruning_false": 4668,
@@ -81,11 +81,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000096082687378,
+        "elapsed_time_s": 20.000102996826172,
         "peak_memory_kb": 104.9140625,
-        "frontier_cells": 5840819,
-        "pruning_false": 5081260,
-        "recursive_calls": 759274,
+        "frontier_cells": 6373065,
+        "pruning_false": 5536086,
+        "recursive_calls": 836667,
         "max_depth": 14
       },
       {
@@ -122,7 +122,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.0008249282836914062,
+        "elapsed_time_s": 0.000782012939453125,
         "peak_memory_kb": 26.6015625,
         "frontier_cells": 211,
         "pruning_false": 177,
@@ -177,11 +177,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000135898590088,
+        "elapsed_time_s": 20.00010919570923,
         "peak_memory_kb": 97.4921875,
-        "frontier_cells": 6030574,
-        "pruning_false": 5406489,
-        "recursive_calls": 623739,
+        "frontier_cells": 6463533,
+        "pruning_false": 5796820,
+        "recursive_calls": 666412,
         "max_depth": 13
       },
       {
@@ -225,11 +225,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000041007995605,
+        "elapsed_time_s": 20.000051259994507,
         "peak_memory_kb": 67.609375,
-        "frontier_cells": 6147985,
-        "pruning_false": 5438536,
-        "recursive_calls": 709322,
+        "frontier_cells": 6605666,
+        "pruning_false": 5852651,
+        "recursive_calls": 752873,
         "max_depth": 13
       },
       {
@@ -287,11 +287,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000065088272095,
-        "peak_memory_kb": 70.1328125,
-        "frontier_cells": 6378109,
-        "pruning_false": 5755345,
-        "recursive_calls": 622589,
+        "elapsed_time_s": 20.00006127357483,
+        "peak_memory_kb": 71.7421875,
+        "frontier_cells": 6974808,
+        "pruning_false": 6297215,
+        "recursive_calls": 677403,
         "max_depth": 14
       }
     ],
@@ -360,7 +360,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.9485330581665039,
+          "elapsed_time_s": 0.8814330101013184,
           "peak_memory_kb": 98.25,
           "frontier_cells": 336473,
           "pruning_false": 323141,
@@ -422,7 +422,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.11866283416748047,
+          "elapsed_time_s": 0.10991692543029785,
           "peak_memory_kb": 94.0625,
           "frontier_cells": 51496,
           "pruning_false": 50369,
@@ -475,7 +475,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00016307830810546875,
+          "elapsed_time_s": 0.00015592575073242188,
           "peak_memory_kb": 16.8046875,
           "frontier_cells": 58,
           "pruning_false": 53,
@@ -509,7 +509,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00024390220642089844,
+          "elapsed_time_s": 0.000225067138671875,
           "peak_memory_kb": 16.328125,
           "frontier_cells": 61,
           "pruning_false": 58,
@@ -576,7 +576,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.013624191284179688,
+          "elapsed_time_s": 0.014093875885009766,
           "peak_memory_kb": 79.3359375,
           "frontier_cells": 4823,
           "pruning_false": 4668,
@@ -631,7 +631,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.028000831604003906,
+          "elapsed_time_s": 0.026525259017944336,
           "peak_memory_kb": 81.546875,
           "frontier_cells": 10725,
           "pruning_false": 10427,
@@ -691,7 +691,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0023200511932373047,
+          "elapsed_time_s": 0.002176046371459961,
           "peak_memory_kb": 44.6796875,
           "frontier_cells": 806,
           "pruning_false": 762,
@@ -739,7 +739,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0236508846282959,
+          "elapsed_time_s": 0.02177882194519043,
           "peak_memory_kb": 53.7265625,
           "frontier_cells": 8494,
           "pruning_false": 8107,
@@ -806,7 +806,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.11358213424682617,
+          "elapsed_time_s": 0.10357904434204102,
           "peak_memory_kb": 60.375,
           "frontier_cells": 38871,
           "pruning_false": 33939,
@@ -861,7 +861,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0608830451965332,
+          "elapsed_time_s": 0.058424949645996094,
           "peak_memory_kb": 48.859375,
           "frontier_cells": 18295,
           "pruning_false": 17290,
@@ -929,9 +929,9 @@
   {
     "obstacle_type": "cluster",
     "weak": {
-      "elapsed_time_s": 13.768548727035522,
+      "elapsed_time_s": 12.725681781768799,
       "peak_memory_kb": 88.4921875,
-      "frontier_cells": 1290295,
+      "frontier_cells": 1513950,
       "pruning_false": 288423,
       "recursive_calls": 358251,
       "max_depth": 10,
@@ -941,7 +941,7 @@
       "numero_campioni": 5
     },
     "strong": {
-      "elapsed_time_s": 0.009760856628417969,
+      "elapsed_time_s": 0.00855398178100586,
       "peak_memory_kb": 55.0078125,
       "frontier_cells": 2627,
       "pruning_false": 507,
@@ -958,11 +958,11 @@
         "landmarks_count": 0,
         "landmarks": [],
         "timed_out": true,
-        "elapsed_time_s": 20.000216007232666,
+        "elapsed_time_s": 20.000169038772583,
         "peak_memory_kb": 153.265625,
-        "frontier_cells": 1290295,
+        "frontier_cells": 1513950,
         "pruning_false": 0,
-        "recursive_calls": 1289730,
+        "recursive_calls": 1513370,
         "max_depth": 39
       },
       {
@@ -1006,12 +1006,12 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000157117843628,
+        "elapsed_time_s": 20.000165224075317,
         "peak_memory_kb": 101.0703125,
-        "frontier_cells": 5879890,
-        "pruning_false": 5315171,
-        "recursive_calls": 564534,
-        "max_depth": 12
+        "frontier_cells": 6440034,
+        "pruning_false": 5813725,
+        "recursive_calls": 626151,
+        "max_depth": 13
       },
       {
         "path_length": 22.970562748477143,
@@ -1047,7 +1047,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.3301198482513428,
+        "elapsed_time_s": 0.3009521961212158,
         "peak_memory_kb": 82.03125,
         "frontier_cells": 94471,
         "pruning_false": 86711,
@@ -1088,7 +1088,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 13.768548727035522,
+        "elapsed_time_s": 12.725681781768799,
         "peak_memory_kb": 88.4921875,
         "frontier_cells": 4402423,
         "pruning_false": 4044173,
@@ -1122,7 +1122,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 1.0902760028839111,
+        "elapsed_time_s": 0.9870619773864746,
         "peak_memory_kb": 74.5390625,
         "frontier_cells": 318768,
         "pruning_false": 288423,
@@ -1145,11 +1145,11 @@
           "landmarks_count": 0,
           "landmarks": [],
           "timed_out": true,
-          "elapsed_time_s": 20.000137090682983,
+          "elapsed_time_s": 20.00013518333435,
           "peak_memory_kb": 153.265625,
-          "frontier_cells": 1351971,
+          "frontier_cells": 1485185,
           "pruning_false": 0,
-          "recursive_calls": 1351387,
+          "recursive_calls": 1484612,
           "max_depth": 39
         },
         "ritorno": {
@@ -1157,7 +1157,7 @@
           "landmarks_count": 0,
           "landmarks": [],
           "timed_out": false,
-          "elapsed_time_s": 7.152557373046875e-06,
+          "elapsed_time_s": 5.245208740234375e-06,
           "peak_memory_kb": 0.8515625,
           "frontier_cells": 0,
           "pruning_false": 0,
@@ -1217,7 +1217,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.009870052337646484,
+          "elapsed_time_s": 0.008836984634399414,
           "peak_memory_kb": 55.0078125,
           "frontier_cells": 3484,
           "pruning_false": 3295,
@@ -1265,7 +1265,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.012384891510009766,
+          "elapsed_time_s": 0.011394977569580078,
           "peak_memory_kb": 73.9921875,
           "frontier_cells": 4284,
           "pruning_false": 4186,
@@ -1318,7 +1318,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0018732547760009766,
+          "elapsed_time_s": 0.0016829967498779297,
           "peak_memory_kb": 71.3984375,
           "frontier_cells": 524,
           "pruning_false": 507,
@@ -1359,7 +1359,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0009839534759521484,
+          "elapsed_time_s": 0.0008940696716308594,
           "peak_memory_kb": 37.7421875,
           "frontier_cells": 267,
           "pruning_false": 249,
@@ -1405,7 +1405,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00028395652770996094,
+          "elapsed_time_s": 0.0002522468566894531,
           "peak_memory_kb": 26.4453125,
           "frontier_cells": 87,
           "pruning_false": 86,
@@ -1446,7 +1446,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0019998550415039062,
+          "elapsed_time_s": 0.001795053482055664,
           "peak_memory_kb": 50.03125,
           "frontier_cells": 670,
           "pruning_false": 647,
@@ -1492,7 +1492,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.009760856628417969,
+          "elapsed_time_s": 0.00855398178100586,
           "peak_memory_kb": 53.296875,
           "frontier_cells": 2627,
           "pruning_false": 2369,
@@ -1526,7 +1526,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0037679672241210938,
+          "elapsed_time_s": 0.0033750534057617188,
           "peak_memory_kb": 48.203125,
           "frontier_cells": 1319,
           "pruning_false": 1276,
@@ -1594,11 +1594,11 @@
   {
     "obstacle_type": "diagonal",
     "weak": {
-      "elapsed_time_s": 20.000059127807617,
+      "elapsed_time_s": 20.00005292892456,
       "peak_memory_kb": 77.3046875,
-      "frontier_cells": 1704102,
+      "frontier_cells": 1897995,
       "pruning_false": 1336714,
-      "recursive_calls": 479202,
+      "recursive_calls": 514334,
       "max_depth": 12,
       "path_length": 28.935028842544405,
       "landmarks_count": 3,
@@ -1606,7 +1606,7 @@
       "numero_campioni": 5
     },
     "strong": {
-      "elapsed_time_s": 0.007512092590332031,
+      "elapsed_time_s": 0.007139921188354492,
       "peak_memory_kb": 51.265625,
       "frontier_cells": 2986,
       "pruning_false": 687,
@@ -1623,11 +1623,11 @@
         "landmarks_count": 0,
         "landmarks": [],
         "timed_out": true,
-        "elapsed_time_s": 20.00009799003601,
+        "elapsed_time_s": 20.000093936920166,
         "peak_memory_kb": 69.2265625,
-        "frontier_cells": 1704102,
+        "frontier_cells": 1897995,
         "pruning_false": 0,
-        "recursive_calls": 1703696,
+        "recursive_calls": 1897603,
         "max_depth": 35
       },
       {
@@ -1671,7 +1671,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 4.186599969863892,
+        "elapsed_time_s": 3.8816580772399902,
         "peak_memory_kb": 77.3046875,
         "frontier_cells": 1444123,
         "pruning_false": 1336714,
@@ -1705,7 +1705,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.038392066955566406,
+        "elapsed_time_s": 0.03523397445678711,
         "peak_memory_kb": 66.4453125,
         "frontier_cells": 13994,
         "pruning_false": 13161,
@@ -1739,11 +1739,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000341176986694,
+        "elapsed_time_s": 20.00005292892456,
         "peak_memory_kb": 88.7890625,
-        "frontier_cells": 6003699,
-        "pruning_false": 5524422,
-        "recursive_calls": 479202,
+        "frontier_cells": 6408593,
+        "pruning_false": 5894119,
+        "recursive_calls": 514334,
         "max_depth": 12
       },
       {
@@ -1794,11 +1794,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000059127807617,
+        "elapsed_time_s": 20.000137090682983,
         "peak_memory_kb": 82.15625,
-        "frontier_cells": 6634317,
-        "pruning_false": 6034904,
-        "recursive_calls": 599169,
+        "frontier_cells": 7070236,
+        "pruning_false": 6433188,
+        "recursive_calls": 636841,
         "max_depth": 12
       }
     ],
@@ -1817,11 +1817,11 @@
           "landmarks_count": 0,
           "landmarks": [],
           "timed_out": true,
-          "elapsed_time_s": 20.000101804733276,
-          "peak_memory_kb": 67.6953125,
-          "frontier_cells": 1759117,
+          "elapsed_time_s": 20.000112056732178,
+          "peak_memory_kb": 69.2265625,
+          "frontier_cells": 1872411,
           "pruning_false": 0,
-          "recursive_calls": 1758717,
+          "recursive_calls": 1872005,
           "max_depth": 35
         },
         "ritorno": {
@@ -1829,7 +1829,7 @@
           "landmarks_count": 0,
           "landmarks": [],
           "timed_out": false,
-          "elapsed_time_s": 7.867813110351562e-06,
+          "elapsed_time_s": 5.9604644775390625e-06,
           "peak_memory_kb": 0.8515625,
           "frontier_cells": 0,
           "pruning_false": 0,
@@ -1889,7 +1889,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.007512092590332031,
+          "elapsed_time_s": 0.007139921188354492,
           "peak_memory_kb": 44.8515625,
           "frontier_cells": 2986,
           "pruning_false": 2917,
@@ -1937,7 +1937,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.020965099334716797,
+          "elapsed_time_s": 0.02013373374938965,
           "peak_memory_kb": 55.3984375,
           "frontier_cells": 7204,
           "pruning_false": 6862,
@@ -1983,7 +1983,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0005109310150146484,
+          "elapsed_time_s": 0.0004858970642089844,
           "peak_memory_kb": 28.546875,
           "frontier_cells": 159,
           "pruning_false": 156,
@@ -2017,7 +2017,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0002999305725097656,
+          "elapsed_time_s": 0.0002791881561279297,
           "peak_memory_kb": 19.6484375,
           "frontier_cells": 68,
           "pruning_false": 61,
@@ -2063,7 +2063,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0020380020141601562,
+          "elapsed_time_s": 0.0019259452819824219,
           "peak_memory_kb": 51.265625,
           "frontier_cells": 705,
           "pruning_false": 687,
@@ -2111,7 +2111,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0014560222625732422,
+          "elapsed_time_s": 0.001329183578491211,
           "peak_memory_kb": 49.296875,
           "frontier_cells": 520,
           "pruning_false": 504,
@@ -2178,7 +2178,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.008779048919677734,
+          "elapsed_time_s": 0.007720947265625,
           "peak_memory_kb": 72.703125,
           "frontier_cells": 3244,
           "pruning_false": 3141,
@@ -2233,7 +2233,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.010890007019042969,
+          "elapsed_time_s": 0.009180307388305664,
           "peak_memory_kb": 70.0546875,
           "frontier_cells": 3648,
           "pruning_false": 3539,
@@ -2301,19 +2301,19 @@
   {
     "obstacle_type": "enclosure",
     "weak": {
-      "elapsed_time_s": 20.000092029571533,
+      "elapsed_time_s": 20.000055074691772,
       "peak_memory_kb": 87.7890625,
-      "frontier_cells": 5124514,
-      "pruning_false": 4376684,
-      "recursive_calls": 675748,
+      "frontier_cells": 5628839,
+      "pruning_false": 4799277,
+      "recursive_calls": 758630,
       "max_depth": 12,
-      "path_length": 53.04163056034262,
-      "landmarks_count": 4,
+      "path_length": 51.87005768508881,
+      "landmarks_count": 5,
       "timed_out": true,
       "numero_campioni": 5
     },
     "strong": {
-      "elapsed_time_s": 0.008744239807128906,
+      "elapsed_time_s": 0.008100032806396484,
       "peak_memory_kb": 74.9296875,
       "frontier_cells": 3487,
       "pruning_false": 3324,
@@ -2352,11 +2352,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000092029571533,
-        "peak_memory_kb": 101.90625,
-        "frontier_cells": 5619469,
-        "pruning_false": 4943492,
-        "recursive_calls": 675748,
+        "elapsed_time_s": 20.000055074691772,
+        "peak_memory_kb": 105.8359375,
+        "frontier_cells": 6120007,
+        "pruning_false": 5361146,
+        "recursive_calls": 758630,
         "max_depth": 13
       },
       {
@@ -2400,7 +2400,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.9424278736114502,
+        "elapsed_time_s": 0.8898558616638184,
         "peak_memory_kb": 79.453125,
         "frontier_cells": 235500,
         "pruning_false": 202334,
@@ -2408,8 +2408,8 @@
         "max_depth": 8
       },
       {
-        "path_length": 53.04163056034262,
-        "landmarks_count": 4,
+        "path_length": 51.87005768508881,
+        "landmarks_count": 5,
         "landmarks": [
           [
             [
@@ -2420,17 +2420,24 @@
           ],
           [
             [
-              29,
+              27,
               38
             ],
             1
           ],
           [
             [
-              44,
-              22
+              32,
+              30
             ],
-            2
+            1
+          ],
+          [
+            [
+              41,
+              20
+            ],
+            1
           ],
           [
             [
@@ -2441,11 +2448,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000130891799927,
+        "elapsed_time_s": 20.00007176399231,
         "peak_memory_kb": 87.7890625,
-        "frontier_cells": 5124514,
-        "pruning_false": 4411317,
-        "recursive_calls": 712951,
+        "frontier_cells": 5814139,
+        "pruning_false": 5012342,
+        "recursive_calls": 801541,
         "max_depth": 12
       },
       {
@@ -2503,11 +2510,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.00017213821411,
+        "elapsed_time_s": 20.00008225440979,
         "peak_memory_kb": 73.4140625,
-        "frontier_cells": 5145523,
-        "pruning_false": 4376684,
-        "recursive_calls": 768540,
+        "frontier_cells": 5628839,
+        "pruning_false": 4799277,
+        "recursive_calls": 829293,
         "max_depth": 14
       },
       {
@@ -2537,7 +2544,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 1.524151086807251,
+        "elapsed_time_s": 1.4235930442810059,
         "peak_memory_kb": 104.0,
         "frontier_cells": 477208,
         "pruning_false": 434494,
@@ -2582,7 +2589,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.008744239807128906,
+          "elapsed_time_s": 0.008100032806396484,
           "peak_memory_kb": 50.265625,
           "frontier_cells": 3487,
           "pruning_false": 3324,
@@ -2616,7 +2623,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.036535024642944336,
+          "elapsed_time_s": 0.03399205207824707,
           "peak_memory_kb": 98.4765625,
           "frontier_cells": 12377,
           "pruning_false": 12033,
@@ -2676,7 +2683,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0045092105865478516,
+          "elapsed_time_s": 0.0041658878326416016,
           "peak_memory_kb": 61.6796875,
           "frontier_cells": 1405,
           "pruning_false": 1359,
@@ -2724,7 +2731,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.019311904907226562,
+          "elapsed_time_s": 0.017849206924438477,
           "peak_memory_kb": 83.90625,
           "frontier_cells": 7223,
           "pruning_false": 7014,
@@ -2777,7 +2784,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.013753890991210938,
+          "elapsed_time_s": 0.01300501823425293,
           "peak_memory_kb": 74.9296875,
           "frontier_cells": 4771,
           "pruning_false": 4678,
@@ -2825,7 +2832,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.002324819564819336,
+          "elapsed_time_s": 0.001990079879760742,
           "peak_memory_kb": 82.8046875,
           "frontier_cells": 656,
           "pruning_false": 631,
@@ -2885,7 +2892,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.05329489707946777,
+          "elapsed_time_s": 0.05018115043640137,
           "peak_memory_kb": 89.8671875,
           "frontier_cells": 17314,
           "pruning_false": 16434,
@@ -2933,7 +2940,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.001013040542602539,
+          "elapsed_time_s": 0.0009059906005859375,
           "peak_memory_kb": 41.734375,
           "frontier_cells": 165,
           "pruning_false": 135,
@@ -2979,7 +2986,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0013031959533691406,
+          "elapsed_time_s": 0.001226186752319336,
           "peak_memory_kb": 83.40625,
           "frontier_cells": 418,
           "pruning_false": 411,
@@ -3013,7 +3020,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0007801055908203125,
+          "elapsed_time_s": 0.0007162094116210938,
           "peak_memory_kb": 46.6953125,
           "frontier_cells": 257,
           "pruning_false": 253,
@@ -3081,7 +3088,7 @@
   {
     "obstacle_type": "bar",
     "weak": {
-      "elapsed_time_s": 0.5122408866882324,
+      "elapsed_time_s": 0.46895575523376465,
       "peak_memory_kb": 58.8515625,
       "frontier_cells": 146027,
       "pruning_false": 127801,
@@ -3093,7 +3100,7 @@
       "numero_campioni": 5
     },
     "strong": {
-      "elapsed_time_s": 0.005632162094116211,
+      "elapsed_time_s": 0.005120038986206055,
       "peak_memory_kb": 53.7734375,
       "frontier_cells": 1873,
       "pruning_false": 1755,
@@ -3167,11 +3174,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000094890594482,
+        "elapsed_time_s": 20.000077962875366,
         "peak_memory_kb": 88.171875,
-        "frontier_cells": 5292514,
-        "pruning_false": 4566225,
-        "recursive_calls": 726088,
+        "frontier_cells": 5555010,
+        "pruning_false": 4786056,
+        "recursive_calls": 768770,
         "max_depth": 16
       },
       {
@@ -3208,7 +3215,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.5122408866882324,
+        "elapsed_time_s": 0.46895575523376465,
         "peak_memory_kb": 58.8515625,
         "frontier_cells": 146027,
         "pruning_false": 127801,
@@ -3270,11 +3277,11 @@
           ]
         ],
         "timed_out": true,
-        "elapsed_time_s": 20.000061988830566,
+        "elapsed_time_s": 20.000110149383545,
         "peak_memory_kb": 75.21875,
-        "frontier_cells": 6369834,
-        "pruning_false": 5824604,
-        "recursive_calls": 545056,
+        "frontier_cells": 6813006,
+        "pruning_false": 6225666,
+        "recursive_calls": 587204,
         "max_depth": 11
       },
       {
@@ -3297,7 +3304,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 2.384185791015625e-05,
+        "elapsed_time_s": 2.4080276489257812e-05,
         "peak_memory_kb": 5.0078125,
         "frontier_cells": 0,
         "pruning_false": 0,
@@ -3324,7 +3331,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 4.100799560546875e-05,
+        "elapsed_time_s": 4.029273986816406e-05,
         "peak_memory_kb": 10.296875,
         "frontier_cells": 0,
         "pruning_false": 0,
@@ -3404,7 +3411,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 8.2459077835083,
+          "elapsed_time_s": 6.438373804092407,
           "peak_memory_kb": 91.6015625,
           "frontier_cells": 2588059,
           "pruning_false": 2474521,
@@ -3473,8 +3480,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 8.960007190704346,
-          "peak_memory_kb": 98.890625,
+          "elapsed_time_s": 7.804409980773926,
+          "peak_memory_kb": 106.984375,
           "frontier_cells": 2428624,
           "pruning_false": 2279207,
           "recursive_calls": 149418,
@@ -3526,7 +3533,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.005632162094116211,
+          "elapsed_time_s": 0.005120038986206055,
           "peak_memory_kb": 53.7734375,
           "frontier_cells": 1873,
           "pruning_false": 1755,
@@ -3567,7 +3574,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0016241073608398438,
+          "elapsed_time_s": 0.0015170574188232422,
           "peak_memory_kb": 28.6796875,
           "frontier_cells": 567,
           "pruning_false": 542,
@@ -3627,7 +3634,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.043005943298339844,
+          "elapsed_time_s": 0.04037284851074219,
           "peak_memory_kb": 61.8203125,
           "frontier_cells": 13282,
           "pruning_false": 11975,
@@ -3675,7 +3682,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.003283977508544922,
+          "elapsed_time_s": 0.0030519962310791016,
           "peak_memory_kb": 46.375,
           "frontier_cells": 1061,
           "pruning_false": 1025,
@@ -3714,7 +3721,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 2.288818359375e-05,
+          "elapsed_time_s": 2.2172927856445312e-05,
           "peak_memory_kb": 5.0078125,
           "frontier_cells": 0,
           "pruning_false": 0,
@@ -3741,7 +3748,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 1.0967254638671875e-05,
+          "elapsed_time_s": 1.0013580322265625e-05,
           "peak_memory_kb": 2.796875,
           "frontier_cells": 0,
           "pruning_false": 0,
@@ -3780,7 +3787,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 3.886222839355469e-05,
+          "elapsed_time_s": 3.814697265625e-05,
           "peak_memory_kb": 10.296875,
           "frontier_cells": 0,
           "pruning_false": 0,
@@ -3807,7 +3814,7 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 5.507469177246094e-05,
+          "elapsed_time_s": 5.1975250244140625e-05,
           "peak_memory_kb": 11.0078125,
           "frontier_cells": 0,
           "pruning_false": 0,
