@@ -2,8 +2,8 @@
   {
     "obstacle_type": "simple",
     "heuristic": {
-      "elapsed_time_s": 0.014093875885009766,
-      "peak_memory_kb": 60.375,
+      "elapsed_time_s": 0.016454219818115234,
+      "peak_memory_kb": 70.234375,
       "frontier_cells": 4823,
       "pruning_false": 4668,
       "recursive_calls": 156,
@@ -14,29 +14,79 @@
       "numero_campioni": 5
     },
     "random": {
-      "elapsed_time_s": 20.000147819519043,
-      "peak_memory_kb": 133.4453125,
-      "frontier_cells": 1847898,
-      "pruning_false": 0,
-      "recursive_calls": 1847191,
-      "max_depth": 45,
-      "path_length": 5.242640687119285,
-      "landmarks_count": 0,
+      "elapsed_time_s": 2.433865785598755,
+      "peak_memory_kb": 146.8359375,
+      "frontier_cells": 925776,
+      "pruning_false": 12560,
+      "recursive_calls": 74390,
+      "max_depth": 21,
+      "path_length": 36.020815280171306,
+      "landmarks_count": 7,
       "timed_out": true,
       "numero_campioni": 5
     },
     "campioni_random": [
       {
-        "path_length": Infinity,
-        "landmarks_count": 0,
-        "landmarks": [],
-        "timed_out": true,
-        "elapsed_time_s": 20.000184059143066,
-        "peak_memory_kb": 103.4140625,
-        "frontier_cells": 2050812,
-        "pruning_false": 0,
-        "recursive_calls": 2050267,
-        "max_depth": 45
+        "path_length": 71.63961030678928,
+        "landmarks_count": 7,
+        "landmarks": [
+          [
+            [
+              0,
+              0
+            ],
+            0
+          ],
+          [
+            [
+              14,
+              12
+            ],
+            1
+          ],
+          [
+            [
+              15,
+              14
+            ],
+            1
+          ],
+          [
+            [
+              24,
+              24
+            ],
+            1
+          ],
+          [
+            [
+              30,
+              31
+            ],
+            1
+          ],
+          [
+            [
+              37,
+              39
+            ],
+            1
+          ],
+          [
+            [
+              49,
+              49
+            ],
+            1
+          ]
+        ],
+        "timed_out": false,
+        "elapsed_time_s": 2.433865785598755,
+        "peak_memory_kb": 152.2421875,
+        "frontier_cells": 925776,
+        "pruning_false": 851387,
+        "recursive_calls": 74390,
+        "max_depth": 35
       },
       {
         "path_length": 5.242640687119285,
@@ -58,7 +108,7 @@
           ],
           [
             [
-              41,
+              42,
               43
             ],
             1
@@ -72,11 +122,11 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.0001437664031982422,
-        "peak_memory_kb": 140.0,
+        "elapsed_time_s": 0.0036890506744384766,
+        "peak_memory_kb": 117.5078125,
         "frontier_cells": 58,
-        "pruning_false": 55,
-        "recursive_calls": 4,
+        "pruning_false": 54,
+        "recursive_calls": 5,
         "max_depth": 2
       },
       {
@@ -84,61 +134,168 @@
         "landmarks_count": 0,
         "landmarks": [],
         "timed_out": true,
-        "elapsed_time_s": 20.000147819519043,
-        "peak_memory_kb": 133.4453125,
-        "frontier_cells": 1780321,
+        "elapsed_time_s": 20.000159978866577,
+        "peak_memory_kb": 146.8359375,
+        "frontier_cells": 1507082,
         "pruning_false": 0,
-        "recursive_calls": 1779690,
-        "max_depth": 44
+        "recursive_calls": 1506484,
+        "max_depth": 40
       },
       {
-        "path_length": Infinity,
-        "landmarks_count": 0,
-        "landmarks": [],
-        "timed_out": true,
-        "elapsed_time_s": 20.000160217285156,
-        "peak_memory_kb": 131.03125,
-        "frontier_cells": 1847898,
-        "pruning_false": 0,
-        "recursive_calls": 1847191,
-        "max_depth": 52
+        "path_length": 33.72792206135786,
+        "landmarks_count": 7,
+        "landmarks": [
+          [
+            [
+              30,
+              30
+            ],
+            0
+          ],
+          [
+            [
+              32,
+              19
+            ],
+            2
+          ],
+          [
+            [
+              35,
+              14
+            ],
+            2
+          ],
+          [
+            [
+              36,
+              11
+            ],
+            2
+          ],
+          [
+            [
+              37,
+              7
+            ],
+            2
+          ],
+          [
+            [
+              38,
+              3
+            ],
+            2
+          ],
+          [
+            [
+              39,
+              0
+            ],
+            2
+          ]
+        ],
+        "timed_out": false,
+        "elapsed_time_s": 3.805457830429077,
+        "peak_memory_kb": 156.9921875,
+        "frontier_cells": 1321037,
+        "pruning_false": 1181462,
+        "recursive_calls": 139576,
+        "max_depth": 21
       },
       {
-        "path_length": Infinity,
-        "landmarks_count": 0,
-        "landmarks": [],
-        "timed_out": true,
-        "elapsed_time_s": 20.0001380443573,
-        "peak_memory_kb": 141.328125,
-        "frontier_cells": 2000790,
-        "pruning_false": 0,
-        "recursive_calls": 2000081,
-        "max_depth": 47
+        "path_length": 38.31370849898476,
+        "landmarks_count": 8,
+        "landmarks": [
+          [
+            [
+              41,
+              45
+            ],
+            0
+          ],
+          [
+            [
+              38,
+              46
+            ],
+            2
+          ],
+          [
+            [
+              35,
+              47
+            ],
+            2
+          ],
+          [
+            [
+              31,
+              46
+            ],
+            2
+          ],
+          [
+            [
+              21,
+              47
+            ],
+            2
+          ],
+          [
+            [
+              10,
+              46
+            ],
+            1
+          ],
+          [
+            [
+              8,
+              47
+            ],
+            1
+          ],
+          [
+            [
+              6,
+              49
+            ],
+            1
+          ]
+        ],
+        "timed_out": false,
+        "elapsed_time_s": 0.12051081657409668,
+        "peak_memory_kb": 95.4375,
+        "frontier_cells": 21171,
+        "pruning_false": 12560,
+        "recursive_calls": 8612,
+        "max_depth": 15
       }
     ]
   },
   {
     "obstacle_type": "cluster",
     "heuristic": {
-      "elapsed_time_s": 0.00855398178100586,
-      "peak_memory_kb": 55.0078125,
-      "frontier_cells": 2627,
+      "elapsed_time_s": 0.0051860809326171875,
+      "peak_memory_kb": 63.15625,
+      "frontier_cells": 524,
       "pruning_false": 507,
-      "recursive_calls": 190,
-      "max_depth": 4,
+      "recursive_calls": 18,
+      "max_depth": 2,
       "path_length": 25.470562748477143,
       "landmarks_count": 3,
-      "timed_out": true,
+      "timed_out": false,
       "numero_campioni": 5
     },
     "random": {
-      "elapsed_time_s": 20.00010323524475,
-      "peak_memory_kb": 117.9765625,
-      "frontier_cells": 1740490,
-      "pruning_false": 5900,
-      "recursive_calls": 625158,
-      "max_depth": 19,
-      "path_length": 34.45584412271571,
+      "elapsed_time_s": 0.016711950302124023,
+      "peak_memory_kb": 79.9375,
+      "frontier_cells": 3955,
+      "pruning_false": 2718,
+      "recursive_calls": 346,
+      "max_depth": 12,
+      "path_length": 23.31370849898476,
       "landmarks_count": 3,
       "timed_out": true,
       "numero_campioni": 5
@@ -148,87 +305,66 @@
         "path_length": Infinity,
         "landmarks_count": 0,
         "landmarks": [],
-        "timed_out": true,
-        "elapsed_time_s": 20.00010323524475,
-        "peak_memory_kb": 160.015625,
-        "frontier_cells": 1896487,
-        "pruning_false": 0,
-        "recursive_calls": 1896009,
-        "max_depth": 30
-      },
-      {
-        "path_length": 34.45584412271571,
-        "landmarks_count": 7,
-        "landmarks": [
-          [
-            [
-              42,
-              14
-            ],
-            0
-          ],
-          [
-            [
-              38,
-              17
-            ],
-            2
-          ],
-          [
-            [
-              32,
-              24
-            ],
-            2
-          ],
-          [
-            [
-              26,
-              31
-            ],
-            2
-          ],
-          [
-            [
-              25,
-              34
-            ],
-            2
-          ],
-          [
-            [
-              23,
-              37
-            ],
-            2
-          ],
-          [
-            [
-              23,
-              40
-            ],
-            1
-          ]
-        ],
         "timed_out": false,
-        "elapsed_time_s": 0.015865087509155273,
-        "peak_memory_kb": 76.828125,
-        "frontier_cells": 6354,
-        "pruning_false": 5992,
-        "recursive_calls": 363,
-        "max_depth": 7
+        "elapsed_time_s": 0.003665924072265625,
+        "peak_memory_kb": 12.546875,
+        "frontier_cells": 0,
+        "pruning_false": 0,
+        "recursive_calls": 0,
+        "max_depth": 0
       },
       {
         "path_length": Infinity,
         "landmarks_count": 0,
         "landmarks": [],
         "timed_out": true,
-        "elapsed_time_s": 20.00010895729065,
-        "peak_memory_kb": 176.046875,
-        "frontier_cells": 1740490,
+        "elapsed_time_s": 20.00018882751465,
+        "peak_memory_kb": 166.546875,
+        "frontier_cells": 1796296,
         "pruning_false": 0,
-        "recursive_calls": 1740031,
-        "max_depth": 37
+        "recursive_calls": 1795707,
+        "max_depth": 40
+      },
+      {
+        "path_length": 22.970562748477143,
+        "landmarks_count": 4,
+        "landmarks": [
+          [
+            [
+              45,
+              4
+            ],
+            0
+          ],
+          [
+            [
+              39,
+              9
+            ],
+            1
+          ],
+          [
+            [
+              36,
+              17
+            ],
+            1
+          ],
+          [
+            [
+              32,
+              21
+            ],
+            1
+          ]
+        ],
+        "timed_out": false,
+        "elapsed_time_s": 0.011532068252563477,
+        "peak_memory_kb": 47.1171875,
+        "frontier_cells": 2868,
+        "pruning_false": 2718,
+        "recursive_calls": 151,
+        "max_depth": 12
       },
       {
         "path_length": 27.627416997969522,
@@ -257,16 +393,16 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.029894351959228516,
-        "peak_memory_kb": 82.1953125,
-        "frontier_cells": 7161,
-        "pruning_false": 5900,
-        "recursive_calls": 1262,
-        "max_depth": 14
+        "elapsed_time_s": 0.10049796104431152,
+        "peak_memory_kb": 79.9375,
+        "frontier_cells": 29467,
+        "pruning_false": 26036,
+        "recursive_calls": 3432,
+        "max_depth": 16
       },
       {
-        "path_length": 100.8700576850888,
-        "landmarks_count": 12,
+        "path_length": 23.31370849898476,
+        "landmarks_count": 6,
         "landmarks": [
           [
             [
@@ -277,115 +413,73 @@
           ],
           [
             [
-              41,
-              46
-            ],
-            1
-          ],
-          [
-            [
-              32,
-              43
-            ],
-            1
-          ],
-          [
-            [
-              22,
-              45
-            ],
-            1
-          ],
-          [
-            [
-              21,
-              41
+              42,
+              21
             ],
             2
           ],
           [
             [
-              22,
-              33
+              41,
+              16
             ],
-            1
+            2
           ],
           [
             [
-              23,
-              31
+              42,
+              13
             ],
-            1
+            2
           ],
           [
             [
-              24,
-              22
-            ],
-            1
-          ],
-          [
-            [
-              23,
-              11
-            ],
-            1
-          ],
-          [
-            [
-              26,
+              44,
               9
             ],
-            1
-          ],
-          [
-            [
-              34,
-              6
-            ],
-            1
+            2
           ],
           [
             [
               42,
               5
             ],
-            1
+            2
           ]
         ],
-        "timed_out": true,
-        "elapsed_time_s": 20.000155925750732,
-        "peak_memory_kb": 117.9765625,
-        "frontier_cells": 5299794,
-        "pruning_false": 4674337,
-        "recursive_calls": 625158,
-        "max_depth": 19
+        "timed_out": false,
+        "elapsed_time_s": 0.016711950302124023,
+        "peak_memory_kb": 165.3515625,
+        "frontier_cells": 3955,
+        "pruning_false": 3610,
+        "recursive_calls": 346,
+        "max_depth": 5
       }
     ]
   },
   {
     "obstacle_type": "diagonal",
     "heuristic": {
-      "elapsed_time_s": 0.007139921188354492,
-      "peak_memory_kb": 51.265625,
-      "frontier_cells": 2986,
+      "elapsed_time_s": 0.005427837371826172,
+      "peak_memory_kb": 54.7109375,
+      "frontier_cells": 705,
       "pruning_false": 687,
-      "recursive_calls": 70,
-      "max_depth": 3,
+      "recursive_calls": 19,
+      "max_depth": 2,
       "path_length": 28.935028842544405,
       "landmarks_count": 3,
-      "timed_out": true,
+      "timed_out": false,
       "numero_campioni": 5
     },
     "random": {
-      "elapsed_time_s": 20.00012493133545,
-      "peak_memory_kb": 112.6875,
-      "frontier_cells": 1828961,
-      "pruning_false": 0,
-      "recursive_calls": 1828400,
-      "max_depth": 37,
+      "elapsed_time_s": 0.027070045471191406,
+      "peak_memory_kb": 94.2421875,
+      "frontier_cells": 8326,
+      "pruning_false": 5809,
+      "recursive_calls": 782,
+      "max_depth": 15,
       "path_length": 34.21320343559643,
-      "landmarks_count": 0,
+      "landmarks_count": 4,
       "timed_out": true,
       "numero_campioni": 5
     },
@@ -394,41 +488,77 @@
         "path_length": Infinity,
         "landmarks_count": 0,
         "landmarks": [],
-        "timed_out": true,
-        "elapsed_time_s": 20.000135898590088,
-        "peak_memory_kb": 138.640625,
-        "frontier_cells": 1825654,
+        "timed_out": false,
+        "elapsed_time_s": 0.0036220550537109375,
+        "peak_memory_kb": 12.546875,
+        "frontier_cells": 0,
         "pruning_false": 0,
-        "recursive_calls": 1825054,
-        "max_depth": 37
+        "recursive_calls": 0,
+        "max_depth": 0
+      },
+      {
+        "path_length": 23.65685424949238,
+        "landmarks_count": 5,
+        "landmarks": [
+          [
+            [
+              19,
+              48
+            ],
+            0
+          ],
+          [
+            [
+              20,
+              47
+            ],
+            1
+          ],
+          [
+            [
+              19,
+              29
+            ],
+            1
+          ],
+          [
+            [
+              18,
+              28
+            ],
+            1
+          ],
+          [
+            [
+              19,
+              26
+            ],
+            1
+          ]
+        ],
+        "timed_out": false,
+        "elapsed_time_s": 0.018696308135986328,
+        "peak_memory_kb": 165.0625,
+        "frontier_cells": 6083,
+        "pruning_false": 5809,
+        "recursive_calls": 275,
+        "max_depth": 9
       },
       {
         "path_length": Infinity,
         "landmarks_count": 0,
         "landmarks": [],
         "timed_out": true,
-        "elapsed_time_s": 20.000128030776978,
-        "peak_memory_kb": 81.359375,
-        "frontier_cells": 2289064,
+        "elapsed_time_s": 20.00015091896057,
+        "peak_memory_kb": 74.328125,
+        "frontier_cells": 2157100,
         "pruning_false": 0,
-        "recursive_calls": 2288620,
-        "max_depth": 42
-      },
-      {
-        "path_length": Infinity,
-        "landmarks_count": 0,
-        "landmarks": [],
-        "timed_out": true,
-        "elapsed_time_s": 20.0000901222229,
-        "peak_memory_kb": 28.703125,
-        "frontier_cells": 1954179,
-        "pruning_false": 0,
-        "recursive_calls": 1953782,
-        "max_depth": 22
+        "recursive_calls": 2156399,
+        "max_depth": 51
       },
       {
         "path_length": 34.21320343559643,
-        "landmarks_count": 3,
+        "landmarks_count": 4,
         "landmarks": [
           [
             [
@@ -439,8 +569,15 @@
           ],
           [
             [
+              37,
+              15
+            ],
+            2
+          ],
+          [
+            [
               42,
-              20
+              21
             ],
             2
           ],
@@ -453,32 +590,75 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.2722651958465576,
-        "peak_memory_kb": 216.3046875,
-        "frontier_cells": 56726,
-        "pruning_false": 43390,
-        "recursive_calls": 13337,
+        "elapsed_time_s": 0.2685739994049072,
+        "peak_memory_kb": 94.2421875,
+        "frontier_cells": 78116,
+        "pruning_false": 71980,
+        "recursive_calls": 6137,
         "max_depth": 15
       },
       {
-        "path_length": Infinity,
-        "landmarks_count": 0,
-        "landmarks": [],
-        "timed_out": true,
-        "elapsed_time_s": 20.00012493133545,
-        "peak_memory_kb": 112.6875,
-        "frontier_cells": 1828961,
-        "pruning_false": 0,
-        "recursive_calls": 1828400,
-        "max_depth": 45
+        "path_length": 40.62741699796952,
+        "landmarks_count": 6,
+        "landmarks": [
+          [
+            [
+              34,
+              11
+            ],
+            0
+          ],
+          [
+            [
+              23,
+              21
+            ],
+            2
+          ],
+          [
+            [
+              14,
+              24
+            ],
+            2
+          ],
+          [
+            [
+              10,
+              26
+            ],
+            2
+          ],
+          [
+            [
+              1,
+              27
+            ],
+            2
+          ],
+          [
+            [
+              0,
+              27
+            ],
+            1
+          ]
+        ],
+        "timed_out": false,
+        "elapsed_time_s": 0.027070045471191406,
+        "peak_memory_kb": 95.21875,
+        "frontier_cells": 8326,
+        "pruning_false": 7545,
+        "recursive_calls": 782,
+        "max_depth": 18
       }
     ]
   },
   {
     "obstacle_type": "enclosure",
     "heuristic": {
-      "elapsed_time_s": 0.008100032806396484,
-      "peak_memory_kb": 74.9296875,
+      "elapsed_time_s": 0.0118560791015625,
+      "peak_memory_kb": 84.7890625,
       "frontier_cells": 3487,
       "pruning_false": 3324,
       "recursive_calls": 94,
@@ -489,54 +669,32 @@
       "numero_campioni": 5
     },
     "random": {
-      "elapsed_time_s": 0.014109134674072266,
-      "peak_memory_kb": 116.1015625,
-      "frontier_cells": 6475,
-      "pruning_false": 6236,
-      "recursive_calls": 240,
-      "max_depth": 8,
-      "path_length": 46.485281374238575,
-      "landmarks_count": 5,
-      "timed_out": false,
+      "elapsed_time_s": 7.791846990585327,
+      "peak_memory_kb": 135.2734375,
+      "frontier_cells": 1196395,
+      "pruning_false": 26792,
+      "recursive_calls": 526900,
+      "max_depth": 18,
+      "path_length": 34.83452377915607,
+      "landmarks_count": 6,
+      "timed_out": true,
       "numero_campioni": 5
     },
     "campioni_random": [
       {
-        "path_length": 70.46803743153546,
-        "landmarks_count": 3,
-        "landmarks": [
-          [
-            [
-              0,
-              0
-            ],
-            0
-          ],
-          [
-            [
-              47,
-              45
-            ],
-            2
-          ],
-          [
-            [
-              49,
-              49
-            ],
-            2
-          ]
-        ],
-        "timed_out": false,
-        "elapsed_time_s": 0.014109134674072266,
-        "peak_memory_kb": 116.1015625,
-        "frontier_cells": 6475,
-        "pruning_false": 6236,
-        "recursive_calls": 240,
-        "max_depth": 4
+        "path_length": Infinity,
+        "landmarks_count": 0,
+        "landmarks": [],
+        "timed_out": true,
+        "elapsed_time_s": 20.000104904174805,
+        "peak_memory_kb": 139.3515625,
+        "frontier_cells": 1985309,
+        "pruning_false": 0,
+        "recursive_calls": 1984943,
+        "max_depth": 30
       },
       {
-        "path_length": 22.313708498984763,
+        "path_length": 22.31370849898476,
         "landmarks_count": 6,
         "landmarks": [
           [
@@ -555,15 +713,15 @@
           ],
           [
             [
-              35,
-              31
+              36,
+              30
             ],
             2
           ],
           [
             [
-              39,
-              30
+              38,
+              29
             ],
             2
           ],
@@ -583,12 +741,12 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.5164759159088135,
-        "peak_memory_kb": 122.8515625,
-        "frontier_cells": 101660,
-        "pruning_false": 66632,
-        "recursive_calls": 35029,
-        "max_depth": 16
+        "elapsed_time_s": 7.791846990585327,
+        "peak_memory_kb": 159.09375,
+        "frontier_cells": 1196395,
+        "pruning_false": 669496,
+        "recursive_calls": 526900,
+        "max_depth": 24
       },
       {
         "path_length": 47.2842712474619,
@@ -603,22 +761,22 @@
           ],
           [
             [
-              16,
-              31
+              17,
+              30
             ],
             2
           ],
           [
             [
-              27,
-              26
+              20,
+              28
             ],
             2
           ],
           [
             [
-              31,
-              23
+              36,
+              22
             ],
             2
           ],
@@ -638,16 +796,16 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.00825190544128418,
-        "peak_memory_kb": 128.484375,
-        "frontier_cells": 3330,
-        "pruning_false": 3201,
-        "recursive_calls": 130,
+        "elapsed_time_s": 0.006634950637817383,
+        "peak_memory_kb": 135.2734375,
+        "frontier_cells": 1174,
+        "pruning_false": 1134,
+        "recursive_calls": 41,
         "max_depth": 7
       },
       {
-        "path_length": 46.485281374238575,
-        "landmarks_count": 5,
+        "path_length": 105.98275605729691,
+        "landmarks_count": 12,
         "landmarks": [
           [
             [
@@ -658,22 +816,71 @@
           ],
           [
             [
-              2,
+              40,
+              8
+            ],
+            1
+          ],
+          [
+            [
+              46,
+              9
+            ],
+            1
+          ],
+          [
+            [
+              47,
+              11
+            ],
+            1
+          ],
+          [
+            [
+              44,
               13
             ],
             2
           ],
           [
             [
-              5,
-              25
+              31,
+              27
             ],
             2
           ],
           [
             [
-              6,
-              31
+              27,
+              32
+            ],
+            2
+          ],
+          [
+            [
+              18,
+              42
+            ],
+            2
+          ],
+          [
+            [
+              14,
+              47
+            ],
+            2
+          ],
+          [
+            [
+              12,
+              48
+            ],
+            2
+          ],
+          [
+            [
+              7,
+              47
             ],
             2
           ],
@@ -685,13 +892,13 @@
             1
           ]
         ],
-        "timed_out": false,
-        "elapsed_time_s": 1.2195789813995361,
-        "peak_memory_kb": 55.9765625,
-        "frontier_cells": 447807,
-        "pruning_false": 423522,
-        "recursive_calls": 24286,
-        "max_depth": 19
+        "timed_out": true,
+        "elapsed_time_s": 20.00007200241089,
+        "peak_memory_kb": 119.390625,
+        "frontier_cells": 5699261,
+        "pruning_false": 4834103,
+        "recursive_calls": 864846,
+        "max_depth": 18
       },
       {
         "path_length": 22.384776310850235,
@@ -706,34 +913,34 @@
           ],
           [
             [
-              30,
-              30
+              29,
+              34
             ],
-            2
+            1
           ],
           [
             [
               40,
               23
             ],
-            2
+            1
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.00968170166015625,
-        "peak_memory_kb": 114.609375,
-        "frontier_cells": 3673,
-        "pruning_false": 3482,
-        "recursive_calls": 192,
-        "max_depth": 8
+        "elapsed_time_s": 0.07752394676208496,
+        "peak_memory_kb": 46.03125,
+        "frontier_cells": 28573,
+        "pruning_false": 26792,
+        "recursive_calls": 1782,
+        "max_depth": 11
       }
     ]
   },
   {
     "obstacle_type": "bar",
     "heuristic": {
-      "elapsed_time_s": 0.005120038986206055,
-      "peak_memory_kb": 53.7734375,
+      "elapsed_time_s": 0.008709192276000977,
+      "peak_memory_kb": 63.6328125,
       "frontier_cells": 1873,
       "pruning_false": 1755,
       "recursive_calls": 119,
@@ -744,14 +951,14 @@
       "numero_campioni": 5
     },
     "random": {
-      "elapsed_time_s": 20.00007700920105,
-      "peak_memory_kb": 32.5703125,
-      "frontier_cells": 1544015,
+      "elapsed_time_s": 0.14270520210266113,
+      "peak_memory_kb": 73.4921875,
+      "frontier_cells": 39684,
       "pruning_false": 0,
-      "recursive_calls": 1543447,
-      "max_depth": 24,
-      "path_length": 5.32842712474619,
-      "landmarks_count": 0,
+      "recursive_calls": 5603,
+      "max_depth": 16,
+      "path_length": 23.435028842544405,
+      "landmarks_count": 2,
       "timed_out": true,
       "numero_campioni": 5
     },
@@ -761,36 +968,171 @@
         "landmarks_count": 0,
         "landmarks": [],
         "timed_out": true,
-        "elapsed_time_s": 20.000173091888428,
-        "peak_memory_kb": 149.7109375,
-        "frontier_cells": 1544015,
+        "elapsed_time_s": 20.00010895729065,
+        "peak_memory_kb": 90.9375,
+        "frontier_cells": 1650387,
         "pruning_false": 0,
-        "recursive_calls": 1543447,
-        "max_depth": 36
+        "recursive_calls": 1649997,
+        "max_depth": 30
       },
       {
-        "path_length": Infinity,
-        "landmarks_count": 0,
-        "landmarks": [],
+        "path_length": 83.18376618407356,
+        "landmarks_count": 12,
+        "landmarks": [
+          [
+            [
+              34,
+              37
+            ],
+            0
+          ],
+          [
+            [
+              39,
+              39
+            ],
+            1
+          ],
+          [
+            [
+              45,
+              35
+            ],
+            1
+          ],
+          [
+            [
+              49,
+              23
+            ],
+            1
+          ],
+          [
+            [
+              35,
+              17
+            ],
+            1
+          ],
+          [
+            [
+              22,
+              16
+            ],
+            1
+          ],
+          [
+            [
+              20,
+              19
+            ],
+            1
+          ],
+          [
+            [
+              18,
+              22
+            ],
+            1
+          ],
+          [
+            [
+              16,
+              31
+            ],
+            1
+          ],
+          [
+            [
+              14,
+              35
+            ],
+            1
+          ],
+          [
+            [
+              15,
+              36
+            ],
+            1
+          ],
+          [
+            [
+              13,
+              37
+            ],
+            1
+          ]
+        ],
         "timed_out": true,
-        "elapsed_time_s": 20.00007700920105,
-        "peak_memory_kb": 32.5703125,
-        "frontier_cells": 1685390,
-        "pruning_false": 0,
-        "recursive_calls": 1685074,
-        "max_depth": 24
+        "elapsed_time_s": 20.000074863433838,
+        "peak_memory_kb": 73.4921875,
+        "frontier_cells": 3715858,
+        "pruning_false": 2711202,
+        "recursive_calls": 1004340,
+        "max_depth": 27
       },
       {
-        "path_length": Infinity,
-        "landmarks_count": 0,
-        "landmarks": [],
-        "timed_out": true,
-        "elapsed_time_s": 20.000136852264404,
-        "peak_memory_kb": 184.4453125,
-        "frontier_cells": 1773918,
-        "pruning_false": 0,
-        "recursive_calls": 1773421,
-        "max_depth": 32
+        "path_length": 41.45584412271572,
+        "landmarks_count": 7,
+        "landmarks": [
+          [
+            [
+              48,
+              27
+            ],
+            0
+          ],
+          [
+            [
+              38,
+              36
+            ],
+            1
+          ],
+          [
+            [
+              30,
+              38
+            ],
+            1
+          ],
+          [
+            [
+              22,
+              41
+            ],
+            1
+          ],
+          [
+            [
+              18,
+              43
+            ],
+            1
+          ],
+          [
+            [
+              16,
+              44
+            ],
+            1
+          ],
+          [
+            [
+              15,
+              46
+            ],
+            1
+          ]
+        ],
+        "timed_out": false,
+        "elapsed_time_s": 0.14270520210266113,
+        "peak_memory_kb": 144.7265625,
+        "frontier_cells": 39684,
+        "pruning_false": 34082,
+        "recursive_calls": 5603,
+        "max_depth": 16
       },
       {
         "path_length": 5.242640687119286,
@@ -812,8 +1154,8 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 2.8133392333984375e-05,
-        "peak_memory_kb": 5.0078125,
+        "elapsed_time_s": 0.003593921661376953,
+        "peak_memory_kb": 14.8671875,
         "frontier_cells": 0,
         "pruning_false": 0,
         "recursive_calls": 1,
@@ -839,8 +1181,8 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 3.719329833984375e-05,
-        "peak_memory_kb": 10.296875,
+        "elapsed_time_s": 0.003570079803466797,
+        "peak_memory_kb": 20.15625,
         "frontier_cells": 0,
         "pruning_false": 0,
         "recursive_calls": 1,

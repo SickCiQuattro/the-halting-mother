@@ -2,7 +2,7 @@
   {
     "size": 10,
     "ottimo_astar": 14.485281374238571,
-    "tempo_astar_s": 0.0,
+    "tempo_astar_s": 0.00011277198791503906,
     "weak": {
       "lunghezza": 14.48528137423857,
       "interrotto": false,
@@ -22,7 +22,7 @@
   {
     "size": 20,
     "ottimo_astar": 29.213203435596434,
-    "tempo_astar_s": 0.0,
+    "tempo_astar_s": 0.00021076202392578125,
     "weak": {
       "lunghezza": 29.213203435596423,
       "interrotto": false,
@@ -42,7 +42,7 @@
   {
     "size": 50,
     "ottimo_astar": 74.56854249492375,
-    "tempo_astar_s": 0.002008676528930664,
+    "tempo_astar_s": 0.0008840560913085938,
     "weak": {
       "lunghezza": 77.1543289325507,
       "interrotto": true,
@@ -62,7 +62,7 @@
   {
     "size": 100,
     "ottimo_astar": 147.6223663640861,
-    "tempo_astar_s": 0.02123856544494629,
+    "tempo_astar_s": 0.004237174987792969,
     "weak": {
       "lunghezza": 153.9655121145938,
       "interrotto": true,
@@ -82,11 +82,11 @@
   {
     "size": 150,
     "ottimo_astar": 220.676190233249,
-    "tempo_astar_s": 0.0384371280670166,
+    "tempo_astar_s": 0.007962942123413086,
     "weak": {
-      "lunghezza": 263.9655121145938,
+      "lunghezza": 264.79393923934,
       "interrotto": true,
-      "divario_pct": 19.616670849532582
+      "divario_pct": 19.992074794956203
     },
     "strong": {
       "lunghezza": 240.7350647362943,
@@ -102,7 +102,7 @@
   {
     "size": 200,
     "ottimo_astar": 293.7300141024119,
-    "tempo_astar_s": 0.04386711120605469,
+    "tempo_astar_s": 0.01125025749206543,
     "weak": {
       "lunghezza": null,
       "interrotto": true,
@@ -114,9 +114,9 @@
       "divario_pct": null
     },
     "ritorno": {
-      "lunghezza": 316.65894629054543,
+      "lunghezza": 318.65894629054543,
       "interrotto": true,
-      "divario_pct": 7.806125042481753
+      "divario_pct": 8.487022432594117
     }
   }
 ]

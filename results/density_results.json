@@ -3,8 +3,8 @@
     "size": 50,
     "density": 0.05,
     "metrics": {
-      "elapsed_time_s": 0.00021409988403320312,
-      "peak_memory_kb": 129.8984375,
+      "elapsed_time_s": 0.008423805236816406,
+      "peak_memory_kb": 139.7578125,
       "frontier_cells": 0,
       "pruning_false": 0,
       "recursive_calls": 1,
@@ -51,8 +51,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0020492076873779297,
-          "peak_memory_kb": 129.8984375,
+          "elapsed_time_s": 0.014081001281738281,
+          "peak_memory_kb": 139.7578125,
           "frontier_cells": 600,
           "pruning_false": 591,
           "recursive_calls": 10,
@@ -92,8 +92,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.003690958023071289,
-          "peak_memory_kb": 183.1953125,
+          "elapsed_time_s": 0.018824338912963867,
+          "peak_memory_kb": 193.0546875,
           "frontier_cells": 927,
           "pruning_false": 897,
           "recursive_calls": 31,
@@ -131,8 +131,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00020503997802734375,
-          "peak_memory_kb": 160.296875,
+          "elapsed_time_s": 0.008710145950317383,
+          "peak_memory_kb": 170.15625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -158,8 +158,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00018095970153808594,
-          "peak_memory_kb": 40.296875,
+          "elapsed_time_s": 0.008102893829345703,
+          "peak_memory_kb": 50.15625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -197,8 +197,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00019502639770507812,
-          "peak_memory_kb": 160.296875,
+          "elapsed_time_s": 0.008423805236816406,
+          "peak_memory_kb": 170.15625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -224,8 +224,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00021505355834960938,
-          "peak_memory_kb": 72.5078125,
+          "elapsed_time_s": 0.009115219116210938,
+          "peak_memory_kb": 82.3671875,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -263,8 +263,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00021409988403320312,
-          "peak_memory_kb": 72.5078125,
+          "elapsed_time_s": 0.007215261459350586,
+          "peak_memory_kb": 82.3671875,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -290,8 +290,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0001430511474609375,
-          "peak_memory_kb": 40.296875,
+          "elapsed_time_s": 0.007359027862548828,
+          "peak_memory_kb": 50.15625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -329,8 +329,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00027489662170410156,
-          "peak_memory_kb": 72.5078125,
+          "elapsed_time_s": 0.007270097732543945,
+          "peak_memory_kb": 82.3671875,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -356,8 +356,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0001583099365234375,
-          "peak_memory_kb": 40.296875,
+          "elapsed_time_s": 0.007939815521240234,
+          "peak_memory_kb": 50.15625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -373,8 +373,8 @@
     "size": 50,
     "density": 0.15,
     "metrics": {
-      "elapsed_time_s": 0.002412080764770508,
-      "peak_memory_kb": 69.5078125,
+      "elapsed_time_s": 0.009023904800415039,
+      "peak_memory_kb": 79.3671875,
       "frontier_cells": 743,
       "pruning_false": 714,
       "recursive_calls": 30,
@@ -435,8 +435,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.32628488540649414,
-          "peak_memory_kb": 116.421875,
+          "elapsed_time_s": 0.6438732147216797,
+          "peak_memory_kb": 126.28125,
           "frontier_cells": 126577,
           "pruning_false": 123288,
           "recursive_calls": 3290,
@@ -483,8 +483,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.3463912010192871,
-          "peak_memory_kb": 116.9609375,
+          "elapsed_time_s": 0.6178979873657227,
+          "peak_memory_kb": 126.8203125,
           "frontier_cells": 128212,
           "pruning_false": 127406,
           "recursive_calls": 807,
@@ -529,8 +529,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0006909370422363281,
-          "peak_memory_kb": 46.3203125,
+          "elapsed_time_s": 0.007980108261108398,
+          "peak_memory_kb": 56.1796875,
           "frontier_cells": 311,
           "pruning_false": 305,
           "recursive_calls": 7,
@@ -563,8 +563,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0005028247833251953,
-          "peak_memory_kb": 31.5078125,
+          "elapsed_time_s": 0.010161876678466797,
+          "peak_memory_kb": 41.3671875,
           "frontier_cells": 133,
           "pruning_false": 130,
           "recursive_calls": 4,
@@ -602,8 +602,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 3.790855407714844e-05,
-          "peak_memory_kb": 10.296875,
+          "elapsed_time_s": 0.00734710693359375,
+          "peak_memory_kb": 20.15625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -629,8 +629,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 5.888938903808594e-05,
-          "peak_memory_kb": 40.296875,
+          "elapsed_time_s": 0.0070841312408447266,
+          "peak_memory_kb": 50.15625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -682,8 +682,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.005116939544677734,
-          "peak_memory_kb": 69.5078125,
+          "elapsed_time_s": 0.01619410514831543,
+          "peak_memory_kb": 79.3671875,
           "frontier_cells": 1899,
           "pruning_false": 1842,
           "recursive_calls": 58,
@@ -723,8 +723,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.005248069763183594,
-          "peak_memory_kb": 88.6328125,
+          "elapsed_time_s": 0.016037702560424805,
+          "peak_memory_kb": 98.4921875,
           "frontier_cells": 2250,
           "pruning_false": 2203,
           "recursive_calls": 48,
@@ -776,8 +776,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.002412080764770508,
-          "peak_memory_kb": 84.3828125,
+          "elapsed_time_s": 0.009023904800415039,
+          "peak_memory_kb": 94.2421875,
           "frontier_cells": 743,
           "pruning_false": 714,
           "recursive_calls": 30,
@@ -817,8 +817,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00444483757019043,
-          "peak_memory_kb": 57.2578125,
+          "elapsed_time_s": 0.015043020248413086,
+          "peak_memory_kb": 67.1171875,
           "frontier_cells": 2048,
           "pruning_false": 2004,
           "recursive_calls": 45,
@@ -834,8 +834,8 @@
     "size": 50,
     "density": 0.25,
     "metrics": {
-      "elapsed_time_s": 0.009481430053710938,
-      "peak_memory_kb": 44.28125,
+      "elapsed_time_s": 0.028371095657348633,
+      "peak_memory_kb": 54.140625,
       "frontier_cells": 2805,
       "pruning_false": 2658,
       "recursive_calls": 148,
@@ -903,8 +903,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0978240966796875,
-          "peak_memory_kb": 64.8125,
+          "elapsed_time_s": 0.18752098083496094,
+          "peak_memory_kb": 74.671875,
           "frontier_cells": 33581,
           "pruning_false": 31263,
           "recursive_calls": 2319,
@@ -958,8 +958,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.04600787162780762,
-          "peak_memory_kb": 81.6015625,
+          "elapsed_time_s": 0.08627891540527344,
+          "peak_memory_kb": 91.4609375,
           "frontier_cells": 14638,
           "pruning_false": 13333,
           "recursive_calls": 1306,
@@ -1046,8 +1046,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.11841392517089844,
-          "peak_memory_kb": 68.3125,
+          "elapsed_time_s": 0.2193620204925537,
+          "peak_memory_kb": 78.171875,
           "frontier_cells": 39698,
           "pruning_false": 36912,
           "recursive_calls": 2787,
@@ -1115,8 +1115,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 4.671514987945557,
-          "peak_memory_kb": 83.90625,
+          "elapsed_time_s": 8.683077096939087,
+          "peak_memory_kb": 93.765625,
           "frontier_cells": 1577164,
           "pruning_false": 1455675,
           "recursive_calls": 121490,
@@ -1175,8 +1175,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.009481430053710938,
-          "peak_memory_kb": 44.28125,
+          "elapsed_time_s": 0.028371095657348633,
+          "peak_memory_kb": 54.140625,
           "frontier_cells": 2805,
           "pruning_false": 2658,
           "recursive_calls": 148,
@@ -1230,8 +1230,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0034329891204833984,
-          "peak_memory_kb": 44.6484375,
+          "elapsed_time_s": 0.015985965728759766,
+          "peak_memory_kb": 54.5078125,
           "frontier_cells": 1094,
           "pruning_false": 1036,
           "recursive_calls": 59,
@@ -1276,8 +1276,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0006492137908935547,
-          "peak_memory_kb": 30.6015625,
+          "elapsed_time_s": 0.00768589973449707,
+          "peak_memory_kb": 40.4609375,
           "frontier_cells": 199,
           "pruning_false": 194,
           "recursive_calls": 6,
@@ -1310,8 +1310,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0006909370422363281,
-          "peak_memory_kb": 22.5859375,
+          "elapsed_time_s": 0.007829904556274414,
+          "peak_memory_kb": 32.4453125,
           "frontier_cells": 211,
           "pruning_false": 196,
           "recursive_calls": 16,
@@ -1356,8 +1356,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00029015541076660156,
-          "peak_memory_kb": 21.953125,
+          "elapsed_time_s": 0.009978771209716797,
+          "peak_memory_kb": 31.8125,
           "frontier_cells": 109,
           "pruning_false": 108,
           "recursive_calls": 2,
@@ -1390,8 +1390,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0003879070281982422,
-          "peak_memory_kb": 30.140625,
+          "elapsed_time_s": 0.0066509246826171875,
+          "peak_memory_kb": 40.0,
           "frontier_cells": 120,
           "pruning_false": 119,
           "recursive_calls": 2,
@@ -1407,8 +1407,8 @@
     "size": 50,
     "density": 0.35,
     "metrics": {
-      "elapsed_time_s": 0.007673025131225586,
-      "peak_memory_kb": 42.234375,
+      "elapsed_time_s": 0.022847890853881836,
+      "peak_memory_kb": 52.09375,
       "frontier_cells": 2230,
       "pruning_false": 1887,
       "recursive_calls": 344,
@@ -1511,8 +1511,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.6816549301147461,
-          "peak_memory_kb": 57.546875,
+          "elapsed_time_s": 1.404515027999878,
+          "peak_memory_kb": 67.40625,
           "frontier_cells": 198096,
           "pruning_false": 169091,
           "recursive_calls": 29006,
@@ -1601,8 +1601,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 1.0289249420166016,
-          "peak_memory_kb": 57.1328125,
+          "elapsed_time_s": 1.888139009475708,
+          "peak_memory_kb": 66.9921875,
           "frontier_cells": 319003,
           "pruning_false": 282110,
           "recursive_calls": 36894,
@@ -1689,8 +1689,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.007673025131225586,
-          "peak_memory_kb": 42.234375,
+          "elapsed_time_s": 0.022847890853881836,
+          "peak_memory_kb": 52.09375,
           "frontier_cells": 2230,
           "pruning_false": 1887,
           "recursive_calls": 344,
@@ -1765,8 +1765,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.007143259048461914,
-          "peak_memory_kb": 29.9765625,
+          "elapsed_time_s": 0.018476009368896484,
+          "peak_memory_kb": 39.8359375,
           "frontier_cells": 2009,
           "pruning_false": 1725,
           "recursive_calls": 285,
@@ -1839,8 +1839,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 1.4340708255767822,
-          "peak_memory_kb": 50.875,
+          "elapsed_time_s": 2.614389657974243,
+          "peak_memory_kb": 60.734375,
           "frontier_cells": 412108,
           "pruning_false": 352194,
           "recursive_calls": 59915,
@@ -1908,8 +1908,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.002744913101196289,
-          "peak_memory_kb": 34.9921875,
+          "elapsed_time_s": 0.010838985443115234,
+          "peak_memory_kb": 44.8515625,
           "frontier_cells": 830,
           "pruning_false": 719,
           "recursive_calls": 112,
@@ -1961,8 +1961,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0002167224884033203,
-          "peak_memory_kb": 16.640625,
+          "elapsed_time_s": 0.0048258304595947266,
+          "peak_memory_kb": 26.5,
           "frontier_cells": 93,
           "pruning_false": 90,
           "recursive_calls": 4,
@@ -2002,8 +2002,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0003490447998046875,
-          "peak_memory_kb": 8.046875,
+          "elapsed_time_s": 0.006093025207519531,
+          "peak_memory_kb": 17.90625,
           "frontier_cells": 123,
           "pruning_false": 116,
           "recursive_calls": 8,
@@ -2048,8 +2048,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00018525123596191406,
-          "peak_memory_kb": 16.515625,
+          "elapsed_time_s": 0.005631208419799805,
+          "peak_memory_kb": 26.375,
           "frontier_cells": 54,
           "pruning_false": 53,
           "recursive_calls": 2,
@@ -2082,8 +2082,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00037288665771484375,
-          "peak_memory_kb": 17.1640625,
+          "elapsed_time_s": 0.006078958511352539,
+          "peak_memory_kb": 27.0234375,
           "frontier_cells": 144,
           "pruning_false": 138,
           "recursive_calls": 7,
@@ -2099,15 +2099,15 @@
     "size": 50,
     "density": 0.45,
     "metrics": {
-      "elapsed_time_s": 1.2924330234527588,
-      "peak_memory_kb": 39.4140625,
+      "elapsed_time_s": 2.3815579414367676,
+      "peak_memory_kb": 49.2734375,
       "frontier_cells": 379591,
       "pruning_false": 320504,
       "recursive_calls": 59088,
       "max_depth": 15,
       "path_length": 48.698484809834994,
       "landmarks_count": 13,
-      "timed_out": false,
+      "timed_out": true,
       "numero_campioni": 5
     },
     "coppie": [
@@ -2121,7 +2121,7 @@
           49
         ],
         "andata": {
-          "path_length": 80.08326112068522,
+          "path_length": 84.81118318204307,
           "landmarks_count": 18,
           "landmarks": [
             [
@@ -2140,99 +2140,99 @@
             ],
             [
               [
-                2,
-                8
-              ],
-              1
-            ],
-            [
-              [
-                4,
-                10
-              ],
-              1
-            ],
-            [
-              [
-                3,
-                13
-              ],
-              1
-            ],
-            [
-              [
-                4,
-                18
-              ],
-              1
-            ],
-            [
-              [
                 7,
-                20
+                6
               ],
               1
             ],
             [
               [
-                9,
-                21
-              ],
-              1
-            ],
-            [
-              [
-                13,
-                26
+                10,
+                5
               ],
               1
             ],
             [
               [
                 15,
-                27
+                10
               ],
               1
             ],
             [
               [
                 17,
-                30
+                9
               ],
               1
             ],
             [
               [
-                21,
-                35
+                20,
+                13
+              ],
+              1
+            ],
+            [
+              [
+                27,
+                17
+              ],
+              1
+            ],
+            [
+              [
+                31,
+                22
               ],
               1
             ],
             [
               [
                 29,
-                37
+                26
+              ],
+              1
+            ],
+            [
+              [
+                28,
+                28
+              ],
+              1
+            ],
+            [
+              [
+                29,
+                29
+              ],
+              1
+            ],
+            [
+              [
+                28,
+                31
               ],
               1
             ],
             [
               [
                 33,
-                40
+                34
               ],
               1
             ],
             [
               [
-                39,
+                41,
                 41
               ],
               1
             ],
             [
               [
-                42,
-                43
+                43,
+                42
               ],
               1
             ],
@@ -2251,17 +2251,17 @@
               1
             ]
           ],
-          "timed_out": false,
-          "elapsed_time_s": 13.029664039611816,
-          "peak_memory_kb": 48.1484375,
-          "frontier_cells": 3287060,
-          "pruning_false": 2496239,
-          "recursive_calls": 790822,
+          "timed_out": true,
+          "elapsed_time_s": 20.000025987625122,
+          "peak_memory_kb": 58.0078125,
+          "frontier_cells": 2739143,
+          "pruning_false": 2060105,
+          "recursive_calls": 679012,
           "max_depth": 20
         },
         "ritorno": {
-          "path_length": 80.08326112068524,
-          "landmarks_count": 16,
+          "path_length": 85.98275605729688,
+          "landmarks_count": 19,
           "landmarks": [
             [
               [
@@ -2272,92 +2272,113 @@
             ],
             [
               [
+                44,
+                36
+              ],
+              1
+            ],
+            [
+              [
+                45,
+                35
+              ],
+              1
+            ],
+            [
+              [
                 43,
-                44
-              ],
-              1
-            ],
-            [
-              [
-                38,
-                43
-              ],
-              1
-            ],
-            [
-              [
-                34,
-                41
-              ],
-              1
-            ],
-            [
-              [
-                32,
-                40
-              ],
-              1
-            ],
-            [
-              [
-                23,
-                37
-              ],
-              1
-            ],
-            [
-              [
-                19,
                 32
               ],
               1
             ],
             [
               [
-                17,
-                29
+                44,
+                28
               ],
               1
             ],
             [
               [
-                14,
-                27
-              ],
-              1
-            ],
-            [
-              [
-                12,
+                37,
                 24
               ],
               1
             ],
             [
               [
-                8,
+                36,
+                23
+              ],
+              1
+            ],
+            [
+              [
+                34,
+                25
+              ],
+              1
+            ],
+            [
+              [
+                32,
+                24
+              ],
+              1
+            ],
+            [
+              [
+                31,
                 21
               ],
               1
             ],
             [
               [
+                24,
+                17
+              ],
+              1
+            ],
+            [
+              [
+                19,
+                11
+              ],
+              1
+            ],
+            [
+              [
+                16,
+                9
+              ],
+              1
+            ],
+            [
+              [
+                15,
+                10
+              ],
+              1
+            ],
+            [
+              [
                 6,
-                20
+                3
               ],
               1
             ],
             [
               [
-                4,
-                14
+                5,
+                4
               ],
               1
             ],
             [
               [
-                0,
-                5
+                2,
+                3
               ],
               1
             ],
@@ -2377,11 +2398,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000022172927856,
-          "peak_memory_kb": 55.8828125,
-          "frontier_cells": 4836712,
-          "pruning_false": 3517903,
-          "recursive_calls": 1318767,
+          "elapsed_time_s": 20.00006914138794,
+          "peak_memory_kb": 65.7421875,
+          "frontier_cells": 2832269,
+          "pruning_false": 2240418,
+          "recursive_calls": 591774,
           "max_depth": 22
         },
         "simmetria_verificabile": false,
@@ -2451,8 +2472,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.018656015396118164,
-          "peak_memory_kb": 28.46875,
+          "elapsed_time_s": 0.03984999656677246,
+          "peak_memory_kb": 38.328125,
           "frontier_cells": 4364,
           "pruning_false": 3151,
           "recursive_calls": 1214,
@@ -2513,8 +2534,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0038299560546875,
-          "peak_memory_kb": 23.3984375,
+          "elapsed_time_s": 0.011558294296264648,
+          "peak_memory_kb": 33.2578125,
           "frontier_cells": 889,
           "pruning_false": 683,
           "recursive_calls": 207,
@@ -2580,8 +2601,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0021991729736328125,
-          "peak_memory_kb": 15.53125,
+          "elapsed_time_s": 0.008862972259521484,
+          "peak_memory_kb": 25.390625,
           "frontier_cells": 412,
           "pruning_false": 300,
           "recursive_calls": 113,
@@ -2628,8 +2649,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0007932186126708984,
-          "peak_memory_kb": 12.65625,
+          "elapsed_time_s": 0.005934000015258789,
+          "peak_memory_kb": 22.515625,
           "frontier_cells": 165,
           "pruning_false": 119,
           "recursive_calls": 47,
@@ -2744,8 +2765,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 1.8024840354919434,
-          "peak_memory_kb": 39.4140625,
+          "elapsed_time_s": 3.3192851543426514,
+          "peak_memory_kb": 49.2734375,
           "frontier_cells": 451505,
           "pruning_false": 337495,
           "recursive_calls": 114011,
@@ -2883,11 +2904,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000056982040405,
-          "peak_memory_kb": 53.6171875,
-          "frontier_cells": 4367692,
-          "pruning_false": 3193854,
-          "recursive_calls": 1173754,
+          "elapsed_time_s": 20.000087022781372,
+          "peak_memory_kb": 61.8359375,
+          "frontier_cells": 2396419,
+          "pruning_false": 1762300,
+          "recursive_calls": 634024,
           "max_depth": 22
         },
         "simmetria_verificabile": false,
@@ -2999,8 +3020,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 1.2924330234527588,
-          "peak_memory_kb": 40.46875,
+          "elapsed_time_s": 2.3815579414367676,
+          "peak_memory_kb": 50.328125,
           "frontier_cells": 379591,
           "pruning_false": 320504,
           "recursive_calls": 59088,
@@ -3103,8 +3124,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 1.091202974319458,
-          "peak_memory_kb": 36.90625,
+          "elapsed_time_s": 2.005970001220703,
+          "peak_memory_kb": 45.9609375,
           "frontier_cells": 288862,
           "pruning_false": 235643,
           "recursive_calls": 53220,
@@ -3120,8 +3141,8 @@
     "size": 100,
     "density": 0.05,
     "metrics": {
-      "elapsed_time_s": 0.005789279937744141,
-      "peak_memory_kb": 479.5234375,
+      "elapsed_time_s": 0.04025602340698242,
+      "peak_memory_kb": 518.6796875,
       "frontier_cells": 1814,
       "pruning_false": 1812,
       "recursive_calls": 7,
@@ -3175,8 +3196,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0059299468994140625,
-          "peak_memory_kb": 479.5234375,
+          "elapsed_time_s": 0.041571855545043945,
+          "peak_memory_kb": 518.6796875,
           "frontier_cells": 1927,
           "pruning_false": 1916,
           "recursive_calls": 12,
@@ -3209,8 +3230,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0053021907806396484,
-          "peak_memory_kb": 426.171875,
+          "elapsed_time_s": 0.03946113586425781,
+          "peak_memory_kb": 465.328125,
           "frontier_cells": 1846,
           "pruning_false": 1839,
           "recursive_calls": 8,
@@ -3262,8 +3283,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.009871721267700195,
-          "peak_memory_kb": 605.9375,
+          "elapsed_time_s": 0.06057906150817871,
+          "peak_memory_kb": 645.09375,
           "frontier_cells": 2812,
           "pruning_false": 2796,
           "recursive_calls": 17,
@@ -3310,8 +3331,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.1539289951324463,
-          "peak_memory_kb": 843.3359375,
+          "elapsed_time_s": 0.32326292991638184,
+          "peak_memory_kb": 882.4921875,
           "frontier_cells": 54692,
           "pruning_false": 54344,
           "recursive_calls": 349,
@@ -3349,8 +3370,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0007009506225585938,
-          "peak_memory_kb": 363.7578125,
+          "elapsed_time_s": 0.03264307975769043,
+          "peak_memory_kb": 402.9140625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -3376,8 +3397,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00027632713317871094,
-          "peak_memory_kb": 160.296875,
+          "elapsed_time_s": 0.03131103515625,
+          "peak_memory_kb": 199.453125,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -3429,8 +3450,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0036089420318603516,
-          "peak_memory_kb": 257.1328125,
+          "elapsed_time_s": 0.04025602340698242,
+          "peak_memory_kb": 296.2890625,
           "frontier_cells": 1193,
           "pruning_false": 1187,
           "recursive_calls": 7,
@@ -3463,8 +3484,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0048770904541015625,
-          "peak_memory_kb": 500.71875,
+          "elapsed_time_s": 0.04051494598388672,
+          "peak_memory_kb": 539.875,
           "frontier_cells": 1378,
           "pruning_false": 1370,
           "recursive_calls": 9,
@@ -3509,8 +3530,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.005789279937744141,
-          "peak_memory_kb": 531.015625,
+          "elapsed_time_s": 0.036366939544677734,
+          "peak_memory_kb": 570.171875,
           "frontier_cells": 1814,
           "pruning_false": 1812,
           "recursive_calls": 3,
@@ -3543,8 +3564,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.009535074234008789,
-          "peak_memory_kb": 767.25,
+          "elapsed_time_s": 0.04782915115356445,
+          "peak_memory_kb": 806.40625,
           "frontier_cells": 2351,
           "pruning_false": 2339,
           "recursive_calls": 13,
@@ -3560,8 +3581,8 @@
     "size": 100,
     "density": 0.15,
     "metrics": {
-      "elapsed_time_s": 0.007174968719482422,
-      "peak_memory_kb": 132.1328125,
+      "elapsed_time_s": 0.04107093811035156,
+      "peak_memory_kb": 171.2890625,
       "frontier_cells": 2579,
       "pruning_false": 2542,
       "recursive_calls": 70,
@@ -3657,11 +3678,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.00022792816162,
-          "peak_memory_kb": 290.75,
-          "frontier_cells": 6669392,
-          "pruning_false": 6364191,
-          "recursive_calls": 304085,
+          "elapsed_time_s": 20.000428199768066,
+          "peak_memory_kb": 329.90625,
+          "frontier_cells": 3691225,
+          "pruning_false": 3523530,
+          "recursive_calls": 166546,
           "max_depth": 11
         },
         "ritorno": {
@@ -3719,8 +3740,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 3.1071317195892334,
-          "peak_memory_kb": 344.71875,
+          "elapsed_time_s": 5.660964727401733,
+          "peak_memory_kb": 383.875,
           "frontier_cells": 1360587,
           "pruning_false": 1336142,
           "recursive_calls": 24446,
@@ -3765,8 +3786,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0061566829681396484,
-          "peak_memory_kb": 104.5546875,
+          "elapsed_time_s": 0.039015769958496094,
+          "peak_memory_kb": 143.7109375,
           "frontier_cells": 2089,
           "pruning_false": 2020,
           "recursive_calls": 70,
@@ -3799,8 +3820,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.004187822341918945,
-          "peak_memory_kb": 107.3515625,
+          "elapsed_time_s": 0.03501081466674805,
+          "peak_memory_kb": 146.5078125,
           "frontier_cells": 1626,
           "pruning_false": 1601,
           "recursive_calls": 26,
@@ -3859,8 +3880,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.024671077728271484,
-          "peak_memory_kb": 241.4921875,
+          "elapsed_time_s": 0.07308793067932129,
+          "peak_memory_kb": 280.6484375,
           "frontier_cells": 9328,
           "pruning_false": 9157,
           "recursive_calls": 172,
@@ -3907,8 +3928,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.027991771697998047,
-          "peak_memory_kb": 168.71875,
+          "elapsed_time_s": 0.07841706275939941,
+          "peak_memory_kb": 207.875,
           "frontier_cells": 9341,
           "pruning_false": 9149,
           "recursive_calls": 193,
@@ -3960,8 +3981,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.007174968719482422,
-          "peak_memory_kb": 132.1328125,
+          "elapsed_time_s": 0.04107093811035156,
+          "peak_memory_kb": 171.2890625,
           "frontier_cells": 2579,
           "pruning_false": 2542,
           "recursive_calls": 38,
@@ -4001,8 +4022,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0026760101318359375,
-          "peak_memory_kb": 165.1328125,
+          "elapsed_time_s": 0.032121896743774414,
+          "peak_memory_kb": 204.2890625,
           "frontier_cells": 1072,
           "pruning_false": 1065,
           "recursive_calls": 8,
@@ -4040,8 +4061,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.00015997886657714844,
-          "peak_memory_kb": 72.5078125,
+          "elapsed_time_s": 0.02785205841064453,
+          "peak_memory_kb": 111.6640625,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -4067,8 +4088,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 6.604194641113281e-05,
-          "peak_memory_kb": 40.296875,
+          "elapsed_time_s": 0.027120113372802734,
+          "peak_memory_kb": 79.453125,
           "frontier_cells": 0,
           "pruning_false": 0,
           "recursive_calls": 1,
@@ -4084,11 +4105,11 @@
     "size": 100,
     "density": 0.25,
     "metrics": {
-      "elapsed_time_s": 20.00006890296936,
-      "peak_memory_kb": 109.0859375,
-      "frontier_cells": 7759035,
-      "pruning_false": 7476209,
-      "recursive_calls": 282523,
+      "elapsed_time_s": 20.000098943710327,
+      "peak_memory_kb": 148.2421875,
+      "frontier_cells": 6977249,
+      "pruning_false": 6600210,
+      "recursive_calls": 278460,
       "max_depth": 14,
       "path_length": 91.49747468305831,
       "landmarks_count": 8,
@@ -4106,8 +4127,8 @@
           99
         ],
         "andata": {
-          "path_length": 160.06601717798213,
-          "landmarks_count": 15,
+          "path_length": 161.23759005323592,
+          "landmarks_count": 16,
           "landmarks": [
             [
               [
@@ -4139,93 +4160,100 @@
             ],
             [
               [
-                30,
+                32,
                 27
               ],
               1
             ],
             [
               [
-                32,
-                30
-              ],
-              1
-            ],
-            [
-              [
                 35,
-                35
+                33
               ],
-              1
+              2
             ],
             [
               [
-                40,
-                39
+                37,
+                36
               ],
-              1
+              2
+            ],
+            [
+              [
+                39,
+                37
+              ],
+              2
             ],
             [
               [
                 43,
-                43
+                42
               ],
-              1
+              2
             ],
             [
               [
                 50,
-                51
+                50
               ],
-              1
+              2
             ],
             [
               [
-                52,
+                51,
                 52
               ],
-              1
+              2
             ],
             [
               [
                 59,
-                60
+                59
               ],
-              1
+              2
             ],
             [
               [
-                71,
+                70,
                 71
               ],
-              1
+              2
             ],
             [
               [
-                93,
-                92
+                90,
+                90
               ],
-              1
+              2
+            ],
+            [
+              [
+                95,
+                94
+              ],
+              2
             ],
             [
               [
                 99,
                 99
               ],
-              1
+              2
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000238180160522,
-          "peak_memory_kb": 157.1875,
-          "frontier_cells": 8008014,
-          "pruning_false": 7875704,
-          "recursive_calls": 131859,
+          "elapsed_time_s": 20.00040602684021,
+          "peak_memory_kb": 196.34375,
+          "frontier_cells": 4334789,
+          "pruning_false": 4259034,
+          "recursive_calls": 75253,
           "max_depth": 14
         },
         "ritorno": {
-          "path_length": 164.16652224137044,
-          "landmarks_count": 18,
+          "path_length": 164.16652224137047,
+          "landmarks_count": 16,
           "landmarks": [
             [
               [
@@ -4257,43 +4285,29 @@
             ],
             [
               [
-                48,
+                47,
                 67
               ],
               1
             ],
             [
               [
-                46,
-                61
-              ],
-              1
-            ],
-            [
-              [
-                44,
+                40,
                 58
               ],
               1
             ],
             [
               [
-                37,
-                49
+                39,
+                56
               ],
               1
             ],
             [
               [
-                35,
-                48
-              ],
-              1
-            ],
-            [
-              [
-                34,
-                46
+                36,
+                51
               ],
               1
             ],
@@ -4355,11 +4369,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000132083892822,
-          "peak_memory_kb": 202.3046875,
-          "frontier_cells": 7856099,
-          "pruning_false": 7481734,
-          "recursive_calls": 373530,
+          "elapsed_time_s": 20.000128984451294,
+          "peak_memory_kb": 241.4609375,
+          "frontier_cells": 6853603,
+          "pruning_false": 6525860,
+          "recursive_calls": 327235,
           "max_depth": 19
         },
         "simmetria_verificabile": false,
@@ -4436,8 +4450,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.5506401062011719,
-          "peak_memory_kb": 103.5546875,
+          "elapsed_time_s": 0.5994720458984375,
+          "peak_memory_kb": 142.7109375,
           "frontier_cells": 213398,
           "pruning_false": 203068,
           "recursive_calls": 10331,
@@ -4491,8 +4505,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.2921428680419922,
-          "peak_memory_kb": 95.8046875,
+          "elapsed_time_s": 0.32713770866394043,
+          "peak_memory_kb": 134.9609375,
           "frontier_cells": 111541,
           "pruning_false": 105484,
           "recursive_calls": 6058,
@@ -4572,11 +4586,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000043869018555,
-          "peak_memory_kb": 109.0859375,
-          "frontier_cells": 8265555,
-          "pruning_false": 7914253,
-          "recursive_calls": 351188,
+          "elapsed_time_s": 20.000098943710327,
+          "peak_memory_kb": 148.2421875,
+          "frontier_cells": 8152625,
+          "pruning_false": 7806768,
+          "recursive_calls": 345662,
           "max_depth": 14
         },
         "ritorno": {
@@ -4648,11 +4662,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000136137008667,
-          "peak_memory_kb": 132.3671875,
-          "frontier_cells": 6875156,
-          "pruning_false": 6329821,
-          "recursive_calls": 544875,
+          "elapsed_time_s": 20.000097036361694,
+          "peak_memory_kb": 171.5234375,
+          "frontier_cells": 6714858,
+          "pruning_false": 6183369,
+          "recursive_calls": 531061,
           "max_depth": 13
         },
         "simmetria_verificabile": false,
@@ -4757,11 +4771,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000213861465454,
-          "peak_memory_kb": 141.0546875,
-          "frontier_cells": 7759035,
-          "pruning_false": 7476209,
-          "recursive_calls": 282523,
+          "elapsed_time_s": 20.00015091896057,
+          "peak_memory_kb": 180.2109375,
+          "frontier_cells": 7664964,
+          "pruning_false": 7386252,
+          "recursive_calls": 278460,
           "max_depth": 14
         },
         "ritorno": {
@@ -4833,11 +4847,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000078916549683,
-          "peak_memory_kb": 132.2421875,
-          "frontier_cells": 8050649,
-          "pruning_false": 7476596,
-          "recursive_calls": 573677,
+          "elapsed_time_s": 20.00017523765564,
+          "peak_memory_kb": 171.3984375,
+          "frontier_cells": 7948895,
+          "pruning_false": 7382872,
+          "recursive_calls": 565637,
           "max_depth": 12
         },
         "simmetria_verificabile": false,
@@ -4914,11 +4928,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.00006890296936,
-          "peak_memory_kb": 73.6484375,
-          "frontier_cells": 6950661,
-          "pruning_false": 6574784,
-          "recursive_calls": 375711,
+          "elapsed_time_s": 20.000049114227295,
+          "peak_memory_kb": 112.8046875,
+          "frontier_cells": 6977249,
+          "pruning_false": 6600210,
+          "recursive_calls": 376892,
           "max_depth": 13
         },
         "ritorno": {
@@ -4983,8 +4997,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.1558208465576172,
-          "peak_memory_kb": 69.984375,
+          "elapsed_time_s": 0.16973304748535156,
+          "peak_memory_kb": 109.140625,
           "frontier_cells": 39649,
           "pruning_false": 35090,
           "recursive_calls": 4560,
@@ -5000,10 +5014,10 @@
     "size": 100,
     "density": 0.35,
     "metrics": {
-      "elapsed_time_s": 20.00006103515625,
-      "peak_memory_kb": 72.1171875,
-      "frontier_cells": 4941792,
-      "pruning_false": 3697497,
+      "elapsed_time_s": 20.000060081481934,
+      "peak_memory_kb": 111.2734375,
+      "frontier_cells": 4877540,
+      "pruning_false": 3648930,
       "recursive_calls": 524118,
       "max_depth": 19,
       "path_length": 99.84062043356593,
@@ -5153,11 +5167,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.00008797645569,
-          "peak_memory_kb": 101.6015625,
-          "frontier_cells": 7078493,
-          "pruning_false": 6610615,
-          "recursive_calls": 467583,
+          "elapsed_time_s": 20.000089168548584,
+          "peak_memory_kb": 140.7578125,
+          "frontier_cells": 6969485,
+          "pruning_false": 6508189,
+          "recursive_calls": 461014,
           "max_depth": 21
         },
         "ritorno": {
@@ -5285,11 +5299,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.00010085105896,
-          "peak_memory_kb": 127.0,
-          "frontier_cells": 6339393,
-          "pruning_false": 5672190,
-          "recursive_calls": 666821,
+          "elapsed_time_s": 20.00008797645569,
+          "peak_memory_kb": 166.15625,
+          "frontier_cells": 6288453,
+          "pruning_false": 5626366,
+          "recursive_calls": 661648,
           "max_depth": 23
         },
         "simmetria_verificabile": false,
@@ -5408,8 +5422,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 12.384046792984009,
-          "peak_memory_kb": 71.21875,
+          "elapsed_time_s": 12.348522901535034,
+          "peak_memory_kb": 110.375,
           "frontier_cells": 3512025,
           "pruning_false": 2987908,
           "recursive_calls": 524118,
@@ -5519,8 +5533,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 4.0473411083221436,
-          "peak_memory_kb": 78.96875,
+          "elapsed_time_s": 4.029987096786499,
+          "peak_memory_kb": 118.125,
           "frontier_cells": 1316225,
           "pruning_false": 1199577,
           "recursive_calls": 116649,
@@ -5642,11 +5656,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.00006103515625,
-          "peak_memory_kb": 72.1171875,
-          "frontier_cells": 4941792,
-          "pruning_false": 3697497,
-          "recursive_calls": 1244061,
+          "elapsed_time_s": 20.000060081481934,
+          "peak_memory_kb": 111.2734375,
+          "frontier_cells": 4877540,
+          "pruning_false": 3648930,
+          "recursive_calls": 1228357,
           "max_depth": 19
         },
         "ritorno": {
@@ -5760,11 +5774,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.00006103515625,
-          "peak_memory_kb": 84.1015625,
-          "frontier_cells": 4875850,
-          "pruning_false": 3928438,
-          "recursive_calls": 947221,
+          "elapsed_time_s": 20.000107049942017,
+          "peak_memory_kb": 123.2578125,
+          "frontier_cells": 4860302,
+          "pruning_false": 3915792,
+          "recursive_calls": 944317,
           "max_depth": 20
         },
         "simmetria_verificabile": false,
@@ -5813,8 +5827,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0003581047058105469,
-          "peak_memory_kb": 21.7578125,
+          "elapsed_time_s": 0.011847972869873047,
+          "peak_memory_kb": 60.9140625,
           "frontier_cells": 94,
           "pruning_false": 92,
           "recursive_calls": 3,
@@ -5854,8 +5868,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.0014729499816894531,
-          "peak_memory_kb": 34.7734375,
+          "elapsed_time_s": 0.012855052947998047,
+          "peak_memory_kb": 73.9296875,
           "frontier_cells": 477,
           "pruning_false": 450,
           "recursive_calls": 28,
@@ -6005,11 +6019,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000097036361694,
-          "peak_memory_kb": 87.28125,
-          "frontier_cells": 7127014,
-          "pruning_false": 6496236,
-          "recursive_calls": 630533,
+          "elapsed_time_s": 20.000198125839233,
+          "peak_memory_kb": 126.4375,
+          "frontier_cells": 7168956,
+          "pruning_false": 6534721,
+          "recursive_calls": 633934,
           "max_depth": 20
         },
         "ritorno": {
@@ -6116,11 +6130,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000040292739868,
-          "peak_memory_kb": 79.7734375,
-          "frontier_cells": 5628998,
-          "pruning_false": 4671377,
-          "recursive_calls": 957471,
+          "elapsed_time_s": 20.000081062316895,
+          "peak_memory_kb": 118.9296875,
+          "frontier_cells": 5563813,
+          "pruning_false": 4616168,
+          "recursive_calls": 947508,
           "max_depth": 18
         },
         "simmetria_verificabile": false,
@@ -6133,8 +6147,8 @@
     "size": 100,
     "density": 0.45,
     "metrics": {
-      "elapsed_time_s": 8.100152015686035,
-      "peak_memory_kb": 70.015625,
+      "elapsed_time_s": 8.129871845245361,
+      "peak_memory_kb": 109.171875,
       "frontier_cells": 2067714,
       "pruning_false": 1689620,
       "recursive_calls": 378095,
@@ -6314,11 +6328,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.00009322166443,
-          "peak_memory_kb": 92.4609375,
-          "frontier_cells": 5636586,
-          "pruning_false": 4650399,
-          "recursive_calls": 985923,
+          "elapsed_time_s": 20.000076055526733,
+          "peak_memory_kb": 131.6171875,
+          "frontier_cells": 5604612,
+          "pruning_false": 4623332,
+          "recursive_calls": 981056,
           "max_depth": 30
         },
         "ritorno": {
@@ -6502,11 +6516,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000059127807617,
-          "peak_memory_kb": 103.4765625,
-          "frontier_cells": 6119152,
-          "pruning_false": 5200049,
-          "recursive_calls": 918952,
+          "elapsed_time_s": 20.00006127357483,
+          "peak_memory_kb": 142.6328125,
+          "frontier_cells": 6097482,
+          "pruning_false": 5182854,
+          "recursive_calls": 914463,
           "max_depth": 34
         },
         "simmetria_verificabile": false,
@@ -6660,8 +6674,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 8.100152015686035,
-          "peak_memory_kb": 73.953125,
+          "elapsed_time_s": 8.129871845245361,
+          "peak_memory_kb": 113.109375,
           "frontier_cells": 2067714,
           "pruning_false": 1689620,
           "recursive_calls": 378095,
@@ -6792,11 +6806,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000036001205444,
-          "peak_memory_kb": 44.328125,
-          "frontier_cells": 4871430,
-          "pruning_false": 3718462,
-          "recursive_calls": 1152890,
+          "elapsed_time_s": 20.000043153762817,
+          "peak_memory_kb": 83.484375,
+          "frontier_cells": 4848400,
+          "pruning_false": 3701422,
+          "recursive_calls": 1146904,
           "max_depth": 22
         },
         "simmetria_verificabile": false,
@@ -6873,8 +6887,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.1105799674987793,
-          "peak_memory_kb": 38.484375,
+          "elapsed_time_s": 0.12336993217468262,
+          "peak_memory_kb": 77.640625,
           "frontier_cells": 32080,
           "pruning_false": 26181,
           "recursive_calls": 5900,
@@ -6942,8 +6956,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 0.024485111236572266,
-          "peak_memory_kb": 35.0390625,
+          "elapsed_time_s": 0.03466176986694336,
+          "peak_memory_kb": 74.1953125,
           "frontier_cells": 5336,
           "pruning_false": 3900,
           "recursive_calls": 1437,
@@ -7072,8 +7086,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 5.557569980621338,
-          "peak_memory_kb": 51.53125,
+          "elapsed_time_s": 5.615061044692993,
+          "peak_memory_kb": 90.6875,
           "frontier_cells": 1606899,
           "pruning_false": 1334016,
           "recursive_calls": 272884,
@@ -7253,11 +7267,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000047206878662,
-          "peak_memory_kb": 56.5625,
-          "frontier_cells": 6002946,
-          "pruning_false": 4922519,
-          "recursive_calls": 1080312,
+          "elapsed_time_s": 20.000061750411987,
+          "peak_memory_kb": 95.71875,
+          "frontier_cells": 5940202,
+          "pruning_false": 4870756,
+          "recursive_calls": 1069334,
           "max_depth": 26
         },
         "simmetria_verificabile": false,
@@ -7383,8 +7397,8 @@
             ]
           ],
           "timed_out": false,
-          "elapsed_time_s": 19.092280864715576,
-          "peak_memory_kb": 70.015625,
+          "elapsed_time_s": 19.15415096282959,
+          "peak_memory_kb": 109.171875,
           "frontier_cells": 4480569,
           "pruning_false": 3340096,
           "recursive_calls": 1140474,
@@ -7494,11 +7508,11 @@
             ]
           ],
           "timed_out": true,
-          "elapsed_time_s": 20.000035047531128,
-          "peak_memory_kb": 56.4296875,
-          "frontier_cells": 6488404,
-          "pruning_false": 5727562,
-          "recursive_calls": 760700,
+          "elapsed_time_s": 20.000068187713623,
+          "peak_memory_kb": 95.5859375,
+          "frontier_cells": 6508595,
+          "pruning_false": 5745436,
+          "recursive_calls": 763071,
           "max_depth": 19
         },
         "simmetria_verificabile": false,

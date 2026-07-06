@@ -29,6 +29,69 @@ def _aggiorna_minimo_globale(shared_state: dict[str, float], full_path_len: floa
         shared_state['global_min_length'] = full_path_len
 
 
+def _discesa_golosa(
+    origin: Coordinate,
+    destination: Coordinate,
+    grid_state: np.ndarray
+) -> tuple[float, list[tuple[Coordinate, int]]]:
+    """Discesa golosa iterativa, senza backtracking, per trovare rapidamente un cammino
+    completo qualsiasi da usare come innesco del limite superiore globale.
+
+    A ogni passo sceglie solo la cella di frontiera con dlib minima verso la destinazione
+    (lo stesso criterio dell'ordinamento euristico, diapositiva 66) e prosegue da lì, senza
+    mai tornare sui propri passi. Poiché ogni chiusura attraversata viene marcata come
+    ostacolo temporaneo prima di procedere, il cammino non può richiudersi su se stesso: la
+    discesa termina in al più O(R*C) passi, o in un cammino completo oppure in un vicolo
+    cieco (frontiera vuota), nel qual caso non fornisce alcun innesco. La griglia viene
+    ripristinata allo stato originale prima di ritornare in ogni caso.
+
+    Il cammino restituito (quando esiste) è un cammino valido qualsiasi fra origine e
+    destinazione, quindi la sua lunghezza è per costruzione un limite superiore corretto
+    della lunghezza del cammino minimo: usarlo per inizializzare il limite globale non può
+    mai far scartare un cammino ottimo.
+    """
+    marcate: list[set[Coordinate]] = []
+    current = origin
+    seq: list[tuple[Coordinate, int]] = [(origin, 0)]
+    total_len = 0.0
+    esito: tuple[float, list[tuple[Coordinate, int]]] | None = None
+
+    while True:
+        context = compute_context_rays(current, grid_state)
+        if destination in context:
+            seq.append((destination, 1))
+            total_len += dlib(current, destination)
+            esito = (total_len, seq)
+            break
+
+        complement = compute_complement_rays(current, grid_state, context)
+        if destination in complement:
+            seq.append((destination, 2))
+            total_len += dlib(current, destination)
+            esito = (total_len, seq)
+            break
+
+        frontier = compute_frontier(context, complement, grid_state)
+        if not frontier:
+            break
+
+        f_cell, f_type = min(frontier, key=lambda ft: dlib(ft[0], destination))
+        closure = context | complement
+        for cell in closure:
+            grid_state[cell] = TEMP_MARK
+        marcate.append(closure)
+
+        total_len += dlib(current, f_cell)
+        seq.append((f_cell, f_type))
+        current = f_cell
+
+    for closure in marcate:
+        for cell in closure:
+            grid_state[cell] = 0
+
+    return esito if esito is not None else (float('inf'), [])
+
+
 def camminomin(
     origin: Coordinate,
     destination: Coordinate,
@@ -42,7 +105,10 @@ def camminomin(
     shared_state: dict[str, float] | None = None,
     accumulated_len: float = 0.0,
     visited_closures: set[Coordinate] | None = None,
-    use_component_check: bool = True
+    use_component_check: bool = True,
+    greedy_seed: bool = False,
+    _seed_min_length: float = float('inf'),
+    _seed_min_seq: list[tuple[Coordinate, int]] | None = None
 ) -> tuple[float, list[tuple[Coordinate, int]], bool]:
     """
     Trova il cammino minimo tra origine e destinazione con l'algoritmo ricorsivo basato su landmark.
@@ -76,6 +142,12 @@ def camminomin(
             connessi della griglia (O(R*C)) e ritorna subito infinito quando origine e destinazione
             appartengono a componenti diversi, evitando l'esaurimento esponenziale della frontiera
             sulle coppie irraggiungibili. Non altera il risultato: l'esito sarebbe comunque infinito.
+        greedy_seed: Se True (default False), alla sola chiamata radice esegue una discesa golosa
+            senza backtracking per trovare rapidamente un cammino completo qualsiasi, e ne usa la
+            lunghezza per inizializzare il limite superiore globale invece di partire da +infinito.
+            Il cammino goloso è sempre un limite superiore valido (mai inferiore all'ottimo), quindi
+            l'innesco non può mai far scartare un cammino ottimo; se la ricerca completa non trova
+            nulla di strettamente migliore, viene restituito il cammino goloso stesso.
 
     Returns:
         Una tupla `(lunghezza_min, sequenza_landmark, timed_out)` dove:
@@ -94,6 +166,15 @@ def camminomin(
             labels = compute_components(grid_state)
             if labels[origin] != labels[destination]:
                 return float('inf'), [], False
+        # Innesco goloso (solo alla radice): un cammino completo qualsiasi, se trovato,
+        # inizializza il limite globale così che la potatura sia attiva fin dal primo nodo
+        # esplorato, invece che dopo la prima foglia completa della ricerca vera e propria.
+        if greedy_seed and origin != destination:
+            g_len, g_seq = _discesa_golosa(origin, destination, grid_state)
+            if g_len < float('inf'):
+                shared_state['global_min_length'] = g_len
+                _seed_min_length = g_len
+                _seed_min_seq = g_seq
 
     # 2. Aggiornamento delle statistiche di esecuzione
     if stats is not None:
@@ -135,8 +216,11 @@ def camminomin(
     else:
         frontier.sort(key=lambda ft: dlib(ft[0], destination))
 
-    min_length = float('inf')
-    min_seq: list[tuple[Coordinate, int]] = []
+    # Se l'innesco goloso ha fornito un cammino completo, diventa il valore restituito di
+    # default: se la ricerca vera e propria non trova nulla di strettamente migliore (per via
+    # della disuguaglianza stretta della potatura), non si perde comunque la soluzione goloso.
+    min_length = _seed_min_length
+    min_seq: list[tuple[Coordinate, int]] = list(_seed_min_seq) if _seed_min_seq else []
     closure = context | complement
 
     if visited_closures is not None:
