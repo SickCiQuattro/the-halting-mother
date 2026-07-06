@@ -38,7 +38,7 @@ Lo pseudocodice valuta la condizione di riga 16/17 rispetto a \texttt{lunghezzaM
 \ell_{\text{acc}} + l_F + h(F) < L_{\text{glob}}
 \label{eq:branch_and_bound}
 \end{equation}
-dove $\ell_{\text{acc}}$ è la lunghezza già accumulata dall'origine principale e $h(F)$ vale $0$ nella potatura debole (riga 16) e $d_{\text{lib}}(F,D)$ in quella forte (riga 17). Poiché $d_{\text{lib}}$ \textbf{non sovrastima mai la distanza reale}, la stima è ammissibile e la potatura non scarta mai un cammino ottimo: si tratta di una potatura branch-and-bound. Finché non si è trovato il primo cammino completo, $L_{\text{glob}}$ vale $+\infty$ e non si pota nulla. È l'unica ottimizzazione di ricerca aggiunta rispetto allo pseudocodice e non richiede alcuna passata preliminare: il limite emerge dalla ricerca stessa.
+dove $\ell_{\text{acc}}$ è la lunghezza già accumulata dall'origine principale e $h(F)$ vale $0$ nella potatura debole (riga 16) e $d_{\text{lib}}(F,D)$ in quella forte (riga 17). Poiché $d_{\text{lib}}$ \textbf{non sovrastima mai la distanza reale}, la stima è ammissibile e la potatura non scarta mai un cammino ottimo: si tratta di una potatura branch-and-bound. Finché non si è trovato il primo cammino completo, $L_{\text{glob}}$ vale $+\infty$ e non si pota nulla. La potatura non richiede alcuna passata preliminare: il limite emerge dalla ricerca stessa.
 
 Per produrre questo confronto, \texttt{camminomin()} accetta un parametro opzionale \texttt{visited\_closures}: se fornito, ogni chiamata ricorsiva vi accumula le celle della propria chiusura, tracciando così l'impronta complessiva della ricerca a fini di analisi. Il parametro non altera in alcun modo la logica dell'algoritmo, non è utilizzato quando omesso (valore predefinito \texttt{None}) ed è impiegato solo dallo script che genera la figura seguente.
 
@@ -50,6 +50,14 @@ Per rendere tangibile l'effetto della potatura, la figura~\ref{fig:esplorazione_
 \caption{Impronta di esplorazione (unione delle chiusure visitate) a confronto fra potatura debole e forte, stessa coppia origine--destinazione.}
 \label{fig:esplorazione_potatura}
 \end{figure}
+
+\subsection{Controllo preliminare di raggiungibilità con i componenti connessi}
+
+La ricerca ricorsiva ha un punto debole strutturale sulle coppie irraggiungibili: quando la destinazione si trova in una regione isolata da ostacoli (per esempio all'interno di un recinto chiuso), l'algoritmo non ha modo di accorgersene se non esaurendo l'intera frontiera di ogni ramo, con un costo che cresce in modo esponenziale prima di poter rispondere che il cammino non esiste.
+
+Per eliminare questo caso patologico l'implementazione esegue, soltanto alla chiamata radice, un riempimento a inondazione iterativo (visita in ampiezza con una coda, funzione \texttt{compute\_components()}) che etichetta ogni cella libera con l'identificativo del proprio componente connesso rispetto al vicinato a otto celle, in tempo e spazio $O(R \cdot C)$. Se origine e destinazione ricadono in componenti diversi, la funzione ritorna subito distanza infinita senza avviare alcuna ricorsione. La correttezza discende dalla specifica stessa (diapositiva 3 del testo dell'elaborato): il passo diagonale fra due celle libere è sempre ammesso, anche quando due ostacoli si toccano per lo spigolo, quindi la connettività a otto coincide esattamente con la raggiungibilità e il controllo non può mai dichiarare irraggiungibile una coppia che non lo sia. L'esito del calcolo resta identico in entrambi i casi (distanza infinita); cambia soltanto il costo per arrivarci.
+
+L'effetto è quantificato da un esperimento dedicato (\texttt{scripts/verifica\_componenti.py}): su una griglia $50 \times 50$ con densità $0.2$ e un recinto chiuso, con destinazione interna al recinto e origine esterna, il controllo preliminare risponde in $0{,}014$ secondi, mentre la stessa interrogazione senza controllo raggiunge il tempo limite di $600$ secondi dopo quasi $13{,}8$ milioni di invocazioni ricorsive senza essere riuscita a dimostrare l'irraggiungibilità. Il controllo è attivo in modo predefinito e disattivabile dalla riga di comando con \texttt{-{}-no-component-check} per riprodurre il confronto. Va osservato che il beneficio riguarda soltanto le coppie realmente disconnesse: sulle coppie raggiungibili il controllo aggiunge un costo lineare trascurabile e la ricerca procede come prima.
 
 \subsection{Ottimizzazioni fisiche e implementative}
 

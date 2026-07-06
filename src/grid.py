@@ -1,5 +1,6 @@
 import json
 import numpy as np
+from collections import deque
 from typing import List
 from src.exceptions import InvalidCoordinateError
 
@@ -153,3 +154,49 @@ class Grid:
                     row_str.append(".")  # Cella libera
             lines.append(" ".join(row_str))
         return "\n".join(lines)
+
+
+def compute_components(grid_state: np.ndarray) -> np.ndarray:
+    """
+    Etichetta ogni cella libera con l'identificativo del proprio componente connesso.
+
+    Usa un riempimento a inondazione iterativo (BFS con coda) sul vicinato a 8: per la
+    specifica dell'elaborato (pag. 3) l'attraversamento diagonale fra due celle libere è
+    sempre ammesso, anche quando due ostacoli si toccano per lo spigolo, quindi la
+    connettività a 8 coincide esattamente con la raggiungibilità. Due celle libere sono
+    quindi mutuamente raggiungibili se e solo se hanno la stessa etichetta.
+
+    Costo: O(R*C) in tempo e spazio.
+
+    Args:
+        grid_state: Matrice degli stati della griglia (0 libera, >0 ostacolo).
+
+    Returns:
+        Matrice int32 della stessa forma: etichetta di componente (0, 1, 2, ...) per le
+        celle libere, -1 per le celle occupate da ostacoli.
+    """
+    rows, cols = grid_state.shape
+    labels = np.full((rows, cols), -1, dtype=np.int32)
+    current_label = 0
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid_state[r, c] != 0 or labels[r, c] != -1:
+                continue
+            # Nuova componente: inondazione BFS a partire da (r, c)
+            labels[r, c] = current_label
+            queue: deque[Coordinate] = deque([(r, c)])
+            while queue:
+                cr, cc = queue.popleft()
+                for dr in (-1, 0, 1):
+                    for dc in (-1, 0, 1):
+                        if dr == 0 and dc == 0:
+                            continue
+                        nr, nc = cr + dr, cc + dc
+                        if (0 <= nr < rows and 0 <= nc < cols
+                                and grid_state[nr, nc] == 0 and labels[nr, nc] == -1):
+                            labels[nr, nc] = current_label
+                            queue.append((nr, nc))
+            current_label += 1
+
+    return labels

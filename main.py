@@ -159,7 +159,8 @@ def cmd_camminomin(args: argparse.Namespace) -> None:
         origin, dest, grid.state, depth=0, stats=stats,
         start_time=start_time, timeout=args.timeout,
         use_strong_pruning=args.strong_pruning,
-        randomize_frontier=args.randomize_frontier
+        randomize_frontier=args.randomize_frontier,
+        use_component_check=not args.no_component_check
     )
     
     elapsed = time.time() - start_time
@@ -313,6 +314,7 @@ def main() -> None:
     parser_cm.add_argument("--timeout", type=float, default=60.0, help="Tempo limite di elaborazione in secondi")
     parser_cm.add_argument("--strong-pruning", action="store_true", help="Abilita il pruning forte (Riga 17) anziché debole (Riga 16)")
     parser_cm.add_argument("--randomize-frontier", action="store_true", help="Mescola casualmente l'esplorazione dei nodi di frontiera")
+    parser_cm.add_argument("--no-component-check", action="store_true", help="Disabilita il controllo preliminare dei componenti connessi per le coppie irraggiungibili")
     parser_cm.add_argument("--summary", action="store_true", help="Stampa il resoconto strutturato dell'esecuzione nel formato Slide 71")
     parser_cm.add_argument("--save-img", default=None, help="Percorso per salvare l'immagine PNG del cammino minimo")
     

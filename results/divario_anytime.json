@@ -1,0 +1,122 @@
+[
+  {
+    "size": 10,
+    "ottimo_astar": 14.485281374238571,
+    "tempo_astar_s": 0.0,
+    "weak": {
+      "lunghezza": 14.48528137423857,
+      "interrotto": false,
+      "confermato": true
+    },
+    "strong": {
+      "lunghezza": 14.48528137423857,
+      "interrotto": false,
+      "confermato": true
+    },
+    "ritorno": {
+      "lunghezza": 14.48528137423857,
+      "interrotto": false,
+      "confermato": true
+    }
+  },
+  {
+    "size": 20,
+    "ottimo_astar": 29.213203435596434,
+    "tempo_astar_s": 0.0,
+    "weak": {
+      "lunghezza": 29.213203435596423,
+      "interrotto": false,
+      "confermato": true
+    },
+    "strong": {
+      "lunghezza": 29.213203435596427,
+      "interrotto": false,
+      "confermato": true
+    },
+    "ritorno": {
+      "lunghezza": 29.213203435596427,
+      "interrotto": false,
+      "confermato": true
+    }
+  },
+  {
+    "size": 50,
+    "ottimo_astar": 74.56854249492375,
+    "tempo_astar_s": 0.002008676528930664,
+    "weak": {
+      "lunghezza": 77.1543289325507,
+      "interrotto": true,
+      "divario_pct": 3.467663911766785
+    },
+    "strong": {
+      "lunghezza": 74.5685424949238,
+      "interrotto": false,
+      "confermato": true
+    },
+    "ritorno": {
+      "lunghezza": 74.5685424949238,
+      "interrotto": false,
+      "confermato": true
+    }
+  },
+  {
+    "size": 100,
+    "ottimo_astar": 147.6223663640861,
+    "tempo_astar_s": 0.02123856544494629,
+    "weak": {
+      "lunghezza": 153.9655121145938,
+      "interrotto": true,
+      "divario_pct": 4.2968731004239356
+    },
+    "strong": {
+      "lunghezza": 148.20815280171308,
+      "interrotto": true,
+      "divario_pct": 0.39681414954576305
+    },
+    "ritorno": {
+      "lunghezza": 147.6223663640862,
+      "interrotto": false,
+      "confermato": true
+    }
+  },
+  {
+    "size": 150,
+    "ottimo_astar": 220.676190233249,
+    "tempo_astar_s": 0.0384371280670166,
+    "weak": {
+      "lunghezza": 263.9655121145938,
+      "interrotto": true,
+      "divario_pct": 19.616670849532582
+    },
+    "strong": {
+      "lunghezza": 240.7350647362943,
+      "interrotto": true,
+      "divario_pct": 9.089732101067902
+    },
+    "ritorno": {
+      "lunghezza": 245.4213562373095,
+      "interrotto": true,
+      "divario_pct": 11.213337505013799
+    }
+  },
+  {
+    "size": 200,
+    "ottimo_astar": 293.7300141024119,
+    "tempo_astar_s": 0.04386711120605469,
+    "weak": {
+      "lunghezza": null,
+      "interrotto": true,
+      "divario_pct": null
+    },
+    "strong": {
+      "lunghezza": null,
+      "interrotto": true,
+      "divario_pct": null
+    },
+    "ritorno": {
+      "lunghezza": 316.65894629054543,
+      "interrotto": true,
+      "divario_pct": 7.806125042481753
+    }
+  }
+]

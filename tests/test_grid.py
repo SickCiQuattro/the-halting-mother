@@ -1,7 +1,7 @@
 import unittest
 import os
 import tempfile
-from src.grid import Grid
+from src.grid import Grid, compute_components
 
 class TestGrid(unittest.TestCase):
     def test_creation(self):
@@ -38,6 +38,28 @@ class TestGrid(unittest.TestCase):
             self.assertFalse(loaded.is_traversable(1, 1))
             self.assertFalse(loaded.is_traversable(2, 2))
             self.assertTrue(loaded.is_traversable(0, 0))
+
+    def test_compute_components_muro_divisorio(self):
+        # Muro verticale completo in colonna 2: due componenti distinti, ostacoli a -1
+        grid = Grid(5, 5)
+        for r in range(5):
+            grid.set_obstacle(r, 2)
+        labels = compute_components(grid.state)
+
+        self.assertEqual(labels[0, 0], labels[4, 1])   # Lato sinistro connesso
+        self.assertEqual(labels[0, 3], labels[4, 4])   # Lato destro connesso
+        self.assertNotEqual(labels[0, 0], labels[0, 3])  # I due lati sono separati
+        for r in range(5):
+            self.assertEqual(labels[r, 2], -1)         # Ostacoli etichettati -1
+
+    def test_compute_components_passaggio_diagonale(self):
+        # Due ostacoli che si toccano per lo spigolo NON separano le celle libere in
+        # diagonale (pag. 3: attraversamento diagonale sempre ammesso)
+        grid = Grid(2, 2)
+        grid.set_obstacle(0, 1)
+        grid.set_obstacle(1, 0)
+        labels = compute_components(grid.state)
+        self.assertEqual(labels[0, 0], labels[1, 1])
 
     def test_load_senza_tipologie(self):
         # I file JSON salvati prima dell'introduzione del campo "types" restano caricabili

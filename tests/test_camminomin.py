@@ -70,6 +70,30 @@ class TestCamminomin(unittest.TestCase):
         self.assertEqual(min_len, float('inf'))
         self.assertEqual(len(landmarks), 0)
 
+    def test_unreachable_component_check_immediato(self):
+        # Recinto chiuso: il controllo dei componenti connessi ritorna infinito senza
+        # avviare la ricerca ricorsiva (nessuna invocazione registrata nelle statistiche)
+        grid = Grid(10, 10)
+        for i in range(3, 8):
+            grid.set_obstacle(3, i)
+            grid.set_obstacle(7, i)
+            grid.set_obstacle(i, 3)
+            grid.set_obstacle(i, 7)
+
+        o = (0, 0)   # Esterno al recinto
+        d = (5, 5)   # Interno al recinto
+
+        stats = {}
+        min_len, landmarks, timed_out = camminomin(o, d, grid.state, stats=stats)
+        self.assertEqual(min_len, float('inf'))
+        self.assertEqual(len(landmarks), 0)
+        self.assertFalse(timed_out)
+        self.assertEqual(stats.get('recursive_calls', 0), 0)
+
+        # Stesso esito (ma con ricerca completa) disattivando il controllo
+        min_len_no_check, _, _ = camminomin(o, d, grid.state, use_component_check=False)
+        self.assertEqual(min_len_no_check, float('inf'))
+
     def test_compact(self):
         seq1 = [((0, 0), 0), ((3, 4), 1)]
         seq2 = [((3, 4), 0), ((10, 12), 2)]

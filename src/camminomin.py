@@ -1,6 +1,6 @@
 import time
 import numpy as np
-from src.grid import Coordinate
+from src.grid import Coordinate, compute_components
 from src.exceptions import PathReconstructionError
 from src.free_paths import (
     dlib,
@@ -41,7 +41,8 @@ def camminomin(
     randomize_frontier: bool = False,
     shared_state: dict[str, float] | None = None,
     accumulated_len: float = 0.0,
-    visited_closures: set[Coordinate] | None = None
+    visited_closures: set[Coordinate] | None = None,
+    use_component_check: bool = True
 ) -> tuple[float, list[tuple[Coordinate, int]], bool]:
     """
     Trova il cammino minimo tra origine e destinazione con l'algoritmo ricorsivo basato su landmark.
@@ -71,6 +72,10 @@ def camminomin(
         accumulated_len: Lunghezza accumulata del percorso dall'origine della chiamata principale.
         visited_closures: Se fornito, accumula tutte le celle incluse in una chiusura esplorata durante
             l'intera ricerca (usato solo per analisi/visualizzazione, non influenza la logica).
+        use_component_check: Se True (default), alla sola chiamata radice calcola i componenti
+            connessi della griglia (O(R*C)) e ritorna subito infinito quando origine e destinazione
+            appartengono a componenti diversi, evitando l'esaurimento esponenziale della frontiera
+            sulle coppie irraggiungibili. Non altera il risultato: l'esito sarebbe comunque infinito.
 
     Returns:
         Una tupla `(lunghezza_min, sequenza_landmark, timed_out)` dove:
@@ -82,6 +87,13 @@ def camminomin(
     # 1. Inizializzazione dello stato condiviso al livello radice
     if shared_state is None:
         shared_state = {'global_min_length': float('inf')}
+        # Controllo preliminare di raggiungibilità (solo alla radice): se O e D stanno in
+        # componenti connesse diverse nessun cammino esiste e la ricerca ricorsiva, che sui
+        # recinti esaurirebbe l'intera frontiera con costo esponenziale, si evita del tutto.
+        if use_component_check and origin != destination:
+            labels = compute_components(grid_state)
+            if labels[origin] != labels[destination]:
+                return float('inf'), [], False
 
     # 2. Aggiornamento delle statistiche di esecuzione
     if stats is not None:

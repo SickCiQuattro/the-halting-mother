@@ -1,5 +1,14 @@
 # Walkthrough — Elaborato Algoritmi e Strutture Dati
 
+> **AVVERTENZA — documento storico.** Questo walkthrough descrive versioni precedenti del
+> sistema (v1–v4) e contiene affermazioni non più vere per il codice attuale: la marcatura
+> per profondità (`depth_id`) è stata sostituita dalla costante `TEMP_MARK`, la cache dei
+> sotto-problemi e il *Greedy Seeding* (v4) sono stati **rimossi** perché la chiave di cache
+> non includeva la lunghezza accumulata, causando riusi subottimali e violazione della
+> simmetria O–D / D–O (si veda la docstring di `src/camminomin.py` e la Relazione, Compito 3).
+> Lo stato attuale del sistema è descritto dalla Relazione e dal `README.md`; i risultati
+> sperimentali correnti sono in `results/` (campagna con tempo limite 600 s).
+
 La progettazione e l'implementazione completa dell'elaborato (requisiti per gruppi di 3 persone) sono state portate a termine con successo in **Python 3.13**.
 
 Tutti i 23 test unitari passano con successo in meno di **0.02 secondi**, e la campagna sperimentale ha generato con successo i dati prestazionali e i relativi grafici ad alta risoluzione.
@@ -104,7 +113,12 @@ Abbiamo implementato una pipeline di disegno raster (`src/visualization.py`) che
 
 ---
 
-## 🚀 L'Ottimizzazione v4: Global Min Length Seeding (Greedy Landmark Pathfinding)
+## 🚀 L'Ottimizzazione v4: Global Min Length Seeding (Greedy Landmark Pathfinding) — RIMOSSA
+
+> **Nota storica**: l'intera ottimizzazione descritta in questa sezione (cache + seeding
+> goloso) è stata successivamente rimossa dal codice per il bug di correttezza della chiave
+> di cache. I tempi "in frazioni di secondo" citati sotto NON riflettono il comportamento
+> attuale: i risultati validi sono quelli di `results/scaling_results.json`.
 
 Nelle versioni precedenti, l'efficacia della cache crollava su griglie di grandi dimensioni a causa del **paradosso della cache**: man mano che la ricorsione scende in profondità, il set `frozen_cells` (che fa parte della chiave di cache per garantire la correttezza matematica) cambia continuamente per ogni percorso unico intrapreso, azzerando i cache hit.
 
