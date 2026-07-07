@@ -7,12 +7,14 @@
     "enclosure",
     "bar"
   ],
+  "densita_nominale": 0.2,
+  "densita_effettiva": 0.2,
   "weak": {
-    "elapsed_time_s": 20.000142812728882,
+    "elapsed_time_s": 20.00016498565674,
     "peak_memory_kb": 105.8828125,
-    "frontier_cells": 722334,
+    "frontier_cells": 593268,
     "pruning_false": 0,
-    "recursive_calls": 225287,
+    "recursive_calls": 198398,
     "max_depth": 12,
     "path_length": 23.556349186104047,
     "landmarks_count": 2,
@@ -20,7 +22,7 @@
     "numero_campioni": 5
   },
   "strong": {
-    "elapsed_time_s": 2.285045862197876,
+    "elapsed_time_s": 2.3149049282073975,
     "peak_memory_kb": 106.390625,
     "frontier_cells": 240035,
     "pruning_false": 0,
@@ -32,14 +34,14 @@
     "numero_campioni": 5
   },
   "random": {
-    "elapsed_time_s": 2.4223287105560303,
-    "peak_memory_kb": 122.4453125,
-    "frontier_cells": 200307,
-    "pruning_false": 164211,
-    "recursive_calls": 37429,
-    "max_depth": 14,
-    "path_length": 55.76955262170047,
-    "landmarks_count": 7,
+    "elapsed_time_s": 20.000311374664307,
+    "peak_memory_kb": 132.15625,
+    "frontier_cells": 479854,
+    "pruning_false": 0,
+    "recursive_calls": 479290,
+    "max_depth": 24,
+    "path_length": 38.612698372208094,
+    "landmarks_count": 0,
     "timed_out": true,
     "numero_campioni": 5
   },
@@ -137,11 +139,11 @@
       "landmarks_count": 0,
       "landmarks": [],
       "timed_out": true,
-      "elapsed_time_s": 20.000142812728882,
+      "elapsed_time_s": 20.00016498565674,
       "peak_memory_kb": 110.1796875,
-      "frontier_cells": 845353,
+      "frontier_cells": 900840,
       "pruning_false": 0,
-      "recursive_calls": 845080,
+      "recursive_calls": 900562,
       "max_depth": 24
     },
     {
@@ -164,7 +166,7 @@
         ]
       ],
       "timed_out": false,
-      "elapsed_time_s": 0.007999420166015625,
+      "elapsed_time_s": 0.007919549942016602,
       "peak_memory_kb": 12.65625,
       "frontier_cells": 0,
       "pruning_false": 0,
@@ -205,11 +207,11 @@
         ]
       ],
       "timed_out": true,
-      "elapsed_time_s": 20.000293493270874,
+      "elapsed_time_s": 20.000380754470825,
       "peak_memory_kb": 105.8828125,
-      "frontier_cells": 2055463,
-      "pruning_false": 1829842,
-      "recursive_calls": 225287,
+      "frontier_cells": 1861260,
+      "pruning_false": 1662629,
+      "recursive_calls": 198398,
       "max_depth": 12
     },
     {
@@ -217,11 +219,11 @@
       "landmarks_count": 0,
       "landmarks": [],
       "timed_out": true,
-      "elapsed_time_s": 20.000345945358276,
+      "elapsed_time_s": 20.000545501708984,
       "peak_memory_kb": 106.390625,
-      "frontier_cells": 722334,
+      "frontier_cells": 593268,
       "pruning_false": 0,
-      "recursive_calls": 722023,
+      "recursive_calls": 592946,
       "max_depth": 17
     },
     {
@@ -251,7 +253,7 @@
         ]
       ],
       "timed_out": false,
-      "elapsed_time_s": 0.05349087715148926,
+      "elapsed_time_s": 0.07851147651672363,
       "peak_memory_kb": 61.5234375,
       "frontier_cells": 4868,
       "pruning_false": 4044,
@@ -274,11 +276,11 @@
         "landmarks_count": 0,
         "landmarks": [],
         "timed_out": true,
-        "elapsed_time_s": 20.000136137008667,
+        "elapsed_time_s": 20.00028944015503,
         "peak_memory_kb": 110.1484375,
-        "frontier_cells": 856593,
+        "frontier_cells": 684698,
         "pruning_false": 0,
-        "recursive_calls": 856328,
+        "recursive_calls": 684425,
         "max_depth": 24
       },
       "ritorno": {
@@ -329,7 +331,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.471513032913208,
+        "elapsed_time_s": 0.5695462226867676,
         "peak_memory_kb": 134.265625,
         "frontier_cells": 66414,
         "pruning_false": 63494,
@@ -368,7 +370,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.006995439529418945,
+        "elapsed_time_s": 0.008386611938476562,
         "peak_memory_kb": 12.65625,
         "frontier_cells": 0,
         "pruning_false": 0,
@@ -395,7 +397,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.00673985481262207,
+        "elapsed_time_s": 0.009258747100830078,
         "peak_memory_kb": 20.15625,
         "frontier_cells": 0,
         "pruning_false": 0,
@@ -469,8 +471,8 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 2.285045862197876,
-        "peak_memory_kb": 123.1484375,
+        "elapsed_time_s": 2.3149049282073975,
+        "peak_memory_kb": 126.921875,
         "frontier_cells": 240035,
         "pruning_false": 228227,
         "recursive_calls": 11809,
@@ -531,7 +533,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.2060539722442627,
+        "elapsed_time_s": 0.2032942771911621,
         "peak_memory_kb": 142.5625,
         "frontier_cells": 23923,
         "pruning_false": 22832,
@@ -555,11 +557,11 @@
         "landmarks_count": 0,
         "landmarks": [],
         "timed_out": true,
-        "elapsed_time_s": 20.00015616416931,
+        "elapsed_time_s": 20.00022268295288,
         "peak_memory_kb": 106.390625,
-        "frontier_cells": 716810,
+        "frontier_cells": 617213,
         "pruning_false": 0,
-        "recursive_calls": 716496,
+        "recursive_calls": 616912,
         "max_depth": 17
       },
       "ritorno": {
@@ -617,7 +619,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 2.3184027671813965,
+        "elapsed_time_s": 2.5179169178009033,
         "peak_memory_kb": 113.1171875,
         "frontier_cells": 293063,
         "pruning_false": 273725,
@@ -663,7 +665,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.009585380554199219,
+        "elapsed_time_s": 0.015221118927001953,
         "peak_memory_kb": 49.9296875,
         "frontier_cells": 158,
         "pruning_false": 133,
@@ -697,7 +699,7 @@
           ]
         ],
         "timed_out": false,
-        "elapsed_time_s": 0.013314008712768555,
+        "elapsed_time_s": 0.015193700790405273,
         "peak_memory_kb": 59.4765625,
         "frontier_cells": 305,
         "pruning_false": 290,
@@ -710,199 +712,13 @@
   ],
   "campioni_random": [
     {
-      "path_length": 89.25483399593902,
-      "landmarks_count": 12,
+      "path_length": 72.8111831820431,
+      "landmarks_count": 7,
       "landmarks": [
         [
           [
             0,
             0
-          ],
-          0
-        ],
-        [
-          [
-            3,
-            26
-          ],
-          2
-        ],
-        [
-          [
-            6,
-            30
-          ],
-          2
-        ],
-        [
-          [
-            7,
-            29
-          ],
-          1
-        ],
-        [
-          [
-            8,
-            30
-          ],
-          1
-        ],
-        [
-          [
-            10,
-            29
-          ],
-          1
-        ],
-        [
-          [
-            18,
-            28
-          ],
-          1
-        ],
-        [
-          [
-            20,
-            27
-          ],
-          1
-        ],
-        [
-          [
-            28,
-            26
-          ],
-          1
-        ],
-        [
-          [
-            30,
-            27
-          ],
-          1
-        ],
-        [
-          [
-            33,
-            31
-          ],
-          1
-        ],
-        [
-          [
-            49,
-            49
-          ],
-          1
-        ]
-      ],
-      "timed_out": true,
-      "elapsed_time_s": 20.000112533569336,
-      "peak_memory_kb": 157.2578125,
-      "frontier_cells": 1457361,
-      "pruning_false": 1030312,
-      "recursive_calls": 426804,
-      "max_depth": 22
-    },
-    {
-      "path_length": 4.414213562373095,
-      "landmarks_count": 2,
-      "landmarks": [
-        [
-          [
-            44,
-            43
-          ],
-          0
-        ],
-        [
-          [
-            40,
-            42
-          ],
-          1
-        ]
-      ],
-      "timed_out": false,
-      "elapsed_time_s": 0.0075609683990478516,
-      "peak_memory_kb": 12.65625,
-      "frontier_cells": 0,
-      "pruning_false": 0,
-      "recursive_calls": 1,
-      "max_depth": 0
-    },
-    {
-      "path_length": 55.76955262170047,
-      "landmarks_count": 7,
-      "landmarks": [
-        [
-          [
-            3,
-            40
-          ],
-          0
-        ],
-        [
-          [
-            9,
-            39
-          ],
-          1
-        ],
-        [
-          [
-            12,
-            35
-          ],
-          1
-        ],
-        [
-          [
-            17,
-            33
-          ],
-          1
-        ],
-        [
-          [
-            30,
-            26
-          ],
-          1
-        ],
-        [
-          [
-            41,
-            19
-          ],
-          1
-        ],
-        [
-          [
-            47,
-            13
-          ],
-          1
-        ]
-      ],
-      "timed_out": false,
-      "elapsed_time_s": 1.6681756973266602,
-      "peak_memory_kb": 122.4453125,
-      "frontier_cells": 171203,
-      "pruning_false": 164211,
-      "recursive_calls": 6993,
-      "max_depth": 11
-    },
-    {
-      "path_length": 60.941125496954285,
-      "landmarks_count": 9,
-      "landmarks": [
-        [
-          [
-            8,
-            3
           ],
           0
         ],
@@ -936,74 +752,89 @@
         ],
         [
           [
-            34,
-            38
-          ],
-          2
-        ],
-        [
-          [
-            35,
-            44
-          ],
-          2
-        ],
-        [
-          [
-            36,
+            49,
             47
           ],
           2
         ],
         [
           [
-            39,
-            47
+            49,
+            49
           ],
           1
         ]
       ],
       "timed_out": false,
-      "elapsed_time_s": 5.9443488121032715,
-      "peak_memory_kb": 147.7265625,
-      "frontier_cells": 515985,
-      "pruning_false": 429623,
-      "recursive_calls": 86363,
-      "max_depth": 14
+      "elapsed_time_s": 1.082071304321289,
+      "peak_memory_kb": 160.84375,
+      "frontier_cells": 108918,
+      "pruning_false": 100088,
+      "recursive_calls": 8831,
+      "max_depth": 11
     },
     {
-      "path_length": 23.556349186104047,
-      "landmarks_count": 3,
+      "path_length": 4.414213562373095,
+      "landmarks_count": 2,
       "landmarks": [
         [
           [
-            45,
-            4
+            44,
+            43
           ],
           0
         ],
         [
           [
-            39,
-            16
+            40,
+            42
           ],
-          2
-        ],
-        [
-          [
-            32,
-            21
-          ],
-          2
+          1
         ]
       ],
       "timed_out": false,
-      "elapsed_time_s": 2.4223287105560303,
-      "peak_memory_kb": 114.7578125,
-      "frontier_cells": 200307,
-      "pruning_false": 162879,
-      "recursive_calls": 37429,
-      "max_depth": 15
+      "elapsed_time_s": 0.009644031524658203,
+      "peak_memory_kb": 12.65625,
+      "frontier_cells": 0,
+      "pruning_false": 0,
+      "recursive_calls": 1,
+      "max_depth": 0
+    },
+    {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 20.000439405441284,
+      "peak_memory_kb": 155.9765625,
+      "frontier_cells": 531072,
+      "pruning_false": 0,
+      "recursive_calls": 530674,
+      "max_depth": 24
+    },
+    {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 20.000497817993164,
+      "peak_memory_kb": 132.15625,
+      "frontier_cells": 479854,
+      "pruning_false": 0,
+      "recursive_calls": 479290,
+      "max_depth": 37
+    },
+    {
+      "path_length": Infinity,
+      "landmarks_count": 0,
+      "landmarks": [],
+      "timed_out": true,
+      "elapsed_time_s": 20.000311374664307,
+      "peak_memory_kb": 102.4765625,
+      "frontier_cells": 527070,
+      "pruning_false": 0,
+      "recursive_calls": 526737,
+      "max_depth": 26
     }
   ]
 }

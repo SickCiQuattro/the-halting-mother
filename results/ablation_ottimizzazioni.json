@@ -1,0 +1,213 @@
+{
+  "component_check": {
+    "nota": "Effetto su una coppia irraggiungibile in un recinto chiuso 50x50 (risultato riusato da component_check_results.json, non ricalcolato)",
+    "dati": {
+      "tempo_sola_etichettatura_s": 0.006768465042114258,
+      "corse": [
+        {
+          "descrizione": "con controllo componenti",
+          "controllo_componenti": true,
+          "tempo_s": 0.00629425048828125,
+          "lunghezza": null,
+          "chiamate_ricorsive": 0,
+          "celle_frontiera": 0,
+          "tempo_limite_raggiunto": false
+        },
+        {
+          "descrizione": "senza controllo",
+          "controllo_componenti": false,
+          "tempo_s": 600.0002591609955,
+          "lunghezza": null,
+          "chiamate_ricorsive": 27382731,
+          "celle_frontiera": 27383313,
+          "tempo_limite_raggiunto": true
+        }
+      ]
+    }
+  },
+  "greedy_seed": {
+    "nota": "Effetto su 5 semi indipendenti, cluster 50x50 densità 0.2, coppia d'angolo sempre raggiungibile (component_check attivo in ogni configurazione: qui costa solo l'etichettatura O(R*C), il suo beneficio non è visibile su istanze raggiungibili)",
+    "configurazioni": [
+      {
+        "configurazione": "debole, senza innesco",
+        "potatura_forte": false,
+        "innesco_goloso": false,
+        "tempo_mediano_s": 20.00028967857361,
+        "chiamate_mediane": 341359,
+        "timeout_su_semi": 5,
+        "corse": [
+          {
+            "seed": 301,
+            "tempo_s": 20.000324726104736,
+            "chiamate_ricorsive": 341359,
+            "lunghezza": 74.5685424949238,
+            "tempo_limite_raggiunto": true
+          },
+          {
+            "seed": 302,
+            "tempo_s": 20.000166654586792,
+            "chiamate_ricorsive": 364937,
+            "lunghezza": 71.63961030678928,
+            "tempo_limite_raggiunto": true
+          },
+          {
+            "seed": 303,
+            "tempo_s": 20.00028967857361,
+            "chiamate_ricorsive": 359513,
+            "lunghezza": 83.59797974644667,
+            "tempo_limite_raggiunto": true
+          },
+          {
+            "seed": 304,
+            "tempo_s": 20.00029993057251,
+            "chiamate_ricorsive": 275547,
+            "lunghezza": 72.8111831820431,
+            "tempo_limite_raggiunto": true
+          },
+          {
+            "seed": 305,
+            "tempo_s": 20.000176906585693,
+            "chiamate_ricorsive": 243084,
+            "lunghezza": 71.05382386916237,
+            "tempo_limite_raggiunto": true
+          }
+        ]
+      },
+      {
+        "configurazione": "debole, con innesco",
+        "potatura_forte": false,
+        "innesco_goloso": true,
+        "tempo_mediano_s": 20.00027561187744,
+        "chiamate_mediane": 299814,
+        "timeout_su_semi": 5,
+        "corse": [
+          {
+            "seed": 301,
+            "tempo_s": 20.000266313552856,
+            "chiamate_ricorsive": 299814,
+            "lunghezza": 74.5685424949238,
+            "tempo_limite_raggiunto": true
+          },
+          {
+            "seed": 302,
+            "tempo_s": 20.000598192214966,
+            "chiamate_ricorsive": 314214,
+            "lunghezza": 71.63961030678928,
+            "tempo_limite_raggiunto": true
+          },
+          {
+            "seed": 303,
+            "tempo_s": 20.000131368637085,
+            "chiamate_ricorsive": 309783,
+            "lunghezza": 83.59797974644667,
+            "tempo_limite_raggiunto": true
+          },
+          {
+            "seed": 304,
+            "tempo_s": 20.000627040863037,
+            "chiamate_ricorsive": 290399,
+            "lunghezza": 72.8111831820431,
+            "tempo_limite_raggiunto": true
+          },
+          {
+            "seed": 305,
+            "tempo_s": 20.00027561187744,
+            "chiamate_ricorsive": 248840,
+            "lunghezza": 71.05382386916237,
+            "tempo_limite_raggiunto": true
+          }
+        ]
+      },
+      {
+        "configurazione": "forte, senza innesco",
+        "potatura_forte": true,
+        "innesco_goloso": false,
+        "tempo_mediano_s": 0.6750450134277344,
+        "chiamate_mediane": 2522,
+        "timeout_su_semi": 0,
+        "corse": [
+          {
+            "seed": 301,
+            "tempo_s": 1.5777337551116943,
+            "chiamate_ricorsive": 6011,
+            "lunghezza": 71.63961030678928,
+            "tempo_limite_raggiunto": false
+          },
+          {
+            "seed": 302,
+            "tempo_s": 0.6750450134277344,
+            "chiamate_ricorsive": 2522,
+            "lunghezza": 71.63961030678928,
+            "tempo_limite_raggiunto": false
+          },
+          {
+            "seed": 303,
+            "tempo_s": 16.013542890548706,
+            "chiamate_ricorsive": 63939,
+            "lunghezza": 72.22539674441619,
+            "tempo_limite_raggiunto": false
+          },
+          {
+            "seed": 304,
+            "tempo_s": 0.10283470153808594,
+            "chiamate_ricorsive": 574,
+            "lunghezza": 71.05382386916237,
+            "tempo_limite_raggiunto": false
+          },
+          {
+            "seed": 305,
+            "tempo_s": 0.05372333526611328,
+            "chiamate_ricorsive": 228,
+            "lunghezza": 71.05382386916239,
+            "tempo_limite_raggiunto": false
+          }
+        ]
+      },
+      {
+        "configurazione": "forte, con innesco",
+        "potatura_forte": true,
+        "innesco_goloso": true,
+        "tempo_mediano_s": 0.4946613311767578,
+        "chiamate_mediane": 2521,
+        "timeout_su_semi": 0,
+        "corse": [
+          {
+            "seed": 301,
+            "tempo_s": 1.1741485595703125,
+            "chiamate_ricorsive": 6010,
+            "lunghezza": 71.63961030678928,
+            "tempo_limite_raggiunto": false
+          },
+          {
+            "seed": 302,
+            "tempo_s": 0.4946613311767578,
+            "chiamate_ricorsive": 2521,
+            "lunghezza": 71.63961030678928,
+            "tempo_limite_raggiunto": false
+          },
+          {
+            "seed": 303,
+            "tempo_s": 13.409988403320312,
+            "chiamate_ricorsive": 63938,
+            "lunghezza": 72.22539674441619,
+            "tempo_limite_raggiunto": false
+          },
+          {
+            "seed": 304,
+            "tempo_s": 0.10302376747131348,
+            "chiamate_ricorsive": 572,
+            "lunghezza": 71.05382386916237,
+            "tempo_limite_raggiunto": false
+          },
+          {
+            "seed": 305,
+            "tempo_s": 0.053603172302246094,
+            "chiamate_ricorsive": 227,
+            "lunghezza": 71.05382386916237,
+            "tempo_limite_raggiunto": false
+          }
+        ]
+      }
+    ]
+  }
+}
