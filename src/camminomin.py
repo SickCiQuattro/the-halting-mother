@@ -1,3 +1,4 @@
+import random
 import time
 import numpy as np
 from src.grid import Coordinate, compute_components
@@ -17,6 +18,18 @@ from src.free_paths import (
 # avviene per insieme esplicito, quindi non serve un identificativo distinto per livello.
 # Usare una costante evita l'overflow del tipo uint8 (depth+2 superava 255 oltre profondità 253).
 TEMP_MARK = 2
+
+
+def _mark_closure(grid_state: np.ndarray, closure: set[Coordinate]) -> None:
+    """Marca ogni cella della chiusura come ostacolo temporaneo (ritracciamento sul posto)."""
+    for cell in closure:
+        grid_state[cell] = TEMP_MARK
+
+
+def _restore_closure(grid_state: np.ndarray, closure: set[Coordinate]) -> None:
+    """Ripristina a libere le celle della chiusura marcate in precedenza da `_mark_closure`."""
+    for cell in closure:
+        grid_state[cell] = 0
 
 
 def _aggiorna_minimo_globale(shared_state: dict[str, float], full_path_len: float) -> None:
@@ -77,8 +90,7 @@ def _discesa_golosa(
 
         f_cell, f_type = min(frontier, key=lambda ft: dlib(ft[0], destination))
         closure = context | complement
-        for cell in closure:
-            grid_state[cell] = TEMP_MARK
+        _mark_closure(grid_state, closure)
         marcate.append(closure)
 
         total_len += dlib(current, f_cell)
@@ -86,8 +98,7 @@ def _discesa_golosa(
         current = f_cell
 
     for closure in marcate:
-        for cell in closure:
-            grid_state[cell] = 0
+        _restore_closure(grid_state, closure)
 
     return esito if esito is not None else (float('inf'), [])
 
@@ -211,7 +222,6 @@ def camminomin(
     # 7. Ordinamento euristico della frontiera (osservazione della diapositiva 66):
     #    si esplorano per prime le celle più vicine alla destinazione.
     if randomize_frontier:
-        import random
         random.shuffle(frontier)
     else:
         frontier.sort(key=lambda ft: dlib(ft[0], destination))
@@ -227,8 +237,7 @@ def camminomin(
         visited_closures.update(closure)
 
     # 8. Ritracciamento sul posto: marca la chiusura corrente come ostacolo temporaneo
-    for cell in closure:
-        grid_state[cell] = TEMP_MARK
+    _mark_closure(grid_state, closure)
 
     timed_out = False
 
@@ -283,8 +292,7 @@ def camminomin(
             break
 
     # 10. Ripristina lo stato originale della griglia per tutta la chiusura
-    for cell in closure:
-        grid_state[cell] = 0
+    _restore_closure(grid_state, closure)
 
     return min_length, min_seq, timed_out
 

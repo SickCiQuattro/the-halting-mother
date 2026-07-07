@@ -7,6 +7,14 @@ from src.exceptions import InvalidCoordinateError
 # Definizione alias di tipo per una maggiore leggibilità e astrazione
 Coordinate = tuple[int, int]
 
+# Gli 8 spostamenti del vicinato (righe, colonne), unica fonte riusata da chi deve
+# esaminare le celle adiacenti su griglia 8-connessa (componenti connesse, frontiera,
+# generazione a cluster, oracolo A*).
+NEIGHBORS_8: tuple[tuple[int, int], ...] = (
+    (-1, 0), (1, 0), (0, -1), (0, 1),
+    (-1, -1), (-1, 1), (1, -1), (1, 1),
+)
+
 class Grid:
     """
     Rappresenta la griglia di transito 8-connected per l'algoritmo di pathfinding.
@@ -136,6 +144,16 @@ class Grid:
             grid.set_obstacle(r, c)
         return grid
 
+    @staticmethod
+    def carattere_ascii(val: int) -> str:
+        """Mappa il valore di stato di una cella al carattere ASCII usato per stamparla:
+        `#` ostacolo fisso, `T` ostacolo temporaneo (backtracking), `.` cella libera."""
+        if val == 1:
+            return "#"
+        if val > 1:
+            return "T"
+        return "."
+
     def __repr__(self) -> str:
         """
         Ritorna una rappresentazione ASCII compatta ed esteticamente pulita della griglia.
@@ -143,15 +161,7 @@ class Grid:
         """
         lines = []
         for r in range(self.rows):
-            row_str = []
-            for c in range(self.cols):
-                val = self.state[r, c]
-                if val == 1:
-                    row_str.append("#")  # Ostacolo fisso
-                elif val > 1:
-                    row_str.append("T")  # Ostacolo temporaneo (Backtracking)
-                else:
-                    row_str.append(".")  # Cella libera
+            row_str = [self.carattere_ascii(self.state[r, c]) for c in range(self.cols)]
             lines.append(" ".join(row_str))
         return "\n".join(lines)
 
@@ -188,15 +198,12 @@ def compute_components(grid_state: np.ndarray) -> np.ndarray:
             queue: deque[Coordinate] = deque([(r, c)])
             while queue:
                 cr, cc = queue.popleft()
-                for dr in (-1, 0, 1):
-                    for dc in (-1, 0, 1):
-                        if dr == 0 and dc == 0:
-                            continue
-                        nr, nc = cr + dr, cc + dc
-                        if (0 <= nr < rows and 0 <= nc < cols
-                                and grid_state[nr, nc] == 0 and labels[nr, nc] == -1):
-                            labels[nr, nc] = current_label
-                            queue.append((nr, nc))
+                for dr, dc in NEIGHBORS_8:
+                    nr, nc = cr + dr, cc + dc
+                    if (0 <= nr < rows and 0 <= nc < cols
+                            and grid_state[nr, nc] == 0 and labels[nr, nc] == -1):
+                        labels[nr, nc] = current_label
+                        queue.append((nr, nc))
             current_label += 1
 
     return labels

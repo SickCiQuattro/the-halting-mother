@@ -1,15 +1,10 @@
 #!/usr/bin/env python3
 """Genera il pannello delle 5 tipologie di ostacolo isolate per la Relazione (Compito 1)."""
 import os
-import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 from src.grid import Grid
 from src.generator import GridGenerator
+from _common import plt
 
 SIZE = 20
 SEED = 42

@@ -10,10 +10,8 @@ scartato immediatamente dalla potatura, e viene comunque esplorato fino in fondo
 del ritracciamento): il tempo limite viene quindi sempre raggiunto molto prima che la
 profondità di ricorsione si avvicini al limite di Python (15000, impostato in main.py).
 """
-import os
 import sys
 import time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.setrecursionlimit(15000)
 
 from src.grid import Grid

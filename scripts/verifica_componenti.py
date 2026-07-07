@@ -7,10 +7,7 @@ controllo preliminare dei componenti (esito immediato, O(R*C)) e senza (la ricer
 deve esaurire la frontiera, con costo potenzialmente esponenziale, o raggiungere il tempo
 limite di 600 s usato nella campagna sperimentale).
 """
-import os
-import sys
 import time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from src.generator import GridGenerator
 from src.grid import compute_components

@@ -3,7 +3,7 @@
 Progetto accademico per il corso di *Algoritmi e Strutture Dati* (a.a. 2024/25, Prof.ssa Zanella).  
 Sviluppato in **Python 3.13** rispettando i requisiti completi per **gruppi di 3 persone**.
 
-L'architettura affronta la scalabilità su griglie di grandi dimensioni ($100 \times 100$, $150 \times 150$ e $200 \times 200$) grazie alla potatura branch-and-bound con limite superiore globale, e produce visualizzazioni ad alta risoluzione allineate alla **Slide 53** delle specifiche.
+L'architettura affronta la scalabilità su griglie di grandi dimensioni (fino a $150 \times 150$ nella campagna sperimentale) grazie alla potatura branch-and-bound con limite superiore globale, e produce visualizzazioni ad alta risoluzione allineate alla **Slide 53** delle specifiche.
 
 ---
 
@@ -28,59 +28,63 @@ L'architettura affronta la scalabilità su griglie di grandi dimensioni ($100 \t
 
 ## Installazione
 
+Le istruzioni valgono in modo identico su macOS, Linux e Windows: cambia solo il comando di attivazione dell'ambiente virtuale.
+
 1. Crea l'ambiente virtuale con Python 3.13:
    ```bash
-   python3.13 -m venv .venv
+   python3.13 -m venv .venv        # macOS / Linux
+   py -3.13 -m venv .venv          # Windows (PowerShell o prompt dei comandi)
    ```
 2. Attiva l'ambiente virtuale:
    ```bash
-   source .venv/bin/activate
+   source .venv/bin/activate       # macOS / Linux
+   .venv\Scripts\Activate.ps1      # Windows PowerShell
    ```
-3. Installa le dipendenze:
+3. Installa il progetto in modalità editabile (rende `src` importabile da qualunque cartella di lavoro, senza dover impostare `PYTHONPATH`):
    ```bash
-   pip install -r requirements.txt
+   pip install -e .
    ```
 
 ---
 
 ## Utilizzo CLI (`main.py`)
 
-Tutti i comandi CLI devono essere eseguiti con il prefisso `PYTHONPATH=.` ed utilizzando l'interprete dell'ambiente virtuale `.venv/bin/python`.
+Una volta attivato l'ambiente virtuale, tutti i comandi si lanciano con il semplice interprete `python`, identico sui due sistemi operativi.
 
 ### 1. Generazione di Griglie (Compito 1)
 Genera ostacoli misti (`simple`, `cluster`, `diagonal`, `enclosure`, `bar` o `mix`) e salva la griglia strutturata ed un'immagine PNG ad alta risoluzione:
 ```bash
-PYTHONPATH=. .venv/bin/python main.py generate --rows 50 --cols 50 --types mix --density 0.2 --seed 42 -o grids/grid.json --save-img results/test_grid_generated.png
+python main.py generate --rows 50 --cols 50 --types mix --density 0.2 --seed 42 -o grids/grid.json --save-img results/test_grid_generated.png
 ```
 
 ### 2. Calcolo del Contesto e Complemento (Compito 2)
 Espande i raggi per calcolare Contesto (Tipo 1), Complemento (Tipo 2) e Frontiera di una coordinata origine:
 ```bash
-PYTHONPATH=. .venv/bin/python main.py context --grid grids/grid.json --origin 10,10 --type both
+python main.py context --grid grids/grid.json --origin 10,10 --type both
 ```
 
 ### 3. Calcolo della Distanza Ideale ($d_{\text{lib}}$)
 Calcola la distanza minima teorica priva di ostacoli su una griglia con adiacenza a otto direzioni:
 ```bash
-PYTHONPATH=. .venv/bin/python main.py dlib --origin 10,10 --dest 40,40
+python main.py dlib --origin 10,10 --dest 40,40
 ```
 
 ### 4. Calcolo del Cammino Minimo (`CAMMINOMIN` - Compito 3)
 Esegue l'algoritmo ricorsivo di ricerca del cammino minimo con la potatura branch-and-bound a limite superiore globale. Esporta la sequenza dei landmark e produce l'immagine ad alta risoluzione del cammino (Slide 53):
 ```bash
-PYTHONPATH=. .venv/bin/python main.py camminomin --grid grids/grid.json --origin 0,0 --dest 49,49 --strong-pruning --summary --save-img results/test_path_resolved.png
+python main.py camminomin --grid grids/grid.json --origin 0,0 --dest 49,49 --strong-pruning --summary --save-img results/test_path_resolved.png
 ```
 *Il flag `--summary` stampa il riassunto strutturato in formato JSON (Slide 71).*
 
 ### 5. Campagna Sperimentale e Grafici (Compito 4)
-Esegue l'intera batteria di prove temporali e spaziali (memoria) su più coppie origine-destinazione per configurazione, con doppia invocazione O→D e D→O su ogni coppia (Slide 64), e genera i 6 grafici nella cartella `results/` (incluso l'andamento bilogaritmico con **3 curve distinte**):
+Esegue l'intera batteria di prove temporali e spaziali (memoria) su più coppie origine-destinazione per configurazione, con doppia invocazione O→D e D→O su ogni coppia (Slide 64), e genera i 6 grafici nella cartella `results/`:
 ```bash
-PYTHONPATH=. .venv/bin/python main.py experiment --output-dir results
+python main.py experiment --output-dir results
 ```
 
 Per lanciare la verifica formale di simmetria ($O \leftrightarrow D$ vs $D \leftrightarrow O$) su $N$ coppie casuali di nodi:
 ```bash
-PYTHONPATH=. .venv/bin/python main.py experiment --verify-symmetry-count 10 --symmetry-grid-size 20
+python main.py experiment --verify-symmetry-count 10 --symmetry-grid-size 20
 ```
 
 ---
@@ -88,5 +92,5 @@ PYTHONPATH=. .venv/bin/python main.py experiment --verify-symmetry-count 10 --sy
 ## Esecuzione dei Test Unitari
 Tutti i componenti logici e matematici del progetto sono coperti da test automatici:
 ```bash
-PYTHONPATH=. .venv/bin/python -m unittest discover -s tests -p "test_*.py"
+python -m unittest discover -s tests -p "test_*.py"
 ```

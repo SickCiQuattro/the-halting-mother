@@ -4,17 +4,20 @@ Questo capitolo fornisce il manuale utente completo e la documentazione tecnica 
 
 \subsection{Configurazione e requisiti di sistema}
 
-Il software è scritto in Python 3.13. Per eseguire l'applicazione e riprodurre i risultati sperimentali è necessario configurare l'ambiente virtuale installando le dipendenze dichiarate:
+Il software è scritto in Python 3.13. Le istruzioni seguenti valgono in modo identico su macOS, Linux e Windows: cambia solo il comando di attivazione dell'ambiente virtuale.
 
 \begin{verbatim}
 # Creazione dell'ambiente virtuale
-python3 -m venv .venv
+python3 -m venv .venv          # macOS / Linux
+py -3.13 -m venv .venv         # Windows (PowerShell o prompt dei comandi)
 
 # Attivazione dell'ambiente
-source .venv/bin/activate
+source .venv/bin/activate      # macOS / Linux
+.venv\Scripts\Activate.ps1     # Windows PowerShell
 
-# Installazione delle librerie necessarie (NumPy, Matplotlib)
-pip install -r requirements.txt
+# Installazione del progetto in modalità editabile: rende "src" importabile
+# da qualunque cartella di lavoro, senza dover impostare PYTHONPATH
+pip install -e .
 \end{verbatim}
 
 \subsection{Configurazione del file JSON delle griglie}
@@ -37,12 +40,12 @@ Il file JSON utilizzato per memorizzare e caricare la struttura delle griglie ad
 
 \subsection{Guida all'uso della riga di comando}
 
-Tutte le funzionalità del software sono esposte tramite il modulo principale \texttt{main.py}. I comandi devono essere eseguiti con l'interprete dell'ambiente virtuale e includendo la variabile d'ambiente \texttt{PYTHONPATH=.}.
+Tutte le funzionalità del software sono esposte tramite il modulo principale \texttt{main.py}. Una volta attivato l'ambiente virtuale e installato il progetto (si veda sopra), i comandi si lanciano con il semplice interprete \texttt{python}, identico sui due sistemi operativi.
 
 \subsubsection{1. Generazione di griglie (Compito 1)}
 Per generare proceduralmente ostacoli misti (\texttt{simple}, \texttt{cluster}, \texttt{diagonal}, \texttt{enclosure}, \texttt{bar} o lo scenario combinato \texttt{mix}) con densità configurabile e salvare l'esito in formato JSON e in immagine PNG ad alta risoluzione:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python main.py generate --rows 50 --cols 50 \
+python main.py generate --rows 50 --cols 50 \
   --types mix --density 0.2 --seed 42 \
   -o grids/grid.json --save-img results/test_grid_generated.png
 \end{verbatim}
@@ -50,65 +53,66 @@ PYTHONPATH=. .venv/bin/python main.py generate --rows 50 --cols 50 \
 \subsubsection{2. Calcolo di contesto, complemento e frontiera (Compito 2)}
 Per tracciare i raggi geometrici dall'origine e calcolare l'insieme delle celle appartenenti al contesto (tipo 1), al complemento (tipo 2) e alla frontiera locale:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python main.py context --grid grids/grid.json \
+python main.py context --grid grids/grid.json \
   --origin 10,10 --type both
 \end{verbatim}
 
 \subsubsection{3. Calcolo della distanza ideale $d_{\text{lib}}$}
 Per calcolare la distanza minima teorica priva di ostacoli su una griglia con adiacenza a otto direzioni tramite la formula geometrica chiusa:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python main.py dlib --origin 10,10 --dest 40,40
+python main.py dlib --origin 10,10 --dest 40,40
 \end{verbatim}
 
 \subsubsection{4. Calcolo del cammino minimo (Compito 3)}
 Per calcolare il cammino minimo tramite ritracciamento ricorsivo basato su landmark (con la potatura branch-and-bound globale attiva), esportare l'immagine PNG ad alta risoluzione del percorso e stampare il riassunto JSON strutturato (diapositiva 71):
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python main.py camminomin --grid grids/grid.json \
+python main.py camminomin --grid grids/grid.json \
   --origin 0,0 --dest 49,49 --strong-pruning --summary \
   --save-img results/test_path_resolved.png
 \end{verbatim}
 L'inclusione del parametro \texttt{--strong-pruning} attiva la potatura tramite riga 17, mentre la sua assenza mantiene attiva la riga 16. Il controllo preliminare dei componenti connessi per le coppie irraggiungibili (si veda il Compito 3) è attivo in modo predefinito e si disattiva con \texttt{--no-component-check}, utile per riprodurre il confronto sperimentale. Il parametro \texttt{--greedy-seed}, disattivo in modo predefinito per restare fedeli all'inizializzazione dello pseudocodice, innesca il limite superiore globale con una discesa golosa preliminare (si veda il Compito 3). Il parametro \texttt{--summary} stampa il resoconto strutturato con il conteggio delle celle di frontiera analizzate, il numero di potature eseguite e l'altezza massima raggiunta dalla pila ricorsiva. Il campo \texttt{memoria\_rappresentazione\_byte} del resoconto riporta la dimensione statica della matrice (righe $\times$ colonne), non il picco di memoria effettivamente utilizzato durante quella singola ricerca: quest'ultimo è misurato con \texttt{tracemalloc} solo nella campagna sperimentale del Compito 4, per non raddoppiare i tempi di ogni singola invocazione (si veda la nota metodologica del Compito 4).
 
 \subsubsection{5. Campagna sperimentale completa (Compito 4)}
-Per lanciare l'intera batteria automatizzata di prove sperimentali su griglie scalabili (fino a $200\times200$), densità variabili e strategie di potatura, esportando i sei grafici analitici discussi nel capitolo precedente nella cartella dei risultati:
+Per lanciare l'intera batteria automatizzata di prove sperimentali su griglie scalabili (fino a $150\times150$), densità variabili e strategie di potatura, esportando i sei grafici analitici discussi nel capitolo precedente nella cartella dei risultati:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python main.py experiment --output-dir results
+python main.py experiment --output-dir results
 \end{verbatim}
+La taglia $200\times200$, inizialmente inclusa, è stata rimossa dalla sezione di scaling perché entrambe le potature esauriscono il tempo limite senza trovare alcun cammino completo (si veda il Compito 4), a favore di una taglia $30\times30$ intermedia. Lo script \texttt{scripts/aggiorna\_scaling\_30.py} applica questa modifica riutilizzando i risultati già validi delle altre taglie, senza ripetere l'intera campagna di circa due ore.
 
 \subsubsection{6. Verifica di simmetria formale}
 Per lanciare la verifica automatica di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su un numero $N$ di coppie casuali di nodi:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python main.py experiment --verify-symmetry-count 10
+python main.py experiment --verify-symmetry-count 10
   --symmetry-grid-size 20
 \end{verbatim}
 
 \subsection{Rigenerazione delle figure pedagogiche della relazione}
 
-Le figure dimostrative della relazione (panoramica del sistema, tipologie di ostacolo, cammini liberi di tipo 1/2, contesto/complemento/frontiera con i raggi, mappa di esplorazione della potatura) non provengono dalla campagna sperimentale del Compito 4, ma da cinque script indipendenti nella cartella \texttt{scripts/}, ciascuno eseguibile singolarmente e che riusa direttamente i moduli di \texttt{src/} senza introdurre logica nuova:
+Le figure dimostrative della relazione (panoramica del sistema, tipologie di ostacolo, cammini liberi di tipo 1/2, contesto/complemento/frontiera con i raggi, mappa di esplorazione della potatura, sintesi del beneficio dei componenti connessi) non provengono dalla campagna sperimentale del Compito 4, ma da sei script indipendenti nella cartella \texttt{scripts/}, ciascuno eseguibile singolarmente e che riusa direttamente i moduli di \texttt{src/} senza introdurre logica nuova:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python scripts/genera_immagine_panoramica.py
-PYTHONPATH=. .venv/bin/python scripts/genera_immagine_tipologie_ostacoli.py
-PYTHONPATH=. .venv/bin/python scripts/genera_immagine_cammini_liberi.py
-PYTHONPATH=. .venv/bin/python scripts/genera_immagine_contesto.py
-PYTHONPATH=. .venv/bin/python scripts/genera_immagine_esplorazione_potatura.py
+python scripts/genera_immagine_panoramica.py
+python scripts/genera_immagine_tipologie_ostacoli.py
+python scripts/genera_immagine_cammini_liberi.py
+python scripts/genera_immagine_contesto.py
+python scripts/genera_immagine_esplorazione_potatura.py
+python scripts/genera_immagine_estensione_componenti.py
 \end{verbatim}
-Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Altri due script non producono immagini, ma riproducono verifiche numeriche citate in prosa nel Compito 4 e nelle Conclusioni: la verifica empirica del limite di ricorsione e il confronto supplementare fra potatura debole e forte su una griglia $100\times100$:
+Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un altro script non produce immagini, ma riproduce una verifica numerica citata in prosa nel Compito 4 e nelle Conclusioni: la verifica empirica del limite di ricorsione. Il confronto supplementare fra potatura debole e forte su una griglia $100\times100$ (§5.4.2) è invece coperto dalla stessa istanza già usata da \texttt{verifica\_innesco\_goloso.py} (si veda oltre), per non duplicare due script sulla stessa identica griglia, coppia e tempo limite:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python scripts/verifica_limite_ricorsione.py
-PYTHONPATH=. .venv/bin/python scripts/verifica_potatura_100.py
+python scripts/verifica_limite_ricorsione.py
 \end{verbatim}
 
 Quattro ulteriori script riproducono gli esperimenti delle estensioni discusse nei Compiti 3 e 4: l'effetto del controllo dei componenti connessi su una coppia irraggiungibile (attenzione: la configurazione senza controllo esaurisce l'intero tempo limite di $600$ s), la verifica dell'oracolo A* con il calcolo del divario anytime (che genera anche la figura \texttt{divario\_anytime.png} e il file \texttt{divario\_anytime.json}), il confronto di memoria e tempo fra la matrice di byte e la griglia a piani di bit, e l'effetto dell'innesco goloso del limite superiore globale su tre istanze di difficoltà crescente:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python scripts/verifica_componenti.py
-PYTHONPATH=. .venv/bin/python scripts/verifica_oracolo_astar.py
-PYTHONPATH=. .venv/bin/python scripts/verifica_griglia_bit.py
-PYTHONPATH=. .venv/bin/python scripts/verifica_innesco_goloso.py
+python scripts/verifica_componenti.py
+python scripts/verifica_oracolo_astar.py
+python scripts/verifica_griglia_bit.py
+python scripts/verifica_innesco_goloso.py
 \end{verbatim}
 
 \subsection{Esecuzione della batteria di prove unitarie}
 
 Il progetto include una copertura completa di prove unitarie automatiche, che validano l'esattezza di tutti i moduli geometrici e logici (distanza libera, proiezione di raggi, compattazione, ritracciamento sul posto, generazione procedurale degli ostacoli, salvataggio e caricamento della griglia). Per avviare le prove unitarie:
 \begin{verbatim}
-PYTHONPATH=. .venv/bin/python -m unittest discover -s tests -p "test_*.py"
+python -m unittest discover -s tests -p "test_*.py"
 \end{verbatim}

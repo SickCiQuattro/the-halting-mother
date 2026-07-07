@@ -17,6 +17,8 @@
         ],
         "len_od": 9.071067811865476,
         "len_do": 9.071067811865476,
+        "elapsed_od": 0.0006430149078369141,
+        "elapsed_do": 0.0005960464477539062,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -33,6 +35,8 @@
         ],
         "len_od": 5.242640687119286,
         "len_do": 5.242640687119286,
+        "elapsed_od": 0.0006411075592041016,
+        "elapsed_do": 0.0006651878356933594,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -49,6 +53,8 @@
         ],
         "len_od": 19.65685424949238,
         "len_do": 19.65685424949238,
+        "elapsed_od": 0.0008628368377685547,
+        "elapsed_do": 0.0008881092071533203,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -65,6 +71,8 @@
         ],
         "len_od": 4.0,
         "len_do": 4.0,
+        "elapsed_od": 0.0006489753723144531,
+        "elapsed_do": 0.0006089210510253906,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -81,6 +89,8 @@
         ],
         "len_od": 9.485281374238571,
         "len_do": 9.485281374238571,
+        "elapsed_od": 0.0009200572967529297,
+        "elapsed_do": 0.0009050369262695312,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -105,6 +115,8 @@
         ],
         "len_od": 14.48528137423857,
         "len_do": 14.485281374238571,
+        "elapsed_od": 0.0008251667022705078,
+        "elapsed_do": 0.0012137889862060547,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -121,6 +133,8 @@
         ],
         "len_od": 8.82842712474619,
         "len_do": 8.82842712474619,
+        "elapsed_od": 0.0005891323089599609,
+        "elapsed_do": 0.000637054443359375,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -137,6 +151,8 @@
         ],
         "len_od": 10.899494936611665,
         "len_do": 10.899494936611665,
+        "elapsed_od": 0.0006079673767089844,
+        "elapsed_do": 0.0005998611450195312,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -153,6 +169,8 @@
         ],
         "len_od": 15.828427124746192,
         "len_do": 15.828427124746192,
+        "elapsed_od": 0.000743865966796875,
+        "elapsed_do": 0.001190185546875,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -169,6 +187,8 @@
         ],
         "len_od": 3.8284271247461903,
         "len_do": 3.8284271247461903,
+        "elapsed_od": 0.0006222724914550781,
+        "elapsed_do": 0.0006239414215087891,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -193,6 +213,8 @@
         ],
         "len_od": 2.8284271247461903,
         "len_do": 2.8284271247461903,
+        "elapsed_od": 0.0006389617919921875,
+        "elapsed_do": 0.0006310939788818359,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -209,6 +231,8 @@
         ],
         "len_od": 6.82842712474619,
         "len_do": 6.82842712474619,
+        "elapsed_od": 0.0007851123809814453,
+        "elapsed_do": 0.0006148815155029297,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -225,6 +249,8 @@
         ],
         "len_od": 5.242640687119286,
         "len_do": 5.242640687119286,
+        "elapsed_od": 0.0006170272827148438,
+        "elapsed_do": 0.0006041526794433594,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -241,6 +267,8 @@
         ],
         "len_od": 14.828427124746192,
         "len_do": 14.828427124746192,
+        "elapsed_od": 0.0010721683502197266,
+        "elapsed_do": 0.001065969467163086,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -257,6 +285,8 @@
         ],
         "len_od": 4.414213562373095,
         "len_do": 4.414213562373095,
+        "elapsed_od": 0.0008661746978759766,
+        "elapsed_do": 0.0007977485656738281,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -281,6 +311,8 @@
         ],
         "len_od": 11.071067811865476,
         "len_do": 11.071067811865476,
+        "elapsed_od": 0.0006871223449707031,
+        "elapsed_do": 0.0006420612335205078,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -297,6 +329,8 @@
         ],
         "len_od": Infinity,
         "len_do": Infinity,
+        "elapsed_od": 0.0006060600280761719,
+        "elapsed_do": 0.0006091594696044922,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -313,6 +347,8 @@
         ],
         "len_od": 7.82842712474619,
         "len_do": 7.82842712474619,
+        "elapsed_od": 0.001013040542602539,
+        "elapsed_do": 0.0010790824890136719,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -329,6 +365,8 @@
         ],
         "len_od": 2.414213562373095,
         "len_do": 2.414213562373095,
+        "elapsed_od": 0.0006151199340820312,
+        "elapsed_do": 0.0006208419799804688,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -345,6 +383,8 @@
         ],
         "len_od": 14.31370849898476,
         "len_do": 14.31370849898476,
+        "elapsed_od": 0.0011370182037353516,
+        "elapsed_do": 0.0009069442749023438,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -369,6 +409,8 @@
         ],
         "len_od": 3.414213562373095,
         "len_do": 3.414213562373095,
+        "elapsed_od": 0.0006418228149414062,
+        "elapsed_do": 0.0006191730499267578,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -385,6 +427,8 @@
         ],
         "len_od": 7.656854249492381,
         "len_do": 7.656854249492381,
+        "elapsed_od": 0.0008111000061035156,
+        "elapsed_do": 0.0008618831634521484,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -401,6 +445,8 @@
         ],
         "len_od": 7.242640687119285,
         "len_do": 7.242640687119285,
+        "elapsed_od": 0.0008199214935302734,
+        "elapsed_do": 0.0008580684661865234,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -417,6 +463,8 @@
         ],
         "len_od": 4.0,
         "len_do": 4.0,
+        "elapsed_od": 0.0005657672882080078,
+        "elapsed_do": 0.0005800724029541016,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true
@@ -433,6 +481,8 @@
         ],
         "len_od": 5.656854249492381,
         "len_do": 5.656854249492381,
+        "elapsed_od": 0.0005939006805419922,
+        "elapsed_do": 0.00061798095703125,
         "timed_out_od": false,
         "timed_out_do": false,
         "symmetry_ok": true

@@ -7,10 +7,7 @@ crescenti: memoria effettiva della rappresentazione e tempo del calcolo di una c
 piccola. I numeri alimentano la valutazione critica del confronto di strutture dati
 (pag. 63 e 72 dell'elaborato).
 """
-import os
-import sys
 import time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from src.generator import GridGenerator
 from src.bitgrid import BitPackedGrid

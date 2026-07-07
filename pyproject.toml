@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algoritmi-strutture-dati"
+version = "1.0.0"
+description = "Pathfinding su griglia 8-connessa con ricerca ricorsiva a landmark (Elaborato 2024/25)"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "matplotlib>=3.8",
+]
+
+[tool.setuptools]
+packages = ["src"]

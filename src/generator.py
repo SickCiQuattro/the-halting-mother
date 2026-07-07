@@ -2,7 +2,7 @@ import random
 import logging
 import numpy as np
 from typing import List, Optional
-from src.grid import Grid, Coordinate
+from src.grid import Grid, Coordinate, NEIGHBORS_8
 
 # Configura il logging standard per il modulo
 logger = logging.getLogger(__name__)
@@ -24,6 +24,14 @@ class GridGenerator:
         """Ritorna un'istanza isolata di Random pre-seminata per garantire riproducibilità totale."""
         return random.Random(seed) if seed is not None else random.Random()
 
+    @staticmethod
+    def _celle_libere(grid: Grid) -> list[Coordinate]:
+        """Ritorna tutte le celle attualmente libere (stato 0) della griglia."""
+        return [
+            (r, c) for r in range(grid.rows) for c in range(grid.cols)
+            if grid.state[r, c] == 0
+        ]
+
     @classmethod
     def generate_simple(cls, grid: Grid, density: float, seed: Optional[int] = None) -> None:
         """
@@ -44,11 +52,8 @@ class GridGenerator:
         num_obstacles = int(total_cells * density)
         
         # Individua tutte le celle libere
-        free_cells = [
-            (r, c) for r in range(grid.rows) for c in range(grid.cols) 
-            if grid.state[r, c] == 0
-        ]
-        
+        free_cells = cls._celle_libere(grid)
+
         if len(free_cells) < num_obstacles:
             num_obstacles = len(free_cells)
             
@@ -81,10 +86,7 @@ class GridGenerator:
         rng = cls._get_rng(seed)
         
         for _ in range(num_clusters):
-            free_cells = [
-                (r, c) for r in range(grid.rows) for c in range(grid.cols) 
-                if grid.state[r, c] == 0
-            ]
+            free_cells = cls._celle_libere(grid)
             if not free_cells:
                 break
             
@@ -108,7 +110,7 @@ class GridGenerator:
                 
                 # Aggiungi vicini non ancora ostacoli fisici
                 r, c = curr
-                for dr, dc in [(-1,0), (1,0), (0,-1), (0,1), (-1,-1), (-1,1), (1,-1), (1,1)]:
+                for dr, dc in NEIGHBORS_8:
                     nr, nc = r + dr, c + dc
                     if grid.is_valid(nr, nc) and grid.state[nr, nc] == 0 and (nr, nc) not in visited:
                         queue.append((nr, nc))
@@ -130,10 +132,7 @@ class GridGenerator:
         rng = cls._get_rng(seed)
         
         for _ in range(count):
-            free_cells = [
-                (r, c) for r in range(grid.rows) for c in range(grid.cols) 
-                if grid.state[r, c] == 0
-            ]
+            free_cells = cls._celle_libere(grid)
             if not free_cells:
                 break
                 

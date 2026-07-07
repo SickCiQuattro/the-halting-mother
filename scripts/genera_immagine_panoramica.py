@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
 """Genera la figura di apertura a 4 pannelli per l'Introduzione della Relazione."""
 import os
-import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 from src.grid import Grid
 from src.generator import GridGenerator
 from src.free_paths import compute_context_rays, compute_complement_rays, compute_frontier
 from src.camminomin import camminomin, reconstruct_path
+from _common import plt
 
 SIZE = 20
 grid_vuota = Grid(SIZE, SIZE)

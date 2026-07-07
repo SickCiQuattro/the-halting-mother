@@ -1,9 +1,5 @@
-import logging
 from src.grid import Grid, Coordinate
 from src.exceptions import InvalidCoordinateError
-
-# Configura il logging standard per le utility
-logger = logging.getLogger(__name__)
 
 def parse_coords(coords_str: str) -> Coordinate:
     """
@@ -70,23 +66,17 @@ def print_grid_visual(
         path: Lista di coordinate del cammino completo ricostruito (opzionale).
     """
     path_cells = set(path) if path else set()
-    
+
     for r in range(grid.rows):
         row_chars: list[str] = []
         for c in range(grid.cols):
             cell: Coordinate = (r, c)
-            val = grid.state[r, c]
-            
             if cell == origin:
                 row_chars.append("O")
             elif cell == dest:
                 row_chars.append("D")
             elif cell in path_cells:
                 row_chars.append("*")  # Cella del cammino ottimale ricostruito
-            elif val == 1:
-                row_chars.append("#")  # Ostacolo fisso permanente
-            elif val > 1:
-                row_chars.append("T")  # Ostacolo temporaneo contrassegnato per backtracking
             else:
-                row_chars.append(".")  # Cella libera traversabile
+                row_chars.append(Grid.carattere_ascii(grid.state[r, c]))
         print(" ".join(row_chars))

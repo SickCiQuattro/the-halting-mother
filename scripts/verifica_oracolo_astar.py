@@ -2,7 +2,7 @@
 """Oracolo A* sulla campagna di scaling: conferma di ottimalità e divario anytime (Relazione).
 
 Rigenera le stesse griglie della sezione di scaling della campagna sperimentale (seed 42,
-taglie 10-200, tipologie simple+cluster+bar, densità 0.2), calcola la lunghezza ottima esatta
+taglie 10-150, tipologie simple+cluster+bar, densità 0.2), calcola la lunghezza ottima esatta
 con A* (euristica octile `dlib`, ammissibile e consistente) e la confronta con le lunghezze
 già salvate in `results/scaling_results.json`:
 
@@ -15,17 +15,11 @@ Produce `results/divario_anytime.json` e la figura `Relazione/images/divario_any
 Non riesegue la campagna (~2 h): usa solo i risultati già salvati.
 """
 import os
-import sys
 import json
 import time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-
-from src.generator import GridGenerator
 from src.astar import astar
+from _common import plt, griglia_campagna_scaling
 
 BASE = os.path.join(os.path.dirname(__file__), "..")
 RESULTS = os.path.join(BASE, "results", "scaling_results.json")
@@ -45,12 +39,7 @@ def main() -> None:
     report: list[dict[str, object]] = []
     for entry in scaling:
         size = int(entry["size"])
-        grid = GridGenerator.generate_grid(
-            size, size, ["simple", "cluster", "bar"], density=0.2, seed=42
-        )
-        o, d = (0, 0), (size - 1, size - 1)
-        grid.clear_cell(*o)
-        grid.clear_cell(*d)
+        grid, o, d = griglia_campagna_scaling(size)
 
         start = time.time()
         ottimo = astar(o, d, grid.state)

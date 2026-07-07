@@ -1,15 +1,10 @@
 #!/usr/bin/env python3
 """Genera la figura del cammino libero di tipo 1 vs tipo 2 per la Relazione (Compito 2)."""
 import os
-import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 from src.grid import Grid
 from src.free_paths import free_path_type1, free_path_type2
+from _common import plt
 
 ROWS, COLS = 10, 13
 grid = Grid(ROWS, COLS)

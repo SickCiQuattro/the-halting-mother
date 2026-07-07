@@ -19,16 +19,13 @@ from math import sqrt
 
 import numpy as np
 
-from src.grid import Coordinate
+from src.grid import Coordinate, NEIGHBORS_8
 from src.free_paths import dlib
 
 SQRT2 = sqrt(2.0)
 
-# Gli 8 spostamenti ammessi con il rispettivo costo
-_MOSSE = [
-    (-1, 0, 1.0), (1, 0, 1.0), (0, -1, 1.0), (0, 1, 1.0),
-    (-1, -1, SQRT2), (-1, 1, SQRT2), (1, -1, SQRT2), (1, 1, SQRT2),
-]
+# Gli 8 spostamenti ammessi con il rispettivo costo (1.0 cardinale, sqrt(2) diagonale)
+_MOSSE = [(dr, dc, SQRT2 if dr != 0 and dc != 0 else 1.0) for dr, dc in NEIGHBORS_8]
 
 
 def astar(origin: Coordinate, dest: Coordinate, grid_state: np.ndarray) -> float:

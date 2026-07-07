@@ -2,7 +2,7 @@
   {
     "size": 10,
     "ottimo_astar": 14.485281374238571,
-    "tempo_astar_s": 0.00011277198791503906,
+    "tempo_astar_s": 0.0001049041748046875,
     "weak": {
       "lunghezza": 14.48528137423857,
       "interrotto": false,
@@ -22,7 +22,7 @@
   {
     "size": 20,
     "ottimo_astar": 29.213203435596434,
-    "tempo_astar_s": 0.00021076202392578125,
+    "tempo_astar_s": 0.0002040863037109375,
     "weak": {
       "lunghezza": 29.213203435596423,
       "interrotto": false,
@@ -40,9 +40,29 @@
     }
   },
   {
+    "size": 30,
+    "ottimo_astar": 43.35533905932737,
+    "tempo_astar_s": 0.0002789497375488281,
+    "weak": {
+      "lunghezza": 43.94112549695428,
+      "interrotto": true,
+      "divario_pct": 1.351128719868431
+    },
+    "strong": {
+      "lunghezza": 43.35533905932738,
+      "interrotto": false,
+      "confermato": true
+    },
+    "ritorno": {
+      "lunghezza": 43.35533905932738,
+      "interrotto": false,
+      "confermato": true
+    }
+  },
+  {
     "size": 50,
     "ottimo_astar": 74.56854249492375,
-    "tempo_astar_s": 0.0008840560913085938,
+    "tempo_astar_s": 0.0007948875427246094,
     "weak": {
       "lunghezza": 77.1543289325507,
       "interrotto": true,
@@ -62,7 +82,7 @@
   {
     "size": 100,
     "ottimo_astar": 147.6223663640861,
-    "tempo_astar_s": 0.004237174987792969,
+    "tempo_astar_s": 0.004168272018432617,
     "weak": {
       "lunghezza": 153.9655121145938,
       "interrotto": true,
@@ -82,7 +102,7 @@
   {
     "size": 150,
     "ottimo_astar": 220.676190233249,
-    "tempo_astar_s": 0.007962942123413086,
+    "tempo_astar_s": 0.007746219635009766,
     "weak": {
       "lunghezza": 264.79393923934,
       "interrotto": true,
@@ -97,26 +117,6 @@
       "lunghezza": 245.4213562373095,
       "interrotto": true,
       "divario_pct": 11.213337505013799
-    }
-  },
-  {
-    "size": 200,
-    "ottimo_astar": 293.7300141024119,
-    "tempo_astar_s": 0.01125025749206543,
-    "weak": {
-      "lunghezza": null,
-      "interrotto": true,
-      "divario_pct": null
-    },
-    "strong": {
-      "lunghezza": null,
-      "interrotto": true,
-      "divario_pct": null
-    },
-    "ritorno": {
-      "lunghezza": 318.65894629054543,
-      "interrotto": true,
-      "divario_pct": 8.487022432594117
     }
   }
 ]

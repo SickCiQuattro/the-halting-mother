@@ -1,6 +1,16 @@
 __pypackages__/
-tests/__pycache__/
-Src/__pycache__/
+__pycache__/
+*.egg-info/
+.venv/
+*.log
 
 .DS_Store
 Thumbs.db
+
+# Intermedi di compilazione LaTeX (il PDF resta versionato)
+Relazione/main.aux
+Relazione/main.fls
+Relazione/main.fdb_latexmk
+Relazione/main.out
+Relazione/main.toc
+Relazione/main.log

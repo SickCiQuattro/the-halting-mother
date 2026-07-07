@@ -1,6 +1,6 @@
 import math
 import numpy as np
-from src.grid import Coordinate
+from src.grid import Coordinate, NEIGHBORS_8
 
 def dlib(origin: Coordinate, destination: Coordinate) -> float:
     """
@@ -37,6 +37,53 @@ def get_diag_direction(origin: Coordinate, destination: Coordinate) -> Coordinat
     dc = 1 if destination[1] > origin[1] else (-1 if destination[1] < origin[1] else 0)
     return dr, dc
 
+def _decomponi_direzione(
+    origin: Coordinate,
+    destination: Coordinate
+) -> tuple[int, int, int, int, int, int]:
+    """Scompone lo spostamento fra origine e destinazione in una parte diagonale e una
+    cardinale residua, comune a entrambi i tipi di cammino libero.
+
+    Returns:
+        Tupla `(d_min, d_max, diag_dr, diag_dc, card_dr, card_dc)`: `d_min` passi diagonali,
+        `d_max - d_min` passi cardinali nella direzione residua `(card_dr, card_dc)`.
+    """
+    dy = abs(origin[0] - destination[0])
+    dx = abs(origin[1] - destination[1])
+    d_min, d_max = min(dx, dy), max(dx, dy)
+    diag_dr, diag_dc = get_diag_direction(origin, destination)
+    if dx > dy:
+        card_dr, card_dc = 0, diag_dc  # Movimento orizzontale residuo
+    elif dy > dx:
+        card_dr, card_dc = diag_dr, 0  # Movimento verticale residuo
+    else:
+        card_dr, card_dc = 0, 0        # Diagonale pura o coincidenti
+    return d_min, d_max, diag_dr, diag_dc, card_dr, card_dc
+
+def _avanza_passi(
+    path: list[Coordinate],
+    dr: int,
+    dc: int,
+    passi: int,
+    grid_state: np.ndarray
+) -> bool:
+    """Avanza `passi` celle nella direzione `(dr, dc)` a partire dall'ultimo punto di `path`,
+    aggiungendole se libere e dentro i limiti. Estende `path` sul posto.
+
+    Returns:
+        True se tutti i passi erano liberi, False al primo ostacolo o fuori dai limiti
+        (in quel caso `path` può essere già stato esteso con i passi precedenti validi).
+    """
+    r, c = path[-1]
+    rows, cols = grid_state.shape
+    for _ in range(passi):
+        r += dr
+        c += dc
+        if not (0 <= r < rows and 0 <= c < cols) or grid_state[r, c] > 0:
+            return False
+        path.append((r, c))
+    return True
+
 def free_path_type1(
     origin: Coordinate,
     destination: Coordinate,
@@ -57,43 +104,14 @@ def free_path_type1(
         La lista dei punti del cammino (compresi origine e destinazione) se esiste,
         altrimenti None se il cammino è ostruito o fuori dai limiti.
     """
-    dy = abs(origin[0] - destination[0])
-    dx = abs(origin[1] - destination[1])
-    d_min = min(dx, dy)
-    d_max = max(dx, dy)
-    
-    diag_dr, diag_dc = get_diag_direction(origin, destination)
-    
-    if dx > dy:
-        card_dr, card_dc = 0, diag_dc  # Movimento orizzontale residuo
-    elif dy > dx:
-        card_dr, card_dc = diag_dr, 0  # Movimento verticale residuo
-    else:
-        card_dr, card_dc = 0, 0        # Diagonale pura o coincidenti
-        
+    d_min, d_max, diag_dr, diag_dc, card_dr, card_dc = _decomponi_direzione(origin, destination)
     path: list[Coordinate] = [origin]
-    r, c = origin
-    
-    # Fase 1: Movimenti diagonali
-    for _ in range(d_min):
-        r += diag_dr
-        c += diag_dc
-        if not (0 <= r < grid_state.shape[0] and 0 <= c < grid_state.shape[1]):
-            return None
-        if grid_state[r, c] > 0:
-            return None
-        path.append((r, c))
-        
-    # Fase 2: Movimenti cardinali
-    for _ in range(d_max - d_min):
-        r += card_dr
-        c += card_dc
-        if not (0 <= r < grid_state.shape[0] and 0 <= c < grid_state.shape[1]):
-            return None
-        if grid_state[r, c] > 0:
-            return None
-        path.append((r, c))
-        
+
+    # Fase 1: movimenti diagonali. Fase 2: movimenti cardinali residui.
+    if not _avanza_passi(path, diag_dr, diag_dc, d_min, grid_state):
+        return None
+    if not _avanza_passi(path, card_dr, card_dc, d_max - d_min, grid_state):
+        return None
     return path
 
 def free_path_type2(
@@ -116,43 +134,14 @@ def free_path_type2(
         La lista dei punti del cammino (compresi origine e destinazione) se esiste,
         altrimenti None se il cammino è ostruito o fuori dai limiti.
     """
-    dy = abs(origin[0] - destination[0])
-    dx = abs(origin[1] - destination[1])
-    d_min = min(dx, dy)
-    d_max = max(dx, dy)
-    
-    diag_dr, diag_dc = get_diag_direction(origin, destination)
-    
-    if dx > dy:
-        card_dr, card_dc = 0, diag_dc  # Movimento orizzontale iniziale
-    elif dy > dx:
-        card_dr, card_dc = diag_dr, 0  # Movimento verticale iniziale
-    else:
-        card_dr, card_dc = 0, 0        # Diagonale pura o coincidenti
-        
+    d_min, d_max, diag_dr, diag_dc, card_dr, card_dc = _decomponi_direzione(origin, destination)
     path: list[Coordinate] = [origin]
-    r, c = origin
-    
-    # Fase 1: Movimenti cardinali prima
-    for _ in range(d_max - d_min):
-        r += card_dr
-        c += card_dc
-        if not (0 <= r < grid_state.shape[0] and 0 <= c < grid_state.shape[1]):
-            return None
-        if grid_state[r, c] > 0:
-            return None
-        path.append((r, c))
-        
-    # Fase 2: Movimenti diagonali dopo
-    for _ in range(d_min):
-        r += diag_dr
-        c += diag_dc
-        if not (0 <= r < grid_state.shape[0] and 0 <= c < grid_state.shape[1]):
-            return None
-        if grid_state[r, c] > 0:
-            return None
-        path.append((r, c))
-        
+
+    # Fase 1: movimenti cardinali residui, prima. Fase 2: movimenti diagonali, dopo.
+    if not _avanza_passi(path, card_dr, card_dc, d_max - d_min, grid_state):
+        return None
+    if not _avanza_passi(path, diag_dr, diag_dc, d_min, grid_state):
+        return None
     return path
 
 def compute_context_rays(origin: Coordinate, grid_state: np.ndarray) -> set[Coordinate]:
@@ -335,18 +324,13 @@ def compute_frontier(
         is_frontier = False
         
         # Controlla tutti gli 8 vicini per verificare la presenza di uscite libere esterne alla chiusura
-        for dr in (-1, 0, 1):
-            for dc in (-1, 0, 1):
-                if dr == 0 and dc == 0:
-                    continue
-                nr, nc = r + dr, c + dc
-                if 0 <= nr < rows and 0 <= nc < cols:
-                    # Se il vicino è libero ed esterno alla chiusura corrente
-                    if grid_state[nr, nc] == 0 and (nr, nc) not in closure:
-                        is_frontier = True
-                        break
-            if is_frontier:
-                break
+        for dr, dc in NEIGHBORS_8:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < rows and 0 <= nc < cols:
+                # Se il vicino è libero ed esterno alla chiusura corrente
+                if grid_state[nr, nc] == 0 and (nr, nc) not in closure:
+                    is_frontier = True
+                    break
                 
         if is_frontier:
             tipo = 1 if cell in context else 2

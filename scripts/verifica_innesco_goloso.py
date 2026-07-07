@@ -4,12 +4,10 @@
 Confronta chiamate ricorsive e tempo con e senza `greedy_seed=True`, per la potatura debole
 e per quella forte, su tre istanze di difficoltà crescente: la stessa griglia 18x18 usata per
 la figura di esplorazione della potatura, la griglia 40x40 dell'esempio di cammino complesso
-e una griglia 100x100 (stessa usata da `verifica_potatura_100.py`).
+e una griglia 100x100 di difficoltà maggiore.
 """
 import os
-import sys
 import time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from src.grid import Grid
 from src.generator import GridGenerator

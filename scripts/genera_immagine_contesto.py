@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 """Genera la figura illustrativa di contesto/complemento/frontiera per la Relazione (Compito 2)."""
 import os
-import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import numpy as np
 
 from src.grid import Grid
 from src.free_paths import compute_context_rays, compute_complement_rays, compute_frontier
+from _common import plt
 
 # Griglia dimostrativa 15x15 con un ostacolo che spezza un quadrante,
 # analoga per struttura all'esempio delle diapositive 18/20/24/25 della traccia.

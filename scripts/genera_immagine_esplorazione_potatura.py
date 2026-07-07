@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
 """Genera la mappa delle celle esplorate: potatura debole vs forte (Relazione, Compito 3)."""
 import os
-import sys
 import time
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 from src.generator import GridGenerator
 from src.camminomin import camminomin
+from _common import plt
 
 SIZE = 18
 grid = GridGenerator.generate_grid(SIZE, SIZE, ["cluster"], density=0.2, seed=2026)
