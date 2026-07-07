@@ -252,6 +252,37 @@ class GridGenerator:
                     grid.clear_cell(varco_r, c0 + t)
 
     @classmethod
+    def generate_maze(cls, grid: Grid, corridor_width: int = 3) -> None:
+        """
+        Genera un labirinto serpentino deterministico: pareti verticali complete, ciascuna con
+        un varco largo `corridor_width` alternato in alto e in basso, che forzano un cammino a
+        S da un lato all'altro della griglia. È il caso peggiore topologico citato dallo spec
+        (diapositiva 8: ostacoli a barre disposti "in modo da formare un labirinto"): a
+        differenza di `generate_bar` (varchi casuali, non necessariamente connessi in un unico
+        percorso), qui la connessione fra le due estremità è garantita per costruzione, quindi
+        non serve alcun controllo di raggiungibilità a posteriori.
+
+        Args:
+            grid: L'oggetto Griglia su cui operare (deve essere vuota).
+            corridor_width: Larghezza del corridoio e del varco in ciascuna parete.
+
+        Raises:
+            ValueError: Se `corridor_width` non è positivo o è troppo grande per la griglia.
+        """
+        if corridor_width < 1 or corridor_width >= grid.rows:
+            raise ValueError(
+                f"corridor_width deve essere compreso tra 1 e rows-1. Ricevuto: {corridor_width}"
+            )
+
+        passo = corridor_width + 1
+        for i, col in enumerate(range(passo, grid.cols, passo)):
+            varco_in_alto = (i % 2 == 0)
+            for r in range(grid.rows):
+                in_varco = r < corridor_width if varco_in_alto else r >= grid.rows - corridor_width
+                if not in_varco:
+                    grid.set_obstacle(r, col)
+
+    @classmethod
     def generate_grid(
         cls, 
         rows: int, 

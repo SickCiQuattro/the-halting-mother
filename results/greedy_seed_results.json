@@ -1,0 +1,125 @@
+[
+  {
+    "istanza": "18x18 cluster",
+    "corse": [
+      {
+        "potatura_forte": false,
+        "innesco_goloso": false,
+        "tempo_s": 0.05342721939086914,
+        "lunghezza": 24.627416997969522,
+        "chiamate_ricorsive": 1735,
+        "celle_frontiera": 3316,
+        "tempo_limite_raggiunto": false
+      },
+      {
+        "potatura_forte": false,
+        "innesco_goloso": true,
+        "tempo_s": 0.047322988510131836,
+        "lunghezza": 24.627416997969522,
+        "chiamate_ricorsive": 1735,
+        "celle_frontiera": 3316,
+        "tempo_limite_raggiunto": false
+      },
+      {
+        "potatura_forte": true,
+        "innesco_goloso": false,
+        "tempo_s": 0.0011298656463623047,
+        "lunghezza": 24.627416997969522,
+        "chiamate_ricorsive": 2,
+        "celle_frontiera": 49,
+        "tempo_limite_raggiunto": false
+      },
+      {
+        "potatura_forte": true,
+        "innesco_goloso": true,
+        "tempo_s": 0.0013623237609863281,
+        "lunghezza": 24.627416997969522,
+        "chiamate_ricorsive": 1,
+        "celle_frontiera": 49,
+        "tempo_limite_raggiunto": false
+      }
+    ]
+  },
+  {
+    "istanza": "40x40 misto",
+    "corse": [
+      {
+        "potatura_forte": false,
+        "innesco_goloso": false,
+        "tempo_s": 30.000118017196655,
+        "lunghezza": 61.25483399593904,
+        "chiamate_ricorsive": 526716,
+        "celle_frontiera": 2960670,
+        "tempo_limite_raggiunto": true
+      },
+      {
+        "potatura_forte": false,
+        "innesco_goloso": true,
+        "tempo_s": 30.000107765197754,
+        "lunghezza": 61.25483399593904,
+        "chiamate_ricorsive": 541308,
+        "celle_frontiera": 3023677,
+        "tempo_limite_raggiunto": true
+      },
+      {
+        "potatura_forte": true,
+        "innesco_goloso": false,
+        "tempo_s": 1.1647229194641113,
+        "lunghezza": 60.426406871192846,
+        "chiamate_ricorsive": 11303,
+        "celle_frontiera": 140026,
+        "tempo_limite_raggiunto": false
+      },
+      {
+        "potatura_forte": true,
+        "innesco_goloso": true,
+        "tempo_s": 1.1597602367401123,
+        "lunghezza": 60.426406871192846,
+        "chiamate_ricorsive": 11303,
+        "celle_frontiera": 140026,
+        "tempo_limite_raggiunto": false
+      }
+    ]
+  },
+  {
+    "istanza": "100x100 cluster",
+    "corse": [
+      {
+        "potatura_forte": false,
+        "innesco_goloso": false,
+        "tempo_s": 60.000317096710205,
+        "lunghezza": 174.0243866176395,
+        "chiamate_ricorsive": 1504225,
+        "celle_frontiera": 7866002,
+        "tempo_limite_raggiunto": true
+      },
+      {
+        "potatura_forte": false,
+        "innesco_goloso": true,
+        "tempo_s": 60.000285625457764,
+        "lunghezza": 174.0243866176395,
+        "chiamate_ricorsive": 1341857,
+        "celle_frontiera": 6848889,
+        "tempo_limite_raggiunto": true
+      },
+      {
+        "potatura_forte": true,
+        "innesco_goloso": false,
+        "tempo_s": 60.00064516067505,
+        "lunghezza": 150.45079348883237,
+        "chiamate_ricorsive": 300998,
+        "celle_frontiera": 10286495,
+        "tempo_limite_raggiunto": true
+      },
+      {
+        "potatura_forte": true,
+        "innesco_goloso": true,
+        "tempo_s": 60.0002498626709,
+        "lunghezza": 150.45079348883237,
+        "chiamate_ricorsive": 299428,
+        "celle_frontiera": 10237421,
+        "tempo_limite_raggiunto": true
+      }
+    ]
+  }
+]

@@ -187,75 +187,60 @@ def _plot_scaling(scaling_res: list[dict[str, object]], output_dir: str) -> None
     plt.close()
 
 
-def _plot_scatter_frontier(
+def _plot_scatter_combined(
     frontier_cells_list: list[float],
-    elapsed_time_list: list[float],
-    landmarks_count_list: list[float],
-    output_dir: str
-) -> None:
-    """Plot 4: dispersione tempo di esecuzione contro celle di frontiera considerate,
-    con retta di regressione in scala bilogaritmica."""
-    plt.figure(figsize=(8, 5.5))
-    sc = plt.scatter(
-        frontier_cells_list, elapsed_time_list,
-        c=landmarks_count_list, cmap='viridis',
-        s=100, alpha=0.85, edgecolors='black', linewidths=0.5
-    )
-    cbar = plt.colorbar(sc)
-    cbar.set_label("Numero totale di landmark", fontsize=10)
-
-    log_x = np.log10(frontier_cells_list)
-    log_y = np.log10(elapsed_time_list)
-    slope, intercept = np.polyfit(log_x, log_y, 1)
-    x_fit = np.logspace(min(log_x), max(log_x), 100)
-    y_fit = 10**(slope * np.log10(x_fit) + intercept)
-    plt.loglog(x_fit, y_fit, color='red', linestyle='--', label=f'Andamento asintotico (pendenza: {slope:.2f})')
-
-    plt.xscale('log')
-    plt.yscale('log')
-    plt.title("Tempo di esecuzione e celle di frontiera esplorate (scala bilogaritmica)", fontsize=11, fontweight='bold')
-    plt.xlabel("Celle di frontiera considerate", fontsize=10)
-    plt.ylabel("Tempo di esecuzione (secondi)", fontsize=10)
-    plt.grid(True, which="both", linestyle='--', alpha=0.5)
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "4_scatter_time_vs_frontier.png"), dpi=200)
-    plt.close()
-
-
-def _plot_scatter_recursion(
     recursive_calls_list: list[float],
     elapsed_time_list: list[float],
+    landmarks_count_list: list[float],
     path_length_list: list[float],
     output_dir: str
 ) -> None:
-    """Plot 5: dispersione tempo di esecuzione contro numero di invocazioni ricorsive,
-    con retta di regressione in scala bilogaritmica."""
-    plt.figure(figsize=(8, 5.5))
-    sc = plt.scatter(
-        recursive_calls_list, elapsed_time_list,
-        c=path_length_list, cmap='plasma',
-        s=100, alpha=0.85, edgecolors='black', linewidths=0.5
-    )
-    cbar = plt.colorbar(sc)
-    cbar.set_label("Lunghezza del cammino minimo", fontsize=10)
+    """Plot 4: dispersione tempo di esecuzione contro complessità esplorata, in due pannelli
+    affiancati (celle di frontiera e invocazioni ricorsive). Le due metriche crescono insieme
+    per costruzione (ogni chiamata ricorsiva aggiunge la propria frontiera al totale): prima
+    erano due figure separate (4 e 5) con correlazione praticamente identica, qui sono
+    un'unica figura per non presentarle come due fenomeni indipendenti."""
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5.5))
 
-    log_x = np.log10(recursive_calls_list)
-    log_y = np.log10(elapsed_time_list)
-    slope, intercept = np.polyfit(log_x, log_y, 1)
-    x_fit = np.logspace(min(log_x), max(log_x), 100)
-    y_fit = 10**(slope * np.log10(x_fit) + intercept)
-    plt.loglog(x_fit, y_fit, color='red', linestyle='--', label=f'Andamento asintotico (pendenza: {slope:.2f})')
+    log_frontier = np.log10(frontier_cells_list)
+    log_time = np.log10(elapsed_time_list)
+    slope_f, intercept_f = np.polyfit(log_frontier, log_time, 1)
+    x_fit_f = np.logspace(min(log_frontier), max(log_frontier), 100)
+    y_fit_f = 10**(slope_f * np.log10(x_fit_f) + intercept_f)
 
-    plt.xscale('log')
-    plt.yscale('log')
-    plt.title("Tempo di esecuzione e complessità ricorsiva (scala bilogaritmica)", fontsize=11, fontweight='bold')
-    plt.xlabel("Numero di invocazioni ricorsive", fontsize=10)
-    plt.ylabel("Tempo di esecuzione (secondi)", fontsize=10)
-    plt.grid(True, which="both", linestyle='--', alpha=0.5)
-    plt.legend()
+    sc1 = ax1.scatter(frontier_cells_list, elapsed_time_list, c=landmarks_count_list,
+                       cmap='viridis', s=90, alpha=0.85, edgecolors='black', linewidths=0.5)
+    ax1.loglog(x_fit_f, y_fit_f, color='red', linestyle='--', label=f'Pendenza: {slope_f:.2f}')
+    fig.colorbar(sc1, ax=ax1, label="Numero totale di landmark")
+    ax1.set_xscale('log')
+    ax1.set_yscale('log')
+    ax1.set_title("Tempo vs celle di frontiera", fontsize=11, fontweight='bold')
+    ax1.set_xlabel("Celle di frontiera considerate", fontsize=10)
+    ax1.set_ylabel("Tempo di esecuzione (secondi)", fontsize=10)
+    ax1.grid(True, which="both", linestyle='--', alpha=0.5)
+    ax1.legend(fontsize=9)
+
+    log_recursive = np.log10(recursive_calls_list)
+    slope_r, intercept_r = np.polyfit(log_recursive, log_time, 1)
+    x_fit_r = np.logspace(min(log_recursive), max(log_recursive), 100)
+    y_fit_r = 10**(slope_r * np.log10(x_fit_r) + intercept_r)
+
+    sc2 = ax2.scatter(recursive_calls_list, elapsed_time_list, c=path_length_list,
+                       cmap='plasma', s=90, alpha=0.85, edgecolors='black', linewidths=0.5)
+    ax2.loglog(x_fit_r, y_fit_r, color='red', linestyle='--', label=f'Pendenza: {slope_r:.2f}')
+    fig.colorbar(sc2, ax=ax2, label="Lunghezza del cammino minimo")
+    ax2.set_xscale('log')
+    ax2.set_yscale('log')
+    ax2.set_title("Tempo vs invocazioni ricorsive", fontsize=11, fontweight='bold')
+    ax2.set_xlabel("Numero di invocazioni ricorsive", fontsize=10)
+    ax2.set_ylabel("Tempo di esecuzione (secondi)", fontsize=10)
+    ax2.grid(True, which="both", linestyle='--', alpha=0.5)
+    ax2.legend(fontsize=9)
+
+    fig.suptitle("Tempo di esecuzione e complessità esplorata (scala bilogaritmica)",
+                 fontsize=12, fontweight='bold')
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "5_scatter_time_vs_recursion.png"), dpi=200)
+    plt.savefig(os.path.join(output_dir, "4_scatter_time_vs_frontier.png"), dpi=200)
     plt.close()
 
 
@@ -304,6 +289,8 @@ def generate_plots(
     _plot_pruning_comparison(pruning_res, ordering_res, output_dir)
     _plot_scaling(scaling_res, output_dir)
     if elapsed_time_list:
-        _plot_scatter_frontier(frontier_cells_list, elapsed_time_list, landmarks_count_list, output_dir)
-        _plot_scatter_recursion(recursive_calls_list, elapsed_time_list, path_length_list, output_dir)
+        _plot_scatter_combined(
+            frontier_cells_list, recursive_calls_list, elapsed_time_list,
+            landmarks_count_list, path_length_list, output_dir
+        )
     _plot_symmetry(pruning_res, output_dir)

@@ -1,0 +1,23 @@
+{
+  "tempo_sola_etichettatura_s": 0.006768465042114258,
+  "corse": [
+    {
+      "descrizione": "con controllo componenti",
+      "controllo_componenti": true,
+      "tempo_s": 0.00629425048828125,
+      "lunghezza": null,
+      "chiamate_ricorsive": 0,
+      "celle_frontiera": 0,
+      "tempo_limite_raggiunto": false
+    },
+    {
+      "descrizione": "senza controllo",
+      "controllo_componenti": false,
+      "tempo_s": 600.0002591609955,
+      "lunghezza": null,
+      "chiamate_ricorsive": 27382731,
+      "celle_frontiera": 27383313,
+      "tempo_limite_raggiunto": true
+    }
+  ]
+}

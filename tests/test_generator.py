@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.grid import Grid
+from src.grid import Grid, compute_components
 from src.generator import GridGenerator
 
 class TestGenerator(unittest.TestCase):
@@ -47,6 +47,20 @@ class TestGenerator(unittest.TestCase):
         final_density = obstacles / (50 * 50)
         self.assertTrue(0.15 <= final_density <= 0.25)
         
+    def test_maze_connesso_angolo_opposto(self):
+        grid = Grid(30, 30)
+        GridGenerator.generate_maze(grid, corridor_width=3)
+        labels = compute_components(grid.state)
+        # Il serpentino garantisce per costruzione che i due angoli opposti siano raggiungibili
+        self.assertEqual(labels[(0, 0)], labels[(29, 29)])
+
+    def test_maze_corridor_width_invalido(self):
+        grid = Grid(10, 10)
+        with self.assertRaises(ValueError):
+            GridGenerator.generate_maze(grid, corridor_width=0)
+        with self.assertRaises(ValueError):
+            GridGenerator.generate_maze(grid, corridor_width=10)
+
     def test_seed_reproducibility(self):
         grid1 = GridGenerator.generate_grid(30, 30, ["simple", "cluster"], density=0.2, seed=42)
         grid2 = GridGenerator.generate_grid(30, 30, ["simple", "cluster"], density=0.2, seed=42)

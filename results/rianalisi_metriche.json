@@ -1,0 +1,50 @@
+{
+  "regressione_tempo_vs_frontiera": {
+    "pendenza": 0.7718054866407593,
+    "r_quadro": 0.9289935866115282,
+    "n_campioni": 140
+  },
+  "regressione_tempo_vs_ricorsione": {
+    "pendenza": 0.6595613928062894,
+    "r_quadro": 0.8351732258168948,
+    "n_campioni": 140
+  },
+  "rapporto_nodi_esplorati_per_taglia": [
+    {
+      "size": 10,
+      "recursive_calls_weak": 50,
+      "recursive_calls_strong": 14,
+      "rapporto_debole_forte": 3.5714285714285716
+    },
+    {
+      "size": 20,
+      "recursive_calls_weak": 62268,
+      "recursive_calls_strong": 117,
+      "rapporto_debole_forte": 532.2051282051282
+    },
+    {
+      "size": 30,
+      "recursive_calls_weak": 20674532,
+      "recursive_calls_strong": 1840,
+      "rapporto_debole_forte": 11236.158695652173
+    },
+    {
+      "size": 50,
+      "recursive_calls_weak": 21096334,
+      "recursive_calls_strong": 35352,
+      "rapporto_debole_forte": 596.7507920343969
+    },
+    {
+      "size": 100,
+      "recursive_calls_weak": 19837929,
+      "recursive_calls_strong": 9442587,
+      "rapporto_debole_forte": 2.100899785196578
+    },
+    {
+      "size": 150,
+      "recursive_calls_weak": 17423038,
+      "recursive_calls_strong": 12559337,
+      "rapporto_debole_forte": 1.3872577827953816
+    }
+  ]
+}
