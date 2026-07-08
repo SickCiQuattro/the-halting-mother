@@ -15,6 +15,25 @@
 \usepackage{verbatim}
 \usepackage{afterpage}
 \usepackage{xcolor}
+\usepackage{listings}
+
+% Stile per i comandi da riga di comando: va a capo automaticamente sulle righe
+% lunghe (a differenza di verbatim) senza inserire alcun carattere di continuazione
+% nel testo, cosi' un comando copiato dal PDF resta corretto su qualunque shell.
+\lstdefinestyle{comandoshell}{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    breakatwhitespace=true,
+    columns=fullflexible,
+    frame=none,
+    xleftmargin=0pt,
+    showstringspaces=false,
+    extendedchars=true,
+    inputencoding=utf8,
+    literate=
+        {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+        {À}{{\`A}}1 {È}{{\`E}}1 {é}{{\'e}}1
+}
 
 \usepackage{amsmath}
 \usepackage{bm}

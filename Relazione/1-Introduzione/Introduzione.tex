@@ -1,10 +1,10 @@
 \section{Introduzione}
 
-La presente relazione descrive la progettazione, l'implementazione e la campagna sperimentale condotta per il sistema di navigazione e calcolo del cammino minimo su griglia bidimensionale, sviluppato in conformità con i requisiti del corso di Algoritmi e Strutture Dati per l'anno accademico 2024/25.
+La presente relazione descrive la progettazione, l'implementazione e la campagna sperimentale del sistema di calcolo del cammino minimo su griglia bidimensionale realizzato per il corso di Algoritmi e Strutture Dati, anno accademico 2024/25.
 
-L'elaborato affronta il calcolo del cammino minimo su griglie bidimensionali in presenza di ostacoli. Il sistema mira a limitare il sovraccarico computazionale tipico delle esplorazioni ricorsive ricorrendo a strutture dati specifiche e a regole di potatura spaziale.
+Il problema affrontato è il calcolo del cammino minimo su una griglia con ostacoli. La difficoltà principale non è geometrica ma computazionale: un'esplorazione ricorsiva ingenua dello spazio dei cammini possibili esplode rapidamente al crescere della griglia, e buona parte del lavoro descritto in questa relazione consiste nel contenere quel costo con strutture dati mirate e regole di potatura.
 
-La figura~\ref{fig:panoramica_sistema} anticipa in quattro pannelli l'intero percorso seguito dalla relazione, sulla stessa istanza di griglia: si parte da uno spazio libero senza ostacoli, si generano proceduralmente gli ostacoli (Compito 1), si calcola dall'origine $O$ la chiusura raggiungibile con cammini liberi (in verde/arancio) individuandone la frontiera (cerchiata) tramite la proiezione dei raggi cardinali e diagonali (Compito 2), e infine si risolve il cammino minimo completo verso la destinazione $D$ componendo più cammini liberi lungo la sequenza dei landmark (Compito 3). I capitoli successivi riprendono singolarmente ciascuno di questi passaggi, concludendo con la valutazione delle prestazioni (Compito 4) e con le considerazioni finali.
+La figura~\ref{fig:panoramica_sistema} mostra in quattro pannelli, sulla stessa istanza di griglia, il percorso seguito dalla relazione: uno spazio libero senza ostacoli; gli ostacoli generati proceduralmente (Compito 1); la chiusura raggiungibile dall'origine $O$ tramite cammini liberi (in verde/arancio), con la frontiera cerchiata individuata proiettando i raggi cardinali e diagonali (Compito 2); infine il cammino minimo completo verso la destinazione $D$, ottenuto componendo più cammini liberi lungo la sequenza dei landmark (Compito 3). I capitoli seguenti riprendono questi passaggi uno per uno; seguono poi la valutazione delle prestazioni (Compito 4) e le considerazioni finali.
 
 \begin{figure}[H]
 \centering
@@ -15,14 +15,14 @@ La figura~\ref{fig:panoramica_sistema} anticipa in quattro pannelli l'intero per
 
 \subsection{Strumenti e scelte tecnologiche}
 
-Il software è scritto in \textbf{Python 3.13} e utilizza:
+Il software è scritto in Python 3.13 e si appoggia a tre librerie principali:
 \begin{itemize}
-    \item \textbf{NumPy}: gestisce la rappresentazione della griglia attraverso array multidimensionali, sfruttando le operazioni vettoriali per ottimizzare le letture e le modifiche dello stato;
-    \item \textbf{Matplotlib}: genera le visualizzazioni grafiche dei percorsi e produce i grafici per l'analisi delle prestazioni (Compito 4);
-    \item \textbf{Argparse}: fornisce l'interfaccia a riga di comando.
+    \item NumPy rappresenta la griglia come array multidimensionale e sfrutta le operazioni vettoriali per le letture e le modifiche dello stato;
+    \item Matplotlib genera le visualizzazioni dei percorsi e i grafici dell'analisi delle prestazioni (Compito 4);
+    \item Argparse costruisce l'interfaccia a riga di comando.
 \end{itemize}
 
-Rispetto all'approccio a oggetti, che associa a ogni cella un'istanza dedicata e grava sul gestore della memoria, la rappresentazione tramite array numerici lavora su dati contigui in memoria.
+Un approccio a oggetti, con un'istanza dedicata per ogni cella, avrebbe gravato sul gestore della memoria a ogni allocazione; la rappresentazione tramite array numerici lavora invece su dati contigui in memoria.
 
 \subsection{Rappresentazione dello stato della cella}
 
@@ -41,6 +41,6 @@ Ogni cella della griglia è codificata con un numero intero all'interno di una m
 \label{tab:stato_cella}
 \end{table}
 
-Questa codifica numerica consente il \textbf{ritracciamento (backtracking) sul posto}. A ogni chiamata ricorsiva di \texttt{CAMMINOMIN}, invece di clonare la matrice della griglia (operazione che esaurirebbe la memoria sulle griglie più ampie), il codice sovrascrive il valore intero della cella visitata direttamente nella struttura dati condivisa.
+Questa codifica numerica rende possibile il \textbf{ritracciamento (backtracking) sul posto}: a ogni chiamata ricorsiva di \texttt{CAMMINOMIN}, il codice sovrascrive direttamente il valore intero della cella visitata nella struttura dati condivisa, invece di clonare la matrice della griglia, operazione che esaurirebbe la memoria sulle griglie più ampie.
 
-Durante la discesa, le celle della chiusura corrente vengono marcate con il valore costante $2$. In fase di risalita la funzione le ripristina al valore 0. Questo meccanismo evita la creazione e la distruzione di oggetti a ogni livello dell'albero delle chiamate. Una marcatura costante (anziché dipendente dalla profondità) è sufficiente, perché le chiusure annidate sono disgiunte e il ripristino avviene per insieme esplicito. Inoltre, evita l'eccedenza del tipo \texttt{uint8} su catene di landmark molto lunghe.
+Durante la discesa, le celle della chiusura corrente sono marcate con il valore costante $2$; in fase di risalita la funzione le riporta a $0$. Il meccanismo evita di creare e distruggere oggetti a ogni livello dell'albero delle chiamate. Basta una marcatura costante, non legata alla profondità, perché le chiusure annidate sono disgiunte e il ripristino avviene per insieme esplicito; così si evita anche di far eccedere il tipo \texttt{uint8} sulle catene di landmark più lunghe.

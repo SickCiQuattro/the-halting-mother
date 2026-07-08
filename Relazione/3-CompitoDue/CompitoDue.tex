@@ -15,7 +15,7 @@ d_{\text{lib}}(O,D) = \sqrt{2}\Delta_{\text{min}} + (\Delta_{\text{max}} - \Delt
 
 Questa formula di costo $O(1)$ fornisce il limite inferiore richiesto dalla potatura geometrica descritta di seguito.
 
-Fra due celle $O$ e $D$ reciprocamente raggiungibili senza ostacoli interposti possono esistere fino a due cammini liberi distinti, come illustrato in figura~\ref{fig:cammini_liberi}: il tipo 1 percorre prima la diagonale e poi il tratto cardinale residuo, il tipo 2 nell'ordine inverso. Entrambi hanno lunghezza $d_{\text{lib}}(O,D)$, poiché in una griglia 8-connesse l'ordine in cui si eseguono i passi diagonali e quelli cardinali non ne altera il numero complessivo.
+Fra due celle $O$ e $D$ reciprocamente raggiungibili senza ostacoli interposti possono esistere fino a due cammini liberi distinti, come illustrato in figura~\ref{fig:cammini_liberi}: il tipo 1 percorre prima la diagonale e poi il tratto cardinale residuo, il tipo 2 nell'ordine inverso. Entrambi hanno lunghezza $d_{\text{lib}}(O,D)$, poiché in una griglia 8-connessa l'ordine in cui si eseguono i passi diagonali e quelli cardinali non ne altera il numero complessivo.
 
 \begin{figure}[H]
 \centering
@@ -28,8 +28,8 @@ Fra due celle $O$ e $D$ reciprocamente raggiungibili senza ostacoli interposti p
 
 La raggiungibilità locale tramite cammini liberi definisce due insiemi disgiunti di celle all'interno dello spazio libero:
 \begin{itemize}
-    \item \textbf{Contesto}: l'insieme delle celle raggiungibili da $O$ tramite un cammino libero di tipo 1, definito dalla sequenza prima mosse diagonali oblique, poi mosse cardinali residue, oppure da cammini composti esclusivamente da un tipo di mossa;
-    \item \textbf{Complemento}: l'insieme delle celle raggiungibili da $O$ solo tramite un cammino libero di tipo 2, definito dalla sequenza inversa prima mosse cardinali, poi mosse diagonali residue. Le celle che ammettono entrambi i tipi di cammino appartengono per convenzione al solo contesto.
+    \item il \textbf{contesto} è l'insieme delle celle raggiungibili da $O$ tramite un cammino libero di tipo 1, definito dalla sequenza: prima le mosse diagonali, poi quelle cardinali residue, oppure da cammini composti esclusivamente da un tipo di mossa;
+    \item il \textbf{complemento} è l'insieme delle celle raggiungibili da $O$ solo tramite un cammino libero di tipo 2, definito dalla sequenza inversa: prima le mosse cardinali, poi quelle diagonali residue. Le celle che ammettono entrambi i tipi di cammino appartengono per convenzione al solo contesto.
 \end{itemize}
 L'unione di contesto e complemento forma la \textbf{chiusura} di $O$.
 
@@ -37,19 +37,19 @@ L'unione di contesto e complemento forma la \textbf{chiusura} di $O$.
 
 Per determinare gli insiemi contesto e complemento, il programma implementa la \textbf{proiezione di raggi}. L'analisi controlla le linee di raggiungibilità procedendo a raggiera a partire dall'origine, riducendo la complessità da quadratica ($O(R^2 \cdot C^2)$ per una ricerca cella per cella) a $O(\max(R,C)^2)$.
 
-L'algoritmo per il \textbf{contesto (tipo 1)} opera come segue:
+L'algoritmo per il contesto (tipo 1) opera come segue:
 \begin{enumerate}
-    \item \textbf{Proiezione cardinale}: vengono tracciati i 4 raggi cardinali puri (Nord, Sud, Est, Ovest) a partire dall'origine $O$, arrestandosi non appena si incontra una cella ostacolo;
-    \item \textbf{Proiezione diagonale ed espansione a gomito}: per ciascuno dei 4 quadranti del piano cartesiano locale:
+    \item nella proiezione cardinale vengono tracciati i 4 raggi cardinali puri (Nord, Sud, Est, Ovest) a partire dall'origine $O$, arrestandosi non appena si incontra una cella ostacolo;
+    \item nella proiezione diagonale ed espansione a gomito, per ciascuno dei 4 quadranti del piano cartesiano locale:
     \begin{itemize}
         \item Si proietta il raggio diagonale puro (NE, NO, SE, SO);
         \item Per ogni cella attraversabile raggiunta lungo questo raggio diagonale, si avvia un'espansione cardinale rettilinea parallela agli assi (espansione a gomito), che procede verso l'esterno fino a incontrare un ostacolo o il bordo della griglia.
     \end{itemize}
 \end{enumerate}
 
-L'algoritmo per il \textbf{complemento (tipo 2)} inverte simmetricamente le fasi di proiezione: per ciascuno dei 4 quadranti si proiettano prima i raggi cardinali e, da ogni cella libera raggiunta su di essi, si espandono raggi in diagonale pura. Al termine si escludono le celle già presenti nel contesto.
+L'algoritmo per il complemento (tipo 2) inverte simmetricamente le fasi di proiezione: per ciascuno dei 4 quadranti si proiettano prima i raggi cardinali e, da ogni cella libera raggiunta su di essi, si espandono raggi in diagonale pura. Al termine si escludono le celle già presenti nel contesto.
 
-Questo accorgimento analizza ogni cella limitando le operazioni di lettura sulla matrice.
+Questo accorgimento evita di ispezionare ogni cella della griglia, limitando le operazioni di lettura alle sole celle toccate dai raggi.
 
 Di seguito si riporta lo pseudocodice dei due algoritmi. La scrittura $P + c$ indica la cella ottenuta spostando $P$ di un passo lungo la direzione $c$. Una cella si dice \emph{libera} se è interna alla griglia e non appartiene a $osta$.
 

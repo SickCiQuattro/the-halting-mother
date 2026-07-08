@@ -39,8 +39,9 @@ Le istruzioni valgono in modo identico su macOS, Linux e Windows: cambia solo il
    ```bash
    source .venv/bin/activate       # macOS / Linux
    .venv\Scripts\Activate.ps1      # Windows PowerShell
+   .venv\Scripts\activate.bat      # Windows prompt dei comandi
    ```
-3. Installa il progetto in modalità editabile (rende `src` importabile da qualunque cartella di lavoro, senza dover impostare `PYTHONPATH`):
+3. Installa il progetto in modalità modificabile (rende `src` importabile da qualunque cartella di lavoro, senza dover impostare `PYTHONPATH`):
    ```bash
    pip install -e .
    ```

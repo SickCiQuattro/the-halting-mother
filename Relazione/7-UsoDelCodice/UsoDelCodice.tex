@@ -1,28 +1,29 @@
 \section{Uso del codice}
 
-Questo capitolo fornisce il manuale utente completo e la documentazione tecnica per configurare, eseguire e validare il software sviluppato. Il punto di ingresso principale è l'interfaccia a riga di comando scritta in Python, che implementa tutti i compiti dell'elaborato.
+Questo capitolo è il manuale utente e la documentazione tecnica per configurare, eseguire e validare il software sviluppato. Il punto di ingresso principale è l'interfaccia a riga di comando scritta in Python, che implementa tutti i compiti dell'elaborato.
 
 \subsection{Configurazione e requisiti di sistema}
 
 Il software è scritto in Python 3.13. Le istruzioni seguenti valgono in modo identico su macOS, Linux e Windows: cambia solo il comando di attivazione dell'ambiente virtuale.
 
-\begin{verbatim}
+\begin{lstlisting}[style=comandoshell]
 # Creazione dell'ambiente virtuale
-python3 -m venv .venv          # macOS / Linux
+python3.13 -m venv .venv       # macOS / Linux
 py -3.13 -m venv .venv         # Windows (PowerShell o prompt dei comandi)
 
 # Attivazione dell'ambiente
 source .venv/bin/activate      # macOS / Linux
 .venv\Scripts\Activate.ps1     # Windows PowerShell
+.venv\Scripts\activate.bat     # Windows prompt dei comandi
 
-# Installazione del progetto in modalità editabile: rende "src" importabile
+# Installazione del progetto in modalità modificabile: rende "src" importabile
 # da qualunque cartella di lavoro, senza dover impostare PYTHONPATH
 pip install -e .
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Configurazione del file JSON delle griglie}
 
-Il file JSON utilizzato per memorizzare e caricare la struttura delle griglie adotta una sintassi strutturata, che dichiara esplicitamente le dimensioni della matrice, le tipologie di ostacoli con cui la griglia è stata generata (riportate poi nel riassunto dell'esecuzione, come richiesto dalla diapositiva 71 del testo dell'elaborato) e le coordinate bidimensionali di ciascuna cella ostacolo fisso:
+Il file JSON utilizzato per memorizzare e caricare lo stato delle griglie riporta esplicitamente le dimensioni della matrice, le tipologie di ostacoli con cui la griglia è stata generata e le coordinate bidimensionali di ciascuna cella occupata da un ostacolo fisso:
 
 \begin{verbatim}
 {
@@ -44,75 +45,69 @@ Tutte le funzionalità del software sono esposte tramite il modulo principale \t
 
 \subsubsection{1. Generazione di griglie (Compito 1)}
 Per generare proceduralmente ostacoli misti (\texttt{simple}, \texttt{cluster}, \texttt{diagonal}, \texttt{enclosure}, \texttt{bar} o lo scenario combinato \texttt{mix}) con densità configurabile e salvare l'esito in formato JSON e in immagine PNG ad alta risoluzione:
-\begin{verbatim}
-python main.py generate --rows 50 --cols 50 \
-  --types mix --density 0.2 --seed 42 \
-  -o grids/grid.json --save-img results/test_grid_generated.png
-\end{verbatim}
+\begin{lstlisting}[style=comandoshell]
+python main.py generate --rows 50 --cols 50 --types mix --density 0.2 --seed 42 -o grids/grid.json --save-img results/test_grid_generated.png
+\end{lstlisting}
 
 \subsubsection{2. Calcolo di contesto, complemento e frontiera (Compito 2)}
 Per tracciare i raggi geometrici dall'origine e calcolare l'insieme delle celle appartenenti al contesto (tipo 1), al complemento (tipo 2) e alla frontiera locale:
-\begin{verbatim}
-python main.py context --grid grids/grid.json \
-  --origin 10,10 --type both
-\end{verbatim}
+\begin{lstlisting}[style=comandoshell]
+python main.py context --grid grids/grid.json --origin 10,10 --type both
+\end{lstlisting}
 
 \subsubsection{3. Calcolo della distanza ideale $d_{\text{lib}}$}
-Per calcolare la distanza minima teorica priva di ostacoli su una griglia con adiacenza a otto direzioni tramite la formula geometrica chiusa:
-\begin{verbatim}
+Per calcolare, tramite la formula geometrica chiusa, la distanza minima teorica su una griglia con adiacenza a otto direzioni assumendo l'assenza di ostacoli:
+\begin{lstlisting}[style=comandoshell]
 python main.py dlib --origin 10,10 --dest 40,40
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection{4. Calcolo del cammino minimo (Compito 3)}
-Per calcolare il cammino minimo tramite ritracciamento ricorsivo basato su landmark (con la potatura branch-and-bound globale attiva), esportare l'immagine PNG ad alta risoluzione del percorso e stampare il riassunto JSON strutturato (diapositiva 71):
-\begin{verbatim}
-python main.py camminomin --grid grids/grid.json \
-  --origin 0,0 --dest 49,49 --strong-pruning --summary \
-  --save-img results/test_path_resolved.png
-\end{verbatim}
+Per calcolare il cammino minimo tramite ritracciamento ricorsivo basato su landmark (con la potatura branch-and-bound globale attiva), esportare l'immagine PNG ad alta risoluzione del percorso e stampare il riassunto JSON strutturato:
+\begin{lstlisting}[style=comandoshell]
+python main.py camminomin --grid grids/grid.json --origin 0,0 --dest 49,49 --strong-pruning --summary --save-img results/test_path_resolved.png
+\end{lstlisting}
 L'inclusione del parametro \texttt{--strong-pruning} attiva la potatura tramite riga 17, mentre la sua assenza mantiene attiva la riga 16. Il controllo preliminare dei componenti connessi per le coppie irraggiungibili (si veda il Compito 3) è attivo in modo predefinito e si disattiva con \texttt{--no-component-check}, utile per riprodurre il confronto sperimentale. Il parametro \texttt{--greedy-seed}, disattivo in modo predefinito per restare fedeli all'inizializzazione dello pseudocodice, innesca il limite superiore globale con una discesa golosa preliminare (si veda il Compito 3). Il parametro \texttt{--summary} stampa il resoconto strutturato con il conteggio delle celle di frontiera analizzate, il numero di potature eseguite e l'altezza massima raggiunta dalla pila ricorsiva. Il campo \texttt{memoria\_rappresentazione\_byte} del resoconto riporta la dimensione statica della matrice (righe $\times$ colonne), non il picco di memoria effettivamente utilizzato durante quella singola ricerca: quest'ultimo è misurato con \texttt{tracemalloc} solo nella campagna sperimentale del Compito 4, per non raddoppiare i tempi di ogni singola invocazione (si veda la nota metodologica del Compito 4).
 
 \subsubsection{5. Campagna sperimentale completa (Compito 4)}
-Per lanciare l'intera batteria automatizzata di prove sperimentali su griglie scalabili (fino a $150\times150$), densità variabili e strategie di potatura, esportando i sei grafici analitici discussi nel capitolo precedente nella cartella dei risultati:
-\begin{verbatim}
+Per lanciare l'intera batteria automatizzata di prove sperimentali su griglie scalabili (fino a $150\times150$), densità variabili e strategie di potatura, esportando i sei grafici analitici discussi nel Compito 4 nella cartella dei risultati:
+\begin{lstlisting}[style=comandoshell]
 python main.py experiment --output-dir results
-\end{verbatim}
+\end{lstlisting}
 La taglia $200\times200$, inizialmente inclusa, è stata rimossa dalla sezione di scaling perché entrambe le potature esauriscono il tempo limite senza trovare alcun cammino completo (si veda il Compito 4), a favore di una taglia $30\times30$ intermedia. Lo script \texttt{scripts/aggiorna\_scaling\_30.py} applica questa modifica riutilizzando i risultati già validi delle altre taglie, senza ripetere l'intera campagna di circa due ore.
 
 \subsubsection{6. Verifica di simmetria formale}
 Per lanciare la verifica automatica di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su un numero $N$ di coppie casuali di nodi:
-\begin{verbatim}
-python main.py experiment --verify-symmetry-count 10
-  --symmetry-grid-size 20
-\end{verbatim}
+\begin{lstlisting}[style=comandoshell]
+python main.py experiment --verify-symmetry-count 10 --symmetry-grid-size 20
+\end{lstlisting}
 
 \subsection{Rigenerazione delle figure pedagogiche della relazione}
 
 Le figure dimostrative della relazione (panoramica del sistema, tipologie di ostacolo, cammini liberi di tipo 1/2, contesto/complemento/frontiera con i raggi, mappa di esplorazione della potatura, sintesi del beneficio dei componenti connessi) non provengono dalla campagna sperimentale del Compito 4, ma da sei script indipendenti nella cartella \texttt{scripts/}, ciascuno eseguibile singolarmente e che riusa direttamente i moduli di \texttt{src/} senza introdurre logica nuova:
-\begin{verbatim}
+\begin{lstlisting}[style=comandoshell]
 python scripts/genera_immagine_panoramica.py
 python scripts/genera_immagine_tipologie_ostacoli.py
 python scripts/genera_immagine_cammini_liberi.py
 python scripts/genera_immagine_contesto.py
 python scripts/genera_immagine_esplorazione_potatura.py
 python scripts/genera_immagine_estensione_componenti.py
-\end{verbatim}
+\end{lstlisting}
 Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un altro script non produce immagini, ma riproduce una verifica numerica citata in prosa nel Compito 4 e nelle Conclusioni: la verifica empirica del limite di ricorsione. Il confronto supplementare fra potatura debole e forte su una griglia $100\times100$ (§5.4.2) è invece coperto dalla stessa istanza già usata da \texttt{verifica\_innesco\_goloso.py} (si veda oltre), per non duplicare due script sulla stessa identica griglia, coppia e tempo limite:
-\begin{verbatim}
+\begin{lstlisting}[style=comandoshell]
 python scripts/verifica_limite_ricorsione.py
-\end{verbatim}
+\end{lstlisting}
 
 Quattro ulteriori script riproducono gli esperimenti delle estensioni discusse nei Compiti 3 e 4: l'effetto del controllo dei componenti connessi su una coppia irraggiungibile (attenzione: la configurazione senza controllo esaurisce l'intero tempo limite di $600$ s), la verifica dell'oracolo A* con il calcolo del divario anytime (che genera anche la figura \texttt{divario\_anytime.png} e il file \texttt{divario\_anytime.json}), il confronto di memoria e tempo fra la matrice di byte e la griglia a piani di bit, e l'effetto dell'innesco goloso del limite superiore globale su tre istanze di difficoltà crescente:
-\begin{verbatim}
+\begin{lstlisting}[style=comandoshell]
 python scripts/verifica_componenti.py
 python scripts/verifica_oracolo_astar.py
 python scripts/verifica_griglia_bit.py
 python scripts/verifica_innesco_goloso.py
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Esecuzione della batteria di prove unitarie}
 
 Il progetto include una copertura completa di prove unitarie automatiche, che validano l'esattezza di tutti i moduli geometrici e logici (distanza libera, proiezione di raggi, compattazione, ritracciamento sul posto, generazione procedurale degli ostacoli, salvataggio e caricamento della griglia). Per avviare le prove unitarie:
-\begin{verbatim}
+\begin{lstlisting}[style=comandoshell]
 python -m unittest discover -s tests -p "test_*.py"
-\end{verbatim}
+\end{lstlisting}
