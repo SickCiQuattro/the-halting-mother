@@ -2,7 +2,7 @@
 
 La presente relazione descrive la progettazione, l'implementazione e la campagna sperimentale del sistema di calcolo del cammino minimo su griglia bidimensionale realizzato per il corso di Algoritmi e Strutture Dati, anno accademico 2024/25.
 
-Il problema affrontato è il calcolo del cammino minimo su una griglia con ostacoli. La difficoltà principale non è geometrica ma computazionale: un'esplorazione ricorsiva ingenua dello spazio dei cammini possibili esplode rapidamente al crescere della griglia, e buona parte del lavoro descritto in questa relazione consiste nel contenere quel costo con strutture dati mirate e regole di potatura.
+Il problema affrontato è il calcolo del cammino minimo su una griglia con ostacoli. La difficoltà principale non è geometrica, ma computazionale: un'esplorazione ricorsiva ingenua dello spazio dei cammini possibili esplode rapidamente al crescere della griglia, e buona parte del lavoro descritto in questa relazione consiste nel contenere quel costo con strutture dati mirate e regole di potatura.
 
 La figura~\ref{fig:panoramica_sistema} mostra in quattro pannelli, sulla stessa istanza di griglia, il percorso seguito dalla relazione: uno spazio libero senza ostacoli; gli ostacoli generati proceduralmente (Compito 1); la chiusura raggiungibile dall'origine $O$ tramite cammini liberi (in verde/arancio), con la frontiera cerchiata individuata proiettando i raggi cardinali e diagonali (Compito 2); infine il cammino minimo completo verso la destinazione $D$, ottenuto componendo più cammini liberi lungo la sequenza dei landmark (Compito 3). I capitoli seguenti riprendono questi passaggi uno per uno; seguono poi la valutazione delle prestazioni (Compito 4) e le considerazioni finali.
 
@@ -17,9 +17,9 @@ La figura~\ref{fig:panoramica_sistema} mostra in quattro pannelli, sulla stessa 
 
 Il software è scritto in Python 3.13 e si appoggia a tre librerie principali:
 \begin{itemize}
-    \item NumPy rappresenta la griglia come array multidimensionale e sfrutta le operazioni vettoriali per le letture e le modifiche dello stato;
-    \item Matplotlib genera le visualizzazioni dei percorsi e i grafici dell'analisi delle prestazioni (Compito 4);
-    \item Argparse costruisce l'interfaccia a riga di comando.
+    \item \textbf{NumPy} rappresenta la griglia come array multidimensionale e sfrutta le operazioni vettoriali per le letture e le modifiche dello stato;
+    \item \textbf{Matplotlib} genera le visualizzazioni dei percorsi e i grafici dell'analisi delle prestazioni (Compito 4);
+    \item \textbf{Argparse} costruisce l'interfaccia a riga di comando.
 \end{itemize}
 
 Un approccio a oggetti, con un'istanza dedicata per ogni cella, avrebbe gravato sul gestore della memoria a ogni allocazione; la rappresentazione tramite array numerici lavora invece su dati contigui in memoria.

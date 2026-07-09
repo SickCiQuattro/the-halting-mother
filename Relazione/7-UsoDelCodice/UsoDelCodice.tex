@@ -24,6 +24,7 @@ pip install -e .
 \subsection{Configurazione del file JSON delle griglie}
 
 Il file JSON utilizzato per memorizzare e caricare lo stato delle griglie riporta esplicitamente le dimensioni della matrice, le tipologie di ostacoli con cui la griglia è stata generata e le coordinate bidimensionali di ciascuna cella occupata da un ostacolo fisso:
+\newpage
 
 \begin{verbatim}
 {
@@ -91,7 +92,7 @@ python scripts/genera_immagine_cammini_liberi.py
 python scripts/genera_immagine_contesto.py
 python scripts/genera_immagine_esplorazione_potatura.py
 \end{lstlisting}
-Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un altro script non produce immagini, ma riproduce una verifica numerica citata in prosa nel Compito 4 e nelle Conclusioni: la verifica empirica del limite di ricorsione. Il confronto supplementare fra potatura debole e forte su una griglia $100\times100$ (§5.4.2) è invece coperto dalla stessa istanza già usata da \texttt{verifica\_innesco\_goloso.py} (si veda oltre), per non duplicare due script sulla stessa identica griglia, coppia e tempo limite:
+Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un altro script non produce immagini, ma riproduce una verifica numerica citata in prosa nel Compito 4 e nelle Conclusioni: la verifica empirica del limite di ricorsione. Il confronto supplementare fra potatura debole e forte su una griglia $100\times100$ (sezione~\ref{sssec:potatura_ordinamento}) è invece coperto dalla stessa istanza già usata da \texttt{verifica\_innesco\_goloso.py} (si veda oltre), per non duplicare due script sulla stessa identica griglia, coppia e tempo limite:
 \begin{lstlisting}[style=comandoshell]
 python scripts/verifica_limite_ricorsione.py
 \end{lstlisting}

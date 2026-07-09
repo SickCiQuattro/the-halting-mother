@@ -17,15 +17,15 @@ L'utente configura il generatore attraverso i parametri della riga di comando. L
 L'applicativo modella cinque tipologie di ostacolo:
 
 \begin{enumerate}
-    \item gli ostacoli semplici (\texttt{simple}) sono celle singole non attraversabili, sparse casualmente sulla griglia: servono a valutare il comportamento di base dell'algoritmo in ambienti a densità uniforme, senza blocchi strutturati;
+    \item Gli \textbf{ostacoli semplici} (\texttt{simple}) sono celle singole non attraversabili, sparse casualmente sulla griglia: servono a valutare il comportamento di base dell'algoritmo in ambienti a densità uniforme, senza blocchi strutturati;
 
-    \item gli agglomerati (\texttt{cluster}) sono gruppi compatti di celle contigue, generati simulando un cammino casuale a partire da celle \textit{seme};
+    \item Gli \textbf{agglomerati} (\texttt{cluster}) sono gruppi compatti di celle contigue, generati simulando un cammino casuale a partire da celle \textit{seme};
 
-    \item gli ostacoli diagonali (\texttt{diagonal}) sono sequenze di due o tre celle adiacenti solo per uno spigolo, utili a valutare le regole sugli attraversamenti diagonali forzati;
+    \item Gli \textbf{ostacoli diagonali} (\texttt{diagonal}) sono sequenze di due o tre celle adiacenti solo per uno spigolo, utili a valutare le regole sugli attraversamenti diagonali forzati;
 
-    \item i recinti (\texttt{enclosure}) sono strutture perimetrali rettangolari con area libera interna, che mettono alla prova l'algoritmo di potatura sui percorsi chiusi;
+    \item I \textbf{recinti} (\texttt{enclosure}) sono strutture perimetrali rettangolari con area libera interna, che mettono alla prova l'algoritmo di potatura sui percorsi chiusi;
 
-    \item le barre (\texttt{bar}) sono linee orizzontali o verticali con una singola apertura casuale, che costringono l'esplorazione a deviare attraverso un passaggio obbligato.
+    \item Le \textbf{barre} (\texttt{bar}) sono linee orizzontali o verticali con una singola apertura casuale, che costringono l'esplorazione a deviare attraverso un passaggio obbligato.
 \end{enumerate}
 
 La figura~\ref{fig:tipologie_ostacoli} mostra le cinque tipologie generate isolatamente sulla stessa griglia $20 \times 20$, in modo che ciascuna forma sia riconoscibile senza l'interferenza delle altre.
