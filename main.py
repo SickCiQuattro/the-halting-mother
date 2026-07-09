@@ -111,6 +111,13 @@ def cmd_context(args: argparse.Namespace) -> None:
         formatted_frontier = [(cell, f"Tipo {tipo}") for cell, tipo in sorted(frontier)]
         print(formatted_frontier)
 
+    if args.save_img:
+        from src.visualization import save_context_image
+        save_context_image(
+            grid, origin, context, complement, frontier, args.save_img,
+            title=f"Contesto, complemento e frontiera da O={origin}"
+        )
+
 def cmd_dlib(args: argparse.Namespace) -> None:
     """
     Sotto-comando per misurare la distanza di cammino libero ideale dlib tra due punti.
@@ -297,6 +304,7 @@ def main() -> None:
     parser_ctx.add_argument("--grid", required=True, help="Percorso del file JSON della griglia")
     parser_ctx.add_argument("--origin", required=True, help="Coordinate cella di partenza (row,col)")
     parser_ctx.add_argument("--type", choices=['1', '2', 'both'], default='both', help="Visualizza contesto (1), complemento (2) o entrambi")
+    parser_ctx.add_argument("--save-img", default=None, help="Percorso per salvare l'immagine PNG di contesto/complemento/frontiera")
     parser_ctx.set_defaults(func=cmd_context)
 
     # 3. DLIB

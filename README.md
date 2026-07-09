@@ -1,7 +1,7 @@
 # Algoritmi e Strutture Dati: elaborato accademico 2024/25
 
 Progetto accademico per il corso di *Algoritmi e Strutture Dati* (a.a. 2024/25, Prof.ssa Zanella).  
-Sviluppato in **Python 3.13** rispettando i requisiti completi per **gruppi di 3 persone**.
+Sviluppato in **Python 3.13**.
 
 L'architettura affronta la scalabilità su griglie di grandi dimensioni (fino a $150 \times 150$ nella campagna sperimentale) grazie alla potatura branch-and-bound con limite superiore globale, e produce visualizzazioni ad alta risoluzione allineate alla specifica.
 
@@ -31,17 +31,22 @@ L'architettura affronta la scalabilità su griglie di grandi dimensioni (fino a 
 Le istruzioni valgono in modo identico su macOS, Linux e Windows: cambia solo il comando di attivazione dell'ambiente virtuale.
 
 1. Crea l'ambiente virtuale con Python 3.13:
+
    ```bash
    python3.13 -m venv .venv        # macOS / Linux
    py -3.13 -m venv .venv          # Windows (PowerShell o prompt dei comandi)
    ```
+
 2. Attiva l'ambiente virtuale:
+
    ```bash
    source .venv/bin/activate       # macOS / Linux
    .venv\Scripts\Activate.ps1      # Windows PowerShell
    .venv\Scripts\activate.bat      # Windows prompt dei comandi
    ```
+
 3. Installa il progetto in modalità modificabile (rende `src` importabile da qualunque cartella di lavoro, senza dover impostare `PYTHONPATH`):
+
    ```bash
    pip install -e .
    ```
@@ -53,45 +58,59 @@ Le istruzioni valgono in modo identico su macOS, Linux e Windows: cambia solo il
 Una volta attivato l'ambiente virtuale, tutti i comandi si lanciano con il semplice interprete `python`, identico sui due sistemi operativi.
 
 ### 1. Generazione di griglie (Compito 1)
+
 Genera ostacoli misti (`simple`, `cluster`, `diagonal`, `enclosure`, `bar` o `mix`) e salva la griglia strutturata ed un'immagine PNG ad alta risoluzione:
+
 ```bash
-python main.py generate --rows 50 --cols 50 --types mix --density 0.2 --seed 42 -o grids/grid.json --save-img results/test_grid_generated.png
+python main.py generate --types mix --seed 42 --save-img results/test_grid_generated.png
 ```
 
 ### 2. Calcolo del contesto e complemento (Compito 2)
-Espande i raggi per calcolare Contesto (Tipo 1), Complemento (Tipo 2) e Frontiera di una coordinata origine:
+
+Espande i raggi per calcolare Contesto (Tipo 1), Complemento (Tipo 2) e Frontiera di una coordinata origine, esportando anche l'immagine PNG della chiusura:
+
 ```bash
-python main.py context --grid grids/grid.json --origin 10,10 --type both
+python main.py context --grid grids/grid.json --origin 10,10 --save-img results/context.png
 ```
 
 ### 3. Calcolo della distanza ideale ($d_{\text{lib}}$)
+
 Calcola la distanza minima teorica priva di ostacoli su una griglia con adiacenza a otto direzioni:
+
 ```bash
 python main.py dlib --origin 10,10 --dest 40,40
 ```
 
 ### 4. Calcolo del cammino minimo (`CAMMINOMIN`, Compito 3)
+
 Esegue l'algoritmo ricorsivo di ricerca del cammino minimo con la potatura branch-and-bound a limite superiore globale. Esporta la sequenza dei landmark e produce l'immagine ad alta risoluzione del cammino:
+
 ```bash
 python main.py camminomin --grid grids/grid.json --origin 0,0 --dest 49,49 --strong-pruning --summary --save-img results/test_path_resolved.png
 ```
+
 *Il flag `--summary` stampa il riassunto strutturato in formato JSON.*
 
 ### 5. Campagna sperimentale e grafici (Compito 4)
+
 Esegue l'intera batteria di prove temporali e spaziali (memoria) su più coppie origine-destinazione per configurazione, con doppia invocazione O→D e D→O su ogni coppia, e genera i 6 grafici nella cartella `results/`:
+
 ```bash
 python main.py experiment --output-dir results
 ```
 
-Per lanciare la verifica formale di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su $N$ coppie casuali di nodi:
+Per lanciare la verifica formale di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su $N$ coppie casuali di nodi (il lato della griglia quadrata usata è configurabile con `--symmetry-grid-size`, 20 in modo predefinito):
+
 ```bash
-python main.py experiment --verify-symmetry-count 10 --symmetry-grid-size 20
+python main.py experiment --verify-symmetry-count 10
 ```
 
 ---
 
 ## Esecuzione dei test unitari
+
 Tutti i componenti logici e matematici del progetto sono coperti da test automatici:
+
 ```bash
 python -m unittest discover -s tests -p "test_*.py"
 ```

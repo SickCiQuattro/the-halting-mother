@@ -160,3 +160,66 @@ def save_grid_image(
     plt.savefig(output_path, dpi=200, bbox_inches='tight')
     plt.close()
     logger.info(f"Immagine della griglia salvata con successo in: {output_path}")
+
+def save_context_image(
+    grid: Grid,
+    origin: Coordinate,
+    context: set[Coordinate],
+    complement: set[Coordinate],
+    frontier: list[tuple[Coordinate, int]],
+    output_path: str,
+    title: str | None = None
+) -> None:
+    """
+    Genera e salva un'immagine PNG del contesto (tipo 1), complemento (tipo 2) e
+    della frontiera della chiusura calcolati a partire da un'origine.
+
+    Args:
+        grid: L'oggetto Grid da renderizzare.
+        origin: Coordinata sorgente di espansione (row, col).
+        context: Insieme delle celle raggiungibili con cammino libero di tipo 1.
+        complement: Insieme delle celle raggiungibili con cammino libero di tipo 2.
+        frontier: Lista di tuple (cella, tipo_cammino) che compongono la frontiera.
+        output_path: Percorso del file PNG di output.
+        title: Titolo opzionale del grafico.
+    """
+    rows, cols = grid.rows, grid.cols
+    fig, ax = plt.subplots(figsize=(8, 6.2))
+
+    for r in range(rows):
+        for c in range(cols):
+            cell = (r, c)
+            if grid.state[r, c] == 1:
+                colore = '#2d3436'
+            elif cell in context:
+                colore = '#2ed573'
+            elif cell in complement:
+                colore = '#ffb545'
+            else:
+                colore = '#ffffff'
+            ax.add_patch(plt.Rectangle((c - 0.5, r - 0.5), 1, 1, facecolor=colore, edgecolor='#dfe6e9', zorder=1))
+
+    for (r, c), _tipo in frontier:
+        ax.add_patch(plt.Circle((c, r), 0.32, facecolor='none', edgecolor='#d63031', linewidth=2.2, zorder=3))
+
+    ax.scatter(origin[1], origin[0], marker='o', s=180, facecolor='#0984e3', edgecolor='black', zorder=4)
+    ax.text(origin[1], origin[0], 'O', color='white', fontsize=10, fontweight='bold', ha='center', va='center', zorder=5)
+
+    if title:
+        ax.set_title(title, fontsize=12, fontweight='bold')
+
+    ax.set_xlim(-0.5, cols - 0.5)
+    ax.set_ylim(rows - 0.5, -0.5)
+    ax.set_xticks(np.arange(0, cols, max(1, cols // 20)))
+    ax.set_yticks(np.arange(0, rows, max(1, rows // 20)))
+    ax.grid(True, linestyle='--', alpha=0.4, zorder=0)
+    ax.set_aspect('equal')
+
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=200, bbox_inches='tight')
+    plt.close()
+    logger.info(f"Immagine del contesto salvata con successo in: {output_path}")

@@ -2,7 +2,7 @@
 """Tabella unica di ablation per le due ottimizzazioni di CAMMINOMIN (Piano di miglioramento,
 sezione 2.D). Sostituisce, come fonte per la relazione, i due script usa-e-getta
 scripts/verifica_componenti.py e scripts/verifica_innesco_goloso.py (mantenuti nel repository
-solo come provenienza storica, si veda scripts/README.md) con un'unica campagna controllata.
+solo come provenienza storica, si veda il Compito 3 della relazione) con un'unica campagna controllata.
 
 Due parti:
   1. component_check: il suo beneficio si manifesta SOLO su coppie irraggiungibili (su coppie

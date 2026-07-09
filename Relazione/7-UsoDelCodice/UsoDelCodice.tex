@@ -47,14 +47,15 @@ Tutte le funzionalità del software sono esposte tramite il modulo principale \t
 \subsubsection{1. Generazione di griglie (Compito 1)}
 Per generare proceduralmente ostacoli misti (\texttt{simple}, \texttt{cluster}, \texttt{diagonal}, \texttt{enclosure}, \texttt{bar} o lo scenario combinato \texttt{mix}) con densità configurabile e salvare l'esito in formato JSON e in immagine PNG ad alta risoluzione:
 \begin{lstlisting}[style=comandoshell]
-python main.py generate --rows 50 --cols 50 --types mix --density 0.2 --seed 42 -o grids/grid.json --save-img results/test_grid_generated.png
+python main.py generate --types mix --seed 42 --save-img results/test_grid_generated.png
 \end{lstlisting}
 
 \subsubsection{2. Calcolo di contesto, complemento e frontiera (Compito 2)}
-Per tracciare i raggi geometrici dall'origine e calcolare l'insieme delle celle appartenenti al contesto (tipo 1), al complemento (tipo 2) e alla frontiera locale:
+Per tracciare i raggi geometrici dall'origine e calcolare l'insieme delle celle appartenenti al contesto (tipo 1), al complemento (tipo 2) e alla frontiera locale, esportando anche l'immagine PNG della chiusura (contesto in verde, complemento in arancio, frontiera cerchiata in rosso):
 \begin{lstlisting}[style=comandoshell]
-python main.py context --grid grids/grid.json --origin 10,10 --type both
+python main.py context --grid grids/grid.json --origin 10,10 --save-img results/context.png
 \end{lstlisting}
+Il parametro \texttt{--save-img} è facoltativo: se omesso, il comando stampa a schermo solo il riepilogo testuale (conteggio delle celle di contesto, complemento e frontiera, con l'elenco esplicito quando non superano le cento unità).
 
 \subsubsection{3. Calcolo della distanza ideale $d_{\text{lib}}$}
 Per calcolare, tramite la formula geometrica chiusa, la distanza minima teorica su una griglia con adiacenza a otto direzioni assumendo l'assenza di ostacoli:
@@ -76,32 +77,9 @@ python main.py experiment --output-dir results
 \end{lstlisting}
 
 \subsubsection{6. Verifica di simmetria formale}
-Per lanciare la verifica automatica di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su un numero $N$ di coppie casuali di nodi:
+Per lanciare la verifica automatica di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su un numero $N$ di coppie casuali di nodi (il lato della griglia quadrata usata è configurabile con \texttt{--symmetry-grid-size}, $20$ in modo predefinito):
 \begin{lstlisting}[style=comandoshell]
-python main.py experiment --verify-symmetry-count 10 --symmetry-grid-size 20
-\end{lstlisting}
-
-\subsection{Rigenerazione delle figure pedagogiche della relazione}
-
-Le figure dimostrative della relazione (panoramica del sistema, tipologie di ostacolo, cammini liberi di tipo 1/2, contesto/complemento/frontiera con i raggi, mappa di esplorazione della potatura) non provengono dalla campagna sperimentale del Compito 4, ma da cinque script indipendenti nella cartella \texttt{scripts/}, ciascuno eseguibile singolarmente e che riusa direttamente i moduli di \texttt{src/} senza introdurre logica nuova:
-\begin{lstlisting}[style=comandoshell]
-python scripts/genera_immagine_panoramica.py
-python scripts/genera_immagine_tipologie_ostacoli.py
-python scripts/genera_immagine_cammini_liberi.py
-python scripts/genera_immagine_contesto.py
-python scripts/genera_immagine_esplorazione_potatura.py
-\end{lstlisting}
-Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un altro script non produce immagini, ma riproduce una verifica numerica citata in prosa nel Compito 4 e nelle Conclusioni: la verifica empirica del limite di ricorsione. Il confronto supplementare fra potatura debole e forte su una griglia $100\times100$ (sezione~\ref{sssec:potatura_ordinamento}) è invece coperto dalla stessa istanza già usata da \texttt{verifica\_innesco\_goloso.py} (si veda oltre), per non duplicare due script sulla stessa identica griglia, coppia e tempo limite:
-\begin{lstlisting}[style=comandoshell]
-python scripts/verifica_limite_ricorsione.py
-\end{lstlisting}
-
-Quattro ulteriori script riproducono gli esperimenti delle estensioni discusse nei Compiti 3 e 4: l'effetto del controllo dei componenti connessi su una coppia irraggiungibile (attenzione: la configurazione senza controllo esaurisce l'intero tempo limite di $600$ s), la verifica dell'oracolo A* con il calcolo del divario anytime (che genera anche la figura \texttt{divario\_anytime.png} e il file \texttt{divario\_anytime.json}), il confronto di memoria e tempo fra la matrice di byte e la griglia a piani di bit, e l'effetto dell'innesco goloso del limite superiore globale su tre istanze di difficoltà crescente:
-\begin{lstlisting}[style=comandoshell]
-python scripts/verifica_componenti.py
-python scripts/verifica_oracolo_astar.py
-python scripts/verifica_griglia_bit.py
-python scripts/verifica_innesco_goloso.py
+python main.py experiment --verify-symmetry-count 10
 \end{lstlisting}
 
 \subsection{Esecuzione della batteria di prove unitarie}
