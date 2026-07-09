@@ -101,7 +101,7 @@ lm_cols = [coord[1] for coord, _ in landmarks]
 lm_rows = [coord[0] for coord, _ in landmarks]
 axes[3].plot(lm_cols, lm_rows, color="#0984e3", linewidth=2.5, zorder=3)
 axes[3].scatter(lm_cols, lm_rows, color="#fdcb6e", edgecolor="#d63031", s=90, marker="D", zorder=4)
-axes[3].set_title(f"4. Cammino minimo risolto (Compito 3)", fontsize=12, fontweight="bold")
+axes[3].set_title("4. Cammino minimo risolto (Compito 3)", fontsize=12, fontweight="bold")
 
 for ax, coord, label in [(axes[2], origin, "O"), (axes[3], origin, "O"), (axes[3], dest, "D")]:
     ax.scatter(coord[1], coord[0], marker="o", s=140, facecolor="#0984e3", edgecolor="black", zorder=5)

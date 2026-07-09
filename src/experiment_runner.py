@@ -161,7 +161,7 @@ def run_benchmark_coppia(
     timeout: float = 30.0
 ) -> dict[str, object]:
     """
-    Esegue il riscontro completo su una coppia: invocazione O→D e D→O (diapositiva 64).
+    Esegue il riscontro completo su una coppia: invocazione O→D e D→O.
 
     La doppia invocazione con parametri scambiati è la verifica di correttezza richiesta
     dalla specifica: le due lunghezze minime devono coincidere.
@@ -211,8 +211,8 @@ def run_campaign(output_dir: str = "results") -> None:
     Campagne eseguite:
       1. Scaling delle prestazioni al crescere della dimensione (fino a 150x150).
       2. Prestazioni in funzione della densità degli ostacoli.
-      3. Confronto pruning debole vs forte su tutti i tipi di ostacolo.
-      4. Confronto ordinamento euristico vs casuale della frontiera.
+      3. Confronto potatura debole contro forte su tutti i tipi di ostacolo.
+      4. Confronto ordinamento euristico contro casuale della frontiera.
       5. Test di simmetria per ogni tipologia di ostacolo su griglie 20x20.
 
     Args:
@@ -232,7 +232,7 @@ def run_campaign(output_dir: str = "results") -> None:
     # distinguere un limite strutturale dell'algoritmo da un semplice budget insufficiente.
     # Si confrontano la potatura debole (riga 16) e quella forte (riga 17); la configurazione
     # forte è eseguita in entrambe le direzioni (O→D e D→O) per la verifica di correttezza
-    # di cui alla diapositiva 64.
+    # richiesta dalla specifica.
     sizes = [10, 20, 30, 50, 100, 150]
     scaling_timeout = 600.0
     scaling_results: list[dict[str, object]] = []
@@ -263,11 +263,11 @@ def run_campaign(output_dir: str = "results") -> None:
         json.dump(scaling_results, f, indent=2, default=str)
 
     # -------------------------------------------------------------- #
-    # 2. Prestazioni vs Densità ostacoli                             #
+    # 2. Prestazioni in funzione della densità di ostacoli           #
     # -------------------------------------------------------------- #
     # Per ogni densità si campionano più coppie casuali (oltre alla coppia
     # d'angolo, la più difficile) e si aggregano le metriche per mediana.
-    # Ogni coppia è invocata in entrambe le direzioni (Slide 64). La campagna è
+    # Ogni coppia è invocata in entrambe le direzioni. La campagna è
     # ripetuta su due taglie di griglia (50x50 e 100x100) per verificare se alle
     # densità più alte una griglia più grande produca tempi oltre il secondo.
     densities = [0.05, 0.15, 0.25, 0.35, 0.45]
@@ -303,14 +303,14 @@ def run_campaign(output_dir: str = "results") -> None:
         json.dump(density_results, f, indent=2, default=str)
 
     # -------------------------------------------------------------- #
-    # 3. Confronto Pruning (Riga 16 vs Riga 17)                      #
+    # 3. Confronto potatura debole (riga 16) contro forte (riga 17)  #
     # -------------------------------------------------------------- #
     obstacle_scenarios = ["simple", "cluster", "diagonal", "enclosure", "bar"]
     pruning_comp: list[dict[str, object]] = []
 
     rng_pruning = np.random.default_rng(13)
     for scenario in obstacle_scenarios:
-        logger.info(f"  Benchmark potatura — tipo ostacolo: {scenario}...")
+        logger.info(f"  Benchmark potatura, tipo ostacolo: {scenario}...")
         grid = GridGenerator.generate_grid(50, 50, [scenario], density=0.2, seed=2026)
         grid.clear_cell(0, 0)
         grid.clear_cell(49, 49)
@@ -323,7 +323,7 @@ def run_campaign(output_dir: str = "results") -> None:
             campioni_weak.append(
                 run_single_benchmark(grid, o, d, use_strong_pruning=False, timeout=20.0)
             )
-            # La doppia invocazione O↔D (Slide 64) avviene sulla configurazione forte
+            # La doppia invocazione O↔D avviene sulla configurazione forte
             dettagli_strong.append(
                 run_benchmark_coppia(grid, o, d, use_strong_pruning=True, timeout=20.0)
             )
@@ -342,14 +342,14 @@ def run_campaign(output_dir: str = "results") -> None:
         json.dump(pruning_comp, f, indent=2, default=str)
 
     # -------------------------------------------------------------- #
-    # 4. Confronto Ordinamento Frontiera: Euristico vs Casuale       #
-    # (Slide 65-66: ordine di visita dei candidati di frontiera)     #
+    # 4. Confronto ordinamento della frontiera: euristico contro     #
+    # casuale, sull'ordine di visita dei candidati di frontiera      #
     # -------------------------------------------------------------- #
     ordering_comp: list[dict[str, object]] = []
 
     for risultato_pruning in pruning_comp:
         scenario = risultato_pruning["obstacle_type"]
-        logger.info(f"  Benchmark ordinamento — tipo ostacolo: {scenario}...")
+        logger.info(f"  Benchmark ordinamento, tipo ostacolo: {scenario}...")
         grid = GridGenerator.generate_grid(50, 50, [scenario], density=0.2, seed=2026)
         grid.clear_cell(0, 0)
         grid.clear_cell(49, 49)
@@ -378,13 +378,13 @@ def run_campaign(output_dir: str = "results") -> None:
         json.dump(ordering_comp, f, indent=2, default=str)
 
     # --------------------------------------------------------------   #
-    # 5. Test di Simmetria per ogni tipologia di ostacolo              #
-    # (Slide 64: "algoritmo invocato due volte con parametri inversi") #
+    # 5. Test di simmetria per ogni tipologia di ostacolo:             #
+    # algoritmo invocato due volte con parametri invertiti             #
     # --------------------------------------------------------------   #
     run_symmetry_per_type(output_dir=output_dir, n_pairs=5, grid_size=20)
 
     # -------------------------------------------------------------- #
-    # Riassunto complessivo della verifica di simmetria (Slide 64)   #
+    # Riassunto complessivo della verifica di simmetria              #
     # su tutte le coppie considerate nelle campagne precedenti        #
     # -------------------------------------------------------------- #
     esiti: list[tuple[bool, bool]] = []

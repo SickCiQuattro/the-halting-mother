@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ridisegna la campagna di densità come esperimento multi-seme (Piano di miglioramento, §2.A).
+"""Ridisegna la campagna di densità come esperimento multi-seme (Piano di miglioramento, sezione 2.A).
 
 La versione a seme singolo (results/density_results.json, seed=100) mediava, sulla stessa
 griglia, sia la coppia d'angolo sia quattro coppie casuali: questo diluisce sistematicamente il
@@ -105,7 +105,7 @@ def _plot(angolo: list[dict[str, object]]) -> None:
     plt.yscale('log')
     plt.xlabel("Densità ostacoli", fontsize=10)
     plt.ylabel("Tempo di esecuzione (secondi, scala log)", fontsize=10)
-    plt.title(f"Tempo vs densità — coppia d'angolo su {n_semi} semi indipendenti (mediana + IQR)",
+    plt.title(f"Tempo in funzione della densità: coppia d'angolo su {n_semi} semi indipendenti (mediana + IQR)",
               fontsize=11, fontweight='bold')
     plt.grid(True, which="both", linestyle='--', alpha=0.5)
     plt.legend(fontsize=8.5)

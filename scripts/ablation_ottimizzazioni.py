@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Tabella unica di ablation per le due ottimizzazioni di CAMMINOMIN (Piano di miglioramento,
-§2.D). Sostituisce, come fonte per la relazione, i due script usa-e-getta
+sezione 2.D). Sostituisce, come fonte per la relazione, i due script usa-e-getta
 scripts/verifica_componenti.py e scripts/verifica_innesco_goloso.py (mantenuti nel repository
 solo come provenienza storica, si veda scripts/README.md) con un'unica campagna controllata.
 
@@ -14,7 +14,7 @@ Due parti:
      multiseme_results.json), con potatura debole e forte, con e senza innesco.
 
 Costo atteso: solo la parte 2 esegue nuovi benchmark (5 semi x 4 configurazioni, cluster
-50x50, timeout 20s) — 3-8 minuti; la parte 1 è a costo zero (rilettura di un JSON già presente).
+50x50, timeout 20s), 3-8 minuti; la parte 1 è a costo zero (rilettura di un JSON già presente).
 
 Produce results/ablation_ottimizzazioni.json.
 """

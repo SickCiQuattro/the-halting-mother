@@ -20,7 +20,7 @@ def save_grid_image(
 ) -> None:
     """
     Genera e salva un'immagine PNG ad alta definizione (2000x2000 px) della griglia
-    con visualizzazione ibrida del percorso (Slide 53).
+    con visualizzazione ibrida del percorso.
 
     Args:
         grid: L'oggetto Grid da renderizzare.
@@ -79,7 +79,7 @@ def save_grid_image(
             )
             ax.add_patch(rect)
 
-    # 6. Disegno della spezzata dei landmark e dei marker geometrici (Slide 53)
+    # 6. Disegno della spezzata dei landmark e dei marcatori geometrici
     if landmarks:
         # Estrae le coordinate cartesiane X, Y (col, row) per allineamento sub-pixel perfetto
         lm_cols = [coord[1] for coord, _ in landmarks]
@@ -95,7 +95,7 @@ def save_grid_image(
             zorder=3
         )
 
-        # Disegna i marker romboidali dorati sui landmark
+        # Disegna i marcatori romboidali dorati sui landmark
         ax.scatter(
             lm_cols,
             lm_rows,
@@ -106,7 +106,7 @@ def save_grid_image(
             zorder=4
         )
 
-        # Aggiunge le etichette testuali geometriche (O -> 1 -> 2 -> ... -> D) centrate sui marker
+        # Aggiunge le etichette testuali geometriche (O -> 1 -> 2 -> ... -> D) centrate sui marcatori
         for idx, (coord, _) in enumerate(landmarks):
             r, c = coord
             if idx == 0:

@@ -66,7 +66,7 @@ def cmd_generate(args: argparse.Namespace) -> None:
     
     if args.save_img:
         from src.visualization import save_grid_image
-        save_grid_image(grid, args.save_img, title=f"Griglia Generata ({grid.rows}x{grid.cols})")
+        save_grid_image(grid, args.save_img, title=f"Griglia generata ({grid.rows}x{grid.cols})")
         
     # Visualizzazione della griglia sul terminale se le dimensioni sono limitate
     if args.rows <= 30 and args.cols <= 30:
@@ -175,11 +175,11 @@ def cmd_camminomin(args: argparse.Namespace) -> None:
             grid, args.save_img,
             origin=origin, dest=dest,
             path=path, landmarks=landmarks,
-            title=f"Cammino Minimo Ricostruito (Lunghezza: {min_len:.4f})"
+            title=f"Cammino minimo ricostruito (lunghezza: {min_len:.4f})"
         )
         
     if args.summary:
-        # Riassunto strutturato dell'esecuzione come specificato in Slide 71
+        # Riassunto strutturato dell'esecuzione come richiesto dalla specifica
         if timed_out:
             calculation_status = "INTERROTTO PER SUPERAMENTO DEL TEMPO LIMITE"
         elif min_len < float('inf'):
@@ -206,7 +206,7 @@ def cmd_camminomin(args: argparse.Namespace) -> None:
             "tempo_trascorso_s": elapsed,
             "calcolo_completato": not timed_out
         }
-        print("\n=== RIASSUNTO STRUTTURATO DELL'ESECUZIONE (Slide 71) ===")
+        print("\n=== RIASSUNTO STRUTTURATO DELL'ESECUZIONE ===")
         print(json.dumps(summary, indent=2, default=str, ensure_ascii=False))
     else:
         print("\n=== Risultato della Ricerca ===")
@@ -278,7 +278,7 @@ def main() -> None:
         stream=sys.stderr
     )
 
-    parser = argparse.ArgumentParser(description="Algoritmi e Strutture Dati — Elaborato 2024/25")
+    parser = argparse.ArgumentParser(description="Algoritmi e Strutture Dati: Elaborato 2024/25")
     subparsers = parser.add_subparsers(dest="command", help="Sotto-comandi disponibili")
     
     # 1. GENERATE
@@ -315,7 +315,7 @@ def main() -> None:
     parser_cm.add_argument("--randomize-frontier", action="store_true", help="Mescola casualmente l'esplorazione dei nodi di frontiera")
     parser_cm.add_argument("--no-component-check", action="store_true", help="Disabilita il controllo preliminare dei componenti connessi per le coppie irraggiungibili")
     parser_cm.add_argument("--greedy-seed", action="store_true", help="Innesca il limite superiore globale con una discesa golosa preliminare")
-    parser_cm.add_argument("--summary", action="store_true", help="Stampa il resoconto strutturato dell'esecuzione nel formato Slide 71")
+    parser_cm.add_argument("--summary", action="store_true", help="Stampa il resoconto strutturato dell'esecuzione richiesto dalla specifica")
     parser_cm.add_argument("--save-img", default=None, help="Percorso per salvare l'immagine PNG del cammino minimo")
     parser_cm.set_defaults(func=cmd_camminomin)
 

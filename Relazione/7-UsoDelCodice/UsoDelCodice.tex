@@ -83,14 +83,13 @@ python main.py experiment --verify-symmetry-count 10 --symmetry-grid-size 20
 
 \subsection{Rigenerazione delle figure pedagogiche della relazione}
 
-Le figure dimostrative della relazione (panoramica del sistema, tipologie di ostacolo, cammini liberi di tipo 1/2, contesto/complemento/frontiera con i raggi, mappa di esplorazione della potatura, sintesi del beneficio dei componenti connessi) non provengono dalla campagna sperimentale del Compito 4, ma da sei script indipendenti nella cartella \texttt{scripts/}, ciascuno eseguibile singolarmente e che riusa direttamente i moduli di \texttt{src/} senza introdurre logica nuova:
+Le figure dimostrative della relazione (panoramica del sistema, tipologie di ostacolo, cammini liberi di tipo 1/2, contesto/complemento/frontiera con i raggi, mappa di esplorazione della potatura) non provengono dalla campagna sperimentale del Compito 4, ma da cinque script indipendenti nella cartella \texttt{scripts/}, ciascuno eseguibile singolarmente e che riusa direttamente i moduli di \texttt{src/} senza introdurre logica nuova:
 \begin{lstlisting}[style=comandoshell]
 python scripts/genera_immagine_panoramica.py
 python scripts/genera_immagine_tipologie_ostacoli.py
 python scripts/genera_immagine_cammini_liberi.py
 python scripts/genera_immagine_contesto.py
 python scripts/genera_immagine_esplorazione_potatura.py
-python scripts/genera_immagine_estensione_componenti.py
 \end{lstlisting}
 Ciascuno scrive il proprio PNG in \texttt{Relazione/images/}, sovrascrivendo il file esistente. Un altro script non produce immagini, ma riproduce una verifica numerica citata in prosa nel Compito 4 e nelle Conclusioni: la verifica empirica del limite di ricorsione. Il confronto supplementare fra potatura debole e forte su una griglia $100\times100$ (§5.4.2) è invece coperto dalla stessa istanza già usata da \texttt{verifica\_innesco\_goloso.py} (si veda oltre), per non duplicare due script sulla stessa identica griglia, coppia e tempo limite:
 \begin{lstlisting}[style=comandoshell]

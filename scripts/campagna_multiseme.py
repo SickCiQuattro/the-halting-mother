@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Robustezza multi-seme sulle campagne veloci (Relazione, §5.4 — Slide 63: "istanze
-significative", "numerose").
+"""Robustezza multi-seme sulle campagne veloci (Relazione, sezione 5.4: la specifica chiede istanze
+significative e numerose).
 
 Le campagne esistenti (potatura per tipo, densità) usano una griglia a seme fisso: le mediane
 sono su più coppie origine-destinazione DENTRO la stessa topologia, non su più topologie
@@ -13,13 +13,10 @@ Produce results/multiseme_results.json e results/8_multiseme_iqr.png.
 """
 import json
 import os
-import statistics
 
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 import numpy as np
 
+from _common import plt
 from src.generator import GridGenerator
 from src.experiment_runner import run_single_benchmark
 

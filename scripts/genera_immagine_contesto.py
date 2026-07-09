@@ -7,7 +7,7 @@ from src.free_paths import compute_context_rays, compute_complement_rays, comput
 from _common import plt
 
 # Griglia dimostrativa 15x15 con un ostacolo che spezza un quadrante,
-# analoga per struttura all'esempio delle diapositive 18/20/24/25 della traccia.
+# analoga per struttura all'esempio della traccia.
 grid = Grid(15, 15)
 for r, c in [(4, 9), (5, 9), (6, 9), (6, 10), (6, 11), (9, 4), (10, 4), (10, 5)]:
     grid.set_obstacle(r, c)
@@ -34,7 +34,7 @@ def cast_ray(origin, direction, grid_state):
 
 
 # Gli 8 raggi primari (4 cardinali + 4 diagonali) proiettati dall'origine: sono il passo
-# geometrico esplicito che l'algoritmo di ray-casting esegue prima delle espansioni a gomito
+# geometrico esplicito che l'algoritmo di proiezione di raggi esegue prima delle espansioni a gomito
 # che riempiono il resto di contesto e complemento (già visibili come colore pieno).
 direzioni = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, 1), (-1, -1), (1, -1), (1, 1)]
 raggi = [(origin, cast_ray(origin, d, grid.state)) for d in direzioni]

@@ -1,6 +1,5 @@
 import unittest
 import numpy as np
-import time
 from src.grid import Grid
 from src.camminomin import camminomin, reconstruct_path, compact
 

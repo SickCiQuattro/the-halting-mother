@@ -1,4 +1,4 @@
-"""Verifica di correttezza per simmetria (Compito 4, diapositiva 64).
+"""Verifica di correttezza per simmetria (Compito 4).
 
 Confronta camminomin(O, D) con camminomin(D, O): le due lunghezze minime devono coincidere.
 """
@@ -34,7 +34,7 @@ def verify_symmetry(
     Args:
         grid: L'oggetto Grid da utilizzare per la ricerca.
         points: Lista di coppie (origine, destinazione) da testare.
-        use_strong: Se True, usa il pruning forte (Riga 17), altrimenti debole (Riga 16).
+        use_strong: Se True, usa la potatura forte (Riga 17), altrimenti debole (Riga 16).
         timeout: Secondi massimi per ogni singola invocazione.
 
     Returns:

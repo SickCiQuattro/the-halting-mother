@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Caso peggiore topologico: labirinto serpentino connesso (Relazione, §5.4 — spec, diapositiva
-8: barre disposte "in modo da formare un labirinto").
+"""Caso peggiore topologico: labirinto serpentino connesso (Relazione, sezione 5.4: la specifica cita
+barre disposte «in modo da formare un labirinto»).
 
 A differenza delle campagne precedenti (ostacoli sparsi o a barre con varchi casuali), il
 labirinto serpentino (GridGenerator.generate_maze) forza un'unica catena di landmark lunga e
@@ -14,17 +14,12 @@ import json
 import os
 import time
 
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-
+from _common import plt
 from src.grid import Grid
 from src.generator import GridGenerator
 from src.camminomin import camminomin, reconstruct_path
 from src.visualization import save_grid_image
-from src.plot_style import apply_style, COLOR_DEBOLE, COLOR_FORTE
-
-apply_style()
+from src.plot_style import COLOR_DEBOLE, COLOR_FORTE
 
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 SIZE = 30
@@ -85,14 +80,14 @@ def main() -> None:
             f"limite_raggiunto={c['tempo_limite_raggiunto']}"
         )
 
-    # Figura 1: confronto a barre debole vs forte
+    # Figura 1: confronto a barre debole contro forte
     fig, ax = plt.subplots(figsize=(6.5, 5))
     nomi = ["debole (riga 16)", "forte (riga 17)"]
     valori = [max(1, c["chiamate_ricorsive"]) for c in corse]
     ax.bar(nomi, valori, color=[COLOR_DEBOLE, COLOR_FORTE])
     ax.set_yscale("log")
     ax.set_ylabel("Invocazioni ricorsive (scala log)")
-    ax.set_title(f"Labirinto serpentino {SIZE}x{SIZE}: potatura debole vs forte")
+    ax.set_title(f"Labirinto serpentino {SIZE}x{SIZE}: potatura debole contro forte")
     ax.grid(True, which="both", linestyle="--", alpha=0.4)
     plt.tight_layout()
     plt.savefig(os.path.join(RESULTS_DIR, "9_maze.png"), dpi=200)
@@ -104,10 +99,10 @@ def main() -> None:
         save_grid_image(
             grid, os.path.join(RESULTS_DIR, "maze_cammino.png"),
             origin=origin, dest=dest, path=path, landmarks=ultimo_landmarks,
-            title=f"Labirinto serpentino {SIZE}x{SIZE} — cammino minimo (potatura forte)"
+            title=f"Labirinto serpentino {SIZE}x{SIZE}: cammino minimo (potatura forte)"
         )
 
-    print(f"\nSalvati: results/maze_results.json, results/9_maze.png, results/maze_cammino.png")
+    print("\nSalvati: results/maze_results.json, results/9_maze.png, results/maze_cammino.png")
 
 
 if __name__ == "__main__":

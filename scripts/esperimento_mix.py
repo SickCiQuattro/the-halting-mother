@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Copertura della tipologia 'mix' (Relazione, §5.4 — requisito Compito 4: tutte le tipologie).
+"""Copertura della tipologia 'mix' (Relazione, sezione 5.4: requisito Compito 4, tutte le tipologie).
 
 Le cinque tipologie singole (simple, cluster, diagonal, enclosure, bar) sono già coperte dalle
 campagne di potatura, ordinamento e simmetria per tipo (results/pruning_comparison.json,
 results/ordering_comparison.json, results/symmetry_per_type.json), tutte a 50x50 o 20x20.
 Manca la tipologia combinata 'mix' (più tipologie di ostacolo sulla stessa griglia, generata da
 GridGenerator.generate_grid quando i tipi includono più voci contemporaneamente). Questo script
-mirror la stessa metodologia già usata per le tipologie singole in src/experiment_runner.py,
-limitata a 'mix', per chiudere la copertura richiesta dallo spec senza rieseguire l'intera
+riprende la stessa metodologia già usata per le tipologie singole in src/experiment_runner.py,
+limitata a 'mix', per chiudere la copertura richiesta dalla specifica senza rieseguire l'intera
 run_campaign().
 
 Produce results/mix_comparison.json.
@@ -53,7 +53,7 @@ def main() -> None:
         for o, d in coppie
     ]
 
-    # Verifica di simmetria dedicata (diapositiva 64) su una griglia mix più piccola, per avere
+    # Verifica di simmetria dedicata su una griglia mix più piccola, per avere
     # risultati definitivi senza rischio di timeout, in linea con run_symmetry_per_type.
     grid_sym = GridGenerator.generate_grid(20, 20, MIX_TYPES, density=0.15, seed=99)
     punti_sym: list[tuple[tuple[int, int], tuple[int, int]]] = []
@@ -92,11 +92,11 @@ def main() -> None:
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(esito, f, indent=2, default=str, ensure_ascii=False)
 
-    print(f"Mix 50x50 — potatura debole:  tempo mediano={esito['weak']['elapsed_time_s']:.4f}s "
+    print(f"Mix 50x50, potatura debole:  tempo mediano={esito['weak']['elapsed_time_s']:.4f}s "
           f"timed_out={esito['weak']['timed_out']}")
-    print(f"Mix 50x50 — potatura forte:   tempo mediano={esito['strong']['elapsed_time_s']:.4f}s "
+    print(f"Mix 50x50, potatura forte:   tempo mediano={esito['strong']['elapsed_time_s']:.4f}s "
           f"timed_out={esito['strong']['timed_out']}")
-    print(f"Mix 50x50 — ordinamento casuale: tempo mediano={esito['random']['elapsed_time_s']:.4f}s "
+    print(f"Mix 50x50, ordinamento casuale: tempo mediano={esito['random']['elapsed_time_s']:.4f}s "
           f"timed_out={esito['random']['timed_out']}")
     print(f"Simmetria dedicata (20x20, {len(risultati_sym)} coppie): {len(falliti_sym)} fallimenti")
     print(f"Densità nominale: {esito['densita_nominale']:.2f}  Densità effettiva: {densita_effettiva:.4f}")

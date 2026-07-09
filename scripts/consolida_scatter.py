@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Rigenera la sola figura 4 (scatter combinato tempo/complessità) senza rilanciare l'intera
-campagna sperimentale (Piano di miglioramento, §2.F).
+campagna sperimentale (Piano di miglioramento, sezione 2.F).
 
-In precedenza le figure 4 e 5 erano due scatter separati (tempo-vs-frontiera, tempo-vs-
-ricorsione) con correlazione praticamente identica (R^2=0.93 e 0.84): le due metriche crescono
+In precedenza le figure 4 e 5 erano due scatter separati (tempo contro frontiera, tempo contro
+invocazioni ricorsive) con correlazione praticamente identica (R^2=0.93 e 0.84): le due metriche crescono
 insieme per costruzione (ogni chiamata ricorsiva aggiunge la propria frontiera al totale), quindi
 la seconda figura non aggiungeva informazione strutturale. src/experiment_plots.py ora produce
 un'unica figura a due pannelli (_plot_scatter_combined); questo script la rigenera dai JSON già

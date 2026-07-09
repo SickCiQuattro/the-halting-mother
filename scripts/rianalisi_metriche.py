@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Re-analisi a costo nullo dei dati già raccolti dalla campagna sperimentale (Relazione, §5.4).
+"""Rianalisi a costo nullo dei dati già raccolti dalla campagna sperimentale (Relazione, sezione 5.4).
 
 Non esegue alcun nuovo benchmark: legge i JSON già presenti in results/ e calcola due metriche
 derivate che oggi in relazione sono solo qualitative:

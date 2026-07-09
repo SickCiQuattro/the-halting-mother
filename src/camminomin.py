@@ -14,7 +14,7 @@ from src.free_paths import (
 
 # Valore con cui le celle della chiusura corrente vengono marcate come ostacolo temporaneo
 # durante il ritracciamento sul posto. È una costante (non dipende dalla profondità): le
-# chiusure annidate sono disgiunte (il ray-casting si arresta a stato>0) e il ripristino
+# chiusure annidate sono disgiunte (la proiezione di raggi si arresta a stato>0) e il ripristino
 # avviene per insieme esplicito, quindi non serve un identificativo distinto per livello.
 # Usare una costante evita l'overflow del tipo uint8 (depth+2 superava 255 oltre profondità 253).
 TEMP_MARK = 2
@@ -51,7 +51,7 @@ def _discesa_golosa(
     completo qualsiasi da usare come innesco del limite superiore globale.
 
     A ogni passo sceglie solo la cella di frontiera con dlib minima verso la destinazione
-    (lo stesso criterio dell'ordinamento euristico, diapositiva 66) e prosegue da lì, senza
+    (lo stesso criterio dell'ordinamento euristico) e prosegue da lì, senza
     mai tornare sui propri passi. Poiché ogni chiusura attraversata viene marcata come
     ostacolo temporaneo prima di procedere, il cammino non può richiudersi su se stesso: la
     discesa termina in al più O(R*C) passi, o in un cammino completo oppure in un vicolo
@@ -219,7 +219,7 @@ def camminomin(
     if not frontier:
         return float('inf'), [], False
 
-    # 7. Ordinamento euristico della frontiera (osservazione della diapositiva 66):
+    # 7. Ordinamento euristico della frontiera (osservazione della specifica):
     #    si esplorano per prime le celle più vicine alla destinazione.
     if randomize_frontier:
         random.shuffle(frontier)

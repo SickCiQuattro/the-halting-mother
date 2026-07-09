@@ -148,7 +148,7 @@ def compute_context_rays(origin: Coordinate, grid_state: np.ndarray) -> set[Coor
     """
     Ritorna l'insieme di celle raggiungibili da un'origine tramite un cammino libero di tipo 1.
 
-    Ottimizzazione Ray-Casting:
+    Ottimizzazione a proiezione di raggi:
     Invece di invocare `free_path_type1` per ciascuna cella della griglia (costo totale O(R^2 * C^2)),
     questo algoritmo traccia i raggi partendo dall'origine ed espandendo verso l'esterno.
     La complessità temporale è ridotta a O(max(R, C)^2).
@@ -226,7 +226,7 @@ def compute_complement_rays(
     """
     Ritorna l'insieme di celle raggiungibili da un'origine tramite cammino tipo 2 escludendo il contesto.
 
-    Ottimizzazione Ray-Casting:
+    Ottimizzazione a proiezione di raggi:
     La complessità temporale è O(max(R, C)^2).
     Questo metodo trova le celle che hanno un cammino libero di tipo 2 e NON di tipo 1.
     Nota: Per gli assi puri, tipo 1 e tipo 2 sono coincidenti, quindi sono già interamente coperti

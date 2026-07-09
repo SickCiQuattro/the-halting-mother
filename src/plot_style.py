@@ -6,10 +6,10 @@ percorrenza), mai ciclata automaticamente da matplotlib.
 """
 import matplotlib
 
-COLOR_DEBOLE = "#D55E00"    # potatura debole (riga 16) — vermiglio
-COLOR_FORTE = "#0072B2"     # potatura forte (riga 17) — blu
-COLOR_ANDATA = "#CC79A7"    # direzione O -> D — porpora
-COLOR_RITORNO = "#009E73"   # direzione D -> O / ritorno — verde-blu
+COLOR_DEBOLE = "#D55E00"    # potatura debole (riga 16): vermiglio
+COLOR_FORTE = "#0072B2"     # potatura forte (riga 17): blu
+COLOR_ANDATA = "#CC79A7"    # direzione O -> D: porpora
+COLOR_RITORNO = "#009E73"   # direzione D -> O / ritorno: verde-blu
 COLOR_TIMEOUT = "#404040"   # marcatore di stato "tempo limite raggiunto"
 COLOR_GRID = "#B0B0B0"
 

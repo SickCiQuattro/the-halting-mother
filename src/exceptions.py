@@ -2,11 +2,7 @@ class PathfindingError(Exception):
     """Classe base per tutte le eccezioni del sistema di pathfinding."""
     pass
 
-class GridError(PathfindingError):
-    """Eccezione sollevata per errori relativi alla griglia."""
-    pass
-
-class InvalidCoordinateError(GridError):
+class InvalidCoordinateError(PathfindingError):
     """Eccezione sollevata quando le coordinate fornite sono al di fuori della griglia."""
     pass
 

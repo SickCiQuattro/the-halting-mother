@@ -1,4 +1,4 @@
-"""Generazione dei sei grafici della campagna sperimentale (Compito 4, Slide 53/71)."""
+"""Generazione dei sei grafici della campagna sperimentale (Compito 4)."""
 import os
 
 # Imposta il backend headless di matplotlib prima di importare pyplot per ambienti senza display
@@ -218,7 +218,7 @@ def _plot_scatter_combined(
     fig.colorbar(sc1, ax=ax1, label="Numero totale di landmark")
     ax1.set_xscale('log')
     ax1.set_yscale('log')
-    ax1.set_title("Tempo vs celle di frontiera", fontsize=11, fontweight='bold')
+    ax1.set_title("Tempo contro celle di frontiera", fontsize=11, fontweight='bold')
     ax1.set_xlabel("Celle di frontiera considerate", fontsize=10)
     ax1.set_ylabel("Tempo di esecuzione (secondi)", fontsize=10)
     ax1.grid(True, which="both", linestyle='--', alpha=0.5)
@@ -235,7 +235,7 @@ def _plot_scatter_combined(
     fig.colorbar(sc2, ax=ax2, label="Lunghezza del cammino minimo")
     ax2.set_xscale('log')
     ax2.set_yscale('log')
-    ax2.set_title("Tempo vs invocazioni ricorsive", fontsize=11, fontweight='bold')
+    ax2.set_title("Tempo contro invocazioni ricorsive", fontsize=11, fontweight='bold')
     ax2.set_xlabel("Numero di invocazioni ricorsive", fontsize=10)
     ax2.set_ylabel("Tempo di esecuzione (secondi)", fontsize=10)
     ax2.grid(True, which="both", linestyle='--', alpha=0.5)
@@ -250,7 +250,7 @@ def _plot_scatter_combined(
 
 def _plot_symmetry(pruning_res: list[dict[str, object]], output_dir: str) -> None:
     """Plot 6: tempo O→D contro D→O sulla coppia d'angolo, per tipologia di ostacolo. La
-    lunghezza minima coincide nelle due direzioni (Slide 64): qui si mostra invece che il
+    lunghezza minima coincide nelle due direzioni: qui si mostra invece che il
     costo computazionale può differire anche di un ordine di grandezza, perché l'ordine di
     visita della frontiera dipende dal verso di marcia."""
     sym_types = [r["obstacle_type"] for r in pruning_res]
@@ -262,7 +262,7 @@ def _plot_symmetry(pruning_res: list[dict[str, object]], output_dir: str) -> Non
     fig, ax = plt.subplots(figsize=(9, 5.5))
     ax.bar(x3 - width / 2, corner_od, width, label='O → D', color=COLOR_ANDATA)
     ax.bar(x3 + width / 2, corner_do, width, label='D → O', color=COLOR_RITORNO)
-    ax.set_title("Tempo di esecuzione O→D vs D→O sulla coppia d'angolo (potatura forte)", fontsize=12, fontweight='bold')
+    ax.set_title("Tempo di esecuzione O→D contro D→O sulla coppia d'angolo (potatura forte)", fontsize=12, fontweight='bold')
     ax.set_xticks(x3)
     ax.set_xticklabels(sym_types)
     ax.set_ylabel("Tempo di esecuzione (secondi)")
@@ -283,7 +283,7 @@ def generate_plots(
 ) -> None:
     """
     Genera ed esporta la suite di sei grafici ad alta risoluzione (2000x2000 px equivalenti)
-    per l'analisi asintotica formale (Slide 53 / Slide 71).
+    per l'analisi asintotica formale.
     """
     frontier_cells_list, elapsed_time_list, landmarks_count_list, recursive_calls_list, path_length_list = (
         _estrai_campioni(scaling_res, density_res, pruning_res, ordering_res)

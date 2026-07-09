@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Esperimento documentato per l'innesco goloso e il controllo dei componenti connessi
-(Relazione, §4.4 e §4.5). Sostituisce gli script ad-hoc verifica_innesco_goloso.py e
+(Relazione, sezioni 4.4 e 4.5). Sostituisce gli script ad-hoc verifica_innesco_goloso.py e
 verifica_componenti.py, che misuravano l'effetto delle due ottimizzazioni solo a schermo,
 senza salvare risultati né produrre una figura.
 
@@ -13,18 +13,16 @@ import json
 import os
 import time
 
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 import numpy as np
 
+from _common import plt
 from src.grid import Grid, compute_components
 from src.generator import GridGenerator
 from src.camminomin import camminomin
 
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 GRIDS_DIR = os.path.join(os.path.dirname(__file__), "..", "grids")
-# Stessi tempi limite già usati per i numeri citati in relazione (§4.4, §4.5), per non
+# Stessi tempi limite già usati per i numeri citati in relazione (sezioni 4.4 e 4.5), per non
 # produrre risultati incoerenti con quanto già scritto nel testo.
 COMPONENT_TIMEOUT = 600.0
 
@@ -51,7 +49,7 @@ def _esegui(origin, dest, grid_state, forte: bool, seed: bool, timeout: float):
 
 def esperimento_greedy_seed() -> list[dict[str, object]]:
     # Stesse istanze e stessi tempi limite di scripts/verifica_innesco_goloso.py, i numeri
-    # già discussi in relazione (§4.4): 30s per le prime due, 60s per la 100x100 più difficile.
+    # già discussi in relazione (sezione 4.4): 30s per le prime due, 60s per la 100x100 più difficile.
     istanze = [
         ("18x18 cluster", GridGenerator.generate_grid(18, 18, ["cluster"], density=0.2, seed=2026), (0, 0), (17, 17), 30.0),
         ("40x40 misto", Grid.load(os.path.join(GRIDS_DIR, "grid_report_esempio.json")), (0, 0), (39, 39), 30.0),
@@ -194,8 +192,8 @@ def main() -> None:
             f"chiamate={c['chiamate_ricorsive']} limite_raggiunto={c['tempo_limite_raggiunto']}"
         )
 
-    print(f"\nSalvati: results/greedy_seed_results.json, results/component_check_results.json, "
-          f"results/7_ottimizzazioni.png")
+    print("\nSalvati: results/greedy_seed_results.json, results/component_check_results.json, "
+          "results/7_ottimizzazioni.png")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 import unittest
-import numpy as np
 import math
 from src.grid import Grid
 from src.free_paths import (

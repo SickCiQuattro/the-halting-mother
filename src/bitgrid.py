@@ -4,8 +4,8 @@ confronto di implementazioni relativamente alle strutture dati; strutture che es
 taglie elaborabili).
 
 La matrice `uint8` standard usa 1 byte per cella, ma gli stati logici necessari sono tre
-(0 libera, 1 ostacolo fisso, 2 ostacolo temporaneo): bastano due piani di bit — uno per gli
-ostacoli fissi e uno per le marcature temporanee — cioè 2 bit per cella, con un'occupazione
+(0 libera, 1 ostacolo fisso, 2 ostacolo temporaneo): bastano due piani di bit, uno per gli
+ostacoli fissi e uno per le marcature temporanee, cioè 2 bit per cella, con un'occupazione
 di memoria pari a circa 1/4. Il prezzo è l'accesso per singola cella tramite operazioni sui
 bit in Python puro, atteso più lento di svariate volte rispetto all'indicizzazione numpy
 diretta: il compromesso spazio/tempo è quantificato in `scripts/verifica_griglia_bit.py`.

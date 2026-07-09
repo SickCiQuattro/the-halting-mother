@@ -256,8 +256,8 @@ class GridGenerator:
         """
         Genera un labirinto serpentino deterministico: pareti verticali complete, ciascuna con
         un varco largo `corridor_width` alternato in alto e in basso, che forzano un cammino a
-        S da un lato all'altro della griglia. È il caso peggiore topologico citato dallo spec
-        (diapositiva 8: ostacoli a barre disposti "in modo da formare un labirinto"): a
+        S da un lato all'altro della griglia. È il caso peggiore topologico citato dalla specifica
+        (ostacoli a barre disposti «in modo da formare un labirinto»): a
         differenza di `generate_bar` (varchi casuali, non necessariamente connessi in un unico
         percorso), qui la connessione fra le due estremità è garantita per costruzione, quindi
         non serve alcun controllo di raggiungibilità a posteriori.

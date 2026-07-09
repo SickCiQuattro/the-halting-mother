@@ -43,7 +43,7 @@ class Grid:
         self.rows: int = rows
         self.cols: int = cols
         self.state: np.ndarray = np.zeros((rows, cols), dtype=np.uint8)
-        # Tipologie di ostacoli con cui la griglia è stata generata (richiesto dal riassunto, Slide 71)
+        # Tipologie di ostacoli con cui la griglia è stata generata (richiesto dal riassunto strutturato)
         self.types: List[str] = []
 
     def is_valid(self, row: int, col: int) -> bool:

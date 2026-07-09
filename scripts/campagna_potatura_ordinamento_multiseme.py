@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Ridisegna potatura (riga 16 vs 17) e ordinamento (euristico vs casuale) come campagna
-multi-seme (Piano di miglioramento, §2.A e §2.C). Le versioni a seme singolo
+"""Ridisegna potatura (riga 16 contro riga 17) e ordinamento (euristico contro casuale) come
+campagna multi-seme (Piano di miglioramento, sezione 2.A). Le versioni a seme singolo
 (pruning_comparison.json, ordering_comparison.json, seed=2026) restano come riferimento più
 fine (5 coppie per griglia, incluse quelle casuali); qui si isola la coppia d'angolo su 8 semi
-di griglia indipendenti per tipologia, con mediana e IQR — lo stesso protocollo di
+di griglia indipendenti per tipologia, con mediana e IQR: lo stesso protocollo di
 campagna_densita_multiseme.py, per lo stesso motivo (C1/C2 in ValutazioneEsperimenti.md).
 
 L'ordinamento euristico riusa le corse "forte" già eseguite per la potatura (nella campagna
@@ -68,7 +68,7 @@ def _campagna() -> tuple[list[dict[str, object]], list[dict[str, object]]]:
             esito_weak = run_single_benchmark(grid, ORIGIN, DEST, use_strong_pruning=False, timeout=TIMEOUT)
             corse_weak.append({"seed": seed, **esito_weak})
 
-            # La doppia invocazione O<->D (diapositiva 64) avviene qui, sulla configurazione forte.
+            # La doppia invocazione O<->D avviene qui, sulla configurazione forte.
             coppia = run_benchmark_coppia(grid, ORIGIN, DEST, use_strong_pruning=True, timeout=TIMEOUT)
             corse_strong.append({"seed": seed, **coppia["andata"]})
             if coppia["simmetria_verificabile"] and not coppia["simmetria_ok"]:
@@ -108,14 +108,14 @@ def _plot(pruning: list[dict[str, object]]) -> None:
            label=f'Potatura debole (mediana + IQR, {len(SEEDS)} semi)', color=COLOR_DEBOLE)
     ax.bar(x + width / 2, strong_med, width, yerr=strong_err, capsize=4,
            label=f'Potatura forte (mediana + IQR, {len(SEEDS)} semi)', color=COLOR_FORTE)
-    ax.set_title(f"Tempi di esecuzione per tipologia — {len(SEEDS)} semi indipendenti (coppia d'angolo)",
+    ax.set_title(f"Tempi di esecuzione per tipologia: {len(SEEDS)} semi indipendenti (coppia d'angolo)",
                  fontsize=12, fontweight='bold')
     ax.set_xticks(x)
     ax.set_xticklabels(categorie)
     ax.set_ylabel("Tempo di esecuzione mediano (secondi)")
     ax.set_yscale('log')
     ax.grid(True, which="both", linestyle='--', alpha=0.4)
-    ax.legend()
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.08), ncol=2)
     plt.tight_layout()
     plt.savefig(os.path.join(RESULTS_DIR, "2_pruning_comparison_boxplot.png"), dpi=200, bbox_inches='tight')
     plt.close()
@@ -137,13 +137,13 @@ def main() -> None:
 
     _plot(pruning)
 
-    print(f"=== Potatura debole vs forte, {len(SEEDS)} semi, coppia d'angolo (50x50) ===")
+    print(f"=== Potatura debole contro forte, {len(SEEDS)} semi, coppia d'angolo (50x50) ===")
     for r in pruning:
         print(f"  {r['obstacle_type']:10s} debole={r['weak']['tempo_mediano_s']:.4f}s "
               f"(timeout {r['weak']['timeout_su_semi']}/{len(SEEDS)})  "
               f"forte={r['strong']['tempo_mediano_s']:.4f}s (timeout {r['strong']['timeout_su_semi']}/{len(SEEDS)})")
 
-    print(f"\n=== Ordinamento euristico vs casuale, {len(SEEDS)} semi, coppia d'angolo (50x50, potatura forte) ===")
+    print(f"\n=== Ordinamento euristico contro casuale, {len(SEEDS)} semi, coppia d'angolo (50x50, potatura forte) ===")
     for r in ordering:
         print(f"  {r['obstacle_type']:10s} euristico={r['heuristic']['tempo_mediano_s']:.4f}s  "
               f"casuale={r['random']['tempo_mediano_s']:.4f}s "

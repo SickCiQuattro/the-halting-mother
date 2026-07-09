@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Grafico memoria-vs-taglia dell'algoritmo CAMMINOMIN (Piano di miglioramento, §2.C).
+"""Grafico memoria in funzione della taglia dell'algoritmo CAMMINOMIN (Piano di miglioramento, sezione 2.C).
 
-Lo spec richiede prestazioni sia temporali sia spaziali (diapositiva 65); peak_memory_kb è
+La specifica richiede prestazioni sia temporali sia spaziali; peak_memory_kb è
 già raccolto in ogni benchmark ma non è mai stato tracciato contro la dimensione della griglia.
 Nessuna nuova esecuzione: i dati sono già in results/scaling_results.json.
 
