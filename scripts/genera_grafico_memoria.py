@@ -11,6 +11,7 @@ import json
 import os
 
 from _common import plt
+from src.plot_style import COLOR_DEBOLE, COLOR_FORTE
 
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 
@@ -24,8 +25,8 @@ def main() -> None:
     mem_strong = [r["strong"]["peak_memory_kb"] for r in scaling_res]
 
     plt.figure(figsize=(8, 5))
-    plt.plot(sizes, mem_weak, marker='s', color='#ffbe0b', linewidth=2, label='Potatura debole (riga 16)')
-    plt.plot(sizes, mem_strong, marker='^', color='#2ed573', linewidth=2, label='Potatura forte (riga 17)')
+    plt.plot(sizes, mem_weak, marker='s', color=COLOR_DEBOLE, linewidth=2, label='Potatura debole (riga 16)')
+    plt.plot(sizes, mem_strong, marker='^', color=COLOR_FORTE, linewidth=2, label='Potatura forte (riga 17)')
     plt.xscale('log')
     plt.xlabel("Dimensione griglia (lato R = C)", fontsize=10)
     plt.ylabel("Picco di memoria (KB)", fontsize=10)

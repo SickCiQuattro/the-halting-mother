@@ -23,6 +23,7 @@ import numpy as np
 from _common import plt
 from src.generator import GridGenerator
 from src.experiment_runner import run_single_benchmark, _coppie_casuali
+from src.plot_style import COLOR_FORTE, COLOR_TIMEOUT
 
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 
@@ -84,7 +85,7 @@ def _campagna_forma_riferimento() -> list[dict[str, object]]:
     return risultati
 
 
-def _plot(angolo: list[dict[str, object]], forma: list[dict[str, object]]) -> None:
+def _plot(angolo: list[dict[str, object]]) -> None:
     dens = [r["density"] for r in angolo]
     mediane = [r["tempo_mediano_s"] for r in angolo]
     err_basso = [max(0, r["tempo_mediano_s"] - r["tempo_q1_s"]) for r in angolo]
@@ -93,18 +94,13 @@ def _plot(angolo: list[dict[str, object]], forma: list[dict[str, object]]) -> No
 
     plt.figure(figsize=(8, 5))
     plt.errorbar(dens, mediane, yerr=[err_basso, err_alto], fmt='o-', capsize=5,
-                 color='#e056fd', ecolor='#576574', markersize=8, linewidth=2, zorder=3,
+                 color=COLOR_FORTE, ecolor='#576574', markersize=8, linewidth=2, zorder=3,
                  label=f"Coppia d'angolo, mediana + IQR su {n_semi} semi (50x50, potatura forte)")
     for r, m in zip(angolo, mediane):
         if r["timeout_su_semi"] > 0:
-            plt.scatter([r["density"]], [m], marker='x', s=140, color='#d63031', linewidths=2.5, zorder=4)
-    plt.scatter([], [], marker='x', s=140, color='#d63031', linewidths=2.5,
+            plt.scatter([r["density"]], [m], marker='x', s=140, color=COLOR_TIMEOUT, linewidths=2.5, zorder=4)
+    plt.scatter([], [], marker='x', s=140, color=COLOR_TIMEOUT, linewidths=2.5,
                 label='Almeno un seme in timeout a questa densità')
-
-    dens_forma = [r["density"] for r in forma]
-    tempi_forma = [r["tempo_mediano_s"] for r in forma]
-    plt.plot(dens_forma, tempi_forma, linestyle='--', color='#636e72', alpha=0.7, zorder=1,
-              label="Riferimento a seme singolo (angolo + 3 coppie casuali, forma soltanto)")
 
     plt.yscale('log')
     plt.xlabel("Densità ostacoli", fontsize=10)
@@ -133,7 +129,7 @@ def main() -> None:
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(esito, f, indent=2, default=str, ensure_ascii=False)
 
-    _plot(angolo, forma)
+    _plot(angolo)
 
     print(f"=== Densità multi-seme, coppia d'angolo ({len(SEEDS)} semi, 50x50, potatura forte) ===")
     for r in angolo:

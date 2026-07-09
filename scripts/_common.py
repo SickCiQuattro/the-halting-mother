@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt  # noqa: E402 (import intenzionalmente dopo la s
 
 from src.generator import GridGenerator
 from src.grid import Grid, Coordinate
+from src.plot_style import apply_style
+
+apply_style()
 
 __all__ = ["plt", "griglia_campagna_scaling"]
 

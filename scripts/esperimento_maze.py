@@ -22,6 +22,9 @@ from src.grid import Grid
 from src.generator import GridGenerator
 from src.camminomin import camminomin, reconstruct_path
 from src.visualization import save_grid_image
+from src.plot_style import apply_style, COLOR_DEBOLE, COLOR_FORTE
+
+apply_style()
 
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 SIZE = 30
@@ -86,7 +89,7 @@ def main() -> None:
     fig, ax = plt.subplots(figsize=(6.5, 5))
     nomi = ["debole (riga 16)", "forte (riga 17)"]
     valori = [max(1, c["chiamate_ricorsive"]) for c in corse]
-    ax.bar(nomi, valori, color=["#ff7979", "#2ed573"])
+    ax.bar(nomi, valori, color=[COLOR_DEBOLE, COLOR_FORTE])
     ax.set_yscale("log")
     ax.set_ylabel("Invocazioni ricorsive (scala log)")
     ax.set_title(f"Labirinto serpentino {SIZE}x{SIZE}: potatura debole vs forte")

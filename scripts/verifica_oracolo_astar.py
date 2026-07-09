@@ -20,6 +20,7 @@ import time
 
 from src.astar import astar
 from _common import plt, griglia_campagna_scaling
+from src.plot_style import COLOR_DEBOLE, COLOR_FORTE, COLOR_RITORNO
 
 BASE = os.path.join(os.path.dirname(__file__), "..")
 RESULTS = os.path.join(BASE, "results", "scaling_results.json")
@@ -28,8 +29,8 @@ OUT_PNG = os.path.join(BASE, "Relazione", "images", "divario_anytime.png")
 
 CONFIGS = [("weak", "Potatura debole (riga 16)"), ("strong", "Potatura forte (riga 17)"),
            ("ritorno", "Forte, ritorno D-O")]
-# Tonalità coerenti con le figure esistenti della relazione, scurite per leggibilità su bianco
-COLORS = {"weak": "#b8860b", "strong": "#1d8348", "ritorno": "#2f6fdb"}
+# Stessa palette (Okabe-Ito) usata in tutte le figure della relazione, per coerenza cromatica
+COLORS = {"weak": COLOR_DEBOLE, "strong": COLOR_FORTE, "ritorno": COLOR_RITORNO}
 
 
 def main() -> None:

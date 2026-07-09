@@ -7,6 +7,10 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
+from src.plot_style import apply_style, COLOR_DEBOLE, COLOR_FORTE, COLOR_ANDATA, COLOR_RITORNO, COLOR_TIMEOUT
+
+apply_style()
+
 
 def _estrai_campioni(
     scaling_res: list[dict[str, object]],
@@ -155,8 +159,8 @@ def _plot_scaling(scaling_res: list[dict[str, object]], output_dir: str) -> None
     sizes = [r["size"] for r in scaling_res]
     scaling_timeout_val = max(r["weak"]["elapsed_time_s"] for r in scaling_res)
     for key, label, color, marker in [
-        ("weak", "Potatura debole (riga 16)", "#ffbe0b", "s"),
-        ("strong", "Potatura forte (riga 17)", "#2ed573", "^"),
+        ("weak", "Potatura debole (riga 16)", COLOR_DEBOLE, "s"),
+        ("strong", "Potatura forte (riga 17)", COLOR_FORTE, "^"),
     ]:
         times = [r[key]["elapsed_time_s"] for r in scaling_res]
         timed_out = [r[key]["timed_out"] for r in scaling_res]
@@ -170,10 +174,10 @@ def _plot_scaling(scaling_res: list[dict[str, object]], output_dir: str) -> None
         if to_pts:
             xs, ys = zip(*to_pts)
             plt.scatter(xs, ys, marker='x', s=130, color=color, linewidths=2.5, zorder=3)
-    plt.axhline(scaling_timeout_val, color='#636e72', linestyle=':', linewidth=1.5, zorder=0)
+    plt.axhline(scaling_timeout_val, color=COLOR_TIMEOUT, linestyle=':', linewidth=1.5, zorder=0)
     plt.text(sizes[0], scaling_timeout_val, " tempo limite raggiunto", fontsize=8.5,
-             color='#636e72', va='bottom', ha='left')
-    plt.scatter([], [], marker='x', s=130, color='#636e72', linewidths=2.5,
+             color=COLOR_TIMEOUT, va='bottom', ha='left')
+    plt.scatter([], [], marker='x', s=130, color=COLOR_TIMEOUT, linewidths=2.5,
                 label='Tempo limite raggiunto (non è un tempo di completamento reale)')
     plt.xscale('log')
     plt.yscale('log')
@@ -256,8 +260,8 @@ def _plot_symmetry(pruning_res: list[dict[str, object]], output_dir: str) -> Non
     x3 = np.arange(len(sym_types))
     width = 0.35
     fig, ax = plt.subplots(figsize=(9, 5.5))
-    ax.bar(x3 - width / 2, corner_od, width, label='O → D', color='#2ed573')
-    ax.bar(x3 + width / 2, corner_do, width, label='D → O', color='#0984e3')
+    ax.bar(x3 - width / 2, corner_od, width, label='O → D', color=COLOR_ANDATA)
+    ax.bar(x3 + width / 2, corner_do, width, label='D → O', color=COLOR_RITORNO)
     ax.set_title("Tempo di esecuzione O→D vs D→O sulla coppia d'angolo (potatura forte)", fontsize=12, fontweight='bold')
     ax.set_xticks(x3)
     ax.set_xticklabels(sym_types)

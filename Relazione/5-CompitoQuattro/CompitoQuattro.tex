@@ -3,6 +3,7 @@
 Il quarto compito valuta le prestazioni del sistema. La sezione presenta le analisi di complessità spaziale e temporale, seguite dai risultati empirici.
 
 \subsection{Analisi di complessità spaziale asintotica}
+\label{sec:complessita_spaziale}
 
 La complessità spaziale (occupazione di memoria centrale) è dettata dalla pila delle chiamate ricorsive e dalle strutture dati locali allocate a ogni livello:
 \begin{itemize}
@@ -14,6 +15,7 @@ La complessità spaziale (occupazione di memoria centrale) è dettata dalla pila
 Grazie all'ottimizzazione del ritracciamento sul posto su array NumPy, l'implementazione mantiene un'unica griglia condivisa. Le chiusure temporanee vengono marcate tramite sovrascritture. Lo spazio di memoria allocato è legato alle variabili locali della ricorsione, contenendo l'occupazione reale.
 
 \subsection{Analisi di complessità temporale asintotica}
+\label{sec:complessita_temporale}
 
 Analisi della complessità temporale:
 \begin{itemize}
@@ -23,21 +25,24 @@ Analisi della complessità temporale:
     T_{\text{best}} = O(\max(R, C)^2)
     \label{eq:time_best}
     \end{equation}
-    Questo si traduce in tempi di elaborazione inferiori al millisecondo anche per griglie di lato elevato (su lato $10$ il calcolo richiede circa $0{,}3$ ms).
+    Questo si traduce in tempi di elaborazione dell'ordine dei millisecondi anche su griglie di taglia consistente: nella campagna a densità (sezione~\ref{sssec:densita}) una coppia risolta al livello ricorsivo $0$ su una griglia $50\times50$ richiede circa $9{,}6$ ms.
 \end{itemize}
 
 \subsection{Nota metodologica sulla misura}
+\label{sec:nota_metodologica_misura}
 
 I tempi riportati nei grafici sono cronometrati in esecuzioni prive di profilazione della memoria. La misura del picco di memoria, infatti, introduce un sovraccarico di circa cinque volte: mantenerla attiva durante il cronometraggio falserebbe i tempi (sulla griglia $50\times50$ la stessa esecuzione passava da circa $1{,}7$ s a circa $9{,}6$ s). L'occupazione di memoria viene perciò rilevata in una passata separata e distinta da quella temporale.
 
 \subsection{Analisi dei risultati sperimentali e discussione dei grafici}
+\label{sec:analisi_risultati}
 
-La campagna sperimentale è stata eseguita su griglie da $10 \times 10$ fino a $150 \times 150$, variando la densità degli ostacoli e analizzando le diverse strategie. La campagna di scaling (\S5.4.3) resta a seme singolo, provata su più coppie origine--destinazione (la coppia d'angolo, geometricamente più impegnativa, e coppie casuali di celle attraversabili); le metriche riportate sono le mediane dei campioni raccolti. Come richiesto dalla specifica (diapositiva 64 del testo dell'elaborato), ciascuna coppia distinta impiegata nella campagna riceve la doppia invocazione con i parametri scambiati ($O \rightarrow D$ e $D \rightarrow O$), eseguita nella configurazione a potatura forte. La simmetria è una proprietà dell'algoritmo per una data coppia (griglia, $O$, $D$) e non dipende dalla strategia di potatura né dall'ordine di visita della frontiera, poiché entrambe convergono comunque all'ottimo globale grazie all'ammissibilità della potatura (si veda il Compito 3): verificarla una volta per coppia è quindi sufficiente. I campioni a potatura debole e a ordinamento casuale, calcolati sulle stesse coppie già verificate, servono unicamente al confronto prestazionale discusso più avanti. L'esito complessivo della verifica è registrato nel file \texttt{simmetria\_campagna.json}.
+La campagna sperimentale è stata eseguita su griglie da $10 \times 10$ fino a $150 \times 150$, variando la densità degli ostacoli e analizzando le diverse strategie. La campagna di scaling (sezione~\ref{sssec:scaling}) resta a seme singolo, provata su più coppie origine--destinazione (la coppia d'angolo, geometricamente più impegnativa, e coppie casuali di celle attraversabili); le metriche riportate sono le mediane dei campioni raccolti. Come richiesto dalla specifica (diapositiva 64 del testo dell'elaborato), ciascuna coppia distinta impiegata nella campagna riceve la doppia invocazione con i parametri scambiati ($O \rightarrow D$ e $D \rightarrow O$), eseguita nella configurazione a potatura forte. La simmetria è una proprietà dell'algoritmo per una data coppia (griglia, $O$, $D$) e non dipende dalla strategia di potatura né dall'ordine di visita della frontiera, poiché entrambe convergono comunque all'ottimo globale grazie all'ammissibilità della potatura (si veda il Compito 3): verificarla una volta per coppia è quindi sufficiente. I campioni a potatura debole e a ordinamento casuale, calcolati sulle stesse coppie già verificate, servono unicamente al confronto prestazionale discusso più avanti. L'esito complessivo della verifica è registrato nel file \texttt{simmetria\_campagna.json}.
 
-Le tre campagne headline su densità, potatura e ordinamento (\S5.4.1, \S5.4.2) seguono invece un protocollo diverso e più rigoroso: una prima versione a seme singolo, mediata su più coppie eterogenee per griglia, si era rivelata fuorviante, perché una coppia facile può abbassare la mediana anche quando la coppia d'angolo, sulla stessa griglia, richiederebbe migliaia di chiamate. Il protocollo corrente isola invece la sola coppia d'angolo (il caso strutturalmente più difficile, sempre verificata anche nella direzione di ritorno) su $8$ semi di griglia indipendenti per ciascuna configurazione, riportando sempre mediana, primo e terzo quartile (IQR) del tempo e delle chiamate ricorsive, oltre al numero di semi che raggiungono il tempo limite di $20$ s su $8$. Le tre campagne condividono lo stesso tempo limite proprio per rendere il conteggio dei timeout comparabile fra loro; la Tabella~\ref{tab:timeout_policy} riassume il tempo limite dichiarato per ciascun tipo di campagna della relazione.
+Le tre campagne headline su densità, potatura e ordinamento (sezione~\ref{sssec:densita}, sezione~\ref{sssec:potatura_ordinamento}) isolano la sola coppia d'angolo (il caso strutturalmente più difficile, sempre verificata anche nella direzione di ritorno) su $8$ semi di griglia indipendenti per ciascuna configurazione, riportando sempre mediana, primo e terzo quartile (IQR) del tempo e delle chiamate ricorsive, oltre al numero di semi che raggiungono il tempo limite di $20$ s su $8$. Isolare la coppia d'angolo evita che una coppia facile da risolvere abbassi la mediana quando, sulla stessa griglia, la coppia d'angolo richiederebbe migliaia di chiamate: mediare su coppie eterogenee diluirebbe così proprio il caso difficile che la campagna intende caratterizzare. Le tre campagne condividono lo stesso tempo limite per rendere il conteggio dei timeout comparabile fra loro; la Tabella~\ref{tab:timeout_policy} lo riassume per ciascun tipo di campagna.
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|c|l|}
 \hline
 \textbf{Tipo di campagna} & \textbf{Tempo limite} & \textbf{Motivazione} \\
@@ -47,8 +52,9 @@ Densità / potatura / ordinamento ($8$ semi) & $20$ s & Separa i regimi osservat
 Labirinto serpentino (istanza singola) & $60$ s & Coerente con la taglia contenuta ($30\times30$) \\
 Ablation \texttt{greedy\_seed} ($5$ semi) & $20$ s & Stesso protocollo delle campagne su densità/potatura \\
 \hline
-\end{tabular}
-\caption{Tempo limite dichiarato per ciascuna campagna della relazione. In ogni caso \texttt{timed\_out} ha lo stesso significato: la ricerca è stata interrotta senza garanzia di ottimalità, restituendo comunque il miglior cammino trovato fino a quel momento (diapositiva 71 del testo dell'elaborato).}
+\end{tabular}%
+}
+\caption{Tempo limite per ciascuna campagna. \texttt{timed\_out}: ricerca interrotta senza garanzia di ottimalità, con il miglior cammino trovato comunque restituito (diapositiva 71 del testo dell'elaborato).}
 \label{tab:timeout_policy}
 \end{table}
 
@@ -56,26 +62,29 @@ Il Compito 1 richiede che il generatore produca ostacoli secondo almeno quattro 
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|c|}
 \hline
 \textbf{Tipologia (Compito 1)} & \textbf{Campagna che la copre} & \textbf{Densità effettiva} \\
 \hline
-\texttt{simple} & Potatura, ordinamento, simmetria per tipo (\S5.4.2, \S5.4.5) & $0{,}20$ (nominale) \\
-\texttt{cluster} & Potatura, ordinamento, simmetria per tipo; scaling (\S5.4.3) & $0{,}20$ (nominale) \\
-\texttt{diagonal} & Potatura, ordinamento, simmetria per tipo (\S5.4.2, \S5.4.5) & $0{,}20$ (nominale) \\
-\texttt{enclosure} & Potatura, ordinamento, simmetria per tipo; controllo componenti (\S4.5) & $0{,}20$ (nominale) \\
-\texttt{bar} & Potatura, ordinamento, simmetria per tipo; scaling (\S5.4.3) & $0{,}20$ (nominale) \\
+\texttt{simple} & Potatura, ordinamento, simmetria per tipo (sezione~\ref{sssec:potatura_ordinamento}, sezione~\ref{sssec:simmetria}) & $0{,}20$ (nominale) \\
+\texttt{cluster} & Potatura, ordinamento, simmetria per tipo; scaling (sezione~\ref{sssec:scaling}) & $0{,}20$ (nominale) \\
+\texttt{diagonal} & Potatura, ordinamento, simmetria per tipo (sezione~\ref{sssec:potatura_ordinamento}, sezione~\ref{sssec:simmetria}) & $0{,}20$ (nominale) \\
+\texttt{enclosure} & Potatura, ordinamento, simmetria per tipo; controllo componenti (sezione~4.5) & $0{,}20$ (nominale) \\
+\texttt{bar} & Potatura, ordinamento, simmetria per tipo; scaling (sezione~\ref{sssec:scaling}) & $0{,}20$ (nominale) \\
 \texttt{mix} (combinata) & Esperimento dedicato, \texttt{results/mix\_comparison.json} & $0{,}2000$ (misurata) \\
-\texttt{bar} a labirinto & Esperimento dedicato, \texttt{results/maze\_results.json} (\S\ref{sssec:maze}) & --- (topologia forzata) \\
+\texttt{bar} a labirinto & Esperimento dedicato, \texttt{results/maze\_results.json} (sezione~\ref{sssec:maze}) & --- (topologia forzata) \\
 \hline
-\end{tabular}
-\caption{Mappa di conformità fra le tipologie di ostacolo del Compito 1 e la campagna sperimentale che le copre. Solo per \texttt{mix} la densità è misurata a posteriori sulla griglia generata anziché assunta uguale al parametro nominale passato al generatore.}
+\end{tabular}%
+}
+\caption{Conformità fra le tipologie di ostacolo del Compito 1 e la campagna che le copre. Per \texttt{mix} la densità è misurata a posteriori sulla griglia generata, non assunta uguale al parametro nominale.}
 \label{tab:conformita_tipologie}
 \end{table}
 
 I risultati sono riassunti nei grafici e nella tabella seguenti.
 
 \subsubsection{1. Tempo in funzione della densità di ostacoli}
+\label{sssec:densita}
 Il file \texttt{1\_time\_vs\_density.png} illustra l'andamento del tempo di esecuzione (mediana e IQR su $8$ semi indipendenti) al variare della densità degli ostacoli da $0{,}05$ a $0{,}35$, sulla coppia d'angolo di una griglia $50\times50$ a potatura forte (tipologie \texttt{simple}+\texttt{cluster}). I punti dove almeno un seme su otto raggiunge il tempo limite di $20$ s sono marcati con una X. I dati (\texttt{results/density\_results\_multiseme.json}):
 
 \begin{center}
@@ -91,21 +100,22 @@ $0{,}35$ & $13{,}80$ s & $[1{,}59,\ 20{,}00]$ s & $4$ \\
 \end{tabular}
 \end{center}
 
-La curva conferma con rigore statistico quanto la campagna preliminare a $5$ semi aveva già segnalato (si veda la nota metodologica più sotto): la transizione di fase è netta e comincia già fra $0{,}05$ e $0{,}15$, non a $0{,}35$--$0{,}45$ come una prima versione a seme singolo mediata su coppie eterogenee lasciava intendere. La figura riporta anche, come riferimento tratteggiato, la forma della vecchia curva a seme singolo (stesso seed $100$, coppia d'angolo più tre coppie casuali): resta sotto i $10$ ms su tutto l'intervallo, quasi piatta, perché mediare su coppie diverse diluisce sistematicamente il caso difficile che la sola coppia d'angolo isola. L'IQR molto ampio a densità $0{,}15$--$0{,}35$ (fino al tempo limite stesso) è il dato più informativo: a parità di densità nominale e tipologia, la disposizione specifica degli ostacoli può rendere la stessa coppia quasi banale oppure irrisolvibile in $20$ s, un comportamento tipico dei problemi di percolazione, dove la posizione esatta degli ostacoli vicino alla soglia critica può bloccare o aprire corridoi in modo non prevedibile dalla sola densità media.
+La curva conferma con rigore statistico la transizione di fase, netta e già presente fra $0{,}05$ e $0{,}15$: isolare la coppia d'angolo è ciò che la rende visibile, perché mediare il tempo su coppie eterogenee diluirebbe sistematicamente il caso difficile e restituirebbe un andamento quasi piatto, sotto i $10$ ms sull'intero intervallo di densità, mascherando la soglia. L'IQR molto ampio a densità $0{,}15$--$0{,}35$ (fino al tempo limite stesso) è il dato più informativo: a parità di densità nominale e tipologia, la disposizione specifica degli ostacoli può rendere la stessa coppia quasi banale oppure irrisolvibile in $20$ s. È un comportamento a soglia critica: vicino a questa densità, la posizione esatta degli ostacoli può bloccare o aprire corridoi in modo non prevedibile dalla sola densità media.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{1_time_vs_density.png}
-\caption{Tempo di esecuzione in funzione della densità di ostacoli sulla coppia d'angolo (mediana e IQR su $8$ semi indipendenti, $50\times50$, potatura forte). I marcatori a X indicano le densità dove almeno un seme su otto ha raggiunto il tempo limite di $20$ s; la linea tratteggiata è il riferimento a seme singolo della versione precedente, riportato solo per la forma della curva.}
+\caption{Tempo di esecuzione in funzione della densità di ostacoli sulla coppia d'angolo ($50\times50$, potatura forte, mediana e IQR su $8$ semi). Le X indicano le densità con almeno un timeout su otto semi.}
 \label{fig:time_vs_density}
 \end{figure}
 
-\paragraph{Nota metodologica.} Un pilota preliminare a $5$ semi (\texttt{scripts/campagna\_multiseme.py}, \texttt{results/multiseme\_results.json}) aveva anticipato questo risultato prima che il protocollo a $8$ semi diventasse lo standard delle figure 1 e 2: sulla stessa combinazione taglia/densità restituiva già mediane dell'ordine dei secondi contro i millisecondi della curva a seme singolo. Quel pilota resta nel repository come riferimento storico, ma i suoi risultati sono ora confermati e superati in rigore dalla campagna a $8$ semi qui riportata, che è la fonte della Fig.~\ref{fig:time_vs_density}.
-
 \subsubsection{2. Confronto delle configurazioni (potatura e ordinamento)}
-Il diagramma a barre in \texttt{2\_pruning\_comparison\_boxplot.png} (in scala logaritmica) confronta, sulla coppia d'angolo di una griglia $50\times50$ e per i cinque tipi di ostacolo, potatura debole e potatura forte con ordinamento euristico, mediana e IQR su $8$ semi indipendenti; il confronto con l'ordinamento casuale, misurato sugli stessi semi con potatura forte fissa, è riportato in tabella perché non aggiunge una terza barra alla figura. "Raggiungere il tempo limite" indica che la ricerca è stata interrotta a $20$ s senza completarsi (stesso significato di \texttt{timed\_out} del Compito 3). I dati (\texttt{results/pruning\_comparison\_multiseme.json}, \texttt{results/ordering\_comparison\_multiseme.json}):
+\label{sssec:potatura_ordinamento}
+Il diagramma a barre in \texttt{2\_pruning\_comparison\_boxplot.png} (in scala logaritmica) confronta, sulla coppia d'angolo di una griglia $50\times50$ e per le cinque tipologie singole di ostacolo (\texttt{simple}, \texttt{cluster}, \texttt{diagonal}, \texttt{enclosure}, \texttt{bar}), potatura debole e potatura forte con ordinamento euristico, mediana e IQR su $8$ semi indipendenti; la tipologia combinata \texttt{mix} non compare in questo grafico perché è coperta da un esperimento dedicato a parte (Tabella~\ref{tab:conformita_tipologie}). Il confronto con l'ordinamento casuale, misurato sugli stessi semi a potatura forte fissa, compare solo nella Tabella~\ref{tab:pruning_ordering}: la figura mostra le sole due configurazioni di potatura per restare leggibile, mentre l'ordinamento casuale è una variabile indipendente riportata a parte. "Raggiungere il tempo limite" indica che la ricerca è stata interrotta a $20$ s senza completarsi (stesso significato di \texttt{timed\_out} del Compito 3). I dati sono in \texttt{results/pruning\_comparison\_multiseme.json} e \texttt{results/ordering\_comparison\_multiseme.json}.
 
-\begin{center}
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|c|c|c|c|}
 \hline
 \textbf{Tipo} & \textbf{Debole (mediana)} & \textbf{Forte (mediana)} & \textbf{Euristico} & \textbf{Casuale (mediana)} \\
@@ -116,9 +126,11 @@ Il diagramma a barre in \texttt{2\_pruning\_comparison\_boxplot.png} (in scala l
 \texttt{enclosure} & $20{,}00$ s (8/8) & $0{,}93$ s (1/8) & $0{,}93$ s (1/8) & $12{,}36$ s (3/8) \\
 \texttt{bar}       & $20{,}00$ s (8/8) & $3{,}52$ s (0/8) & $3{,}52$ s (0/8) & $10{,}41$ s (3/8) \\
 \hline
-\end{tabular}
-\end{center}
-(fra parentesi il numero di semi su $8$ in timeout; la colonna euristico coincide con la colonna forte perché sono la stessa corsa, riusata come termine di paragone per l'ordinamento)
+\end{tabular}%
+}
+\caption{Tempo mediano per tipo di ostacolo (fra parentesi i semi su $8$ in timeout). La colonna Euristico coincide con Forte perché è la stessa corsa, riusata qui come termine di paragone per l'ordinamento casuale.}
+\label{tab:pruning_ordering}
+\end{table}
 
 Entrambe le scelte progettuali restano decisive anche con questo protocollo più rigoroso:
 \begin{itemize}
@@ -129,17 +141,18 @@ Entrambe le scelte progettuali restano decisive anche con questo protocollo più
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{2_pruning_comparison_boxplot.png}
-\caption{Tempi di esecuzione mediani con IQR (potatura debole contro forte, $8$ semi indipendenti) per tipologia di ostacolo, coppia d'angolo, $50\times50$.}
+\caption{Tempi mediani con IQR per tipologia di ostacolo (potatura debole contro forte).}
 \label{fig:pruning_comparison}
 \end{figure}
 
-Questo confronto è condotto su griglie $50\times50$, la stessa taglia della campagna sulla densità. Un approfondimento puntuale, non più parte del flusso di script mantenuto (il comando esatto resta documentato qui per riproducibilità: era \texttt{scripts/verifica\_potatura\_100.py}), aveva ripetuto il confronto debole/forte su un singolo scenario rappresentativo (\texttt{cluster}) alla taglia $100\times100$: a questa dimensione, con un tempo limite di $60$ s, \emph{nemmeno la potatura forte} completa più la ricerca (circa $666\,000$ chiamate ricorsive contro le circa $2{,}67$ milioni della debole nello stesso tempo). Il vantaggio della potatura forte resta netto in termini di nodi esplorati a parità di tempo, ma a $100\times100$ non è più sufficiente da solo a garantire una risposta entro un tempo limite dell'ordine dei secondi, anticipando quanto osservato più sistematicamente nella campagna di scaling (\S 5.4.3).
+Questo confronto è condotto su griglie $50\times50$, la stessa taglia della campagna sulla densità. Un approfondimento dedicato ha ripetuto il confronto debole/forte su un singolo scenario rappresentativo (\texttt{cluster}) alla taglia $100\times100$: a questa dimensione, con un tempo limite di $60$ s, \emph{nemmeno la potatura forte} completa più la ricerca (circa $666\,000$ chiamate ricorsive contro le circa $2{,}67$ milioni della debole nello stesso tempo). Il vantaggio della potatura forte resta netto in termini di nodi esplorati a parità di tempo, ma a $100\times100$ non è più sufficiente da solo a garantire una risposta entro un tempo limite dell'ordine dei secondi, anticipando quanto osservato più sistematicamente nella campagna di scaling (sezione~\ref{sssec:scaling}).
 
 \subsubsection{3. Crescita temporale asintotica (scala bilogaritmica)}
-Il grafico in \texttt{3\_complexity\_scaling\_loglog.png} riporta i tempi sulla coppia d'angolo al crescere del lato (fino a $150\times150$), per la potatura debole e per quella forte; i punti in cui il tempo limite è stato raggiunto sono marcati con una X e non vanno letti come tempi di completamento reali. Il tempo limite di questa campagna è stato fissato a $600$ s (10 minuti), dieci volte quello inizialmente usato, per accertare se il muro osservato da lato $100$ in su fosse un limite strutturale dell'algoritmo oppure un semplice artefatto di un budget di tempo insufficiente. Si osserva che:
+\label{sssec:scaling}
+Il grafico in \texttt{3\_complexity\_scaling\_loglog.png} riporta i tempi sulla coppia d'angolo al crescere del lato (fino a $150\times150$), per la potatura debole e per quella forte; i punti in cui il tempo limite è stato raggiunto sono marcati con una X e non vanno letti come tempi di completamento reali. Il tempo limite di questa campagna è stato fissato a $600$ s (10 minuti), dieci volte quello usato per le altre campagne, per accertare se il muro osservato da lato $100$ in su fosse un limite strutturale dell'algoritmo oppure un semplice artefatto di un budget di tempo insufficiente. Si osserva che:
 \begin{enumerate}
     \item La \textbf{potatura forte} scala molto meglio alle taglie piccole: risolve il lato $10$ e $20$ in una frazione di millisecondo, il lato $30$ in circa $0{,}20$ s e il lato $50$ in circa $1{,}7$ s, mentre la \textbf{potatura debole} richiede già $1{,}6$ s al lato $20$ e non completa più la ricerca già a partire dal lato $30$, esaurendo l'intero budget di $600$ s;
-    \item Da lato $100$ in poi \textbf{nessuna delle due configurazioni completa la ricerca}, nemmeno con il tempo decuplicato: entrambe esauriscono i $600$ s a $100$ e a $150$, pur restituendo in entrambi i casi un cammino completo (anche se non necessariamente ottimo). Una prova preliminare al lato $200$, non inclusa nella campagna corrente, mostrava un fallimento ancora più netto: nessuna delle due configurazioni trovava alcun cammino completo entro il tempo concesso, un risultato talmente degenerato da non aggiungere informazione utile al confronto;
+    \item Da lato $100$ in poi \textbf{nessuna delle due configurazioni completa la ricerca}, nemmeno con il tempo aumentato di dieci volte: entrambe esauriscono i $600$ s a $100$ e a $150$, pur restituendo in entrambi i casi un cammino completo (anche se non necessariamente ottimo);
     \item La potatura forte continua comunque a esplorare meno nodi a parità di tempo scaduto: a lato $100$ arresta la ricerca dopo circa $9{,}4$ milioni di chiamate ricorsive contro i $19{,}8$ milioni della debole (quasi la metà), mentre a lato $150$ il margine si assottiglia a circa $12{,}6$ contro $17{,}4$ milioni: il vantaggio relativo si riduce al crescere della taglia, segno che il fattore di ramificazione della frontiera è ormai troppo ampio perché la sola potatura, per quanto efficace, possa contenerlo del tutto. Il rapporto fra chiamate ricorsive debole e forte (\texttt{results/rianalisi\_metriche.json}) rende netto questo andamento a campana: da un modesto $3{,}6\times$ al lato $10$ sale fino a un picco di oltre $11\,000\times$ al lato $30$ (dove la debole esaurisce l'intero tempo limite mentre la forte già completa), per poi crollare a $2{,}1\times$ al lato $100$ e $1{,}4\times$ al lato $150$: da lato $100$ in su entrambe le configurazioni sono ormai limitate dallo stesso tempo limite, quindi il vantaggio strutturale della potatura forte è mascherato dal fatto che nessuna delle due riesce più a completare la ricerca;
     \item Il limite osservato è quindi strutturale, non un artefatto del tempo limite: aumentare il budget di un ordine di grandezza (da $60$ a $600$ s) non ha spostato il muro oltre il lato $20$-$30$ per la potatura debole, né oltre il lato $50$-$100$ per quella forte. Questo conferma quanto già argomentato nell'analisi di complessità: la potatura riduce la base della crescita esponenziale $O(K^l)$, non il suo esponente, che continua a dipendere dal numero di landmark $l$ e dalla dimensione tipica $K$ della frontiera, entrambi crescenti con il lato della griglia.
 \end{enumerate}
@@ -153,7 +166,8 @@ In tutti i casi che superano il tempo limite l'algoritmo restituisce comunque il
 \end{figure}
 
 \subsubsection{4. Correlazione tra tempo e complessità esplorata}
-Il diagramma a dispersione in \texttt{4\_scatter\_time\_vs\_frontier.png} (scala bilogaritmica, due pannelli affiancati) mappa ogni prova completata con almeno una chiamata ricorsiva, escludendo le coppie banali risolte senza ricorsione. Il pannello sinistro pone in ascissa le celle di frontiera totali considerate; il pannello destro pone in ascissa il numero di invocazioni ricorsive: entrambi hanno in ordinata il tempo di calcolo. Le due figure erano in precedenza separate, ma le due metriche crescono insieme per costruzione (ogni chiamata ricorsiva aggiunge la propria frontiera al totale) e la correlazione risultava quasi identica; presentarle come un unico confronto a due pannelli evita di farle apparire come due fenomeni indipendenti.
+\label{sssec:scatter}
+Il diagramma a dispersione in \texttt{4\_scatter\_time\_vs\_frontier.png} (scala bilogaritmica, due pannelli affiancati) mappa ogni prova completata con almeno una chiamata ricorsiva, escludendo le coppie banali risolte senza ricorsione. Il pannello sinistro pone in ascissa le celle di frontiera totali considerate; il pannello destro pone in ascissa il numero di invocazioni ricorsive: entrambi hanno in ordinata il tempo di calcolo. Le due metriche crescono insieme per costruzione (ogni chiamata ricorsiva aggiunge la propria frontiera al totale) e la correlazione risulta quasi identica nei due pannelli: presentarle come un unico confronto a due pannelli evita di farle apparire come fenomeni indipendenti.
 
 Nel pannello sinistro i punti sono fortemente allineati: il tempo di esecuzione cresce in modo regolare con il volume di frontiera analizzato. La pendenza della retta di regressione è circa $0{,}77$, leggermente sotto-lineare, coerente con un costo per singola cella di frontiera che non cresce con la dimensione del problema, grazie alla rappresentazione compatta su matrice NumPy. Il coefficiente di determinazione della regressione bilogaritmica è $R^2 = 0{,}93$ su $140$ campioni (\texttt{scripts/rianalisi\_metriche.py}, \texttt{results/rianalisi\_metriche.json}), a conferma che la relazione log-log spiega la quasi totalità della varianza osservata e non è un artefatto di pochi punti estremi. Nel pannello destro, contro le chiamate ricorsive totali, l'allineamento resta marcato con una pendenza sotto-lineare di circa $0{,}66$ e $R^2 = 0{,}84$ sugli stessi $140$ campioni: leggermente inferiore a quello contro le celle di frontiera, segno che il volume di frontiera esplorato resta il predittore più stabile del tempo di esecuzione fra i due, pur essendo le due metriche correlate fra loro per costruzione.
 
@@ -165,7 +179,8 @@ Nel pannello sinistro i punti sono fortemente allineati: il tempo di esecuzione 
 \end{figure}
 
 \subsubsection{5. Verifica formale della simmetria}
-La verifica di simmetria (diapositive 63--64 del testo dell'elaborato) riguarda la lunghezza minima, che deve coincidere esattamente fra $O \rightarrow D$ e $D \rightarrow O$: sul pipeline storico completo (\texttt{simmetria\_campagna.json}, che aggrega scaling, la precedente campagna di densità a due taglie e la precedente campagna di potatura a seme singolo, non riesecute in questo intervento), su $81$ coppie totali $62$ sono risultate verificabili (le altre $19$ escluse perché una delle due direzioni ha raggiunto il tempo limite) e nessuna ha prodotto incongruenze metriche. La nuova campagna di potatura/ordinamento a $8$ semi (\S5.4.2) verifica indipendentemente la stessa proprietà sulla coppia d'angolo per ciascuna delle $40$ combinazioni seme/tipologia (\texttt{run\_benchmark\_coppia} nella configurazione a potatura forte): nessun fallimento è stato segnalato sulle coppie per cui il confronto è stato possibile (entrambe le direzioni completate entro i $20$ s). Si registra quindi il $100\%$ di successi sulle coppie verificabili in entrambe le fonti, a validazione sperimentale dell'esattezza dell'implementazione.
+\label{sssec:simmetria}
+La verifica di simmetria (diapositive 63--64 del testo dell'elaborato) riguarda la lunghezza minima, che deve coincidere esattamente fra $O \rightarrow D$ e $D \rightarrow O$. Il file \texttt{simmetria\_campagna.json} aggrega le coppie della campagna di scaling e delle campagne di densità e potatura su griglie di diversa taglia: su $81$ coppie totali, $62$ sono risultate verificabili (le altre $19$ escluse perché una delle due direzioni ha raggiunto il tempo limite) e nessuna ha prodotto incongruenze metriche. La campagna di potatura/ordinamento a $8$ semi (sezione~\ref{sssec:potatura_ordinamento}) verifica indipendentemente la stessa proprietà sulla coppia d'angolo per ciascuna delle $40$ combinazioni seme/tipologia (\texttt{run\_benchmark\_coppia} nella configurazione a potatura forte): nessun fallimento è stato segnalato sulle coppie per cui il confronto è stato possibile (entrambe le direzioni completate entro i $20$ s). Si registra quindi il $100\%$ di successi sulle coppie verificabili in entrambe le fonti, a validazione sperimentale dell'esattezza dell'implementazione.
 
 Il grafico in \texttt{6\_symmetry\_per\_type.png} mostra invece un aspetto distinto e più interessante, emerso dagli stessi dati già raccolti per la potatura forte (si veda il punto 2 di questa sezione): pur coincidendo sempre nella lunghezza, le due direzioni sulla coppia d'angolo possono avere un costo computazionale molto diverso. Sulla tipologia \emph{simple} $O \rightarrow D$ impiega $0{,}90$ s contro i $0{,}11$ s del ritorno, quasi $8$ volte più lento; su \emph{enclosure} il rapporto è di circa $3$ volte ($0{,}038$ contro $0{,}012$ s); su \emph{bar}, dove entrambe le direzioni sono già costose, il ritorno resta comunque più lento di circa il $20\%$ ($7{,}91$ contro $6{,}45$ s). Su \emph{cluster} e \emph{diagonal}, al contrario, le due direzioni sono sostanzialmente equivalenti, perché la coppia è risolta senza alcuna ricorsione. La spiegazione è che l'ordine di visita della frontiera dipende dal verso di marcia: la stessa geometria di ostacoli può orientare l'euristica in modo più o meno favorevole a seconda da dove parte la ricerca, pur convergendo sempre allo stesso ottimo.
 
@@ -176,14 +191,14 @@ Il grafico in \texttt{6\_symmetry\_per\_type.png} mostra invece un aspetto disti
 \label{fig:symmetry_per_type}
 \end{figure}
 
-Un pilota preliminare a $5$ semi (\texttt{scripts/campagna\_multiseme.py}, \texttt{results/multiseme\_results.json}) aveva già segnalato, prima della promozione a $8$ semi delle sezioni 1 e 2, una variabilità fra istanze di griglia più ampia di quella visibile a seme singolo (su \texttt{enclosure}, mediana $3{,}65$ s con IQR fino al tempo limite di $15$ s). Quel risultato preliminare è ora confermato e assorbito nel protocollo standard delle sezioni 1 e 2, che riportano la stessa variabilità con maggiore rigore statistico; il pilota resta nel repository come riferimento storico ma non è più discusso separatamente qui.
-
 \subsubsection{6. Caso peggiore topologico: labirinto serpentino}
 \label{sssec:maze}
 
-Le campagne precedenti usano ostacoli sparsi o a barre con varchi posizionati casualmente (\texttt{generate\_bar}): la connessione fra origine e destinazione non è garantita per costruzione e, quando esiste, spesso ammette più cammini alternativi. Lo spec cita esplicitamente barre disposte «in modo da formare un labirinto» (diapositiva 8 del testo dell'elaborato) come conformazione a sé. È stato quindi aggiunto un generatore dedicato (\texttt{GridGenerator.generate\_maze}, \texttt{src/generator.py}): pareti verticali complete, ciascuna con un varco alternato in alto e in basso, che forzano un unico cammino a serpentina da un lato all'altro della griglia. A differenza delle barre casuali, la connessione fra i due angoli opposti è garantita per costruzione (verificato in \texttt{tests/test\_generator.py} tramite \texttt{compute\_components}), quindi il caso peggiore qui indagato è puramente computazionale, non di raggiungibilità.
+Le campagne di densità, potatura e ordinamento (sezione~\ref{sssec:densita}--\ref{sssec:potatura_ordinamento}) usano ostacoli sparsi o a barre con varchi posizionati casualmente (\texttt{generate\_bar}): la connessione fra origine e destinazione non è garantita per costruzione e, quando esiste, spesso ammette più cammini alternativi. Lo spec cita esplicitamente barre disposte «in modo da formare un labirinto» (diapositiva 8 del testo dell'elaborato) come conformazione a sé. È stato quindi aggiunto un generatore dedicato (\texttt{GridGenerator.generate\_maze}, \texttt{src/generator.py}): pareti verticali complete, ciascuna con un varco alternato in alto e in basso, che forzano un unico cammino a serpentina da un lato all'altro della griglia. A differenza delle barre casuali, la connessione fra i due angoli opposti è garantita per costruzione (verificato in \texttt{tests/test\_generator.py} tramite \texttt{compute\_components}), quindi il caso peggiore qui indagato è puramente computazionale, non di raggiungibilità.
 
-Un esperimento dedicato (\texttt{scripts/esperimento\_maze.py}, output in \texttt{results/maze\_results.json} e figura~\ref{fig:maze}) confronta potatura debole e forte su un labirinto di soli $30\times30$ (corridoio largo $3$ celle), con tempo limite di $60$ s. Il risultato è più netto di quanto atteso: \textbf{nessuna delle due configurazioni completa la ricerca}, anche a questa taglia contenuta — un ordine di grandezza più piccola dei lati ($100$--$150$) a cui la campagna di scaling su ostacoli sparsi (\S5.4.3) osserva lo stesso fenomeno. La potatura forte esplora comunque meno nodi a parità di tempo scaduto ($136\,681$ chiamate ricorsive contro $668\,189$ della debole, un fattore $4{,}9\times$) e il cammino parziale trovato è leggermente più corto ($196{,}18$ contro $196{,}77$), ma nessuna delle due dimostra l'ottimalità entro il tempo concesso. La spiegazione strutturale è diretta: il labirinto serpentino impone un'unica catena di landmark lunga e obbligata (profondità massima di ricorsione $12$--$14$, contro poche unità delle istanze con ostacoli sparsi di taglia comparabile), e a ogni livello la frontiera ammette comunque numerosi candidati non ancora scartabili dalla sola stima $d_{\text{lib}}(F,D)$, perché il vero costo per aggirare la parete successiva non è visibile alla potatura finché non viene esplorato. Questo conferma, con un'istanza costruita ad hoc invece che con ostacoli casuali, quanto già argomentato nell'analisi di complessità (\S5.2): il muro esponenziale dipende dal numero di landmark necessari e dall'ampiezza della frontiera a ogni passo, non dal numero assoluto di celle della griglia — una topologia che forza molti landmark obbligati può essere un caso peggiore anche a taglie ridotte.
+\begin{sloppypar}
+Un esperimento dedicato (script \texttt{esperimento\_maze.py}, output in \texttt{maze\_results.json}, figura~\ref{fig:maze}) confronta potatura debole e forte su un labirinto di soli $30\times30$ (corridoio largo $3$ celle), con tempo limite di $60$ s. Il risultato è più netto di quanto atteso: \textbf{nessuna delle due configurazioni completa la ricerca}, anche a questa taglia contenuta, un ordine di grandezza più piccola dei lati ($100$--$150$) a cui la campagna di scaling su ostacoli sparsi (sezione~\ref{sssec:scaling}) osserva lo stesso fenomeno. La potatura forte esplora comunque meno nodi a parità di tempo scaduto ($136\,681$ chiamate ricorsive contro $668\,189$ della debole, un fattore $4{,}9\times$) e il cammino parziale trovato è leggermente più corto ($196{,}18$ contro $196{,}77$), ma nessuna delle due dimostra l'ottimalità entro il tempo concesso. La spiegazione strutturale è diretta: il labirinto serpentino impone un'unica catena di landmark lunga e obbligata (profondità massima di ricorsione $12$--$14$, contro poche unità delle istanze con ostacoli sparsi di taglia comparabile), e a ogni livello la frontiera ammette comunque numerosi candidati non ancora scartabili dalla sola stima $d_{\text{lib}}(F,D)$, perché il vero costo per aggirare la parete successiva non è visibile alla potatura finché non viene esplorato. Questo conferma, con un'istanza costruita ad hoc invece che con ostacoli casuali, quanto già argomentato nell'analisi di complessità (sezione~\ref{sec:complessita_temporale}): il muro esponenziale dipende dal numero di landmark necessari e dall'ampiezza della frontiera a ogni passo, non dal numero assoluto di celle della griglia. Una topologia che forza molti landmark obbligati può essere un caso peggiore anche a taglie ridotte.
+\end{sloppypar}
 
 \begin{figure}[H]
 \centering
@@ -192,16 +207,18 @@ Un esperimento dedicato (\texttt{scripts/esperimento\_maze.py}, output in \textt
 \label{fig:maze}
 \end{figure}
 
-\subsubsection{7. Tabella di ablation delle ottimizzazioni}
+\subsubsection{7. Studio di ablazione delle ottimizzazioni}
 \label{sssec:ablation}
 
-Il controllo dei componenti connessi e l'innesco goloso del limite superiore (\S4.4--4.5) sono già discussi qualitativamente nel Compito 3 su istanze isolate. Qui si riportano gli stessi due accorgimenti in un esperimento unico e controllato (\texttt{scripts/ablation\_ottimizzazioni.py}, \texttt{results/ablation\_ottimizzazioni.json}), che riusa il risultato già calcolato del controllo componenti e aggiunge una misura statistica su $5$ semi per l'innesco goloso, mai riportata prima su un campione anziché su istanze singole.
+Il controllo dei componenti connessi e l'innesco goloso del limite superiore (sezioni~4.4--4.5) sono già discussi qualitativamente nel Compito 3 su istanze isolate. Uno studio di ablazione (\emph{ablation}: disattivare singolarmente un accorgimento per isolarne l'effetto) riporta qui gli stessi due accorgimenti in un esperimento unico e controllato (script \texttt{ablation\_ottimizzazioni.py}), che riusa il risultato già calcolato del controllo componenti e aggiunge una misura statistica su $5$ semi per l'innesco goloso, non ancora riportata su un campione anziché su istanze singole.
 
 Il controllo dei componenti connessi resta il singolo intervento più efficace della campagna: sulla stessa coppia irraggiungibile in un recinto chiuso $50\times50$ già usata nel Compito 3, la sola etichettatura $O(R \cdot C)$ risponde in $0{,}006$ s con $0$ chiamate ricorsive, mentre la ricerca senza controllo raggiunge il tempo limite di $600$ s dopo oltre $27{,}4$ milioni di chiamate senza dimostrare l'irraggiungibilità.
 
-Per l'innesco goloso, $5$ semi indipendenti su una griglia \texttt{cluster} $50\times50$ (densità $0{,}2$, coppia d'angolo sempre raggiungibile) danno:
+Per l'innesco goloso, $5$ semi indipendenti su una griglia \texttt{cluster} $50\times50$ (densità $0{,}2$, coppia d'angolo sempre raggiungibile) danno i risultati in Tabella~\ref{tab:ablation}.
 
-\begin{center}
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|c|c|c|}
 \hline
 \textbf{Configurazione} & \textbf{Tempo mediano} & \textbf{Chiamate mediane} & \textbf{Timeout su 5 semi} \\
@@ -211,15 +228,18 @@ Debole, con innesco   & $20{,}00$ s & $299\,814$ & $5$ \\
 Forte, senza innesco  & $0{,}675$ s & $2\,522$ & $0$ \\
 Forte, con innesco    & $0{,}495$ s & $2\,521$ & $0$ \\
 \hline
-\end{tabular}
-\end{center}
+\end{tabular}%
+}
+\caption{Effetto dell'innesco goloso del limite superiore su $5$ semi indipendenti, con e senza potatura forte.}
+\label{tab:ablation}
+\end{table}
 
 Con potatura debole l'innesco riduce le chiamate mediane del $12\%$ circa ma nessun seme completa comunque entro $20$ s: un beneficio reale ma insufficiente da solo a cambiare l'esito, coerente con quanto già osservato nel Compito 3 sulle istanze singole. Con potatura forte il numero di chiamate resta sostanzialmente invariato ($2\,522$ contro $2\,521$), eppure il tempo mediano scende del $27\%$ circa: la mediana dei $5$ semi è dominata dal seme più difficile, il cui tempo passa da $16{,}0$ a $13{,}4$ s pur restando il numero di chiamate quasi identico, segno che il guadagno non viene da un albero di ricerca più piccolo ma da un limite superiore iniziale più stretto, che accelera i confronti a parità di nodi visitati. Il risultato onesto è quindi che l'innesco goloso, in combinazione con la potatura forte già efficace, resta un miglioramento marginale sul numero di nodi esplorati ma non trascurabile sul tempo effettivo.
 
 \subsubsection{8. Memoria in funzione della taglia}
 \label{sssec:memoria}
 
-La diapositiva 65 del testo dell'elaborato chiede prestazioni spaziali oltre che temporali; \S5.1 ne discute la complessità teorica ma, fino a questo intervento, nessun grafico ne verificava la crescita empirica per l'algoritmo principale (il confronto uint8/bit-plane di \S5.7 riguarda la rappresentazione della griglia, non la crescita della memoria di \texttt{CAMMINOMIN}). Il dato \texttt{peak\_memory\_kb} era già raccolto in ogni benchmark della campagna di scaling: la figura~\ref{fig:memory_vs_size} lo riporta senza rieseguire alcuna ricerca (\texttt{scripts/genera\_grafico\_memoria.py}, \texttt{results/10\_memory\_vs\_size.png}).
+La diapositiva 65 del testo dell'elaborato chiede prestazioni spaziali oltre che temporali; sezione~\ref{sec:complessita_spaziale} ne discute la complessità teorica, mentre la figura~\ref{fig:memory_vs_size} ne mostra la crescita empirica per l'algoritmo principale (il confronto uint8/bit-plane di sezione~\ref{sec:bitgrid} riguarda invece la rappresentazione della griglia, non la crescita di memoria di \texttt{CAMMINOMIN}). Il dato \texttt{peak\_memory\_kb} è raccolto in ogni benchmark della campagna di scaling: la figura lo riporta senza rieseguire alcuna ricerca (script \texttt{genera\_grafico\_memoria.py}).
 
 \begin{center}
 \begin{tabular}{|c|c|c|}
@@ -243,30 +263,33 @@ $150$ & $623{,}1$ KB & $634{,}3$ KB \\
 \label{fig:memory_vs_size}
 \end{figure}
 
-La crescita è sub-lineare rispetto al numero di celle ($R \times C$, che va da $100$ a $22\,500$ nell'intervallo misurato) e coerente con l'analisi di \S5.1: la pila di ricorsione è limitata dal numero di landmark, non dal numero di celle, e le strutture locali di chiusura e frontiera vengono ricreate a ogni livello ma non accumulate. Fino al lato $100$ la potatura forte usa meno memoria della debole (coerente con un albero di ricorsione più contenuto), ma al lato $150$ il rapporto si inverte leggermente ($634$ contro $623$ KB): a questa taglia entrambe le configurazioni esauriscono il tempo limite di $600$ s (\S5.4.3) restituendo un cammino parziale, quindi la memoria osservata dipende anche da quanto della frontiera resta allocato al momento dell'interruzione, non solo dalla profondità raggiunta. Il dato conferma comunque che, sulle taglie provate, la memoria non è mai il collo di bottiglia: poche centinaia di kilobyte anche al lato $150$, contro tempi che raggiungono i $10$ minuti.
+La crescita è sub-lineare rispetto al numero di celle ($R \times C$, che va da $100$ a $22\,500$ nell'intervallo misurato) e coerente con l'analisi di sezione~\ref{sec:complessita_spaziale}: la pila di ricorsione è limitata dal numero di landmark, non dal numero di celle, e le strutture locali di chiusura e frontiera vengono ricreate a ogni livello ma non accumulate. Fino al lato $100$ la potatura forte tende a usare meno memoria della debole, ma il margine è irregolare: quasi nullo al lato $50$ ($107{,}6$ contro $107{,}8$ KB) e al lato $150$ il rapporto si inverte leggermente ($634$ contro $623$ KB). A questa taglia entrambe le configurazioni esauriscono il tempo limite di $600$ s (sezione~\ref{sssec:scaling}) restituendo un cammino parziale, quindi la memoria osservata dipende anche da quanto della frontiera resta allocato al momento dell'interruzione, non solo dalla profondità raggiunta. Il dato conferma comunque che, sulle taglie provate, la memoria non è mai il collo di bottiglia: poche centinaia di kilobyte anche al lato $150$, contro tempi che raggiungono i $10$ minuti.
 
-\subsection{Oracolo di correttezza indipendente: confronto con A*}
+\subsection{Verifica indipendente di correttezza: confronto con A*}
+\label{sec:verifica_astar}
 
-La verifica di simmetria appena discussa è una condizione necessaria ma non sufficiente di correttezza: un'implementazione potrebbe restituire la stessa lunghezza sbagliata in entrambe le direzioni. Per un controllo più forte, seguendo il suggerimento della specifica di confrontare implementazioni diverse dello stesso calcolo (diapositiva 63 del testo dell'elaborato), è stata realizzata una seconda implementazione indipendente della ricerca del cammino minimo: l'algoritmo A*~\cite{hart1968} applicato direttamente al grafo delle celle (\texttt{src/astar.py}), con costo $1$ sui passi cardinali e $\sqrt{2}$ su quelli diagonali e con la stessa semantica di attraversamento dei cammini liberi (il passo diagonale fra due celle libere è sempre ammesso, diapositiva 3).
+La verifica di simmetria (sezione~\ref{sssec:simmetria}) è una condizione necessaria ma non sufficiente di correttezza: un'implementazione potrebbe restituire la stessa lunghezza sbagliata in entrambe le direzioni. Per un controllo più forte, seguendo il suggerimento della specifica di confrontare implementazioni diverse dello stesso calcolo (diapositiva 63 del testo dell'elaborato), è stata realizzata una seconda implementazione indipendente della ricerca del cammino minimo: l'algoritmo A*~\cite{hart1968} applicato direttamente al grafo delle celle (\texttt{src/astar.py}), con costo $1$ sui passi cardinali e $\sqrt{2}$ su quelli diagonali e con la stessa semantica di attraversamento dei cammini liberi (il passo diagonale fra due celle libere è sempre ammesso, diapositiva 3).
 
-La chiave dell'oracolo è che la distanza ideale $d_{\text{lib}}$ già definita nel Compito 2 è esattamente la distanza octile, che su questo grafo è un'euristica ammissibile e consistente: A* restituisce quindi sempre la lunghezza ottima esatta, e lo fa in tempi dell'ordine dei millisecondi anche sulla griglia $150 \times 150$, perché il suo costo è quasi lineare nel numero di celle e non risente del muro esponenziale della ricerca a landmark. A* non sostituisce \texttt{CAMMINOMIN}, che la specifica impone nella forma pseudocodificata, ma ne convalida i risultati: ogni lunghezza completata da \texttt{CAMMINOMIN} deve coincidere con quella di A*.
+La distanza ideale $d_{\text{lib}}$ già definita nel Compito 2, cioè $\sqrt{2}\Delta_{min} + \Delta_{max} - \Delta_{min}$ (il costo minimo per muoversi in $8$ direzioni fra due celle), è su questo grafo un'euristica ammissibile e consistente: A* restituisce quindi sempre la lunghezza ottima esatta, e lo fa in tempi dell'ordine dei millisecondi anche sulla griglia $150 \times 150$, perché il suo costo è quasi lineare nel numero di celle e non risente del muro esponenziale della ricerca a landmark. A* non sostituisce \texttt{CAMMINOMIN}, che la specifica impone nella forma pseudocodificata, ma ne convalida i risultati: ogni lunghezza completata da \texttt{CAMMINOMIN} deve coincidere con quella di A*.
 
-La verifica è duplice. In primo luogo la suite di test (\texttt{tests/test\_astar.py}) confronta le due implementazioni su venti griglie casuali $15 \times 15$ di tipologie miste, inclusi i casi irraggiungibili, richiedendo l'uguaglianza entro $10^{-9}$. In secondo luogo lo script \texttt{scripts/verifica\_oracolo\_astar.py} rigenera le stesse griglie della campagna di scaling (stessi semi e parametri) e confronta l'ottimo di A* con le lunghezze già registrate in \texttt{scaling\_results.json}, senza rieseguire la campagna: tutte le esecuzioni completate (le taglie $10$ e $20$ in ogni configurazione, i lati $30$ e $50$ a potatura forte e nella direzione di ritorno, il lato $100$ nella sola direzione di ritorno) coincidono con l'ottimo esatto. L'oracolo convalida così l'intera catena di calcolo esistente, dalla proiezione di raggi alla ricorsione.
+La verifica è duplice. In primo luogo la suite di test (\texttt{tests/test\_astar.py}) confronta le due implementazioni su venti griglie casuali $15 \times 15$ di tipologie miste, inclusi i casi irraggiungibili, richiedendo l'uguaglianza entro $10^{-9}$. In secondo luogo lo script \texttt{scripts/verifica\_oracolo\_astar.py} rigenera le stesse griglie della campagna di scaling (stessi semi e parametri) e confronta l'ottimo di A* con le lunghezze già registrate in \texttt{scaling\_results.json}, senza rieseguire la campagna: tutte le esecuzioni completate (le taglie $10$ e $20$ in ogni configurazione, i lati $30$ e $50$ a potatura forte e nella direzione di ritorno, il lato $100$ nella sola direzione di ritorno) coincidono con l'ottimo esatto. Il confronto con A* convalida così l'intera catena di calcolo esistente, dalla proiezione di raggi alla ricorsione.
 
 \subsection{Divario di ottimalità dei risultati interrotti (anytime)}
+\label{sec:divario_anytime}
 
-L'oracolo consente anche di rispondere a una domanda che la campagna di scaling aveva lasciato aperta: quando la ricerca viene interrotta al tempo limite e restituisce il miglior cammino trovato fino a quel momento, \emph{quanto} quel cammino dista dal vero ottimo? Senza un riferimento esatto il dato anytime è privo di scala; con A* il divario diventa misurabile. La figura~\ref{fig:divario_anytime} riporta il divario percentuale per tutte le esecuzioni interrotte della campagna (i dati numerici sono in \texttt{divario\_anytime.json}).
+Il confronto con A* consente anche di rispondere a una domanda che la campagna di scaling aveva lasciato aperta: quando la ricerca viene interrotta al tempo limite e restituisce il miglior cammino trovato fino a quel momento, \emph{quanto} quel cammino dista dal vero ottimo? Senza un riferimento esatto il dato anytime è privo di scala; con A* il divario diventa misurabile. La figura~\ref{fig:divario_anytime} riporta il divario percentuale per tutte le esecuzioni interrotte della campagna (i dati numerici sono in \texttt{divario\_anytime.json}); alle taglie $10$ e $20$ ogni configurazione completa la ricerca entro il tempo limite, quindi non compare alcuna barra. Ai lati $30$ e $50$ solo la potatura debole viene interrotta: la forte e la direzione di ritorno completano e coincidono esattamente con l'ottimo di A*, così in figura resta solo la barra della debole.
 
 Il quadro che emerge sfuma il significato del muro esponenziale. Già al lato $30$ la potatura debole interrotta resta all'$1{,}4\%$ dall'ottimo, e al lato $50$ al $3{,}5\%$. Al lato $100$ la potatura forte, pur non riuscendo a completare la ricerca in $600$ s, restituisce un cammino a solo lo $0{,}4\%$ dall'ottimo (la debole al $4{,}3\%$). Al lato $150$, dove per la prima volta anche la direzione di ritorno a potatura forte resta interrotta, il divario cresce sensibilmente: dal $9{,}1\%$ della forte, all'$11{,}2\%$ del ritorno, fino al $20{,}0\%$ della debole. In altre parole: l'algoritmo interrotto è spesso un buon risolutore approssimato alle taglie piccole e medie, ma la qualità della soluzione anytime degrada rapidamente non appena la frontiera inizia a saturare il tempo limite. Anche questo risultato conferma l'utilità dell'ordinamento euristico della frontiera: i primi cammini trovati sono geometricamente ben orientati, ed è per questo che il risultato parziale resta vicino all'ottimo finché almeno una foglia viene raggiunta.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{divario_anytime.png}
-\caption{Divario percentuale dall'ottimo esatto (calcolato con A*) dei cammini restituiti alle esecuzioni interrotte al tempo limite di $600$ s.}
+\caption{Divario percentuale dall'ottimo esatto (A*) dei cammini restituiti alle esecuzioni interrotte al tempo limite di $600$ s. Assenza di barra = ricerca completata, divario nullo.}
 \label{fig:divario_anytime}
 \end{figure}
 
 \subsection{Confronto di strutture dati: matrice di byte contro piani di bit}
+\label{sec:bitgrid}
 
 La specifica premia esplicitamente il confronto fra implementazioni diverse anche sul piano delle strutture dati e l'adozione di strutture che estendano le taglie elaborabili (diapositive 63 e 72 del testo dell'elaborato). La rappresentazione di riferimento della griglia è una matrice NumPy \texttt{uint8}, un byte per cella; gli stati logici necessari sono però soltanto tre (cella libera, ostacolo fisso, ostacolo temporaneo), che si codificano in due piani di bit paralleli, uno per gli ostacoli fissi e uno per le marcature temporanee: due bit per cella, un quarto della memoria. La classe \texttt{BitPackedGrid} (\texttt{src/bitgrid.py}) impacchetta i due piani in array di byte (otto celle per byte) ed espone la stessa interfaccia di accesso della matrice: tutti gli algoritmi esistenti, dal calcolo delle chiusure a \texttt{CAMMINOMIN}, operano sull'oggetto impacchettato senza alcuna modifica, e i test di equivalenza (\texttt{tests/test\_bitgrid.py}) confermano chiusure, frontiere e risultati identici.
 

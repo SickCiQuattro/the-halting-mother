@@ -24,6 +24,7 @@ import numpy as np
 from _common import plt
 from src.generator import GridGenerator
 from src.experiment_runner import run_single_benchmark, run_benchmark_coppia
+from src.plot_style import COLOR_DEBOLE, COLOR_FORTE
 
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 
@@ -104,9 +105,9 @@ def _plot(pruning: list[dict[str, object]]) -> None:
     width = 0.35
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.bar(x - width / 2, weak_med, width, yerr=weak_err, capsize=4,
-           label=f'Potatura debole (mediana + IQR, {len(SEEDS)} semi)', color='#ff7979')
+           label=f'Potatura debole (mediana + IQR, {len(SEEDS)} semi)', color=COLOR_DEBOLE)
     ax.bar(x + width / 2, strong_med, width, yerr=strong_err, capsize=4,
-           label=f'Potatura forte (mediana + IQR, {len(SEEDS)} semi)', color='#2ed573')
+           label=f'Potatura forte (mediana + IQR, {len(SEEDS)} semi)', color=COLOR_FORTE)
     ax.set_title(f"Tempi di esecuzione per tipologia — {len(SEEDS)} semi indipendenti (coppia d'angolo)",
                  fontsize=12, fontweight='bold')
     ax.set_xticks(x)
