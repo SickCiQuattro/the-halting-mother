@@ -74,7 +74,6 @@ Per lanciare l'intera batteria automatizzata di prove sperimentali su griglie sc
 \begin{lstlisting}[style=comandoshell]
 python main.py experiment --output-dir results
 \end{lstlisting}
-La taglia $200\times200$, inizialmente inclusa, è stata rimossa dalla sezione di scaling perché entrambe le potature esauriscono il tempo limite senza trovare alcun cammino completo (si veda il Compito 4), a favore di una taglia $30\times30$ intermedia. Lo script \texttt{scripts/aggiorna\_scaling\_30.py} applica questa modifica riutilizzando i risultati già validi delle altre taglie, senza ripetere l'intera campagna di circa due ore.
 
 \subsubsection{6. Verifica di simmetria formale}
 Per lanciare la verifica automatica di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su un numero $N$ di coppie casuali di nodi:
