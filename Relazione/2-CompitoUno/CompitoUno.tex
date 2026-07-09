@@ -9,7 +9,7 @@ L'utente configura il generatore attraverso i parametri della riga di comando. L
     \item \texttt{---rows} e \texttt{---cols}: numero di righe e colonne della griglia (dimensioni $R \times C$);
     \item \texttt{---seed}: seme numerico per il generatore pseudo-casuale, che assicura la totale riproducibilità degli ostacoli generati nelle successive campagne di prova;
     \item \texttt{---types}: elenco delle tipologie di ostacoli da inserire (con la possibilità di combinarle nello scenario \texttt{mix});
-    \item \texttt{---density}: frazione obiettivo di celle della griglia da occupare con ostacoli fisici (compresa tra $0.0$ e $1.0$).
+    \item \texttt{---density}: frazione obiettivo di celle della griglia da occupare con ostacoli fisici (compresa tra $0{,}0$ e $1{,}0$).
 \end{itemize}
 
 \subsection{Tipologie di ostacoli e modellizzazione logica}
@@ -84,6 +84,6 @@ Di seguito si riporta lo pseudocodice di generazione:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.62\textwidth]{griglia_generata.png}
-\caption{Griglia $30 \times 30$ prodotta dal generatore con tipologie miste (\texttt{mix}) e densità $0.2$.}
+\caption{Griglia $30 \times 30$ prodotta dal generatore con tipologie miste (\texttt{mix}) e densità $0{,}2$.}
 \label{fig:griglia_generata}
 \end{figure}
