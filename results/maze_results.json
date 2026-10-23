@@ -4,20 +4,20 @@
   "corse": [
     {
       "potatura_forte": false,
-      "tempo_s": 60.000428676605225,
-      "lunghezza": 196.76955262170046,
-      "chiamate_ricorsive": 668189,
-      "celle_frontiera": 668249,
-      "max_depth": 14,
+      "tempo_s": 60.000104904174805,
+      "lunghezza": 196.18376618407353,
+      "chiamate_ricorsive": 3433436,
+      "celle_frontiera": 3433487,
+      "max_depth": 15,
       "tempo_limite_raggiunto": true
     },
     {
       "potatura_forte": true,
-      "tempo_s": 60.00069618225098,
+      "tempo_s": 60.00012803077698,
       "lunghezza": 196.18376618407353,
-      "chiamate_ricorsive": 136681,
-      "celle_frontiera": 599651,
-      "max_depth": 12,
+      "chiamate_ricorsive": 897134,
+      "celle_frontiera": 3999832,
+      "max_depth": 14,
       "tempo_limite_raggiunto": true
     }
   ]
