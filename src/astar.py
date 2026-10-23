@@ -1,13 +1,13 @@
 """
-Implementazione di confronto: A* sul grafo delle celle (pag. 63, confronto di implementazioni).
+Implementazione di confronto: A* sul grafo delle celle.
 
-Non sostituisce CAMMINOMIN (l'elaborato impone quello pseudocodice) ma funge da oracolo di
+Non sostituisce CAMMINOMIN (che segue lo pseudocodice della specifica) ma funge da oracolo di
 correttezza indipendente: su griglie 8-connesse con costi unitari sui passi cardinali e sqrt(2)
 sui diagonali, la distanza `dlib` è esattamente l'euristica octile, ammissibile e consistente,
 quindi A* restituisce sempre la lunghezza del cammino minimo esatto. Ogni lunghezza completata
 da CAMMINOMIN deve coincidere con quella di A*.
 
-Semantica di attraversamento identica a quella dei cammini liberi (pag. 3 dell'elaborato): il
+Semantica di attraversamento identica a quella dei cammini liberi (dalla specifica): il
 passo diagonale fra due celle libere è sempre ammesso, anche quando i due ostacoli adiacenti si
 toccano per lo spigolo (nessuna restrizione di taglio d'angolo).
 
@@ -54,7 +54,7 @@ def astar(origin: Coordinate, dest: Coordinate, grid_state: np.ndarray) -> float
     closed: set[Coordinate] = set()
 
     while open_heap:
-        f_val, cell = heapq.heappop(open_heap)
+        _, cell = heapq.heappop(open_heap)
         if cell == dest:
             return g_cost[cell]
         if cell in closed:

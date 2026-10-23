@@ -12,5 +12,11 @@ dependencies = [
     "matplotlib>=3.8",
 ]
 
+[project.scripts]
+camminomin = "src.cli:main"
+
 [tool.setuptools]
 packages = ["src"]
+
+[tool.ruff]
+line-length = 120

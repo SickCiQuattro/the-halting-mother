@@ -1,4 +1,4 @@
-"""Generazione dei sei grafici della campagna sperimentale (Compito 4)."""
+"""Generazione dei sei grafici della campagna sperimentale."""
 import os
 
 # Imposta il backend headless di matplotlib prima di importare pyplot per ambienti senza display
@@ -159,8 +159,8 @@ def _plot_scaling(scaling_res: list[dict[str, object]], output_dir: str) -> None
     sizes = [r["size"] for r in scaling_res]
     scaling_timeout_val = max(r["weak"]["elapsed_time_s"] for r in scaling_res)
     for key, label, color, marker in [
-        ("weak", "Potatura debole (riga 16)", COLOR_DEBOLE, "s"),
-        ("strong", "Potatura forte (riga 17)", COLOR_FORTE, "^"),
+        ("weak", "Potatura debole", COLOR_DEBOLE, "s"),
+        ("strong", "Potatura forte", COLOR_FORTE, "^"),
     ]:
         times = [r[key]["elapsed_time_s"] for r in scaling_res]
         timed_out = [r[key]["timed_out"] for r in scaling_res]

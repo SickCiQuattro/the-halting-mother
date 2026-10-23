@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Rigenera la sola figura 4 (scatter combinato tempo/complessità) senza rilanciare l'intera
-campagna sperimentale (Piano di miglioramento, sezione 2.F).
+campagna sperimentale.
 
 In precedenza le figure 4 e 5 erano due scatter separati (tempo contro frontiera, tempo contro
 invocazioni ricorsive) con correlazione praticamente identica (R^2=0.93 e 0.84): le due metriche crescono
@@ -25,7 +25,7 @@ RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 
 
 def _carica(nome: str) -> list[dict[str, object]]:
-    with open(os.path.join(RESULTS_DIR, nome), "r", encoding="utf-8") as f:
+    with open(os.path.join(RESULTS_DIR, nome), encoding="utf-8") as f:
         return json.load(f)
 
 

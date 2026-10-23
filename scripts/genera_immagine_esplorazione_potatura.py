@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera la mappa delle celle esplorate: potatura debole vs forte (Relazione, Compito 3)."""
+"""Genera la mappa delle celle esplorate: potatura debole vs forte."""
 import os
 import time
 
@@ -51,7 +51,7 @@ for ax, nome, colore in zip(axes, ["debole", "forte"], ["#e74c3c", "#2ed573"]):
     ax.set_title(titolo, fontsize=11, fontweight="bold")
 
 plt.tight_layout()
-out_path = os.path.join(os.path.dirname(__file__), "..", "Relazione", "images", "esplorazione_potatura_debole_vs_forte.png")
+out_path = os.path.join(os.path.dirname(__file__), "..", "results", "esplorazione_potatura_debole_vs_forte.png")
 plt.savefig(out_path, dpi=200, bbox_inches="tight")
 plt.close()
 print(f"Salvata: {out_path}")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copertura della tipologia 'mix' (Relazione, sezione 5.4: requisito Compito 4, tutte le tipologie).
+"""Copertura della tipologia 'mix' (copertura di tutte le tipologie).
 
 Le cinque tipologie singole (simple, cluster, diagonal, enclosure, bar) sono già coperte dalle
 campagne di potatura, ordinamento e simmetria per tipo (results/pruning_comparison.json,

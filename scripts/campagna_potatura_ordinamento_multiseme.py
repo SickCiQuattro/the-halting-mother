@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Ridisegna potatura (riga 16 contro riga 17) e ordinamento (euristico contro casuale) come
-campagna multi-seme (Piano di miglioramento, sezione 2.A). Le versioni a seme singolo
+"""Ridisegna potatura (debole contro forte) e ordinamento (euristico contro casuale) come
+campagna multi-seme. Le versioni a seme singolo
 (pruning_comparison.json, ordering_comparison.json, seed=2026) restano come riferimento più
 fine (5 coppie per griglia, incluse quelle casuali); qui si isola la coppia d'angolo su 8 semi
 di griglia indipendenti per tipologia, con mediana e IQR: lo stesso protocollo di
-campagna_densita_multiseme.py, per lo stesso motivo (C1/C2 in ValutazioneEsperimenti.md).
+campagna_densita_multiseme.py, per lo stesso motivo: una sola coppia e un solo seme non misurano la variabilità.
 
 L'ordinamento euristico riusa le corse "forte" già eseguite per la potatura (nella campagna
 sono la stessa configurazione), evitando di duplicare l'esecuzione.

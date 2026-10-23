@@ -1,7 +1,6 @@
 """
-Rappresentazione alternativa della griglia a bit impacchettati (pag. 63 e 72 dell'elaborato:
-confronto di implementazioni relativamente alle strutture dati; strutture che estendono le
-taglie elaborabili).
+Rappresentazione alternativa della griglia a bit impacchettati (confronto tra strutture dati,
+utile per estendere le taglie elaborabili).
 
 La matrice `uint8` standard usa 1 byte per cella, ma gli stati logici necessari sono tre
 (0 libera, 1 ostacolo fisso, 2 ostacolo temporaneo): bastano due piani di bit, uno per gli

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Robustezza multi-seme sulle campagne veloci (Relazione, sezione 5.4: la specifica chiede istanze
+"""Robustezza multi-seme sulle campagne veloci (la specifica chiede istanze
 significative e numerose).
 
 Le campagne esistenti (potatura per tipo, densità) usano una griglia a seme fisso: le mediane

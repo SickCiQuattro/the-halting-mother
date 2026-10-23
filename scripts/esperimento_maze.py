@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Caso peggiore topologico: labirinto serpentino connesso (Relazione, sezione 5.4: la specifica cita
+"""Caso peggiore topologico: labirinto serpentino connesso (la specifica cita
 barre disposte «in modo da formare un labirinto»).
 
 A differenza delle campagne precedenti (ostacoli sparsi o a barre con varchi casuali), il
@@ -82,7 +82,7 @@ def main() -> None:
 
     # Figura 1: confronto a barre debole contro forte
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    nomi = ["debole (riga 16)", "forte (riga 17)"]
+    nomi = ["debole", "forte"]
     valori = [max(1, c["chiamate_ricorsive"]) for c in corse]
     ax.bar(nomi, valori, color=[COLOR_DEBOLE, COLOR_FORTE])
     ax.set_yscale("log")

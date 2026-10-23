@@ -1,7 +1,6 @@
 import random
 import logging
 import numpy as np
-from typing import List, Optional
 from src.grid import Grid, Coordinate, NEIGHBORS_8
 
 # Configura il logging standard per il modulo
@@ -11,7 +10,7 @@ class GridGenerator:
     """
     Generatore strategico ed estendibile di ostacoli per griglie bidimensionali.
 
-    Supporta 5 tipologie distinte di ostacoli (Compito 1 dell'elaborato):
+    Supporta 5 tipologie distinte di ostacoli:
       1. simple: Ostacoli a singola cella sparsi in modo casuale con densità controllata.
       2. cluster: Agglomerati di celle ostacolo contigue mediante random walk da semi.
       3. diagonal: Ostacoli allineati diagonalmente (coppie o triple che si toccano per l'angolo).
@@ -20,7 +19,7 @@ class GridGenerator:
     """
     
     @staticmethod
-    def _get_rng(seed: Optional[int]) -> random.Random:
+    def _get_rng(seed: int | None) -> random.Random:
         """Ritorna un'istanza isolata di Random pre-seminata per garantire riproducibilità totale."""
         return random.Random(seed) if seed is not None else random.Random()
 
@@ -33,7 +32,7 @@ class GridGenerator:
         ]
 
     @classmethod
-    def generate_simple(cls, grid: Grid, density: float, seed: Optional[int] = None) -> None:
+    def generate_simple(cls, grid: Grid, density: float, seed: int | None = None) -> None:
         """
         Genera ostacoli sparsi a cella singola.
         
@@ -68,7 +67,7 @@ class GridGenerator:
         num_clusters: int, 
         min_size: int, 
         max_size: int, 
-        seed: Optional[int] = None
+        seed: int | None = None
     ) -> None:
         """
         Genera agglomerati densi (cluster) di ostacoli contigui tramite cammino casuale a partire da semi.
@@ -116,7 +115,7 @@ class GridGenerator:
                         queue.append((nr, nc))
 
     @classmethod
-    def generate_diagonal(cls, grid: Grid, count: int, seed: Optional[int] = None) -> None:
+    def generate_diagonal(cls, grid: Grid, count: int, seed: int | None = None) -> None:
         """
         Genera coppie o triple di ostacoli disposti unicamente in allineamento diagonale.
         Questa disposizione è cruciale per testare l'attraversamento dello spigolo.
@@ -153,7 +152,7 @@ class GridGenerator:
         count: int, 
         min_side: int, 
         max_side: int, 
-        seed: Optional[int] = None
+        seed: int | None = None
     ) -> None:
         """
         Genera recinti rettangolari (bordi di ostacoli e area interna libera da ostacoli fisici).
@@ -197,7 +196,7 @@ class GridGenerator:
         thickness: int, 
         min_len: int, 
         max_len: int, 
-        seed: Optional[int] = None
+        seed: int | None = None
     ) -> None:
         """
         Genera segmenti H/V continui (barriere) di spessore prefissato, lasciando una singola cella aperta (varco).
@@ -287,9 +286,9 @@ class GridGenerator:
         cls, 
         rows: int, 
         cols: int, 
-        types: List[str], 
+        types: list[str], 
         density: float = 0.2, 
-        seed: Optional[int] = None
+        seed: int | None = None
     ) -> Grid:
         """
         Inizializza e popola una nuova griglia unendo i tipi di ostacolo specificati.

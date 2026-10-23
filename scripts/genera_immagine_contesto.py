@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera la figura illustrativa di contesto/complemento/frontiera per la Relazione (Compito 2)."""
+"""Genera la figura illustrativa di contesto/complemento/frontiera."""
 import os
 
 from src.grid import Grid
@@ -7,7 +7,7 @@ from src.free_paths import compute_context_rays, compute_complement_rays, comput
 from _common import plt
 
 # Griglia dimostrativa 15x15 con un ostacolo che spezza un quadrante,
-# analoga per struttura all'esempio della traccia.
+# analoga per struttura a un caso tipico.
 grid = Grid(15, 15)
 for r, c in [(4, 9), (5, 9), (6, 9), (6, 10), (6, 11), (9, 4), (10, 4), (10, 5)]:
     grid.set_obstacle(r, c)
@@ -79,7 +79,7 @@ for ax, mostra_frontiera in zip(axes, [False, True]):
     ax.set_aspect("equal")
 
 plt.tight_layout()
-out_path = os.path.join(os.path.dirname(__file__), "..", "Relazione", "images", "contesto_complemento_frontiera.png")
+out_path = os.path.join(os.path.dirname(__file__), "..", "results", "contesto_complemento_frontiera.png")
 plt.savefig(out_path, dpi=200, bbox_inches="tight")
 plt.close()
 print(f"Salvata: {out_path}")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Grafico memoria in funzione della taglia dell'algoritmo CAMMINOMIN (Piano di miglioramento, sezione 2.C).
+"""Grafico memoria in funzione della taglia dell'algoritmo CAMMINOMIN.
 
 La specifica richiede prestazioni sia temporali sia spaziali; peak_memory_kb è
 già raccolto in ogni benchmark ma non è mai stato tracciato contro la dimensione della griglia.
@@ -25,8 +25,8 @@ def main() -> None:
     mem_strong = [r["strong"]["peak_memory_kb"] for r in scaling_res]
 
     plt.figure(figsize=(8, 5))
-    plt.plot(sizes, mem_weak, marker='s', color=COLOR_DEBOLE, linewidth=2, label='Potatura debole (riga 16)')
-    plt.plot(sizes, mem_strong, marker='^', color=COLOR_FORTE, linewidth=2, label='Potatura forte (riga 17)')
+    plt.plot(sizes, mem_weak, marker='s', color=COLOR_DEBOLE, linewidth=2, label='Potatura debole')
+    plt.plot(sizes, mem_strong, marker='^', color=COLOR_FORTE, linewidth=2, label='Potatura forte')
     plt.xscale('log')
     plt.xlabel("Dimensione griglia (lato R = C)", fontsize=10)
     plt.ylabel("Picco di memoria (KB)", fontsize=10)

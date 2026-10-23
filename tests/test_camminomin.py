@@ -1,6 +1,8 @@
+import time
 import unittest
 import numpy as np
 from src.grid import Grid
+from src.generator import GridGenerator
 from src.camminomin import camminomin, reconstruct_path, compact
 
 class TestCamminomin(unittest.TestCase):
@@ -93,48 +95,15 @@ class TestCamminomin(unittest.TestCase):
         min_len_no_check, _, _ = camminomin(o, d, grid.state, use_component_check=False)
         self.assertEqual(min_len_no_check, float('inf'))
 
-    def test_greedy_seed_stessa_lunghezza(self):
-        # Su una griglia con ostacoli, l'innesco goloso deve produrre la stessa lunghezza
-        # minima della ricerca senza innesco (mai peggiore, mai un falso ottimo).
-        grid = Grid(10, 10)
-        for r in range(8):
-            grid.set_obstacle(r, 4)
-
-        o = (3, 2)
-        d = (3, 7)
-
-        len_senza, _, to_senza = camminomin(o, d, grid.state.copy(), use_strong_pruning=True, greedy_seed=False)
-        len_con, seq_con, to_con = camminomin(o, d, grid.state.copy(), use_strong_pruning=True, greedy_seed=True)
-
-        self.assertFalse(to_senza)
-        self.assertFalse(to_con)
-        self.assertAlmostEqual(len_senza, len_con)
-        self.assertEqual(seq_con[0], (o, 0))
-        self.assertEqual(seq_con[-1][0], d)
-
-    def test_greedy_seed_gia_ottimo_non_perde_la_sequenza(self):
-        # Se la discesa golosa individua già il cammino minimo (griglia priva di ostacoli),
-        # la potatura con disuguaglianza stretta non deve far perdere la sequenza: il
-        # cammino goloso resta il valore di ritorno di default.
-        grid = Grid(15, 15)
-        o, d = (0, 0), (14, 14)
-
-        min_len, landmarks, timed_out = camminomin(o, d, grid.state, use_strong_pruning=True, greedy_seed=True)
-
-        self.assertFalse(timed_out)
-        self.assertGreater(min_len, 0.0)
-        self.assertEqual(landmarks[0], (o, 0))
-        self.assertEqual(landmarks[-1][0], d)
-
-    def test_greedy_seed_ripristina_la_griglia(self):
-        grid = Grid(10, 10)
-        for r in range(8):
-            grid.set_obstacle(r, 4)
-        original_state = grid.state.copy()
-
-        camminomin((3, 2), (3, 7), grid.state, use_strong_pruning=True, greedy_seed=True)
-
-        np.testing.assert_array_equal(grid.state, original_state)
+    def test_tempo_limite_ripristina_la_griglia(self):
+        grid = GridGenerator.generate_grid(40, 40, ["simple"], density=0.25, seed=0)
+        prima = grid.state.copy()
+        _, _, timed_out = camminomin(
+            (0, 0), (39, 39), grid.state, use_strong_pruning=True,
+            start_time=time.time(), timeout=0.02
+        )
+        self.assertTrue(timed_out)
+        self.assertTrue((grid.state == prima).all())
 
     def test_compact(self):
         seq1 = [((0, 0), 0), ((3, 4), 1)]

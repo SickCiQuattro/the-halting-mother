@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verifica empirica del limite di ricorsione di CAMMINOMIN (Relazione, Conclusioni).
+"""Verifica empirica del limite di ricorsione di CAMMINOMIN.
 
 Costruisce una griglia "a pettine": barriere verticali a piena altezza con un unico
 varco che alterna fra il bordo superiore e quello inferiore, forzando un cammino a

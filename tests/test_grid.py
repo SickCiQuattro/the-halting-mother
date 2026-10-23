@@ -54,7 +54,7 @@ class TestGrid(unittest.TestCase):
 
     def test_compute_components_passaggio_diagonale(self):
         # Due ostacoli che si toccano per lo spigolo NON separano le celle libere in
-        # diagonale (pag. 3: attraversamento diagonale sempre ammesso)
+        # diagonale (attraversamento diagonale sempre ammesso)
         grid = Grid(2, 2)
         grid.set_obstacle(0, 1)
         grid.set_obstacle(1, 0)

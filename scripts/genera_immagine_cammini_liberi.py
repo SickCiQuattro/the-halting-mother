@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera la figura del cammino libero di tipo 1 vs tipo 2 per la Relazione (Compito 2)."""
+"""Genera la figura del cammino libero di tipo 1 vs tipo 2."""
 import os
 
 from src.grid import Grid
@@ -49,7 +49,7 @@ ax.set_title("Cammino libero di tipo 1 e di tipo 2 fra $O$ e $D$", fontsize=12, 
 ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.18), ncol=2, fontsize=9)
 
 plt.tight_layout()
-out_path = os.path.join(os.path.dirname(__file__), "..", "Relazione", "images", "cammini_liberi_tipo1_tipo2.png")
+out_path = os.path.join(os.path.dirname(__file__), "..", "results", "cammini_liberi_tipo1_tipo2.png")
 plt.savefig(out_path, dpi=200, bbox_inches="tight")
 plt.close()
 print(f"Salvata: {out_path}")

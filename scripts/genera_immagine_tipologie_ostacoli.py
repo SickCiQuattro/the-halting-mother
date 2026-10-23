@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera il pannello delle 5 tipologie di ostacolo isolate per la Relazione (Compito 1)."""
+"""Genera il pannello delle 5 tipologie di ostacolo isolate."""
 import os
 
 from src.grid import Grid
@@ -48,7 +48,7 @@ for ax, (nome, grid) in zip(axes, griglie):
 axes[2].set_xlabel("celle unite solo per lo spigolo:\nattraversamento diagonale ammesso", fontsize=8.5, style="italic")
 
 plt.tight_layout()
-out_path = os.path.join(os.path.dirname(__file__), "..", "Relazione", "images", "tipologie_ostacoli.png")
+out_path = os.path.join(os.path.dirname(__file__), "..", "results", "tipologie_ostacoli.png")
 plt.savefig(out_path, dpi=200, bbox_inches="tight")
 plt.close()
 print(f"Salvata: {out_path}")

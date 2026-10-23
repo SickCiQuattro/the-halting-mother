@@ -149,7 +149,7 @@ def compute_context_rays(origin: Coordinate, grid_state: np.ndarray) -> set[Coor
     Ritorna l'insieme di celle raggiungibili da un'origine tramite un cammino libero di tipo 1.
 
     Ottimizzazione a proiezione di raggi:
-    Invece di invocare `free_path_type1` per ciascuna cella della griglia (costo totale O(R^2 * C^2)),
+    Invece di invocare `free_path_type1` per ciascuna cella della griglia (costo totale O(R * C * (R + C))),
     questo algoritmo traccia i raggi partendo dall'origine ed espandendo verso l'esterno.
     La complessità temporale è ridotta a O(max(R, C)^2).
 

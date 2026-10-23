@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera la figura di apertura a 4 pannelli per l'Introduzione della Relazione."""
+"""Genera la figura di apertura a 4 pannelli."""
 import os
 
 from src.grid import Grid
@@ -63,11 +63,11 @@ def disegna_griglia_base(ax, stato):
 disegna_griglia_base(axes[0], grid_vuota.state)
 axes[0].set_title("1. Griglia vuota", fontsize=12, fontweight="bold")
 
-# Pannello 2: griglia con ostacoli generati (Compito 1)
+# Pannello 2: griglia con ostacoli generati
 disegna_griglia_base(axes[1], grid.state)
-axes[1].set_title("2. Ostacoli generati (Compito 1)", fontsize=12, fontweight="bold")
+axes[1].set_title("2. Ostacoli generati", fontsize=12, fontweight="bold")
 
-# Pannello 3: chiusura e raggi da O (Compito 2)
+# Pannello 3: chiusura e raggi da O
 ax = axes[2]
 for r in range(SIZE):
     for c in range(SIZE):
@@ -90,9 +90,9 @@ ax.set_ylim(SIZE - 0.5, -0.5)
 ax.set_xticks([])
 ax.set_yticks([])
 ax.set_aspect("equal")
-ax.set_title("3. Chiusura e raggi da $O$ (Compito 2)", fontsize=12, fontweight="bold")
+ax.set_title("3. Chiusura e raggi da $O$", fontsize=12, fontweight="bold")
 
-# Pannello 4: cammino minimo risolto (Compito 3)
+# Pannello 4: cammino minimo risolto
 disegna_griglia_base(axes[3], grid.state)
 if path:
     for r, c in path:
@@ -101,14 +101,14 @@ lm_cols = [coord[1] for coord, _ in landmarks]
 lm_rows = [coord[0] for coord, _ in landmarks]
 axes[3].plot(lm_cols, lm_rows, color="#0984e3", linewidth=2.5, zorder=3)
 axes[3].scatter(lm_cols, lm_rows, color="#fdcb6e", edgecolor="#d63031", s=90, marker="D", zorder=4)
-axes[3].set_title("4. Cammino minimo risolto (Compito 3)", fontsize=12, fontweight="bold")
+axes[3].set_title("4. Cammino minimo risolto", fontsize=12, fontweight="bold")
 
 for ax, coord, label in [(axes[2], origin, "O"), (axes[3], origin, "O"), (axes[3], dest, "D")]:
     ax.scatter(coord[1], coord[0], marker="o", s=140, facecolor="#0984e3", edgecolor="black", zorder=5)
     ax.text(coord[1], coord[0], label, color="white", fontsize=8, fontweight="bold", ha="center", va="center", zorder=6)
 
 plt.tight_layout()
-out_path = os.path.join(os.path.dirname(__file__), "..", "Relazione", "images", "panoramica_sistema.png")
+out_path = os.path.join(os.path.dirname(__file__), "..", "results", "panoramica_sistema.png")
 plt.savefig(out_path, dpi=200, bbox_inches="tight")
 plt.close()
 print(f"Salvata: {out_path}")

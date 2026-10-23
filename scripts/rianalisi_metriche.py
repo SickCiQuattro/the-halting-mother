@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Rianalisi a costo nullo dei dati già raccolti dalla campagna sperimentale (Relazione, sezione 5.4).
+"""Rianalisi a costo nullo dei dati già raccolti dalla campagna sperimentale.
 
 Non esegue alcun nuovo benchmark: legge i JSON già presenti in results/ e calcola due metriche
-derivate che oggi in relazione sono solo qualitative:
+derivate finora solo qualitative:
   - R^2 delle due regressioni bilogaritmiche (tempo vs celle di frontiera, tempo vs invocazioni
     ricorsive), oggi riportate solo con la pendenza;
   - rapporto fra invocazioni ricorsive della potatura debole e della potatura forte per ciascun
-    lato della griglia nella campagna di scaling, per quantificare quanto la riga 17 sfolti
+    lato della griglia nella campagna di scaling, per quantificare quanto la potatura forte sfolti
     l'albero di ricorsione.
 """
 import json
@@ -20,7 +20,7 @@ RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 
 
 def _carica(nome: str) -> list[dict[str, object]]:
-    with open(os.path.join(RESULTS_DIR, nome), "r", encoding="utf-8") as f:
+    with open(os.path.join(RESULTS_DIR, nome), encoding="utf-8") as f:
         return json.load(f)
 
 

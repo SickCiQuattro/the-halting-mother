@@ -1,5 +1,5 @@
 """
-Facciata di compatibilità per la campagna sperimentale (Compito 4).
+Facciata di compatibilità per la campagna sperimentale.
 
 L'implementazione è divisa per responsabilità in tre moduli:
   - src/experiment_verifica.py: verifica di correttezza per simmetria.
@@ -15,7 +15,7 @@ from src.experiment_plots import generate_plots
 
 
 class ExperimentRunner:
-    """Facciata sottile sulle tre responsabilità della campagna sperimentale (Compito 4)."""
+    """Facciata sottile sulle tre responsabilità della campagna sperimentale."""
 
     verify_symmetry = staticmethod(verify_symmetry)
     run_symmetry_per_type = staticmethod(run_symmetry_per_type)

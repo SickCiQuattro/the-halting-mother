@@ -1,7 +1,6 @@
 import json
 import numpy as np
 from collections import deque
-from typing import List
 from src.exceptions import InvalidCoordinateError
 
 # Definizione alias di tipo per una maggiore leggibilità e astrazione
@@ -44,7 +43,7 @@ class Grid:
         self.cols: int = cols
         self.state: np.ndarray = np.zeros((rows, cols), dtype=np.uint8)
         # Tipologie di ostacoli con cui la griglia è stata generata (richiesto dal riassunto strutturato)
-        self.types: List[str] = []
+        self.types: list[str] = []
 
     def is_valid(self, row: int, col: int) -> bool:
         """
@@ -110,7 +109,7 @@ class Grid:
         Args:
             path: Percorso del file JSON in cui scrivere la griglia.
         """
-        obstacles: List[List[int]] = []
+        obstacles: list[list[int]] = []
         for r in range(self.rows):
             for c in range(self.cols):
                 if self.state[r, c] == 1:
@@ -136,7 +135,7 @@ class Grid:
         Returns:
             Un'istanza della classe Grid pre-popolata con gli ostacoli caricati.
         """
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, encoding='utf-8') as f:
             data = json.load(f)
         grid = cls(data["rows"], data["cols"])
         grid.types = data.get("types", [])
@@ -171,7 +170,7 @@ def compute_components(grid_state: np.ndarray) -> np.ndarray:
     Etichetta ogni cella libera con l'identificativo del proprio componente connesso.
 
     Usa un riempimento a inondazione iterativo (BFS con coda) sul vicinato a 8: per la
-    specifica dell'elaborato (pag. 3) l'attraversamento diagonale fra due celle libere è
+    specifica l'attraversamento diagonale fra due celle libere è
     sempre ammesso, anche quando due ostacoli si toccano per lo spigolo, quindi la
     connettività a 8 coincide esattamente con la raggiungibilità. Due celle libere sono
     quindi mutuamente raggiungibili se e solo se hanno la stessa etichetta.

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Compromesso spazio/tempo della griglia a bit impacchettati (Relazione).
+"""Compromesso spazio/tempo della griglia a bit impacchettati.
 
 Confronta la matrice `uint8` (1 byte/cella) e `BitPackedGrid` (2 bit/cella) su taglie
 crescenti: memoria effettiva della rappresentazione e tempo del calcolo di una chiusura
 (contesto + complemento + frontiera dal centro), più un CAMMINOMIN completo su griglia
 piccola. I numeri alimentano la valutazione critica del confronto di strutture dati
-(pag. 63 e 72 dell'elaborato).
+(confronto tra strutture dati).
 """
 import time
 

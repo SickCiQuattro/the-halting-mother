@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ridisegna la campagna di densità come esperimento multi-seme (Piano di miglioramento, sezione 2.A).
+"""Ridisegna la campagna di densità come esperimento multi-seme.
 
 La versione a seme singolo (results/density_results.json, seed=100) mediava, sulla stessa
 griglia, sia la coppia d'angolo sia quattro coppie casuali: questo diluisce sistematicamente il

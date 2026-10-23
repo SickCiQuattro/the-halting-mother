@@ -1,4 +1,5 @@
 import random
+import sys
 import time
 import numpy as np
 from src.grid import Coordinate, compute_components
@@ -18,6 +19,10 @@ from src.free_paths import (
 # avviene per insieme esplicito, quindi non serve un identificativo distinto per livello.
 # Usare una costante evita l'overflow del tipo uint8 (depth+2 superava 255 oltre profondità 253).
 TEMP_MARK = 2
+
+# Ogni punto di passaggio è un livello di ricorsione: il limite predefinito (1000) tronca la
+# ricerca su griglie grandi.
+sys.setrecursionlimit(max(sys.getrecursionlimit(), 15000))
 
 
 def _mark_closure(grid_state: np.ndarray, closure: set[Coordinate]) -> None:
@@ -42,67 +47,6 @@ def _aggiorna_minimo_globale(shared_state: dict[str, float], full_path_len: floa
         shared_state['global_min_length'] = full_path_len
 
 
-def _discesa_golosa(
-    origin: Coordinate,
-    destination: Coordinate,
-    grid_state: np.ndarray
-) -> tuple[float, list[tuple[Coordinate, int]]]:
-    """Discesa golosa iterativa, senza backtracking, per trovare rapidamente un cammino
-    completo qualsiasi da usare come innesco del limite superiore globale.
-
-    A ogni passo sceglie solo la cella di frontiera con dlib minima verso la destinazione
-    (lo stesso criterio dell'ordinamento euristico) e prosegue da lì, senza
-    mai tornare sui propri passi. Poiché ogni chiusura attraversata viene marcata come
-    ostacolo temporaneo prima di procedere, il cammino non può richiudersi su se stesso: la
-    discesa termina in al più O(R*C) passi, o in un cammino completo oppure in un vicolo
-    cieco (frontiera vuota), nel qual caso non fornisce alcun innesco. La griglia viene
-    ripristinata allo stato originale prima di ritornare in ogni caso.
-
-    Il cammino restituito (quando esiste) è un cammino valido qualsiasi fra origine e
-    destinazione, quindi la sua lunghezza è per costruzione un limite superiore corretto
-    della lunghezza del cammino minimo: usarlo per inizializzare il limite globale non può
-    mai far scartare un cammino ottimo.
-    """
-    marcate: list[set[Coordinate]] = []
-    current = origin
-    seq: list[tuple[Coordinate, int]] = [(origin, 0)]
-    total_len = 0.0
-    esito: tuple[float, list[tuple[Coordinate, int]]] | None = None
-
-    while True:
-        context = compute_context_rays(current, grid_state)
-        if destination in context:
-            seq.append((destination, 1))
-            total_len += dlib(current, destination)
-            esito = (total_len, seq)
-            break
-
-        complement = compute_complement_rays(current, grid_state, context)
-        if destination in complement:
-            seq.append((destination, 2))
-            total_len += dlib(current, destination)
-            esito = (total_len, seq)
-            break
-
-        frontier = compute_frontier(context, complement, grid_state)
-        if not frontier:
-            break
-
-        f_cell, f_type = min(frontier, key=lambda ft: dlib(ft[0], destination))
-        closure = context | complement
-        _mark_closure(grid_state, closure)
-        marcate.append(closure)
-
-        total_len += dlib(current, f_cell)
-        seq.append((f_cell, f_type))
-        current = f_cell
-
-    for closure in marcate:
-        _restore_closure(grid_state, closure)
-
-    return esito if esito is not None else (float('inf'), [])
-
-
 def camminomin(
     origin: Coordinate,
     destination: Coordinate,
@@ -116,20 +60,17 @@ def camminomin(
     shared_state: dict[str, float] | None = None,
     accumulated_len: float = 0.0,
     visited_closures: set[Coordinate] | None = None,
-    use_component_check: bool = True,
-    greedy_seed: bool = False,
-    _seed_min_length: float = float('inf'),
-    _seed_min_seq: list[tuple[Coordinate, int]] | None = None
+    use_component_check: bool = True
 ) -> tuple[float, list[tuple[Coordinate, int]], bool]:
     """
     Trova il cammino minimo tra origine e destinazione con l'algoritmo ricorsivo basato su landmark.
 
-    Risolve il Compito 3 dell'elaborato tramite ritracciamento con le due condizioni di potatura
-    alternative (riga 16 e riga 17) ed espansione della chiusura a proiezione di raggi.
+    Risolve il cammino minimo tramite ritracciamento con le due condizioni di potatura
+    alternative (debole e forte) ed espansione della chiusura a proiezione di raggi.
 
-    La condizione di riga 16/17 è valutata contro un limite superiore globale aggiornato durante la
-    ricerca (potatura branch-and-bound): la riga 16 confronta la sola distanza già percorsa, la riga
-    17 vi aggiunge la stima ammissibile della distanza libera residua dalla cella di frontiera alla
+    La condizione di potatura è valutata contro un limite superiore globale aggiornato durante la
+    ricerca (potatura branch-and-bound): la potatura debole confronta la sola distanza già percorsa, quella
+    forte vi aggiunge la stima ammissibile della distanza libera residua dalla cella di frontiera alla
     destinazione. La memoizzazione dei sotto-problemi è stata rimossa perché il risultato di ogni
     sotto-problema dipende, attraverso la potatura globale, dalla lunghezza accumulata delle chiamate
     esterne, che non faceva parte della chiave; risultati subottimali venivano quindi riusati in
@@ -143,7 +84,7 @@ def camminomin(
         stats: Dizionario per accumulare le metriche prestazionali dell'esecuzione.
         start_time: Istante d'inizio dell'algoritmo principale per gestire il tempo limite.
         timeout: Tempo massimo in secondi concesso per l'intera ricerca.
-        use_strong_pruning: Se True, utilizza la potatura forte (riga 17) invece di quella debole (riga 16).
+        use_strong_pruning: Se True, utilizza la potatura forte invece di quella debole.
         randomize_frontier: Se True, esplora le celle di frontiera in ordine casuale.
         shared_state: Stato condiviso mutabile contenente il minimo globale trovato finora.
         accumulated_len: Lunghezza accumulata del percorso dall'origine della chiamata principale.
@@ -153,12 +94,6 @@ def camminomin(
             connessi della griglia (O(R*C)) e ritorna subito infinito quando origine e destinazione
             appartengono a componenti diversi, evitando l'esaurimento esponenziale della frontiera
             sulle coppie irraggiungibili. Non altera il risultato: l'esito sarebbe comunque infinito.
-        greedy_seed: Se True (default False), alla sola chiamata radice esegue una discesa golosa
-            senza backtracking per trovare rapidamente un cammino completo qualsiasi, e ne usa la
-            lunghezza per inizializzare il limite superiore globale invece di partire da +infinito.
-            Il cammino goloso è sempre un limite superiore valido (mai inferiore all'ottimo), quindi
-            l'innesco non può mai far scartare un cammino ottimo; se la ricerca completa non trova
-            nulla di strettamente migliore, viene restituito il cammino goloso stesso.
 
     Returns:
         Una tupla `(lunghezza_min, sequenza_landmark, timed_out)` dove:
@@ -177,15 +112,6 @@ def camminomin(
             labels = compute_components(grid_state)
             if labels[origin] != labels[destination]:
                 return float('inf'), [], False
-        # Innesco goloso (solo alla radice): un cammino completo qualsiasi, se trovato,
-        # inizializza il limite globale così che la potatura sia attiva fin dal primo nodo
-        # esplorato, invece che dopo la prima foglia completa della ricerca vera e propria.
-        if greedy_seed and origin != destination:
-            g_len, g_seq = _discesa_golosa(origin, destination, grid_state)
-            if g_len < float('inf'):
-                shared_state['global_min_length'] = g_len
-                _seed_min_length = g_len
-                _seed_min_seq = g_seq
 
     # 2. Aggiornamento delle statistiche di esecuzione
     if stats is not None:
@@ -221,16 +147,14 @@ def camminomin(
 
     # 7. Ordinamento euristico della frontiera (osservazione della specifica):
     #    si esplorano per prime le celle più vicine alla destinazione.
+    candidati = [(f, tipo, dlib(f, destination)) for f, tipo in frontier]
     if randomize_frontier:
-        random.shuffle(frontier)
+        random.shuffle(candidati)
     else:
-        frontier.sort(key=lambda ft: dlib(ft[0], destination))
+        candidati.sort(key=lambda cand: cand[2])
 
-    # Se l'innesco goloso ha fornito un cammino completo, diventa il valore restituito di
-    # default: se la ricerca vera e propria non trova nulla di strettamente migliore (per via
-    # della disuguaglianza stretta della potatura), non si perde comunque la soluzione goloso.
-    min_length = _seed_min_length
-    min_seq: list[tuple[Coordinate, int]] = list(_seed_min_seq) if _seed_min_seq else []
+    min_length = float('inf')
+    min_seq: list[tuple[Coordinate, int]] = []
     closure = context | complement
 
     if visited_closures is not None:
@@ -242,19 +166,19 @@ def camminomin(
     timed_out = False
 
     # 9. Esplorazione ricorsiva dei candidati di frontiera
-    for f_cell, f_type in frontier:
+    for f_cell, f_type, h_residua in candidati:
         lf = dlib(origin, f_cell)
 
-        # Condizione di potatura di riga 16 / riga 17 valutata contro il limite superiore globale:
-        # la riga 16 usa la sola distanza percorsa, la riga 17 vi somma la stima ammissibile
+        # Condizione di potatura valutata contro il limite superiore globale:
+        # la debole usa la sola distanza percorsa, la forte vi somma la stima ammissibile
         # dlib(F, D) della distanza residua. Quando il limite è ancora infinito non si pota nulla.
         if use_strong_pruning:
-            stima = accumulated_len + lf + dlib(f_cell, destination)
+            stima = accumulated_len + lf + h_residua
         else:
             stima = accumulated_len + lf
 
         if stima >= shared_state['global_min_length']:
-            # La condizione di riga 16/17 è falsa: il candidato viene scartato.
+            # La condizione di potatura è falsa: il candidato viene scartato.
             if stats is not None:
                 stats['pruning_false'] = stats.get('pruning_false', 0) + 1
             continue

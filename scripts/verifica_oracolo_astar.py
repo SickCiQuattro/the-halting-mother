@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Oracolo A* sulla campagna di scaling: conferma di ottimalità e divario anytime (Relazione).
+"""Oracolo A* sulla campagna di scaling: conferma di ottimalità e divario anytime.
 
 Rigenera le stesse griglie della sezione di scaling della campagna sperimentale (seed 42,
 taglie 10-150, tipologie simple+cluster+bar, densità 0.2), calcola la lunghezza ottima esatta
@@ -11,7 +11,7 @@ già salvate in `results/scaling_results.json`:
   - esecuzioni interrotte al tempo limite: divario percentuale del risultato anytime
     rispetto al vero ottimo (incluso il caso "nessun cammino trovato").
 
-Produce `results/divario_anytime.json` e la figura `Relazione/images/divario_anytime.png`.
+Produce `results/divario_anytime.json` e la figura `results/divario_anytime.png`.
 Non riesegue la campagna (~2 h): usa solo i risultati già salvati.
 """
 import os
@@ -25,11 +25,11 @@ from src.plot_style import COLOR_DEBOLE, COLOR_FORTE, COLOR_RITORNO
 BASE = os.path.join(os.path.dirname(__file__), "..")
 RESULTS = os.path.join(BASE, "results", "scaling_results.json")
 OUT_JSON = os.path.join(BASE, "results", "divario_anytime.json")
-OUT_PNG = os.path.join(BASE, "Relazione", "images", "divario_anytime.png")
+OUT_PNG = os.path.join(BASE, "results", "divario_anytime.png")
 
-CONFIGS = [("weak", "Potatura debole (riga 16)"), ("strong", "Potatura forte (riga 17)"),
+CONFIGS = [("weak", "Potatura debole"), ("strong", "Potatura forte"),
            ("ritorno", "Forte, ritorno D-O")]
-# Stessa palette (Okabe-Ito) usata in tutte le figure della relazione, per coerenza cromatica
+# Stessa palette (Okabe-Ito) usata in tutte le figure, per coerenza cromatica
 COLORS = {"weak": COLOR_DEBOLE, "strong": COLOR_FORTE, "ritorno": COLOR_RITORNO}
 
 

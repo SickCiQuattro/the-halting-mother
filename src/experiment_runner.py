@@ -1,4 +1,4 @@
-"""Esecuzione dei benchmark e della campagna sperimentale completa (Compito 4)."""
+"""Esecuzione dei benchmark e della campagna sperimentale completa."""
 import json
 import os
 import time
@@ -85,7 +85,7 @@ def run_single_benchmark(
         grid: L'oggetto Griglia.
         origin: Coordinata di partenza.
         destination: Coordinata di arrivo.
-        use_strong_pruning: Se True, abilita la potatura forte (riga 17).
+        use_strong_pruning: Se True, abilita la potatura forte.
         randomize_frontier: Se True, ordina la frontiera casualmente anziché euristicamente.
         timeout: Tempo limite di esecuzione in secondi.
 
@@ -226,11 +226,11 @@ def run_campaign(output_dir: str = "results") -> None:
     # -------------------------------------------------------------- #
     # La taglia 200x200 e' stata esclusa: entrambe le potature esauriscono il tempo
     # limite senza trovare alcun cammino completo, quindi non aggiunge informazione
-    # rispetto alla 150x150 (si veda la nota metodologica del Compito 4).
+    # rispetto alla 150x150.
     # Tempo limite di 600s (10 minuti): non costa nulla sulle taglie piccole (già
     # istantanee) e dà una possibilità reale a quelle grandi di completare, per
     # distinguere un limite strutturale dell'algoritmo da un semplice budget insufficiente.
-    # Si confrontano la potatura debole (riga 16) e quella forte (riga 17); la configurazione
+    # Si confrontano la potatura debole e quella forte; la configurazione
     # forte è eseguita in entrambe le direzioni (O→D e D→O) per la verifica di correttezza
     # richiesta dalla specifica.
     sizes = [10, 20, 30, 50, 100, 150]
@@ -303,7 +303,7 @@ def run_campaign(output_dir: str = "results") -> None:
         json.dump(density_results, f, indent=2, default=str)
 
     # -------------------------------------------------------------- #
-    # 3. Confronto potatura debole (riga 16) contro forte (riga 17)  #
+    # 3. Confronto potatura debole contro forte  #
     # -------------------------------------------------------------- #
     obstacle_scenarios = ["simple", "cluster", "diagonal", "enclosure", "bar"]
     pruning_comp: list[dict[str, object]] = []
