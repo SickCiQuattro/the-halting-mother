@@ -1,116 +1,106 @@
-# Algoritmi e Strutture Dati: elaborato accademico 2024/25
+# Cammino minimo su griglia con ricerca ricorsiva a punti di passaggio
 
-Progetto accademico per il corso di *Algoritmi e Strutture Dati* (a.a. 2024/25, Prof.ssa Zanella).  
-Sviluppato in **Python 3.13**.
+[![Test](https://github.com/SickCiQuattro/the-halting-mother/actions/workflows/test.yml/badge.svg)](https://github.com/SickCiQuattro/the-halting-mother/actions/workflows/test.yml)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 
-L'architettura affronta la scalabilità su griglie di grandi dimensioni (fino a $150 \times 150$ nella campagna sperimentale) grazie alla potatura branch-and-bound con limite superiore globale, e produce visualizzazioni ad alta risoluzione allineate alla specifica.
+Ricerca esatta del cammino minimo su una griglia a 8 direzioni con ostacoli, basata su una ricorsione sui *punti di passaggio* (landmark) e potatura branch-and-bound. Progetto del corso di Algoritmi e Strutture Dati (a.a. 2024/25), scritto in Python 3.13 con NumPy e Matplotlib.
 
----
+![Cammino minimo calcolato su una griglia con ostacoli](demo/img/03_cammino_minimo.png)
 
-## Caratteristiche architetturali e ottimizzazioni
+## Che cosa fa
 
-1. **Potatura branch-and-bound con limite superiore globale**:
-   - La condizione di riga 16/17 viene valutata rispetto a un limite superiore globale $L_{\text{glob}}$, condiviso da tutte le invocazioni ricorsive e aggiornato ogni volta che si trova un cammino completo più breve. Finché non se ne trova uno, $L_{\text{glob}}$ vale $+\infty$ e non si pota nulla.
-   - Poiché $d_{\text{lib}}$ non sovrastima mai la distanza reale, la stima è ammissibile e la potatura non scarta mai il cammino ottimo. Il limite emerge dalla ricerca stessa: non è richiesta alcuna passata preliminare.
+- **Genera griglie** con cinque tipi di ostacolo (`simple`, `cluster`, `diagonal`, `enclosure`, `bar`) o una loro miscela.
+- **Calcola contesto, complemento e frontiera** di una cella, cioè le regioni raggiungibili in linea retta libera, con proiezione di raggi in $O(\max(R, C)^2)$ invece della scansione diretta $O(R \cdot C \cdot (R + C))$.
+- **Trova il cammino minimo** (`CAMMINOMIN`) scegliendo i punti di passaggio dalla frontiera e ricorrendo sui due tratti.
+- **Riproduce una campagna sperimentale** completa: scalabilità, densità degli ostacoli, confronto tra potature, ordinamenti, simmetria origine-destinazione e labirinti.
 
-2. **Ritracciamento sul posto su matrice numpy `uint8`**:
-   - Evita la duplicazione degli stati e il relativo onere sul raccoglitore di memoria. Le celle occupate dalla chiusura ricorsiva corrente sono marcate con il valore costante `2` (ostacolo temporaneo) e ripristinate a `0` (libere) durante la risalita.
+## Come funziona
 
-3. **Proiezione di raggi per le chiusure ($O(\max(R, C)^2)$)**:
-   - Evita la scansione diretta $O(R^2 \cdot C^2)$ proiettando raggi cardinali e diagonali dall'origine con espansione a gomito.
+1. Dalla cella di origine si calcola la **frontiera**: le celle da cui si può passare restando in linea retta libera.
+2. Per ogni cella di frontiera, ordinata per distanza ideale crescente, si risolve in modo ricorsivo il tratto restante.
+3. La distanza ideale $d_{\text{lib}}$ (distanza ottagonale, senza ostacoli) non sovrastima mai la distanza reale, quindi la **potatura con limite superiore globale** non scarta mai il cammino ottimo. Il limite si aggiorna ogni volta che si trova un cammino completo più breve.
+4. Le celle della chiusura corrente vengono marcate come ostacolo temporaneo **sul posto** nella matrice `uint8` e ripristinate nella risalita, senza copiare lo stato.
 
-4. **Visualizzazione ibrida ad alta risoluzione**:
-   - Resa grafica a 200 DPI con pixel nitidi (`interpolation='nearest'`).
-   - Evidenziazione semitrasparente in azzurro del percorso completo.
-   - Spezzata blu tra i landmark con marcatori romboidali dorati a bordo rosso ed etichettatura numerica centrata ($O \rightarrow 1 \rightarrow 2 \rightarrow D$).
+### Scelte progettuali
 
----
+- **Nessuna memoizzazione.** È stata provata e scartata: il risultato di un sotto-problema dipende, tramite la potatura globale, dalla lunghezza già accumulata, che la chiave non conteneva. Riusarlo dava cammini non minimi e violava la simmetria tra andata e ritorno.
+- **Marcatura costante degli ostacoli temporanei.** Una versione con valore pari alla profondità superava i 255 di `uint8` oltre la profondità 253. Il valore fisso `2` basta perché le chiusure annidate sono disgiunte.
+- **Controllo delle componenti connesse** alla radice, in $O(R \cdot C)$: se origine e destinazione sono separate si risponde subito "irraggiungibile" invece di esaurire la frontiera.
+- **A\* come oracolo.** `dlib` è un'euristica ammissibile e consistente, quindi A\* dà l'ottimo con cui confrontare ogni risultato di `CAMMINOMIN`.
+- **Griglia a bit** (`src/bitgrid.py`): 2 bit per cella, memoria circa quattro volte inferiore e tempo circa doppio rispetto all'array `uint8`.
+
+## Risultati
+
+| Verifica | Esito |
+|---|---|
+| Correttezza | Ogni cammino completato coincide con l'ottimo calcolato da A\* |
+| Simmetria origine-destinazione | 64 coppie verificabili, 0 fallimenti |
+| Coppie irraggiungibili | 0,014 s con il controllo delle componenti connesse, contro 600 s di tempo limite senza |
+| Test automatici | 46, tutti superati |
+
+![Divario tra il risultato intermedio e l'ottimo esatto](results/divario_anytime.png)
+
+> [!NOTE]
+> La ricerca è esatta ma di costo esponenziale nel caso peggiore: oltre il lato 50 le esecuzioni possono raggiungere il tempo limite e restituire il miglior cammino trovato fino a quel momento (divario dall'ottimo tra lo 0,4% e il 20% nelle prove a lato 100 e 150).
 
 ## Installazione
 
-Le istruzioni valgono in modo identico su macOS, Linux e Windows: cambia solo il comando di attivazione dell'ambiente virtuale.
-
-1. Crea l'ambiente virtuale con Python 3.13:
-
-   ```bash
-   python3.13 -m venv .venv        # macOS / Linux
-   py -3.13 -m venv .venv          # Windows (PowerShell o prompt dei comandi)
-   ```
-
-2. Attiva l'ambiente virtuale:
-
-   ```bash
-   source .venv/bin/activate       # macOS / Linux
-   .venv\Scripts\Activate.ps1      # Windows PowerShell
-   .venv\Scripts\activate.bat      # Windows prompt dei comandi
-   ```
-
-3. Installa il progetto in modalità modificabile (rende `src` importabile da qualunque cartella di lavoro, senza dover impostare `PYTHONPATH`):
-
-   ```bash
-   pip install -e .
-   ```
-
----
-
-## Utilizzo CLI (`main.py`)
-
-Una volta attivato l'ambiente virtuale, tutti i comandi si lanciano con il semplice interprete `python`, identico sui due sistemi operativi.
-
-### 1. Generazione di griglie (Compito 1)
-
-Genera ostacoli misti (`simple`, `cluster`, `diagonal`, `enclosure`, `bar` o `mix`) e salva la griglia strutturata ed un'immagine PNG ad alta risoluzione:
+Servono Python 3.10 o successivo (sviluppato su 3.13) e `pip`.
 
 ```bash
-python main.py generate --types mix --seed 42 --save-img results/test_grid_generated.png
+python3.13 -m venv .venv         # Windows: py -3.13 -m venv .venv
+source .venv/bin/activate        # Windows PowerShell: .venv\Scripts\Activate.ps1
+pip install -e .
 ```
 
-### 2. Calcolo del contesto e complemento (Compito 2)
+## Uso
 
-Espande i raggi per calcolare Contesto (Tipo 1), Complemento (Tipo 2) e Frontiera di una coordinata origine, esportando anche l'immagine PNG della chiusura:
+Tutti i comandi passano da `main.py` (dopo `pip install -e .` anche dal comando `camminomin`, ad esempio `camminomin dlib --origin 10,10 --dest 40,40`). Per l'elenco completo: `python main.py --help`.
+
+**Generare una griglia** e salvarne l'immagine:
 
 ```bash
-python main.py context --grid grids/grid.json --origin 10,10 --save-img results/context.png
+python main.py generate --types mix --seed 42 --save-img results/griglia.png
 ```
 
-### 3. Calcolo della distanza ideale ($d_{\text{lib}}$)
+**Contesto, complemento e frontiera** di una cella:
 
-Calcola la distanza minima teorica priva di ostacoli su una griglia con adiacenza a otto direzioni:
+```bash
+python main.py context --grid grids/grid.json --origin 10,10 --save-img results/contesto.png
+```
+
+**Distanza ideale** tra due celle:
 
 ```bash
 python main.py dlib --origin 10,10 --dest 40,40
 ```
 
-### 4. Calcolo del cammino minimo (`CAMMINOMIN`, Compito 3)
-
-Esegue l'algoritmo ricorsivo di ricerca del cammino minimo con la potatura branch-and-bound a limite superiore globale. Esporta la sequenza dei landmark e produce l'immagine ad alta risoluzione del cammino:
+**Cammino minimo** con potatura forte e riepilogo in JSON:
 
 ```bash
-python main.py camminomin --grid grids/grid.json --origin 0,0 --dest 49,49 --strong-pruning --summary --save-img results/test_path_resolved.png
+python main.py camminomin --grid grids/grid.json --origin 0,0 --dest 49,49 \
+  --strong-pruning --summary --save-img results/cammino.png
 ```
 
-*Il flag `--summary` stampa il riassunto strutturato in formato JSON.*
-
-### 5. Campagna sperimentale e grafici (Compito 4)
-
-Esegue l'intera batteria di prove temporali e spaziali (memoria) su più coppie origine-destinazione per configurazione, con doppia invocazione O→D e D→O su ogni coppia, e genera i 6 grafici nella cartella `results/`:
+**Campagna sperimentale** (circa 2 ore) e verifica di simmetria su coppie casuali:
 
 ```bash
 python main.py experiment --output-dir results
-```
-
-Per lanciare la verifica formale di simmetria ($O \leftrightarrow D$ contro $D \leftrightarrow O$) su $N$ coppie casuali di nodi (il lato della griglia quadrata usata è configurabile con `--symmetry-grid-size`, 20 in modo predefinito):
-
-```bash
 python main.py experiment --verify-symmetry-count 10
 ```
 
----
-
-## Esecuzione dei test unitari
-
-Tutti i componenti logici e matematici del progetto sono coperti da test automatici:
+## Test
 
 ```bash
 python -m unittest discover -s tests -p "test_*.py"
 ```
+
+## Struttura del repository
+
+| Percorso | Contenuto |
+|---|---|
+| `src/` | Algoritmi, generatore di griglie, visualizzazione ed esperimenti |
+| `tests/` | Test unitari |
+| `scripts/` | Script che riproducono singole figure e verifiche |
+| `results/` | Dati e grafici della campagna sperimentale |
+| `demo/` | Griglie e immagini di esempio |
